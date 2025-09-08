@@ -1,6 +1,0 @@
-SOURCE = \
-neThermo/neThermo.C \
-neThermo/neThermos.C \
-neThermo/neZoneThermos.C \
-
-# sources

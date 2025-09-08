@@ -1,6 +1,0 @@
-neThermo/neThermo.C
-neThermo/neThermos.C
-neThermo/neZoneThermos.C
-
-
-LIB = $(FOAM_USER_LIBBIN)/libneTCLib
