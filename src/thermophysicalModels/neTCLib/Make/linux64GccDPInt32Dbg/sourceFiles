@@ -1,0 +1,9 @@
+SOURCE = \
+./2T/basic/ne2TThermo/ne2TThermo.C \
+./2T/basic/ne2TThermo/ne2TThermos.C \
+./2T/basic/ne2TThermo/ne2TZoneThermos.C \
+./T/basic/neTThermo/neTThermo.C \
+./T/basic/neTThermo/neTThermos.C \
+./T/basic/neTThermo/neTZoneThermos.C \
+
+# sources
