@@ -1,0 +1,12 @@
+<map id="janaf2TThermoI.H" name="janaf2TThermoI.H">
+<area shape="rect" id="Node000001" title=" " alt="" coords="95,5,234,31"/>
+<area shape="rect" id="Node000002" href="$lnInclude_2janaf2TThermo_8H.html" title=" " alt="" coords="97,79,232,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,44,160,78,155,79,153,45"/>
+<area shape="poly" id="edge3_Node000002_Node000001" title=" " alt="" coords="171,65,169,31,174,31,176,65"/>
+<area shape="rect" id="Node000003" href="$lnInclude_2janaf2TThermo_8C.html" title=" " alt="" coords="5,152,140,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,114,89,154,86,150,138,110"/>
+<area shape="rect" id="Node000004" href="$lnInclude_2thermoPhysics2TTypes_8H.html" title=" " alt="" coords="164,152,349,177"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="192,110,243,150,240,154,188,114"/>
+<area shape="rect" id="Node000005" href="$lnInclude_2reaction2TTypes_8H.html" title=" " alt="" coords="185,225,328,251"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="259,191,259,225,254,225,254,191"/>
+</map>

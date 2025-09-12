@@ -1,0 +1,443 @@
+\doxysection{thermo/thermo2\+T/thermo2T.H}
+\hypertarget{thermo_2thermo2T_2thermo2T_8H_source}{}\label{thermo_2thermo2T_2thermo2T_8H_source}\index{thermo2T.H@{thermo2T.H}}
+\mbox{\hyperlink{thermo_2thermo2T_2thermo2T_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2017\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2020\ OpenCFD\ Ltd.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00010}00010\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00011}00011\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00012}00012\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00014}00014\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00015}00015\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00016}00016\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00017}00017\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00019}00019\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00020}00020\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00021}00021\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00022}00022\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00024}00024\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00025}00025\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00027}00027\ \textcolor{comment}{Class}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00028}00028\ \textcolor{comment}{\ \ \ \ Foam::thermo2T}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00029}00029\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00030}00030\ \textcolor{comment}{Description}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00031}00031\ \textcolor{comment}{\ \ \ \ Basic\ thermodynamics\ type\ based\ on\ the\ use\ of\ fitting\ functions\ for}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00032}00032\ \textcolor{comment}{\ \ \ \ cp,\ h,\ s\ obtained\ from\ the\ template\ argument\ type\ thermo2T.\ \ All\ other}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00033}00033\ \textcolor{comment}{\ \ \ \ properties\ are\ derived\ from\ these\ primitive\ functions.}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00034}00034\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00035}00035\ \textcolor{comment}{SourceFiles}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00036}00036\ \textcolor{comment}{\ \ \ \ thermoTI.H}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00037}00037\ \textcolor{comment}{\ \ \ \ thermo2T.C}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00038}00038\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00039}00039\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00041}00041\ \textcolor{preprocessor}{\#ifndef\ thermo2T\_H}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00042}00042\ \textcolor{preprocessor}{\#define\ thermo2T\_H}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00044}00044\ \textcolor{preprocessor}{\#include\ "{}thermodynamicConstants.H"{}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00045}00045\ \textcolor{keyword}{using\ namespace\ }Foam::constant::thermodynamic;}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00047}00047\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00049}00049\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00050}00050\ \{}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00051}00051\ \textcolor{keyword}{namespace\ }species}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00052}00052\ \{}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00054}00054\ \textcolor{comment}{//\ Forward\ declaration\ of\ friend\ functions\ and\ operators}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00056}00056\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>\ \textcolor{keyword}{class\ }thermo2T;}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00058}00058\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00059}00059\ \textcolor{keyword}{inline}\ thermo2T<Thermo2T,\ Type>\ \textcolor{keyword}{operator}+}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00060}00060\ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00063}00063\ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00065}00065\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00066}00066\ \textcolor{keyword}{inline}\ thermo2T<Thermo2T,\ Type>\ \textcolor{keyword}{operator}*}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00067}00067\ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{const}\ scalar,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00070}00070\ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00072}00072\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00073}00073\ \textcolor{keyword}{inline}\ thermo2T<Thermo2T,\ Type>\ \textcolor{keyword}{operator}==}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00074}00074\ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00075}00075\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00076}00076\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00077}00077\ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00079}00079\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00080}00080\ Ostream\&\ \textcolor{keyword}{operator}<<}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00081}00081\ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00082}00082\ \ \ \ \ Ostream\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{const}\ thermo2T<Thermo2T,\ Type>\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00084}00084\ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00087}00087\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00088}00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Class\ thermo2T\ Declaration}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00089}00089\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00091}00091\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00092}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{00092}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00093}00093\ :}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00094}00094\ \ \ \ \ \textcolor{keyword}{public}\ Thermo2T,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00095}00095\ \ \ \ \ \textcolor{keyword}{public}\ Type<thermo2T<Thermo2T,\ Type>>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00096}00096\ \{}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//\ Private\ data}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Convergence\ tolerance\ of\ energy\ -\/>\ temperature\ inversion\ functions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ scalar\ tol\_;}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Max\ number\ of\ iterations\ in\ energy-\/>temperature\ inversion\ functions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ maxIter\_;}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00106}00106\ \ \ \ \ \textcolor{comment}{//\ Private\ Member\ Functions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Return\ the\ temperature\ corresponding\ to\ the\ value\ of\ the}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ thermodynamic\ property\ f,\ given\ the\ function\ f\ =\ F(p,\ T)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ and\ dF(p,\ T)/dT}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ T}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00112}00112\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ f,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ T0,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*F)(\textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar)\ \textcolor{keyword}{const},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*dFdT)(\textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar)\ \textcolor{keyword}{const},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*limit)(\textcolor{keyword}{const}\ scalar)\ const}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00119}00119\ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ TVib}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00122}00122\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ f,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ TTR,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ TVib0,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*F)(\textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar)\ \textcolor{keyword}{const},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*dFdT)(\textcolor{keyword}{const}\ scalar,\ \textcolor{keyword}{const}\ scalar)\ \textcolor{keyword}{const},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ (\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}::*limit)(\textcolor{keyword}{const}\ scalar)\ const}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00130}00130\ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00133}00133\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00135}00135\ \ \ \ \ \textcolor{comment}{//-\/\ The\ thermodynamics\ of\ the\ individual\ species'}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00136}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3535a2219c15e32375efd51760e82963}{00136}}\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T<Thermo2T,\ Type>}}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3535a2219c15e32375efd51760e82963}{thermoType}};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00139}00139\ \ \ \ \ \textcolor{comment}{//\ Constructors}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ from\ components}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00142}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a090e9de21c317382566751044cd35ad7}{00142}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a090e9de21c317382566751044cd35ad7}{thermo2T}}(\textcolor{keyword}{const}\ Thermo2T\&\ sp);}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ from\ dictionary}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00145}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a95126f1c357cf1bec624da3f87c1442a}{00145}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a95126f1c357cf1bec624da3f87c1442a}{thermo2T}}(\textcolor{keyword}{const}\ dictionary\&\ dict);}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ as\ named\ copy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00148}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a87aaea0532cf2ac11259a5666a9637bb}{00148}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a87aaea0532cf2ac11259a5666a9637bb}{thermo2T}}(\textcolor{keyword}{const}\ word\&\ name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&);}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//\ Member\ Functions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Return\ the\ instantiated\ type\ name}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00154}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa9278468313fcc31560c0a5d4c1db4a1}{00154}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ word\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa9278468313fcc31560c0a5d4c1db4a1}{typeName}}()}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00155}00155\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Thermo2T::typeName()\ +\ \textcolor{charliteral}{','}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ Type<thermo2T<Thermo2T,\ Type>>\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa9278468313fcc31560c0a5d4c1db4a1}{::typeName}}();}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00159}00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Name\ of\ Enthalpy/Internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00162}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae805618366590b27de1491c2db06883c}{00162}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ word\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae805618366590b27de1491c2db06883c}{heName}}();}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fundamental\ properties}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (These\ functions\ must\ be\ provided\ in\ derived\ types)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Heat\ capacity\ at\ constant\ pressure\ [J/(kg\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Cp(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sensible\ enthalpy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Hs(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Chemical\ enthalpy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Hc()\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Absolute\ Enthalpy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Ha(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Heat\ capacity\ at\ constant\ volume\ [J/(kg\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Cv(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sensible\ internal\ energy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Es(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Absolute\ internal\ energy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ Ea(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Entropy\ [J/(kg\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inline\ scalar\ S(const\ scalar\ p,\ const\ scalar\ T)\ const;}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mass\ specific\ derived\ properties}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Heat\ capacity\ at\ constant\ pressure/volume\ [J/(kg\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00197}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac88d62c035d2430c37f8b4b80a833cc5}{00197}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac88d62c035d2430c37f8b4b80a833cc5}{CpvTR}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Gamma\ =\ CpTR/CvT\ []}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00200}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae3263979b93eeb8b87f7f50e8205bb10}{00200}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae3263979b93eeb8b87f7f50e8205bb10}{gamma}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Ratio\ of\ heat\ capacity\ at\ constant\ pressure\ to\ that\ at}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ constant\ pressure/volume\ []}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00204}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_acf7cb7e8b879bb82553f925ef1e2d162}{00204}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_acf7cb7e8b879bb82553f925ef1e2d162}{CpByCpvTR}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Enthalpy/Internal\ energy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00207}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac6951bc861a8ed8d05eed744fa3fbcb6}{00207}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac6951bc861a8ed8d05eed744fa3fbcb6}{HE}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Gibbs\ free\ energy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00210}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1c50b2c6142522109d204e1e46b33c8e}{00210}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1c50b2c6142522109d204e1e46b33c8e}{G}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Helmholtz\ free\ energy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00213}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a0b3784dce30c981b0808c4521b38c7d2}{00213}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a0b3784dce30c981b0808c4521b38c7d2}{A}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Mole\ specific\ derived\ properties}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Heat\ capacity\ at\ constant\ pressure\ [J/(kmol\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00219}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a070389528916afe7b120f2658357d997}{00219}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a070389528916afe7b120f2658357d997}{cpTR}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Absolute\ Enthalpy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00222}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_abe716ea6ca0bfc94670ecfb4f2ed4837}{00222}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_abe716ea6ca0bfc94670ecfb4f2ed4837}{ha}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Sensible\ enthalpy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00225}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae497edb60dd49fc8e2f386af297dc420}{00225}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ae497edb60dd49fc8e2f386af297dc420}{hs}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Chemical\ enthalpy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00228}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a964d566ad22ed12e4931ca0b7e8303b4}{00228}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a964d566ad22ed12e4931ca0b7e8303b4}{hc}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Entropy\ [J/(kmol\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00231}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ab71628811daa61d26de7825d43fa0f70}{00231}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ab71628811daa61d26de7825d43fa0f70}{s}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Enthalpy/Internal\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00234}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a358c269c0b6871bcc1e8d4923e983718}{00234}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a358c269c0b6871bcc1e8d4923e983718}{he}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Translational\ heat\ capacity\ at\ constant\ volume\ [J/(kmol\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00237}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a32f6319bd021d6072413196b7cc63303}{00237}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a32f6319bd021d6072413196b7cc63303}{cvT}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Rotational\ heat\ capacity\ at\ constant\ volume\ [J/(kmol\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00240}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a64e1ca49540ab5409d373bf92a8d36ba}{00240}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a64e1ca49540ab5409d373bf92a8d36ba}{cvR}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Vibrational\ heat\ capacity\ at\ constant\ volume\ [J/(kmol\ K)]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00243}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a11d242ded17c0c3a81e29488c1f41709}{00243}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a11d242ded17c0c3a81e29488c1f41709}{cvVib}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR,\ \textcolor{keyword}{const}\ scalar\ TVib,\ \textcolor{keyword}{const}\ scalar\ ThetaVib)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Translational\ sensible\ internal\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00246}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a6e654bad6f9379d21b1ef50338934a9c}{00246}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a6e654bad6f9379d21b1ef50338934a9c}{esT}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Translational\ absolute\ internal\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00249}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a29ae839a7ab82bd37ad59c8e212d7c91}{00249}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a29ae839a7ab82bd37ad59c8e212d7c91}{eaT}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Rotational\ sensible\ internal\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00252}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1ec6afb9efafcd233c95090eec7d2f65}{00252}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1ec6afb9efafcd233c95090eec7d2f65}{esR}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Vibrational\ sensible\ internal\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00255}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa87f35c1956a701bd0a7d52508b0a883}{00255}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa87f35c1956a701bd0a7d52508b0a883}{esVib}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR,\ \textcolor{keyword}{const}\ scalar\ TVib,\ \textcolor{keyword}{const}\ scalar\ ThetaVib)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Gibbs\ free\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00258}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1f74d86e14387e97be6a661633c1a473}{00258}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a1f74d86e14387e97be6a661633c1a473}{g}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Helmholtz\ free\ energy\ [J/kmol]}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00261}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a70176bfca8b14249ecc8257a93e13ff1}{00261}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a70176bfca8b14249ecc8257a93e13ff1}{a}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00264}00264\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Equilibrium\ reaction\ thermodynamics}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Equilibrium\ constant\ []\ i.t.o\ fugacities}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ =\ PIi(fi/Pstd)\string^nui}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00268}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a40fd3ed7c369c7e0f429e09c305551d7}{00268}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a40fd3ed7c369c7e0f429e09c305551d7}{K}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00270}00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Equilibrium\ constant\ []\ i.t.o.\ partial\ pressures}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ =\ PIi(pi/Pstd)\string^nui}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ For\ low\ pressures\ (where\ the\ gas\ mixture\ is\ near\ perfect)\ Kp\ =\ K}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00273}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a88d683046795d25f4a2a857e1b9f2ab7}{00273}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a88d683046795d25f4a2a857e1b9f2ab7}{Kp}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Equilibrium\ constant\ i.t.o.\ molar\ concentration}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ =\ PIi(ci/cstd)\string^nui}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ For\ low\ pressures\ (where\ the\ gas\ mixture\ is\ near\ perfect)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Kc\ =\ Kp(pstd/(RR*TTR))\string^nu}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00279}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a34fa23188a9840453302d1891ae85376}{00279}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a34fa23188a9840453302d1891ae85376}{Kc}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Equilibrium\ constant\ []\ i.t.o.\ mole-\/fractions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ For\ low\ pressures\ (where\ the\ gas\ mixture\ is\ near\ perfect)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Kx\ =\ Kp(pstd/p)\string^nui}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00284}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_adce36c6c0550866f23408f6a5afc21de}{00284}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_adce36c6c0550866f23408f6a5afc21de}{Kx}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Equilibrium\ constant\ []\ i.t.o.\ number\ of\ moles}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ For\ low\ pressures\ (where\ the\ gas\ mixture\ is\ near\ perfect)}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Kn\ =\ Kp(n*pstd/p)\string^nui\ where\ n\ =\ number\ of\ moles\ in\ mixture}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00293}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa323c6107735950e4b213e3859cd37a5}{00293}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa323c6107735950e4b213e3859cd37a5}{Kn}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ n}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00301}00301\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Energy-\/>temperature\ \ inversion\ functions}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ enthalpy\ or\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ TTR0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00305}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a90dc33c3a1460dc81d1a14b7ca7898d2}{00305}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a90dc33c3a1460dc81d1a14b7ca7898d2}{THE\_TR}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ H,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ enthalpy\ or\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ TVib0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00314}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a43da1b605c8f8b4961071d373e69c6f9}{00314}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a43da1b605c8f8b4961071d373e69c6f9}{TEH\_Vib}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ab0f68bbdaf10c17ccabcfa0ed3050d90}{esVib}},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TVib0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ sensible\ enthalpy\ given\ an\ initial\ T0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00323}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ab479cc66f80c5f2027ab74226ea3cd7f}{00323}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ab479cc66f80c5f2027ab74226ea3cd7f}{THs\_TR}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ Hs,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ absolute\ enthalpy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00332}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a25deb3da02925f0892cc6e8b1ae313b2}{00332}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a25deb3da02925f0892cc6e8b1ae313b2}{THa\_TR}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ H,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ sensible\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00341}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a0a6810b2fee9b9a9218ed09a79743f08}{00341}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a0a6810b2fee9b9a9218ed09a79743f08}{TEs\_TR}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ E,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ sensible\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00350}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a2e57ed4371c5e076dc09311ef14de877}{00350}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a2e57ed4371c5e076dc09311ef14de877}{TEs\_Vib}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ E,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TVib0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ absolute\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00360}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac035d0d3a99a1959b5da31b6a9d79fcb}{00360}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_ac035d0d3a99a1959b5da31b6a9d79fcb}{TEa\_TR}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ E,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ )\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00367}00367\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00368}00368\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Derivative\ term\ used\ for\ Jacobian}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Derivative\ of\ B\ (acooding\ to\ Niemeyer\ et\ al.)\ w.r.t.\ temperature}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00371}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aed76d46f7e087bd331891b5f6e172558}{00371}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aed76d46f7e087bd331891b5f6e172558}{dKcdTbyKc}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Derivative\ of\ cp\ w.r.t.\ temperature}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00374}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aef1e87b61da0973cf352ced5baf93b7e}{00374}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aef1e87b61da0973cf352ced5baf93b7e}{dcpdT}}(\textcolor{keyword}{const}\ scalar\ p,\ \textcolor{keyword}{const}\ scalar\ TTR)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00377}00377\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ I-\/O}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00378}00378\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Write\ to\ Ostream}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00380}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3abbbb6c3d9e6bb5517f4c82d6485184}{00380}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3abbbb6c3d9e6bb5517f4c82d6485184}{write}}(Ostream\&\ os)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00383}00383\ \ \ \ \ \textcolor{comment}{//\ Member\ operators}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00385}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a9676ed33b8482d33c711116a6ecd54bc}{00385}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a9676ed33b8482d33c711116a6ecd54bc}{operator+=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&);}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00386}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a36aac7dd0f9501ec8b1057f20360aca5}{00386}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a36aac7dd0f9501ec8b1057f20360aca5}{operator*=}}(\textcolor{keyword}{const}\ scalar);}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00389}00389\ \ \ \ \ \textcolor{comment}{//\ Friend\ operators}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00391}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_aa06e4c593139459fe7825d86e87c3668}{00391}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\ \textcolor{keyword}{operator}+\ <Thermo2T,\ Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00392}00392\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00395}00395\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00397}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a8e347dbc8e669f6b2aeec1b3617a0f29}{00397}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\ \textcolor{keyword}{operator}*\ <Thermo2T,\ Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00398}00398\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a7d14a8a46fc375b6f6107871d1ccf1b4}{s}},}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00401}00401\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00403}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a5365a6dc7af30cb8453f4bd11b2200b0}{00403}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\ \textcolor{keyword}{operator}==\ <Thermo2T,\ Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00404}00404\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00407}00407\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00408}00408\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00410}00410\ \ \ \ \ \textcolor{comment}{//\ Ostream\ Operator}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00412}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_af1fed73a525f46a0a25c9b61e055644b}{00412}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ Ostream\&\ operator<<\ <Thermo2T,\ Type>}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00413}00413\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ Ostream\&,}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T}}\&}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00416}00416\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00417}00417\ \};}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00419}00419\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00420}00420\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00422}00422\ \}\ \textcolor{comment}{//\ End\ namespace\ species}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00423}00423\ \}\ \textcolor{comment}{//\ End\ namespace\ Foam}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00425}00425\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00427}00427\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{thermo_2thermo2T_2thermo2TI_8H}{thermo2TI.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00429}00429\ \textcolor{preprocessor}{\#ifdef\ NoRepository}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00430}00430\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}thermo2T.C"{}}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00431}00431\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00433}00433\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00435}00435\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{thermo_2thermo2T_2thermo2T_8H_source_l00437}00437\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

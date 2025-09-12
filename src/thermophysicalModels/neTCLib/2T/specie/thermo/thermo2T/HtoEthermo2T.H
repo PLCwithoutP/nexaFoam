@@ -1,44 +1,107 @@
-inline scalar Cv
+inline scalar CvT
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar cp = Cp(p, T);
-    volatile const scalar cpmcv = EquationOfState::CpMCv(p, T);
-    return cp - cpmcv;
+    volatile const scalar cpTR = CpTR(p, TTR);
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cpTR - cpmcvTR;
     #else
-    return Cp(p, T) - EquationOfState::CpMCv(p, T);
+    return CpTR(p, TTR) - EquationOfState::CpMCv(p, TTR);
     #endif
 }
 
-inline scalar Es
+inline scalar CvR
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar hs = Hs(p, T);
-    volatile const scalar rho = EquationOfState::rho(p, T);
-    return hs - p/rho;
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cpmcvTR;
     #else
-    return Hs(p, T) - p/EquationOfState::rho(p, T);
+    return EquationOfState::CpMCv(p, TTR);
     #endif
 }
 
-inline scalar Ea
+inline scalar CvVib
 (
     const scalar p,
-    const scalar T
+    const scalar TTR,
+    const scalar TVib,
+    const scalar ThetaVib
 ) const
 {
     #ifdef __clang__
-    volatile const scalar ha = Ha(p, T);
-    volatile const scalar rho = EquationOfState::rho(p, T);
-    return ha - p/rho;
+    volatile const scalar dimensionlessVibTemp = 0.5*ThetaVib/TVib 
+    volatile const scalar div = sinh(0.5*ThetaVib/TVib);
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cpmcvTR*dimensionlessVibTemp/div;
     #else
-    return Ha(p, T) - p/EquationOfState::rho(p, T);
+    return EquationOfState::CpMCv(p, TTR)*(0.5*ThetaVib/TVib)/sinh(0.5*ThetaVib/TVib);
+    #endif
+}
+
+inline scalar EsT
+(
+    const scalar p,
+    const scalar TTR
+) const
+{
+    #ifdef __clang__
+    volatile const scalar hsT = Hs(p, TTR);
+    volatile const scalar rho = EquationOfState::rho(p, TTR);
+    return hsT - p/rho;
+    #else
+    return Hs(p, TTR) - p/EquationOfState::rho(p, TTR);
+    #endif
+}
+
+inline scalar EsR
+(
+    const scalar p,
+    const scalar TTR
+) const
+{
+    #ifdef __clang__
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cpmcvTR*TTR;
+    #else
+    return EquationOfState::CpMCv(p, TTR)*TTR;
+    #endif
+}
+
+inline scalar EsVib
+(
+    const scalar p,
+    const scalar TTR,
+    const scalar TVib,
+    const scalar ThetaVib
+) const
+{
+    #ifdef __clang__
+    volatile const scalar div = exp(ThetaVib/TVib) - 1;
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cpmcvTR*ThetaVib/div;
+    #else
+    return EquationOfState::CpMCv(p, TTR)*ThetaVib/(exp(ThetaVib/TVib) - 1);
+    #endif
+}
+
+inline scalar EaT
+(
+    const scalar p,
+    const scalar TTR
+) const
+{
+    #ifdef __clang__
+    volatile const scalar haT = Ha(p, TTR);
+    volatile const scalar rho = EquationOfState::rho(p, TTR);
+    return haT - p/rho;
+    #else
+    return Ha(p, TTR) - p/EquationOfState::rho(p, TTR);
     #endif
 }

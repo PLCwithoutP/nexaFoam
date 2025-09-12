@@ -38,6 +38,7 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     const scalar Tlow,
     const scalar Thigh,
     const scalar Tcommon,
+    const scalar ThetaVib,
     const typename janaf2TThermo<EquationOfState>::coeffArray& highCpCoeffs,
     const typename janaf2TThermo<EquationOfState>::coeffArray& lowCpCoeffs,
     const bool convertCoeffs
@@ -46,7 +47,8 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     EquationOfState(st),
     Tlow_(Tlow),
     Thigh_(Thigh),
-    Tcommon_(Tcommon)
+    Tcommon_(Tcommon),
+    ThetaVib_(ThetaVib)
 {
     if (convertCoeffs)
     {
@@ -71,10 +73,10 @@ template<class EquationOfState>
 inline const typename Foam::janaf2TThermo<EquationOfState>::coeffArray&
 Foam::janaf2TThermo<EquationOfState>::coeffs
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
-    if (T < Tcommon_)
+    if (TTR < Tcommon_)
     {
         return lowCpCoeffs_;
     }
@@ -97,7 +99,8 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     EquationOfState(name, jt),
     Tlow_(jt.Tlow_),
     Thigh_(jt.Thigh_),
-    Tcommon_(jt.Tcommon_)
+    Tcommon_(jt.Tcommon_),
+    ThetaVib_(jt.ThetaVib_)
 {
     for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
     {
@@ -112,21 +115,21 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
 template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::limit
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
-    if (T < Tlow_ || T > Thigh_)
+    if (TTR < Tlow_ || TTR > Thigh_)
     {
         WarningInFunction
             << "attempt to use janaf2TThermo<EquationOfState>"
                " out of temperature range "
-            << Tlow_ << " -> " << Thigh_ << ";  T = " << T
+            << Tlow_ << " -> " << Thigh_ << ";  TTR = " << TTR
             << endl;
 
-        return clamp(T, Tlow_, Thigh_);
+        return clamp(TTR, Tlow_, Thigh_);
     }
 
-    return T;
+    return TTR;
 }
 
 
@@ -150,6 +153,11 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Tcommon() const
     return Tcommon_;
 }
 
+template<class EquationOfState>
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::ThetaVib() const
+{
+    return ThetaVib_;
+}
 
 template<class EquationOfState>
 inline const typename Foam::janaf2TThermo<EquationOfState>::coeffArray&
@@ -168,16 +176,16 @@ Foam::janaf2TThermo<EquationOfState>::lowCpCoeffs() const
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Cp
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::CpTR
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(T);
+    const coeffArray& a = coeffs(TTR);
     return
-        ((((a[4]*T + a[3])*T + a[2])*T + a[1])*T + a[0])
-      + EquationOfState::Cp(p, T);
+        ((((a[4]*TTR + a[3])*TTR + a[2])*TTR + a[1])*TTR + a[0])
+      + EquationOfState::Cp(p, TTR);
 }
 
 
@@ -185,15 +193,15 @@ template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Ha
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(T);
+    const coeffArray& a = coeffs(TTR);
     return
     (
-        ((((a[4]/5.0*T + a[3]/4.0)*T + a[2]/3.0)*T + a[1]/2.0)*T + a[0])*T
+        ((((a[4]/5.0*TTR + a[3]/4.0)*TTR + a[2]/3.0)*TTR + a[1]/2.0)*TTR + a[0])*TTR
       + a[5]
-    ) + EquationOfState::H(p, T);
+    ) + EquationOfState::H(p, TTR);
 }
 
 
@@ -201,10 +209,10 @@ template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Hs
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
-    return Ha(p, T) - Hc();
+    return Ha(p, TTR) - Hc();
 }
 
 
@@ -226,32 +234,32 @@ template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::S
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(T);
+    const coeffArray& a = coeffs(TTR);
     return
     (
-        (((a[4]/4.0*T + a[3]/3.0)*T + a[2]/2.0)*T + a[1])*T + a[0]*log(T)
+        (((a[4]/4.0*TTR + a[3]/3.0)*TTR + a[2]/2.0)*TTR + a[1])*TTR + a[0]*log(TTR)
       + a[6]
-    ) + EquationOfState::S(p, T);
+    ) + EquationOfState::S(p, TTR);
 }
 
 
 template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Gstd
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(T);
+    const coeffArray& a = coeffs(TTR);
     return
     (
         (
-            a[0]*(1 - log(T))
-          - (((a[4]/20.0*T + a[3]/12.0)*T + a[2]/6.0)*T + a[1]/2.0)*T
+            a[0]*(1 - log(TTR))
+          - (((a[4]/20.0*TTR + a[3]/12.0)*TTR + a[2]/6.0)*TTR + a[1]/2.0)*TTR
           - a[6]
-        )*T
+        )*TTR
       + a[5]
     );
 }
@@ -261,12 +269,12 @@ template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::dCpdT
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(T);
+    const coeffArray& a = coeffs(TTR);
     return
-        (((4*a[4]*T + 3*a[3])*T + 2*a[2])*T + a[1]);
+        (((4*a[4]*TTR + 3*a[3])*TTR + 2*a[2])*TTR + a[1]);
 }
 
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //

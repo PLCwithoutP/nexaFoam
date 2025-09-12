@@ -1,3 +1,8 @@
 SOURCE = \
+basic2TThermo/basic2TThermo.C \
+fluid2TThermo/fluid2TThermo.C \
+ne2TThermo/ne2TThermo.C \
+ne2TThermo/ne2TThermos.C \
+ne2TThermo/ne2TZoneThermos.C \
 
 # sources

@@ -1,6 +1,5 @@
 EXE_INC = \
     -IBCs/lnInclude \
-    -I../../../src/thermophysicalModels/neTCLib/typeDecider \
     -I../../../src/thermophysicalModels/neTCLib/T/basic/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/T/specie/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/2T/basic/lnInclude \
@@ -16,7 +15,8 @@ EXE_INC = \
 
 EXE_LIBS = \
     -L$(FOAM_USER_LIBBIN) \
-    -lneTCLib \
+    -lneTCLib_T \
+    -lneTCLib_2T \
     -lneTCspecie_T \
     -lneTCspecie_2T \
     -lfiniteVolume \

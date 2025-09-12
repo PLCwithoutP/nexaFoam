@@ -1,0 +1,63 @@
+\doxysection{ln\+Include/reaction2\+TTypes.H}
+\hypertarget{lnInclude_2reaction2TTypes_8H_source}{}\label{lnInclude_2reaction2TTypes_8H_source}\index{reaction2TTypes.H@{reaction2TTypes.H}}
+\mbox{\hyperlink{lnInclude_2reaction2TTypes_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2013\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2023\ OpenCFD\ Ltd.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00010}00010\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00011}00011\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00012}00012\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00014}00014\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00015}00015\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00016}00016\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00017}00017\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00019}00019\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00020}00020\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00021}00021\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00022}00022\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00024}00024\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00025}00025\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00027}00027\ \textcolor{comment}{Typedefs}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00028}00028\ \textcolor{comment}{\ \ \ \ Foam::reactionTypes}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00029}00029\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00030}00030\ \textcolor{comment}{Description}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00031}00031\ \textcolor{comment}{\ \ \ \ Type\ definitions\ for\ reactions}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00032}00032\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00033}00033\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00035}00035\ \textcolor{preprocessor}{\#ifndef\ reaction2TTypes\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00036}00036\ \textcolor{preprocessor}{\#define\ reaction2TTypes\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00038}00038\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lnInclude_2thermoPhysics2TTypes_8H}{thermoPhysics2TTypes.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}Reaction.H"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00041}00041\ \textcolor{preprocessor}{\#include\ "{}icoPolynomial.H"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}hPolynomialThermo.H"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00043}00043\ \textcolor{preprocessor}{\#include\ "{}polynomialTransport.H"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00045}00045\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00047}00047\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00048}00048\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ sensible\ enthalpy\ based\ reactions}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{typedef}\ Reaction<blottnerEucken2TGasHThermoPhysics>\ \mbox{\hyperlink{namespaceFoam_a28a83bd315c597b6efb68e484d415334}{blottnerEucken2TGasHThermoPhysicsHReaction}};}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00051}00051\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00053}00053\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00055}00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2reaction2TTypes_8H_source_l00057}00057\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

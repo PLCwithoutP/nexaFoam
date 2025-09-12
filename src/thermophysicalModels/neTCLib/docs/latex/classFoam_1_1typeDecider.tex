@@ -1,0 +1,112 @@
+\doxysection{Foam\+::type\+Decider\texorpdfstring{$<$}{<} OneT, TwoT \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classFoam_1_1typeDecider}{}\label{classFoam_1_1typeDecider}\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+
+
+{\ttfamily \#include $<$type\+Decider.\+H$>$}
+
+
+
+Collaboration diagram for Foam\+::type\+Decider\texorpdfstring{$<$}{<} OneT, TwoT \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{classFoam_1_1typeDecider__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFoam_1_1typeDecider_a13e44ac342c89326bfff20baf79bb650}{type\+Decider}} (const fv\+Mesh \&)
+\item 
+bool \mbox{\hyperlink{classFoam_1_1typeDecider_a0e74eeba87c32ab9e522545763f9abf2}{construct}} (auto\+Ptr$<$ OneT $>$ \&p1T, auto\+Ptr$<$ TwoT $>$ \&p2T, const fv\+Mesh \&mesh)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+IOdictionary \mbox{\hyperlink{classFoam_1_1typeDecider_a613ce62d9279cef7ce403a36ef2f996d}{thermo\+Dict}}
+\item 
+const dictionary \mbox{\hyperlink{classFoam_1_1typeDecider_a20f9652403997bcf9fdc3f0768841f02}{tt}}
+\item 
+const word \mbox{\hyperlink{classFoam_1_1typeDecider_a38c8c51f86eeda470654bdec0c34a62d}{temp\+Model}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class OneT, class TwoT$>$\newline
+class Foam\+::type\+Decider$<$ One\+T, Two\+T $>$}
+
+
+Definition at line \mbox{\hyperlink{typeDecider_8H_source_l00054}{54}} of file \mbox{\hyperlink{typeDecider_8H_source}{type\+Decider.\+H}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classFoam_1_1typeDecider_a13e44ac342c89326bfff20baf79bb650}\label{classFoam_1_1typeDecider_a13e44ac342c89326bfff20baf79bb650} 
+\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}!typeDecider@{typeDecider}}
+\index{typeDecider@{typeDecider}!Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+\doxysubsubsection{\texorpdfstring{typeDecider()}{typeDecider()}}
+{\footnotesize\ttfamily template$<$class OneT , class TwoT $>$ \\
+\mbox{\hyperlink{classFoam_1_1typeDecider}{Foam\+::type\+Decider}}$<$ OneT, TwoT $>$\+::type\+Decider (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{mesh }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{typeDecider_8C_source_l00030}{30}} of file \mbox{\hyperlink{typeDecider_8C_source}{type\+Decider.\+C}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFoam_1_1typeDecider_a0e74eeba87c32ab9e522545763f9abf2}\label{classFoam_1_1typeDecider_a0e74eeba87c32ab9e522545763f9abf2} 
+\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}!construct@{construct}}
+\index{construct@{construct}!Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+\doxysubsubsection{\texorpdfstring{construct()}{construct()}}
+{\footnotesize\ttfamily template$<$class OneT , class TwoT $>$ \\
+bool \mbox{\hyperlink{classFoam_1_1typeDecider}{Foam\+::type\+Decider}}$<$ OneT, TwoT $>$\+::construct (\begin{DoxyParamCaption}\item[{auto\+Ptr$<$ OneT $>$ \&}]{p1T,  }\item[{auto\+Ptr$<$ TwoT $>$ \&}]{p2T,  }\item[{const fv\+Mesh \&}]{mesh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{typeDeciderI_8H_source_l00005}{5}} of file \mbox{\hyperlink{typeDeciderI_8H_source}{type\+Decider\+I.\+H}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classFoam_1_1typeDecider_a38c8c51f86eeda470654bdec0c34a62d}\label{classFoam_1_1typeDecider_a38c8c51f86eeda470654bdec0c34a62d} 
+\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}!tempModel@{tempModel}}
+\index{tempModel@{tempModel}!Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+\doxysubsubsection{\texorpdfstring{tempModel}{tempModel}}
+{\footnotesize\ttfamily template$<$class OneT , class TwoT $>$ \\
+const word \mbox{\hyperlink{classFoam_1_1typeDecider}{Foam\+::type\+Decider}}$<$ OneT, TwoT $>$\+::temp\+Model\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{typeDecider_8H_source_l00060}{60}} of file \mbox{\hyperlink{typeDecider_8H_source}{type\+Decider.\+H}}.
+
+\Hypertarget{classFoam_1_1typeDecider_a613ce62d9279cef7ce403a36ef2f996d}\label{classFoam_1_1typeDecider_a613ce62d9279cef7ce403a36ef2f996d} 
+\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}!thermoDict@{thermoDict}}
+\index{thermoDict@{thermoDict}!Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+\doxysubsubsection{\texorpdfstring{thermoDict}{thermoDict}}
+{\footnotesize\ttfamily template$<$class OneT , class TwoT $>$ \\
+IOdictionary \mbox{\hyperlink{classFoam_1_1typeDecider}{Foam\+::type\+Decider}}$<$ OneT, TwoT $>$\+::thermo\+Dict\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{typeDecider_8H_source_l00058}{58}} of file \mbox{\hyperlink{typeDecider_8H_source}{type\+Decider.\+H}}.
+
+\Hypertarget{classFoam_1_1typeDecider_a20f9652403997bcf9fdc3f0768841f02}\label{classFoam_1_1typeDecider_a20f9652403997bcf9fdc3f0768841f02} 
+\index{Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}!tt@{tt}}
+\index{tt@{tt}!Foam::typeDecider$<$ OneT, TwoT $>$@{Foam::typeDecider$<$ OneT, TwoT $>$}}
+\doxysubsubsection{\texorpdfstring{tt}{tt}}
+{\footnotesize\ttfamily template$<$class OneT , class TwoT $>$ \\
+const dictionary \mbox{\hyperlink{classFoam_1_1typeDecider}{Foam\+::type\+Decider}}$<$ OneT, TwoT $>$\+::tt\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{typeDecider_8H_source_l00059}{59}} of file \mbox{\hyperlink{typeDecider_8H_source}{type\+Decider.\+H}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{typeDecider_8H}{type\+Decider.\+H}}\item 
+\mbox{\hyperlink{typeDecider_8C}{type\+Decider.\+C}}\item 
+\mbox{\hyperlink{typeDeciderI_8H}{type\+Decider\+I.\+H}}\end{DoxyCompactItemize}

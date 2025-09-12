@@ -1,1 +1,0 @@
-../T/basic/heTThermo/heTThermo.H

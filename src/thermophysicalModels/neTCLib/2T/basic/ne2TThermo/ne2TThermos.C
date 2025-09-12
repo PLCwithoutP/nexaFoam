@@ -26,7 +26,7 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "ne2TThermo.H"
-#include "makeThermo.H"
+#include "make2TThermo.H"
 
 #include "specie.H"
 #include "perfectGas.H"
@@ -35,7 +35,6 @@ License
 #include "eConstThermo.H"
 #include "janaf2TThermo.H"
 #include "sensibleEnthalpy2T.H"
-#include "sensibleInternalEnergy2T.H"
 #include "thermo2T.H"
 
 #include "heNe2TThermo.H"
@@ -58,59 +57,6 @@ makeThermos
     pureMixture,
     blottnerEucken2TTransport,
     sensibleEnthalpy2T,
-    hConstThermo,
-    perfectGas,
-    specie
-);
-
-makeThermos
-(
-    ne2TThermo,
-    heNe2TThermo,
-    pureMixture,
-    blottnerEucken2TTransport,
-    sensibleEnthalpy2T,
-    janaf2TThermo,
-    perfectGas,
-    specie
-);
-
-
-
-/* * * * * * * * * * * * * * Internal-energy-based * * * * * * * * * * * * * */
-
-
-makeThermos
-(
-    ne2TThermo,
-    heNe2TThermo,
-    pureMixture,
-    blottnerEucken2TTransport,
-    sensibleInternalEnergy2T,
-    eConstThermo,
-    perfectGas,
-    specie
-);
-
-makeThermos
-(
-    ne2TThermo,
-    heNe2TThermo,
-    pureMixture,
-    blottnerEucken2TTransport,
-    sensibleInternalEnergy2T,
-    hConstThermo,
-    perfectGas,
-    specie
-);
-
-makeThermos
-(
-    ne2TThermo,
-    heNe2TThermo,
-    pureMixture,
-    blottnerEucken2TTransport,
-    sensibleInternalEnergy2T,
     janaf2TThermo,
     perfectGas,
     specie

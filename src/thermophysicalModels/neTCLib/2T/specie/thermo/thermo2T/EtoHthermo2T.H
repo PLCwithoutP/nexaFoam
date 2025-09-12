@@ -1,44 +1,44 @@
-inline scalar Cp
+inline scalar CpTR
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar cv = Cv(p, T);
-    volatile const scalar cpmcv = EquationOfState::CpMCv(p, T);
-    return cv + cpmcv;
+    volatile const scalar cvT = CvT(p, TTR);
+    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+    return cvT + cpmcvTR;
     #else
-    return Cv(p, T) + EquationOfState::CpMCv(p, T);
+    return CvT(p, TTR) + EquationOfState::CpMCv(p, TTR);
     #endif
 }
 
-inline scalar Hs
+inline scalar HsTR
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar es = Es(p, T);
-    volatile const scalar rho = EquationOfState::rho(p, T);
-    return es + p/rho;
+    volatile const scalar esTR = EsTR(p, TTR);
+    volatile const scalar rho = EquationOfState::rho(p, TTR);
+    return esTR + p/rho;
     #else
-    return Es(p, T) + p/EquationOfState::rho(p, T);
+    return EsTR(p, TTR) + p/EquationOfState::rho(p, TTR);
     #endif
 }
 
-inline scalar Ha
+inline scalar HaTR
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar ea = Ea(p, T);
-    volatile const scalar rho = EquationOfState::rho(p, T);
-    return ea + p/rho;
+    volatile const scalar eaTR = EaTR(p, TTR);
+    volatile const scalar rho = EquationOfState::rho(p, TTR);
+    return eaTR + p/rho;
     #else
-    return Ea(p, T) + p/EquationOfState::rho(p, T);
+    return EaTR(p, TTR) + p/EquationOfState::rho(p, TTR);
     #endif
 }

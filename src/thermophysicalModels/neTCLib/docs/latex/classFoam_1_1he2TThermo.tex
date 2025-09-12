@@ -1,0 +1,1290 @@
+\doxysection{Foam\+::he2\+TThermo\texorpdfstring{$<$}{<} Basic2\+TThermo, Mixture\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classFoam_1_1he2TThermo}{}\label{classFoam_1_1he2TThermo}\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+
+
+{\ttfamily \#include $<$he2\+TThermo.\+H$>$}
+
+
+
+Inheritance diagram for Foam\+::he2\+TThermo\texorpdfstring{$<$}{<} Basic2\+TThermo, Mixture\+Type \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classFoam_1_1he2TThermo__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Foam\+::he2\+TThermo\texorpdfstring{$<$}{<} Basic2\+TThermo, Mixture\+Type \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{classFoam_1_1he2TThermo__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c}{he2\+TThermo}} (const fv\+Mesh \&, const word \&phase\+Name)
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901}{he2\+TThermo}} (const fv\+Mesh \&, const dictionary \&, const word \&phase\+Name)
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078}{he2\+TThermo}} (const fv\+Mesh \&, const word \&phase\+Name, const word \&dictionary\+Name)
+\item 
+virtual \mbox{\hyperlink{classFoam_1_1he2TThermo_a0174b0739a3f843e90edd4a245620a92}{\texorpdfstring{$\sim$}{\string~}he2\+TThermo}} ()
+\item 
+virtual Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929}{composition}} ()
+\item 
+virtual const Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52}{composition}} () const
+\item 
+virtual word \mbox{\hyperlink{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6}{thermo\+Name}} () const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247}{incompressible}} () const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641}{isochoric}} () const
+\item 
+virtual vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}{he}} ()
+\item 
+virtual const vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4}{he}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a1e2f9011eec0c7a7854dfc612a20921d}{he}} (const vol\+Scalar\+Field \&p, const vol\+Scalar\+Field \&TTR) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ac068db072ec147c53c8f9296c47f391c}{he}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a5944b9542bc6ad848cf3db12fb5d96cb}{he}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a61109e8647650b64b7e1258ae12c0b19}{hc}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab8c531189d4682e98923f48bfd42d199}{THE\+\_\+\+TR}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ae747ead6602114265952dd3f48d389e6}{THE\+\_\+\+TR}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab45ff278b120a226e8adc575208c38ba}{TEH\+\_\+\+Vib}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const scalar\+Field \&TVib0, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab7a419ce0fe144a490ce43476b5bc935}{TEH\+\_\+\+Vib}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const scalar\+Field \&TVib0, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab6c2a401583895eab9caf565e0646671}{Cp\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a39962df765208de0abe5925ded01be1b}{Cp\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a005ed9b72b0293d46edbcec43f136fd7}{Cp\+TR}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ad7fc0d8d5a30d8ee59a5591adba6f13b}{CvT}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a3c8446bdf80c69db7b2218811536e87e}{CvT}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ace8909455881a23957d9381eb9ac8007}{CvR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_acf6f4ac0424b2f581ba0fe8facf49905}{CvR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a3e471847023347e28667a1bc8ec8747a}{Cv\+Vib}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab39a86785b70c409260cd558a14d7483}{Cv\+Vib}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const scalar\+Field \&Tvib, const scalar Theta\+Vib, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af500f30c672795f26e8693eefb33b14c}{rho\+EoS}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_add2c6c68ee69377ba6510d818872d91b}{gamma}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_aa649034f39bd28cb7cfd9cfb8df14bc6}{gamma}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ac3cf2ec00103e38187ee1bbd6a3bd13a}{Cpv\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ac046eabbad84f28012f0950416846e1c}{Cpv\+TR}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af6ea4cc8c1e508288aa66d783cc9be39}{Cp\+By\+Cpv\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a96342918a3d09f2ecf6675afab7a8f11}{Cp\+By\+Cpv\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a20cd70c517eba6c490f538b0c0a1b2a6}{W}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_afc09b1e606341acd3182174d5a59828d}{kappa\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_afeac4c529f2254079e10ef85226f2852}{kappa\+TR}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a83eedce94d7a4f8ae3dff5a6dc55e11d}{kappa\+Vib}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a3aed4c686d1ba111fef1c5df73f17af3}{kappa\+Vib}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ad29de31989d575144b9aa155a912a0c6}{alphahe\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a1aad86c98c4f28bbef3779356083f1e1}{alphahe\+TR}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a2f8385109155c52478cf3187516a8f7d}{kappa\+Eff}} (const vol\+Scalar\+Field \&) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a5191c7e700a900bcda2cb660a0f21c05}{kappa\+Eff}} (const scalar\+Field \&alphat, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab182d767b933b161356993eda0493e47}{alpha\+Eff}} (const vol\+Scalar\+Field \&alphat) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a9989a8f83f055fee694931e7530c734b}{alpha\+Eff}} (const scalar\+Field \&alphat, const label patchi) const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_aa1dab6e4b2012606af0292f38e0aca08}{read}} ()
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c}{he2\+TThermo}} (const fv\+Mesh \&, const word \&phase\+Name)
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901}{he2\+TThermo}} (const fv\+Mesh \&, const dictionary \&, const word \&phase\+Name)
+\item 
+\mbox{\hyperlink{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078}{he2\+TThermo}} (const fv\+Mesh \&, const word \&phase\+Name, const word \&dictionary\+Name)
+\item 
+virtual \mbox{\hyperlink{classFoam_1_1he2TThermo_ae7a7bf6aac8c62f65f607e3cb6d718a4}{\texorpdfstring{$\sim$}{\string~}he2\+TThermo}} ()
+\item 
+virtual Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929}{composition}} ()
+\item 
+virtual const Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52}{composition}} () const
+\item 
+virtual word \mbox{\hyperlink{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6}{thermo\+Name}} () const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247}{incompressible}} () const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641}{isochoric}} () const
+\item 
+virtual vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}{he}} ()
+\item 
+virtual const vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4}{he}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a12ce242e70760c772bdb265450ef5a20}{he}} (const vol\+Scalar\+Field \&p, const vol\+Scalar\+Field \&TTR) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a051c728beaaa0e19a056ff275c90562e}{he}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a92c5f6c5a9ea6f6aff9f4e65ae14cba8}{he}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a075892addc4874de8d1fb7715727718a}{hc}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab35b69b00e875973eabd086b833fd3a2}{THE\+\_\+\+TR}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ab377d03b630cd727c2ea8499e12549a4}{THE\+\_\+\+TR}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a33d52f09fcd8a557dff7f3d4f21cfdcb}{TEH\+\_\+\+Vib}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const scalar\+Field \&TVib0, const label\+List \&cells) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ad80d6d1da139b057576f1642b29a9e9c}{TEH\+\_\+\+Vib}} (const scalar\+Field \&h, const scalar\+Field \&p, const scalar\+Field \&TTR0, const scalar\+Field \&TVib0, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a01234c373bed33cc4dd81e785e500bff}{Cp\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ae8e59792fafb597b88371e699147b52f}{Cp\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a23980539e4f783d09fdc55bcbd14c50c}{Cp\+TR}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a4891b768830c3810c4e9260d8eae2c94}{CvT}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_aea5c10b8a049a73e53b4591cbced681b}{CvT}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af540e917eaaa87772fdbda8efdf01487}{CvR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a362fb1f2a8d477ba9925b8b30f36094d}{CvR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a6df032645f0f74c262aeff6d53f86413}{Cv\+Vib}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a7ba3bfa6173a7bd6b2424c24de5dc5e7}{Cv\+Vib}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const scalar\+Field \&Tvib, const scalar Theta\+Vib, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af0f8f48b04ecd8a47e61bf3036389471}{rho\+EoS}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label\+List \&cells) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a47a8d03c5fd0e1749459feaf5d1be014}{gamma}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a52f39d092c5039666690c06e4ffc12d2}{gamma}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a85b9d6a5d8297e262689e18b65cea723}{Cpv\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a7fa2c05a43b70f223269b0d983790d7f}{Cpv\+TR}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a29a7e678cbd0676cbbc8a3644e4ad8db}{Cp\+By\+Cpv\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a090f021d824b3bece2592c321a9b995d}{Cp\+By\+Cpv\+TR}} (const scalar\+Field \&p, const scalar\+Field \&TTR, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_aaa6cb33bb5c223876a1bf50e781811e4}{W}} () const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a2a693a8de002ac5f5e58272390fdf225}{kappa\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a8c26d2635ac6ceb2e6768a2c99e9fab8}{kappa\+TR}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a9957123db54edbdbf0d7ec78e12b8ba6}{kappa\+Vib}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af7fa8291067df8265c776c8594ca98c6}{kappa\+Vib}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_aa1ad7c918071e18eafe31abd6717f061}{alphahe\+TR}} () const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_af99fcfaad6f56bd29d7a645a0e5aa567}{alphahe\+TR}} (const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a811c3e212fc437179e74a0bacd8f9d99}{kappa\+Eff}} (const vol\+Scalar\+Field \&) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ac6beffe00f27395b2d9cc29742e0a064}{kappa\+Eff}} (const scalar\+Field \&alphat, const label patchi) const
+\item 
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_a982eb01217d2baa8bcd421a1cc1137d2}{alpha\+Eff}} (const vol\+Scalar\+Field \&alphat) const
+\item 
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo_ac7af98b63d113d893bacd22b1fe7461f}{alpha\+Eff}} (const scalar\+Field \&alphat, const label patchi) const
+\item 
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo_a5166a0862ecca94fd9dc09f3c9aa3d51}{read}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406}{he\+Boundary\+Correction}} (vol\+Scalar\+Field \&\mbox{\hyperlink{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}{he}})
+\item 
+void \mbox{\hyperlink{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406}{he\+Boundary\+Correction}} (vol\+Scalar\+Field \&\mbox{\hyperlink{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}{he}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vol\+Scalar\+Field \mbox{\hyperlink{classFoam_1_1he2TThermo_a7d2809f977c4a1d24abb34ef4d56bfb4}{he\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Basic2\+TThermo, class Mixture\+Type$>$\newline
+class Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$}
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00053}{53}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c}\label{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{mesh,  }\item[{const word \&}]{phase\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00104}{104}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901}\label{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{mesh,  }\item[{const dictionary \&}]{dict,  }\item[{const word \&}]{phase\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00137}{137}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078}\label{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{mesh,  }\item[{const word \&}]{phase\+Name,  }\item[{const word \&}]{dictionary\+Name }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00171}{171}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a0174b0739a3f843e90edd4a245620a92}\label{classFoam_1_1he2TThermo_a0174b0739a3f843e90edd4a245620a92} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!````~he2TThermo@{\texorpdfstring{$\sim$}{\string~}he2TThermo}}
+\index{````~he2TThermo@{\texorpdfstring{$\sim$}{\string~}he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}he2TThermo()}{\string~he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{classFoam_1_1he2TThermo}{he2\+TThermo}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00208}{208}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c}\label{classFoam_1_1he2TThermo_a7db3b77a9935004e9a5106215779744c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{,  }\item[{const word \&}]{phase\+Name }\end{DoxyParamCaption})}
+
+\Hypertarget{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901}\label{classFoam_1_1he2TThermo_a2d85670bc6c057f240fe6de89ecd8901} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{,  }\item[{const dictionary \&}]{,  }\item[{const word \&}]{phase\+Name }\end{DoxyParamCaption})}
+
+\Hypertarget{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078}\label{classFoam_1_1he2TThermo_aceee7411e5c98cc3aaa1dcad5c258078} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he2TThermo@{he2TThermo}}
+\index{he2TThermo@{he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he2TThermo()}{he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+\mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo (\begin{DoxyParamCaption}\item[{const fv\+Mesh \&}]{,  }\item[{const word \&}]{phase\+Name,  }\item[{const word \&}]{dictionary\+Name }\end{DoxyParamCaption})}
+
+\Hypertarget{classFoam_1_1he2TThermo_ae7a7bf6aac8c62f65f607e3cb6d718a4}\label{classFoam_1_1he2TThermo_ae7a7bf6aac8c62f65f607e3cb6d718a4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!````~he2TThermo@{\texorpdfstring{$\sim$}{\string~}he2TThermo}}
+\index{````~he2TThermo@{\texorpdfstring{$\sim$}{\string~}he2TThermo}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}he2TThermo()}{\string~he2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{classFoam_1_1he2TThermo}{he2\+TThermo}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFoam_1_1he2TThermo_a9989a8f83f055fee694931e7530c734b}\label{classFoam_1_1he2TThermo_a9989a8f83f055fee694931e7530c734b} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaEff@{alphaEff}}
+\index{alphaEff@{alphaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaEff()}{alphaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alpha\+Eff (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{alphat,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01078}{1078}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ac7af98b63d113d893bacd22b1fe7461f}\label{classFoam_1_1he2TThermo_ac7af98b63d113d893bacd22b1fe7461f} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaEff@{alphaEff}}
+\index{alphaEff@{alphaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaEff()}{alphaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alpha\+Eff (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{alphat,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab182d767b933b161356993eda0493e47}\label{classFoam_1_1he2TThermo_ab182d767b933b161356993eda0493e47} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaEff@{alphaEff}}
+\index{alphaEff@{alphaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaEff()}{alphaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alpha\+Eff (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{alphat }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01065}{1065}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a982eb01217d2baa8bcd421a1cc1137d2}\label{classFoam_1_1he2TThermo_a982eb01217d2baa8bcd421a1cc1137d2} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaEff@{alphaEff}}
+\index{alphaEff@{alphaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaEff()}{alphaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alpha\+Eff (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{alphat }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ad29de31989d575144b9aa155a912a0c6}\label{classFoam_1_1he2TThermo_ad29de31989d575144b9aa155a912a0c6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaheTR@{alphaheTR}}
+\index{alphaheTR@{alphaheTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaheTR()}{alphaheTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alphahe\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01005}{1005}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aa1ad7c918071e18eafe31abd6717f061}\label{classFoam_1_1he2TThermo_aa1ad7c918071e18eafe31abd6717f061} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaheTR@{alphaheTR}}
+\index{alphaheTR@{alphaheTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaheTR()}{alphaheTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alphahe\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a1aad86c98c4f28bbef3779356083f1e1}\label{classFoam_1_1he2TThermo_a1aad86c98c4f28bbef3779356083f1e1} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaheTR@{alphaheTR}}
+\index{alphaheTR@{alphaheTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaheTR()}{alphaheTR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alphahe\+TR (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01015}{1015}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_af99fcfaad6f56bd29d7a645a0e5aa567}\label{classFoam_1_1he2TThermo_af99fcfaad6f56bd29d7a645a0e5aa567} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!alphaheTR@{alphaheTR}}
+\index{alphaheTR@{alphaheTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{alphaheTR()}{alphaheTR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::alphahe\+TR (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929}\label{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!composition@{composition}}
+\index{composition@{composition}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{composition()}{composition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::composition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00128}{128}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929}\label{classFoam_1_1he2TThermo_a2ae021481dc128d1f78877a827f8c929} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!composition@{composition}}
+\index{composition@{composition}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{composition()}{composition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::composition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00128}{128}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52}\label{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!composition@{composition}}
+\index{composition@{composition}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{composition()}{composition()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual const Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::composition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00135}{135}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52}\label{classFoam_1_1he2TThermo_ae0c402393be0e0dcf38728ab1e08eb52} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!composition@{composition}}
+\index{composition@{composition}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{composition()}{composition()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual const Mixture\+Type\+::basic\+Mixture\+Type \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::composition (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00135}{135}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_af6ea4cc8c1e508288aa66d783cc9be39}\label{classFoam_1_1he2TThermo_af6ea4cc8c1e508288aa66d783cc9be39} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpByCpvTR@{CpByCpvTR}}
+\index{CpByCpvTR@{CpByCpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpByCpvTR()}{CpByCpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+By\+Cpv\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00771}{771}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a29a7e678cbd0676cbbc8a3644e4ad8db}\label{classFoam_1_1he2TThermo_a29a7e678cbd0676cbbc8a3644e4ad8db} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpByCpvTR@{CpByCpvTR}}
+\index{CpByCpvTR@{CpByCpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpByCpvTR()}{CpByCpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+By\+Cpv\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a96342918a3d09f2ecf6675afab7a8f11}\label{classFoam_1_1he2TThermo_a96342918a3d09f2ecf6675afab7a8f11} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpByCpvTR@{CpByCpvTR}}
+\index{CpByCpvTR@{CpByCpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpByCpvTR()}{CpByCpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+By\+Cpv\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00749}{749}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a090f021d824b3bece2592c321a9b995d}\label{classFoam_1_1he2TThermo_a090f021d824b3bece2592c321a9b995d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpByCpvTR@{CpByCpvTR}}
+\index{CpByCpvTR@{CpByCpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpByCpvTR()}{CpByCpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+By\+Cpv\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a005ed9b72b0293d46edbcec43f136fd7}\label{classFoam_1_1he2TThermo_a005ed9b72b0293d46edbcec43f136fd7} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00385}{385}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a23980539e4f783d09fdc55bcbd14c50c}\label{classFoam_1_1he2TThermo_a23980539e4f783d09fdc55bcbd14c50c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab6c2a401583895eab9caf565e0646671}\label{classFoam_1_1he2TThermo_ab6c2a401583895eab9caf565e0646671} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00341}{341}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a01234c373bed33cc4dd81e785e500bff}\label{classFoam_1_1he2TThermo_a01234c373bed33cc4dd81e785e500bff} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a39962df765208de0abe5925ded01be1b}\label{classFoam_1_1he2TThermo_a39962df765208de0abe5925ded01be1b} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00363}{363}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ae8e59792fafb597b88371e699147b52f}\label{classFoam_1_1he2TThermo_ae8e59792fafb597b88371e699147b52f} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ac046eabbad84f28012f0950416846e1c}\label{classFoam_1_1he2TThermo_ac046eabbad84f28012f0950416846e1c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpvTR@{CpvTR}}
+\index{CpvTR@{CpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpvTR()}{CpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cpv\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00710}{710}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a7fa2c05a43b70f223269b0d983790d7f}\label{classFoam_1_1he2TThermo_a7fa2c05a43b70f223269b0d983790d7f} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpvTR@{CpvTR}}
+\index{CpvTR@{CpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpvTR()}{CpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cpv\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ac3cf2ec00103e38187ee1bbd6a3bd13a}\label{classFoam_1_1he2TThermo_ac3cf2ec00103e38187ee1bbd6a3bd13a} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpvTR@{CpvTR}}
+\index{CpvTR@{CpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpvTR()}{CpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cpv\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00688}{688}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a85b9d6a5d8297e262689e18b65cea723}\label{classFoam_1_1he2TThermo_a85b9d6a5d8297e262689e18b65cea723} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CpvTR@{CpvTR}}
+\index{CpvTR@{CpvTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CpvTR()}{CpvTR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cpv\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ace8909455881a23957d9381eb9ac8007}\label{classFoam_1_1he2TThermo_ace8909455881a23957d9381eb9ac8007} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvR@{CvR}}
+\index{CvR@{CvR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvR()}{CvR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00549}{549}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_source_l00017}{Cv\+R()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{classFoam_1_1he2TThermo_ace8909455881a23957d9381eb9ac8007_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_af540e917eaaa87772fdbda8efdf01487}\label{classFoam_1_1he2TThermo_af540e917eaaa87772fdbda8efdf01487} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvR@{CvR}}
+\index{CvR@{CvR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvR()}{CvR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_acf6f4ac0424b2f581ba0fe8facf49905}\label{classFoam_1_1he2TThermo_acf6f4ac0424b2f581ba0fe8facf49905} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvR@{CvR}}
+\index{CvR@{CvR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvR()}{CvR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00446}{446}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a362fb1f2a8d477ba9925b8b30f36094d}\label{classFoam_1_1he2TThermo_a362fb1f2a8d477ba9925b8b30f36094d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvR@{CvR}}
+\index{CvR@{CvR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvR()}{CvR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ad7fc0d8d5a30d8ee59a5591adba6f13b}\label{classFoam_1_1he2TThermo_ad7fc0d8d5a30d8ee59a5591adba6f13b} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvT@{CvT}}
+\index{CvT@{CvT}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvT()}{CvT()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00513}{513}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_source_l00002}{Cv\+T()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_ad7fc0d8d5a30d8ee59a5591adba6f13b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a4891b768830c3810c4e9260d8eae2c94}\label{classFoam_1_1he2TThermo_a4891b768830c3810c4e9260d8eae2c94} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvT@{CvT}}
+\index{CvT@{CvT}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvT()}{CvT()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a3c8446bdf80c69db7b2218811536e87e}\label{classFoam_1_1he2TThermo_a3c8446bdf80c69db7b2218811536e87e} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvT@{CvT}}
+\index{CvT@{CvT}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvT()}{CvT()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvT (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00425}{425}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aea5c10b8a049a73e53b4591cbced681b}\label{classFoam_1_1he2TThermo_aea5c10b8a049a73e53b4591cbced681b} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvT@{CvT}}
+\index{CvT@{CvT}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvT()}{CvT()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+CvT (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a3e471847023347e28667a1bc8ec8747a}\label{classFoam_1_1he2TThermo_a3e471847023347e28667a1bc8ec8747a} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvVib@{CvVib}}
+\index{CvVib@{CvVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvVib()}{CvVib()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cv\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00585}{585}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_source_l00031}{Cv\+Vib()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{classFoam_1_1he2TThermo_a3e471847023347e28667a1bc8ec8747a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a6df032645f0f74c262aeff6d53f86413}\label{classFoam_1_1he2TThermo_a6df032645f0f74c262aeff6d53f86413} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvVib@{CvVib}}
+\index{CvVib@{CvVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvVib()}{CvVib()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cv\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab39a86785b70c409260cd558a14d7483}\label{classFoam_1_1he2TThermo_ab39a86785b70c409260cd558a14d7483} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvVib@{CvVib}}
+\index{CvVib@{CvVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvVib()}{CvVib()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cv\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const scalar\+Field \&}]{Tvib,  }\item[{const scalar}]{Theta\+Vib,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00467}{467}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a7ba3bfa6173a7bd6b2424c24de5dc5e7}\label{classFoam_1_1he2TThermo_a7ba3bfa6173a7bd6b2424c24de5dc5e7} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!CvVib@{CvVib}}
+\index{CvVib@{CvVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{CvVib()}{CvVib()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+Cv\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const scalar\+Field \&}]{Tvib,  }\item[{const scalar}]{Theta\+Vib,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_add2c6c68ee69377ba6510d818872d91b}\label{classFoam_1_1he2TThermo_add2c6c68ee69377ba6510d818872d91b} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!gamma@{gamma}}
+\index{gamma@{gamma}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{gamma()}{gamma()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::gamma (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00646}{646}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a47a8d03c5fd0e1749459feaf5d1be014}\label{classFoam_1_1he2TThermo_a47a8d03c5fd0e1749459feaf5d1be014} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!gamma@{gamma}}
+\index{gamma@{gamma}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{gamma()}{gamma()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::gamma (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_aa649034f39bd28cb7cfd9cfb8df14bc6}\label{classFoam_1_1he2TThermo_aa649034f39bd28cb7cfd9cfb8df14bc6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!gamma@{gamma}}
+\index{gamma@{gamma}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{gamma()}{gamma()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::gamma (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00624}{624}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a52f39d092c5039666690c06e4ffc12d2}\label{classFoam_1_1he2TThermo_a52f39d092c5039666690c06e4ffc12d2} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!gamma@{gamma}}
+\index{gamma@{gamma}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{gamma()}{gamma()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::gamma (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a61109e8647650b64b7e1258ae12c0b19}\label{classFoam_1_1he2TThermo_a61109e8647650b64b7e1258ae12c0b19} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!hc@{hc}}
+\index{hc@{hc}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{hc()}{hc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::hc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00304}{304}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a075892addc4874de8d1fb7715727718a}\label{classFoam_1_1he2TThermo_a075892addc4874de8d1fb7715727718a} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!hc@{hc}}
+\index{hc@{hc}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{hc()}{hc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::hc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}\label{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [1/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00165}{165}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+
+
+References \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}\label{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [2/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00165}{165}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+
+
+References \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4}\label{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [3/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual const vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00171}{171}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+
+
+References \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4}\label{classFoam_1_1he2TThermo_aaf127baa12068a2305016510cfc18bd4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [4/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual const vol\+Scalar\+Field \& \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00171}{171}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+
+
+References \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a5944b9542bc6ad848cf3db12fb5d96cb}\label{classFoam_1_1he2TThermo_a5944b9542bc6ad848cf3db12fb5d96cb} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [5/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00282}{282}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a92c5f6c5a9ea6f6aff9f4e65ae14cba8}\label{classFoam_1_1he2TThermo_a92c5f6c5a9ea6f6aff9f4e65ae14cba8} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [6/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ac068db072ec147c53c8f9296c47f391c}\label{classFoam_1_1he2TThermo_ac068db072ec147c53c8f9296c47f391c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [7/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00262}{262}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a051c728beaaa0e19a056ff275c90562e}\label{classFoam_1_1he2TThermo_a051c728beaaa0e19a056ff275c90562e} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [8/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a1e2f9011eec0c7a7854dfc612a20921d}\label{classFoam_1_1he2TThermo_a1e2f9011eec0c7a7854dfc612a20921d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [9/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{p,  }\item[{const vol\+Scalar\+Field \&}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00215}{215}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a12ce242e70760c772bdb265450ef5a20}\label{classFoam_1_1he2TThermo_a12ce242e70760c772bdb265450ef5a20} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he@{he}}
+\index{he@{he}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he()}{he()}\hspace{0.1cm}{\footnotesize\ttfamily [10/10]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{p,  }\item[{const vol\+Scalar\+Field \&}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406}\label{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!heBoundaryCorrection@{heBoundaryCorrection}}
+\index{heBoundaryCorrection@{heBoundaryCorrection}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{heBoundaryCorrection()}{heBoundaryCorrection()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+void \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+Boundary\+Correction (\begin{DoxyParamCaption}\item[{vol\+Scalar\+Field \&}]{he }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00036}{36}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406}\label{classFoam_1_1he2TThermo_a8e7267b6af04b8f641e4ce3563eab406} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!heBoundaryCorrection@{heBoundaryCorrection}}
+\index{heBoundaryCorrection@{heBoundaryCorrection}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{heBoundaryCorrection()}{heBoundaryCorrection()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+void \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+Boundary\+Correction (\begin{DoxyParamCaption}\item[{vol\+Scalar\+Field \&}]{he }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247}\label{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!incompressible@{incompressible}}
+\index{incompressible@{incompressible}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{incompressible()}{incompressible()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::incompressible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00148}{148}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247}\label{classFoam_1_1he2TThermo_a2480c96ef11050ce9f355b39d0bc6247} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!incompressible@{incompressible}}
+\index{incompressible@{incompressible}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{incompressible()}{incompressible()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::incompressible (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00148}{148}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641}\label{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!isochoric@{isochoric}}
+\index{isochoric@{isochoric}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{isochoric()}{isochoric()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::isochoric (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00155}{155}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641}\label{classFoam_1_1he2TThermo_ab65f5c60f627e7ed5df0f9e23c19a641} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!isochoric@{isochoric}}
+\index{isochoric@{isochoric}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{isochoric()}{isochoric()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::isochoric (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00155}{155}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a5191c7e700a900bcda2cb660a0f21c05}\label{classFoam_1_1he2TThermo_a5191c7e700a900bcda2cb660a0f21c05} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaEff@{kappaEff}}
+\index{kappaEff@{kappaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaEff()}{kappaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Eff (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{alphat,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01043}{1043}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_a5191c7e700a900bcda2cb660a0f21c05_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_ac6beffe00f27395b2d9cc29742e0a064}\label{classFoam_1_1he2TThermo_ac6beffe00f27395b2d9cc29742e0a064} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaEff@{kappaEff}}
+\index{kappaEff@{kappaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaEff()}{kappaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Eff (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{alphat,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a2f8385109155c52478cf3187516a8f7d}\label{classFoam_1_1he2TThermo_a2f8385109155c52478cf3187516a8f7d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaEff@{kappaEff}}
+\index{kappaEff@{kappaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaEff()}{kappaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Eff (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{alphat }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01030}{1030}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_a2f8385109155c52478cf3187516a8f7d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a811c3e212fc437179e74a0bacd8f9d99}\label{classFoam_1_1he2TThermo_a811c3e212fc437179e74a0bacd8f9d99} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaEff@{kappaEff}}
+\index{kappaEff@{kappaEff}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaEff()}{kappaEff()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Eff (\begin{DoxyParamCaption}\item[{const vol\+Scalar\+Field \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_afc09b1e606341acd3182174d5a59828d}\label{classFoam_1_1he2TThermo_afc09b1e606341acd3182174d5a59828d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaTR@{kappaTR}}
+\index{kappaTR@{kappaTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaTR()}{kappaTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00954}{954}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_afc09b1e606341acd3182174d5a59828d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a2a693a8de002ac5f5e58272390fdf225}\label{classFoam_1_1he2TThermo_a2a693a8de002ac5f5e58272390fdf225} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaTR@{kappaTR}}
+\index{kappaTR@{kappaTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaTR()}{kappaTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+TR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_afeac4c529f2254079e10ef85226f2852}\label{classFoam_1_1he2TThermo_afeac4c529f2254079e10ef85226f2852} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaTR@{kappaTR}}
+\index{kappaTR@{kappaTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaTR()}{kappaTR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+TR (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00963}{963}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_afeac4c529f2254079e10ef85226f2852_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a8c26d2635ac6ceb2e6768a2c99e9fab8}\label{classFoam_1_1he2TThermo_a8c26d2635ac6ceb2e6768a2c99e9fab8} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaTR@{kappaTR}}
+\index{kappaTR@{kappaTR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaTR()}{kappaTR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+TR (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a83eedce94d7a4f8ae3dff5a6dc55e11d}\label{classFoam_1_1he2TThermo_a83eedce94d7a4f8ae3dff5a6dc55e11d} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaVib@{kappaVib}}
+\index{kappaVib@{kappaVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaVib()}{kappaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00979}{979}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_a83eedce94d7a4f8ae3dff5a6dc55e11d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_a9957123db54edbdbf0d7ec78e12b8ba6}\label{classFoam_1_1he2TThermo_a9957123db54edbdbf0d7ec78e12b8ba6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaVib@{kappaVib}}
+\index{kappaVib@{kappaVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaVib()}{kappaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_a3aed4c686d1ba111fef1c5df73f17af3}\label{classFoam_1_1he2TThermo_a3aed4c686d1ba111fef1c5df73f17af3} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaVib@{kappaVib}}
+\index{kappaVib@{kappaVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaVib()}{kappaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Vib (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00988}{988}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_source_l00002}{Cp\+TR()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFoam_1_1he2TThermo_a3aed4c686d1ba111fef1c5df73f17af3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classFoam_1_1he2TThermo_af7fa8291067df8265c776c8594ca98c6}\label{classFoam_1_1he2TThermo_af7fa8291067df8265c776c8594ca98c6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!kappaVib@{kappaVib}}
+\index{kappaVib@{kappaVib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{kappaVib()}{kappaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::kappa\+Vib (\begin{DoxyParamCaption}\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_aa1dab6e4b2012606af0292f38e0aca08}\label{classFoam_1_1he2TThermo_aa1dab6e4b2012606af0292f38e0aca08} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!read@{read}}
+\index{read@{read}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l01099}{1099}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a5166a0862ecca94fd9dc09f3c9aa3d51}\label{classFoam_1_1he2TThermo_a5166a0862ecca94fd9dc09f3c9aa3d51} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!read@{read}}
+\index{read@{read}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual bool \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::read (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_af500f30c672795f26e8693eefb33b14c}\label{classFoam_1_1he2TThermo_af500f30c672795f26e8693eefb33b14c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!rhoEoS@{rhoEoS}}
+\index{rhoEoS@{rhoEoS}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{rhoEoS()}{rhoEoS()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::rho\+EoS (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00491}{491}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_af0f8f48b04ecd8a47e61bf3036389471}\label{classFoam_1_1he2TThermo_af0f8f48b04ecd8a47e61bf3036389471} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!rhoEoS@{rhoEoS}}
+\index{rhoEoS@{rhoEoS}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{rhoEoS()}{rhoEoS()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::rho\+EoS (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab7a419ce0fe144a490ce43476b5bc935}\label{classFoam_1_1he2TThermo_ab7a419ce0fe144a490ce43476b5bc935} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!TEH\_Vib@{TEH\_Vib}}
+\index{TEH\_Vib@{TEH\_Vib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{TEH\_Vib()}{TEH\_Vib()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+TEH\+\_\+\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const scalar\+Field \&}]{TVib0,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00888}{888}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ad80d6d1da139b057576f1642b29a9e9c}\label{classFoam_1_1he2TThermo_ad80d6d1da139b057576f1642b29a9e9c} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!TEH\_Vib@{TEH\_Vib}}
+\index{TEH\_Vib@{TEH\_Vib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{TEH\_Vib()}{TEH\_Vib()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+TEH\+\_\+\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const scalar\+Field \&}]{TVib0,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab45ff278b120a226e8adc575208c38ba}\label{classFoam_1_1he2TThermo_ab45ff278b120a226e8adc575208c38ba} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!TEH\_Vib@{TEH\_Vib}}
+\index{TEH\_Vib@{TEH\_Vib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{TEH\_Vib()}{TEH\_Vib()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+TEH\+\_\+\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const scalar\+Field \&}]{TVib0,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00864}{864}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a33d52f09fcd8a557dff7f3d4f21cfdcb}\label{classFoam_1_1he2TThermo_a33d52f09fcd8a557dff7f3d4f21cfdcb} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!TEH\_Vib@{TEH\_Vib}}
+\index{TEH\_Vib@{TEH\_Vib}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{TEH\_Vib()}{TEH\_Vib()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+TEH\+\_\+\+Vib (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const scalar\+Field \&}]{TVib0,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ae747ead6602114265952dd3f48d389e6}\label{classFoam_1_1he2TThermo_ae747ead6602114265952dd3f48d389e6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!THE\_TR@{THE\_TR}}
+\index{THE\_TR@{THE\_TR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{THE\_TR()}{THE\_TR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+THE\+\_\+\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00839}{839}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ab377d03b630cd727c2ea8499e12549a4}\label{classFoam_1_1he2TThermo_ab377d03b630cd727c2ea8499e12549a4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!THE\_TR@{THE\_TR}}
+\index{THE\_TR@{THE\_TR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{THE\_TR()}{THE\_TR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+THE\+\_\+\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const label}]{patchi }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ab8c531189d4682e98923f48bfd42d199}\label{classFoam_1_1he2TThermo_ab8c531189d4682e98923f48bfd42d199} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!THE\_TR@{THE\_TR}}
+\index{THE\_TR@{THE\_TR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{THE\_TR()}{THE\_TR()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+THE\+\_\+\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00817}{817}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ab35b69b00e875973eabd086b833fd3a2}\label{classFoam_1_1he2TThermo_ab35b69b00e875973eabd086b833fd3a2} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!THE\_TR@{THE\_TR}}
+\index{THE\_TR@{THE\_TR}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{THE\_TR()}{THE\_TR()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::\+THE\+\_\+\+TR (\begin{DoxyParamCaption}\item[{const scalar\+Field \&}]{h,  }\item[{const scalar\+Field \&}]{p,  }\item[{const scalar\+Field \&}]{TTR0,  }\item[{const label\+List \&}]{cells }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\Hypertarget{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6}\label{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!thermoName@{thermoName}}
+\index{thermoName@{thermoName}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{thermoName()}{thermoName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual word \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::thermo\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00141}{141}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6}\label{classFoam_1_1he2TThermo_ad4f3c789abd21e4ba8a014842af55fa6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!thermoName@{thermoName}}
+\index{thermoName@{thermoName}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{thermoName()}{thermoName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual word \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::thermo\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source_l00141}{141}} of file \mbox{\hyperlink{lnInclude_2he2TThermo_8H_source}{ln\+Include/he2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_a20cd70c517eba6c490f538b0c0a1b2a6}\label{classFoam_1_1he2TThermo_a20cd70c517eba6c490f538b0c0a1b2a6} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!W@{W}}
+\index{W@{W}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{W()}{W()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+Foam\+::tmp$<$ Foam\+::vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::W (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00915}{915}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source}{he2\+TThermo/he2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1he2TThermo_aaa6cb33bb5c223876a1bf50e781811e4}\label{classFoam_1_1he2TThermo_aaa6cb33bb5c223876a1bf50e781811e4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!W@{W}}
+\index{W@{W}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{W()}{W()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+virtual tmp$<$ vol\+Scalar\+Field $>$ \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::W (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classFoam_1_1he2TThermo_a7d2809f977c4a1d24abb34ef4d56bfb4}\label{classFoam_1_1he2TThermo_a7d2809f977c4a1d24abb34ef4d56bfb4} 
+\index{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}!he\_@{he\_}}
+\index{he\_@{he\_}!Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$@{Foam::he2TThermo$<$ Basic2TThermo, MixtureType $>$}}
+\doxysubsubsection{\texorpdfstring{he\_}{he\_}}
+{\footnotesize\ttfamily template$<$class Basic2\+TThermo , class Mixture\+Type $>$ \\
+vol\+Scalar\+Field \mbox{\hyperlink{classFoam_1_1he2TThermo}{Foam\+::he2\+TThermo}}$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00063}{63}} of file \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source}{he2\+TThermo/he2\+TThermo.\+H}}.
+
+
+
+Referenced by \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00165}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he()}}, \mbox{\hyperlink{he2TThermo_2he2TThermo_8H_source_l00171}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he()}}, and \mbox{\hyperlink{he2TThermo_2he2TThermo_8C_source_l00138}{Foam\+::he2\+TThermo$<$ Basic2\+TThermo, Mixture\+Type $>$\+::he2\+TThermo()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{he2TThermo_2he2TThermo_8H}{he2\+TThermo/he2\+TThermo.\+H}}\item 
+\mbox{\hyperlink{lnInclude_2he2TThermo_8H}{ln\+Include/he2\+TThermo.\+H}}\item 
+\mbox{\hyperlink{he2TThermo_2he2TThermo_8C}{he2\+TThermo/he2\+TThermo.\+C}}\item 
+\mbox{\hyperlink{lnInclude_2he2TThermo_8C}{ln\+Include/he2\+TThermo.\+C}}\end{DoxyCompactItemize}

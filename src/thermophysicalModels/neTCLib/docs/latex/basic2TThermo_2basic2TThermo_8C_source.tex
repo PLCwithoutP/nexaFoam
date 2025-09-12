@@ -1,0 +1,686 @@
+\doxysection{basic2\+TThermo/basic2\+TThermo.C}
+\hypertarget{basic2TThermo_2basic2TThermo_8C_source}{}\label{basic2TThermo_2basic2TThermo_8C_source}\index{basic2TThermo.C@{basic2TThermo.C}}
+\mbox{\hyperlink{basic2TThermo_2basic2TThermo_8C}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2016\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2017-\/2023\ OpenCFD\ Ltd.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00010}00010\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00011}00011\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00012}00012\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00014}00014\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00015}00015\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00016}00016\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00017}00017\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00019}00019\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00020}00020\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00021}00021\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00022}00022\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00024}00024\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00025}00025\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00027}00027\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lnInclude_2basic2TThermo_8H}{basic2TThermo.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00030}00030\ \textcolor{preprocessor}{\#include\ "{}stringOps.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00031}00031\ \textcolor{preprocessor}{\#include\ "{}wordIOList.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00032}00032\ \textcolor{preprocessor}{\#include\ "{}zeroGradientFvPatchFields.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00033}00033\ \textcolor{preprocessor}{\#include\ "{}fixedEnergyFvPatchScalarField.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00034}00034\ \textcolor{preprocessor}{\#include\ "{}gradientEnergyFvPatchScalarField.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00035}00035\ \textcolor{preprocessor}{\#include\ "{}mixedEnergyFvPatchScalarField.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00036}00036\ \textcolor{preprocessor}{\#include\ "{}fixedJumpFvPatchFields.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}fixedJumpAMIFvPatchFields.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00038}00038\ \textcolor{preprocessor}{\#include\ "{}energyJumpFvPatchScalarField.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}energyJumpAMIFvPatchScalarField.H"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00041}00041\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Static\ Data\ Members\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00043}\mbox{\hyperlink{namespaceFoam}{00043}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00044}00044\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00045}00045\ \ \ \ \ defineTypeNameAndDebug(\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}},\ 0);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00046}\mbox{\hyperlink{namespaceFoam_a8a40e2887064415acaeaaedd3f47d0fd}{00046}}\ \ \ \ \ \mbox{\hyperlink{namespaceFoam_a8a40e2887064415acaeaaedd3f47d0fd}{defineRunTimeSelectionTable}}(\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}},\ fvMesh);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00047}\mbox{\hyperlink{namespaceFoam_a071cca35f58d4e2ca0301c2bcca45357}{00047}}\ \ \ \ \ \mbox{\hyperlink{namespaceFoam_a8a40e2887064415acaeaaedd3f47d0fd}{defineRunTimeSelectionTable}}(\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}},\ fvMeshDictPhase);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00050}00050\ \textcolor{keyword}{const}\ Foam::word\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_aae57150108288e0a78ccc8c3c1a15325}{Foam::basic2TThermo::dictName}}(\textcolor{stringliteral}{"{}thermophysicalProperties"{}});}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00052}00052\ \textcolor{keyword}{const}\ Foam::wordList\ Foam::basic2TThermo::componentHeader4}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00053}00053\ (\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00054}00054\ \ \ \ \ \textcolor{stringliteral}{"{}type"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00055}00055\ \ \ \ \ \textcolor{stringliteral}{"{}mixture"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00056}00056\ \ \ \ \ \textcolor{stringliteral}{"{}properties"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00057}00057\ \ \ \ \ \textcolor{stringliteral}{"{}energy"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00058}00058\ \});}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00060}00060\ \textcolor{keyword}{const}\ Foam::wordList\ Foam::basic2TThermo::componentHeader7}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00061}00061\ (\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00062}00062\ \ \ \ \ \textcolor{stringliteral}{"{}type"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00063}00063\ \ \ \ \ \textcolor{stringliteral}{"{}mixture"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00064}00064\ \ \ \ \ \textcolor{stringliteral}{"{}transport"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00065}00065\ \ \ \ \ \textcolor{stringliteral}{"{}thermo"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00066}00066\ \ \ \ \ \textcolor{stringliteral}{"{}equationOfState"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00067}00067\ \ \ \ \ \textcolor{stringliteral}{"{}specie"{}},}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00068}00068\ \ \ \ \ \textcolor{stringliteral}{"{}energy"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00069}00069\ \});}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00072}00072\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Static\ Member\ Functions\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00074}\mbox{\hyperlink{classFoam_1_1basic2TThermo_ae6facaa121d263214161a8a07a106466}{00074}}\ Foam::Ostream\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_ae6facaa121d263214161a8a07a106466}{Foam::basic2TThermo::printThermoNames}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00075}00075\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00076}00076\ \ \ \ \ Ostream\&\ os,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00077}00077\ \ \ \ \ \textcolor{keyword}{const}\ wordList\&\ cmptNames,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00078}00078\ \ \ \ \ \textcolor{keyword}{const}\ wordList\&\ thermoNames}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00079}00079\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00080}00080\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nCmpt\ =\ cmptNames.size();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00083}00083\ \ \ \ \ \textcolor{comment}{//\ Build\ a\ table\ of\ constituent\ parts\ by\ split\ name\ into\ constituent\ parts}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00084}00084\ \ \ \ \ \textcolor{comment}{//\ -\/\ remove\ incompatible\ entries\ from\ the\ list}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00085}00085\ \ \ \ \ \textcolor{comment}{//\ -\/\ note:\ row-\/0\ contains\ the\ names\ of\ constituent\ parts\ (ie,\ the\ header)}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00087}00087\ \ \ \ \ DynamicList<wordList>\ outputTbl;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00088}00088\ \ \ \ \ outputTbl.resize(thermoNames.size()+1);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00090}00090\ \ \ \ \ label\ rowi\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//\ Header}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00093}00093\ \ \ \ \ outputTbl[rowi]\ =\ cmptNames;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (!outputTbl[rowi].empty())}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00095}00095\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00096}00096\ \ \ \ \ \ \ \ \ ++rowi;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ word\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a64f4e086d03665f1874d59ec8bdeb93d}{thermoName}}\ :\ thermoNames)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00100}00100\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00101}00101\ \ \ \ \ \ \ \ \ outputTbl[rowi]\ =\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a068cc074a2aeef3f14027d04fd054870}{basic2TThermo::splitThermoName}}(\mbox{\hyperlink{classFoam_1_1basic2TThermo_a64f4e086d03665f1874d59ec8bdeb93d}{thermoName}},\ nCmpt);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!outputTbl[rowi].empty())}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00103}00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ ++rowi;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{if}\ (rowi\ >\ 1)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00109}00109\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00110}00110\ \ \ \ \ \ \ \ \ outputTbl.resize(rowi);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00111}00111\ \ \ \ \ \ \ \ \ Foam::printTable(outputTbl,\ os);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00115}00115\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00118}00118\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Private\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00120}00120\ Foam::word\ Foam::basic2TThermo::makeThermoName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00121}00121\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00122}00122\ \ \ \ \ \textcolor{keyword}{const}\ dictionary\&\ thermoTypeDict,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00123}00123\ \ \ \ \ \textcolor{keyword}{const}\ wordList*\&\ cmptHeaderPtr}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00124}00124\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00125}00125\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{if}\ (thermoTypeDict.found(\textcolor{stringliteral}{"{}properties"{}}))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00127}00127\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cmptHeaderPtr)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00129}00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ cmptHeaderPtr\ =\ \&(componentHeader4);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00131}00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ word}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00134}00134\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}type"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}mixture"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}properties"{}})\ +\ \textcolor{charliteral}{','}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}energy"{}})\ +\ \textcolor{stringliteral}{"{}>>"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00139}00139\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00141}00141\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00142}00142\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cmptHeaderPtr)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00144}00144\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ cmptHeaderPtr\ =\ \&(componentHeader7);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00146}00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ word}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00149}00149\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}type"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}mixture"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}transport"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}thermo"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}equationOfState"{}})\ +\ \textcolor{charliteral}{'<'}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}specie"{}})\ +\ \textcolor{stringliteral}{"{}>>,"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ +\ thermoTypeDict.get<word>(\textcolor{stringliteral}{"{}energy"{}})\ +\ \textcolor{stringliteral}{"{}>>>"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00157}00157\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00159}00159\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00162}00162\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Protected\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00164}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a4693324e3b004b3a81392c59ab31a035}{00164}}\ Foam::wordList\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a4693324e3b004b3a81392c59ab31a035}{Foam::basic2TThermo::heBoundaryBaseTypes}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00165}00165\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00166}00166\ \ \ \ \ \textcolor{keyword}{const}\ volScalarField::Boundary\&\ tbf\ =\ this-\/>TTR\_.boundaryField();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00168}00168\ \ \ \ \ wordList\ hbt(tbf.size());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00170}00170\ \ \ \ \ forAll(tbf,\ patchi)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00171}00171\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isA<fixedJumpFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00173}00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pf\ =}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }fixedJumpFvPatchScalarField\&\textcolor{keyword}{>}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tbf[patchi]}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ pf.interfaceFieldType();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00181}00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (isA<fixedJumpAMIFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00183}00183\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pf\ =}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{dynamic\_cast<}\textcolor{keyword}{const\ }fixedJumpAMIFvPatchScalarField\&\textcolor{keyword}{>}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tbf[patchi]}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ pf.interfaceFieldType();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00191}00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00192}00192\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00194}00194\ \ \ \ \ \textcolor{keywordflow}{return}\ hbt;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00195}00195\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00198}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a77c48a3aaebb39b64d99a417b721fc35}{00198}}\ Foam::wordList\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a77c48a3aaebb39b64d99a417b721fc35}{Foam::basic2TThermo::heBoundaryTypes}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00199}00199\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00200}00200\ \ \ \ \ \textcolor{keyword}{const}\ volScalarField::Boundary\&\ tbf\ =\ this-\/>TTR\_.boundaryField();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00202}00202\ \ \ \ \ wordList\ hbt(tbf.types());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00204}00204\ \ \ \ \ forAll(tbf,\ patchi)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00205}00205\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isA<fixedValueFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00207}00207\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ fixedEnergyFvPatchScalarField::typeName;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00209}00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00211}00211\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ isA<zeroGradientFvPatchScalarField>(tbf[patchi])}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00213}00213\ \ \ \ \ \ \ \ \ \ ||\ isA<fixedGradientFvPatchScalarField>(tbf[patchi])}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00214}00214\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00215}00215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ gradientEnergyFvPatchScalarField::typeName;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00217}00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (isA<mixedFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00219}00219\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ mixedEnergyFvPatchScalarField::typeName;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00221}00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (isA<fixedJumpFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00223}00223\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ energyJumpFvPatchScalarField::typeName;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00225}00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (isA<fixedJumpAMIFvPatchScalarField>(tbf[patchi]))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00227}00227\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ hbt[patchi]\ =\ energyJumpAMIFvPatchScalarField::typeName;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00229}00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00230}00230\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00232}00232\ \ \ \ \ \textcolor{keywordflow}{return}\ hbt;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00233}00233\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00236}00236\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Static\ Member\ Functions\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00238}00238\ Foam::volScalarField\&\ Foam::basic2TThermo::lookupOrConstruct}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00239}00239\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00240}00240\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00241}00241\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ fieldName,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00242}00242\ \ \ \ \ \textcolor{keywordtype}{bool}\&\ isOwner}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00243}00243\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00244}00244\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00245}00245\ \ \ \ \ \textcolor{keyword}{auto}*\ ptr\ =\ mesh.objectRegistry::getObjectPtr<volScalarField>(fieldName);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00247}00247\ \ \ \ \ isOwner\ =\ !ptr;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00249}00249\ \ \ \ \ \textcolor{keywordflow}{if}\ (!ptr)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00250}00250\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00251}00251\ \ \ \ \ \ \ \ \ ptr\ =\ \textcolor{keyword}{new}\ volScalarField}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00252}00252\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fieldName,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::MUST\_READ,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::AUTO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ mesh}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00263}00263\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Transfer\ ownership\ of\ this\ object\ to\ the\ objectRegistry}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00266}00266\ \ \ \ \ \ \ \ \ ptr-\/>store();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00267}00267\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ *ptr;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00270}00270\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00273}00273\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Constructors\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00275}\mbox{\hyperlink{classFoam_1_1basic2TThermo_afe478ac63299f844ba6bd0195fbd458c}{00275}}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a497410e8dc4af49bede1c254d43ca967}{Foam::basic2TThermo::basic2TThermo}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00276}00276\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00277}00277\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00278}00278\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00279}00279\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00280}00280\ :}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00281}00281\ \ \ \ \ IOdictionary}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00282}00282\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00283}00283\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00284}00284\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ phasePropertyName(dictName,\ phaseName),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().constant(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::READ\_MODIFIED,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00291}00291\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00292}00292\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00294}00294\ \ \ \ \ phaseName\_(phaseName),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00296}00296\ \ \ \ \ pOwner\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00297}00297\ \ \ \ \ TOwnerTR\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00298}00298\ \ \ \ \ TOwnerVib\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00299}00299\ \ \ \ \ dpdt\_(getOrDefault<bool>(\textcolor{stringliteral}{"{}dpdt"{}},\ true)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00301}00301\ \ \ \ \ p\_(lookupOrConstruct(mesh,\ \textcolor{stringliteral}{"{}p"{}},\ pOwner\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00302}00302\ \ \ \ \ TTR\_(lookupOrConstruct(mesh,\ phasePropertyName(\textcolor{stringliteral}{"{}TTR"{}}),\ TOwnerTR\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00303}00303\ \ \ \ \ TVib\_(lookupOrConstruct(mesh,\ phasePropertyName(\textcolor{stringliteral}{"{}TVib"{}}),\ TOwnerVib\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00305}00305\ \ \ \ \ alpha\_}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00306}00306\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00307}00307\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00308}00308\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}alpha"{}}),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00310}00310\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::READ\_IF\_PRESENT,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00314}00314\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00315}00315\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00316}00316\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00317}00317\ \ \ \ \ \ \ \ \ dimensionedScalar(dimensionSet(1,\ -\/1,\ -\/1,\ 0,\ 0),\ Zero)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00318}00318\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00319}00319\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00320}00320\ \ \ \ \ this-\/>readIfPresent(\textcolor{stringliteral}{"{}updateTTR"{}},\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a03e8f768d555e0ef561e10b249ced227}{TOwnerTR\_}});\ \ \textcolor{comment}{//\ Manual\ override}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00321}00321\ \ \ \ \ this-\/>readIfPresent(\textcolor{stringliteral}{"{}updateTVib"{}},\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_afe92a32afcbfb7dc6674d144dfa8bc2a}{TOwnerVib\_}});\ \ \textcolor{comment}{//\ Manual\ override}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00322}00322\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00325}\mbox{\hyperlink{classFoam_1_1basic2TThermo_aa8328661a6bcea837b2ae27da1f66fd5}{00325}}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a497410e8dc4af49bede1c254d43ca967}{Foam::basic2TThermo::basic2TThermo}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00326}00326\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00327}00327\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00328}00328\ \ \ \ \ \textcolor{keyword}{const}\ dictionary\&\ dict,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00329}00329\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00330}00330\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00331}00331\ :}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00332}00332\ \ \ \ \ IOdictionary}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00333}00333\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00334}00334\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00335}00335\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ phasePropertyName(dictName,\ phaseName),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().constant(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00342}00342\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00343}00343\ \ \ \ \ \ \ \ \ dict}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00344}00344\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00346}00346\ \ \ \ \ phaseName\_(phaseName),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00348}00348\ \ \ \ \ pOwner\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00349}00349\ \ \ \ \ TOwnerTR\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00350}00350\ \ \ \ \ TOwnerVib\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00351}00351\ \ \ \ \ dpdt\_(getOrDefault<bool>(\textcolor{stringliteral}{"{}dpdt"{}},\ true)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00353}00353\ \ \ \ \ p\_(lookupOrConstruct(mesh,\ \textcolor{stringliteral}{"{}p"{}},\ pOwner\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00354}00354\ \ \ \ \ TTR\_(lookupOrConstruct(mesh,\ phasePropertyName(\textcolor{stringliteral}{"{}TTR"{}}),\ TOwnerTR\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00355}00355\ \ \ \ \ TVib\_(lookupOrConstruct(mesh,\ phasePropertyName(\textcolor{stringliteral}{"{}TVib"{}}),\ TOwnerVib\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00357}00357\ \ \ \ \ alpha\_}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00358}00358\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00359}00359\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00360}00360\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}alpha"{}}),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00367}00367\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00368}00368\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00369}00369\ \ \ \ \ \ \ \ \ dimensionedScalar(dimensionSet(1,\ -\/1,\ -\/1,\ 0,\ 0),\ Zero)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00370}00370\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00371}00371\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00372}00372\ \ \ \ \ this-\/>readIfPresent(\textcolor{stringliteral}{"{}updateTTR"{}},\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a03e8f768d555e0ef561e10b249ced227}{TOwnerTR\_}});\ \ \textcolor{comment}{//\ Manual\ override}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00373}00373\ \ \ \ \ this-\/>readIfPresent(\textcolor{stringliteral}{"{}updateTVib"{}},\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_afe92a32afcbfb7dc6674d144dfa8bc2a}{TOwnerVib\_}});\ \ \textcolor{comment}{//\ Manual\ override}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00374}00374\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00377}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a470129b06e3a10bf59825160edc20ab5}{00377}}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a497410e8dc4af49bede1c254d43ca967}{Foam::basic2TThermo::basic2TThermo}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00378}00378\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00379}00379\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00380}00380\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00381}00381\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ dictionaryName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00382}00382\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00383}00383\ :}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00384}00384\ \ \ \ \ IOdictionary}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00385}00385\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00386}00386\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00387}00387\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ dictionaryName,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().constant(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::READ\_MODIFIED,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00394}00394\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00395}00395\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00397}00397\ \ \ \ \ phaseName\_(phaseName),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00399}00399\ \ \ \ \ pOwner\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00400}00400\ \ \ \ \ TOwnerTR\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00401}00401\ \ \ \ \ TOwnerVib\_(false),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00402}00402\ \ \ \ \ dpdt\_(getOrDefault<bool>(\textcolor{stringliteral}{"{}dpdt"{}},\ true)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00403}00403\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00404}00404\ \ \ \ \ p\_(lookupOrConstruct(mesh,\ \textcolor{stringliteral}{"{}p"{}},\ pOwner\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00405}00405\ \ \ \ \ TTR\_(lookupOrConstruct(mesh,\ \textcolor{stringliteral}{"{}TTR"{}},\ TOwnerTR\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00406}00406\ \ \ \ \ TVib\_(lookupOrConstruct(mesh,\ \textcolor{stringliteral}{"{}TVib"{}},\ TOwnerVib\_)),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00407}00407\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00408}00408\ \ \ \ \ alpha\_}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00409}00409\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00410}00410\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00411}00411\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}alpha"{}}),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::READ\_IF\_PRESENT,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00418}00418\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00419}00419\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00420}00420\ \ \ \ \ \ \ \ \ dimensionedScalar(dimensionSet(1,\ -\/1,\ -\/1,\ 0,\ 0),\ Zero)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00421}00421\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00422}00422\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00423}00423\ \ \ \ \ this-\/>readIfPresent(\textcolor{stringliteral}{"{}updateTTR"{}},\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a03e8f768d555e0ef561e10b249ced227}{TOwnerTR\_}});\ \ \textcolor{comment}{//\ Manual\ override}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00425}00425\ \ \ \ \ \textcolor{keywordflow}{if}\ (debug)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00426}00426\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00427}00427\ \ \ \ \ \ \ \ \ Pout<<\ \textcolor{stringliteral}{"{}Constructed\ shared\ thermo\ :\ mesh:"{}}\ <<\ mesh.name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ phase:"{}}\ <<\ phaseName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ dictionary:"{}}\ <<\ dictionaryName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ TTR:"{}}\ <<\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a4b4de405f2898937237dcbdcb2c734f1}{TTR\_}}.name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ updateTTR:"{}}\ <<\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a03e8f768d555e0ef561e10b249ced227}{TOwnerTR\_}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ alphaName:"{}}\ <<\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a2122d249192e2470f2a87cce1bde2bc6}{alpha\_}}.name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00434}00434\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00435}00435\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00438}00438\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Selectors\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00440}\mbox{\hyperlink{classFoam_1_1basic2TThermo_af3eda681c5ac3c1dc2c3bff06260e948}{00440}}\ Foam::autoPtr<Foam::basic2TThermo>\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a7fe14c11b973fd052ac3379d2104525c}{Foam::basic2TThermo::New}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00441}00441\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00442}00442\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00443}00443\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00444}00444\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00445}00445\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00446}00446\ \ \ \ \ \textcolor{keywordflow}{return}\ New<basic2TThermo>(mesh,\ phaseName);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00447}00447\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00448}00448\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00449}00449\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00450}00450\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Destructor\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00452}\mbox{\hyperlink{classFoam_1_1basic2TThermo_aa38df68869a40ae21f9f887614f0b8be}{00452}}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_aa38df68869a40ae21f9f887614f0b8be}{Foam::basic2TThermo::\string~basic2TThermo}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00453}00453\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00454}00454\ \ \ \ \ \textcolor{keywordflow}{if}\ (pOwner\_)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00455}00455\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00456}00456\ \ \ \ \ \ \ \ \ db().checkOut(p\_.name());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00457}00457\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00458}00458\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00459}00459\ \ \ \ \ \textcolor{keywordflow}{if}\ (TOwnerTR\_)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00460}00460\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00461}00461\ \ \ \ \ \ \ \ \ db().checkOut(TTR\_.name());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00462}00462\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00463}00463\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00464}00464\ \ \ \ \ \textcolor{keywordflow}{if}\ (TOwnerVib\_)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00465}00465\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00466}00466\ \ \ \ \ \ \ \ \ db().checkOut(TVib\_.name());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00467}00467\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00468}00468\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00471}00471\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00472}00472\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00473}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a098324ad9fb22cf3d461a447aba8a42b}{00473}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo}{Foam::basic2TThermo}}\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a098324ad9fb22cf3d461a447aba8a42b}{Foam::basic2TThermo::lookupThermo}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00474}00474\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00475}00475\ \ \ \ \ \textcolor{keyword}{const}\ fvPatchScalarField\&\ pf}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00476}00476\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00477}00477\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00478}00478\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}}*\ thermoPtr\ =\ pf.db().cfindObject<\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}}>(dictName);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00479}00479\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00480}00480\ \ \ \ \ \textcolor{keywordflow}{if}\ (thermoPtr)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00481}00481\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00482}00482\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *thermoPtr;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00483}00483\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00485}00485\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}}\&\ thermo\ :\ pf.db().cobjects<\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}}>())}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00486}00486\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00487}00487\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00488}00488\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \&(thermo.he().internalField())}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00490}00490\ \ \ \ \ \ \ \ \ \ ==\ \&(pf.internalField())}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00491}00491\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00492}00492\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thermo;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00494}00494\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00495}00495\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00497}00497\ \ \ \ \ \textcolor{comment}{//\ Failure}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00498}00498\ \ \ \ \ \textcolor{keywordflow}{return}\ pf.db().lookupObject<\mbox{\hyperlink{classFoam_1_1basic2TThermo}{basic2TThermo}}>(dictName);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00499}00499\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00502}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a6daff664e9ae2c2dd7e0a981015faf07}{00502}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a6daff664e9ae2c2dd7e0a981015faf07}{Foam::basic2TThermo::validate}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00503}00503\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00504}00504\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ app,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00505}00505\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ a}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00506}00506\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00507}00507\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00508}00508\ \ \ \ \ \textcolor{keywordflow}{if}\ (!(he().name()\ ==\ phasePropertyName(a)))}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00509}00509\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00510}00510\ \ \ \ \ \ \ \ \ FatalErrorInFunction}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Supported\ energy\ type\ is\ "{}}\ <<\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ thermodynamics\ package\ provides\ "{}}\ <<\ he().name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ exit(FatalError);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00514}00514\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00515}00515\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00516}00516\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00517}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a6d3ee952630e6ded33fa239eb7a1949b}{00517}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a6daff664e9ae2c2dd7e0a981015faf07}{Foam::basic2TThermo::validate}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00518}00518\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00519}00519\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ app,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00520}00520\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ a,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00521}00521\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ b}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00522}00522\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00523}00523\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00524}00524\ \ \ \ \ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00525}00525\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00526}00526\ \ \ \ \ \ \ \ !(}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ he().name()\ ==\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00528}00528\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00529}00529\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00530}00530\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00531}00531\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00532}00532\ \ \ \ \ \ \ \ \ FatalErrorInFunction}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Supported\ energy\ types:\ "{}}\ <<\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ and\ "{}}\ <<\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ thermodynamics\ package\ provides\ "{}}\ <<\ he().name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ exit(FatalError);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00537}00537\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00538}00538\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00540}\mbox{\hyperlink{classFoam_1_1basic2TThermo_aabc47dffcfcdf1c97861fddaf173c09e}{00540}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a6daff664e9ae2c2dd7e0a981015faf07}{Foam::basic2TThermo::validate}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00541}00541\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00542}00542\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ app,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00543}00543\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ a,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00544}00544\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ b,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00545}00545\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ c}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00546}00546\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00547}00547\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00548}00548\ \ \ \ \ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00549}00549\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00550}00550\ \ \ \ \ \ \ \ !(}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ he().name()\ ==\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00552}00552\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00553}00553\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(c)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00554}00554\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00555}00555\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00556}00556\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00557}00557\ \ \ \ \ \ \ \ \ FatalErrorInFunction}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Supported\ energy\ types:\ "{}}\ <<\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ and\ "{}}\ <<\ phasePropertyName(c)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ thermodynamics\ package\ provides\ "{}}\ <<\ he().name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ exit(FatalError);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00563}00563\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00564}00564\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00566}\mbox{\hyperlink{classFoam_1_1basic2TThermo_aa34d2e192896faa7287cbf17e87f6b94}{00566}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a6daff664e9ae2c2dd7e0a981015faf07}{Foam::basic2TThermo::validate}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00567}00567\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00568}00568\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ app,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00569}00569\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ a,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00570}00570\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ b,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00571}00571\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ c,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00572}00572\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ d}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00573}00573\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00574}00574\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00575}00575\ \ \ \ \ \textcolor{keywordflow}{if}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00576}00576\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00577}00577\ \ \ \ \ \ \ \ !(}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ he().name()\ ==\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00579}00579\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00580}00580\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(c)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00581}00581\ \ \ \ \ \ \ \ \ \ ||\ he().name()\ ==\ phasePropertyName(d)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00582}00582\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00583}00583\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00584}00584\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00585}00585\ \ \ \ \ \ \ \ \ FatalErrorInFunction}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}Supported\ energy\ types:\ "{}}\ <<\ phasePropertyName(a)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ phasePropertyName(b)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ phasePropertyName(c)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ and\ "{}}\ <<\ phasePropertyName(d)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{},\ thermodynamics\ package\ provides\ "{}}\ <<\ he().name()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ exit(FatalError);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00592}00592\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00593}00593\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00594}00594\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00595}00595\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00596}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a068cc074a2aeef3f14027d04fd054870}{00596}}\ Foam::wordList\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a068cc074a2aeef3f14027d04fd054870}{Foam::basic2TThermo::splitThermoName}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00597}00597\ (}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00598}00598\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ thermoName,}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00599}00599\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nExpectedCmpts}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00600}00600\ )}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00601}00601\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00602}00602\ \ \ \ \ \textcolor{comment}{//\ Split\ on\ "{},<>"{}\ but\ include\ space\ for\ good\ measure.}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00603}00603\ \ \ \ \ \textcolor{comment}{//\ Splits\ things\ like}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00604}00604\ \ \ \ \ \textcolor{comment}{//\ "{}hePsiThermo<pureMixture<const<hConst<perfectGas<specie>>,enthalpy>>>"{}}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00605}00605\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00606}00606\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ parsed\ =\ stringOps::splitAny<std::string>(thermoName,\ \textcolor{stringliteral}{"{}\ ,<>"{}});}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00607}00607\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ nParsed(parsed.size());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00608}00608\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00609}00609\ \ \ \ \ wordList\ cmpts;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00610}00610\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00611}00611\ \ \ \ \ \textcolor{keywordflow}{if}\ (!nExpectedCmpts\ ||\ nParsed\ ==\ nExpectedCmpts)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00612}00612\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00613}00613\ \ \ \ \ \ \ \ \ cmpts.resize(nParsed);}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00614}00614\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00615}00615\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iter\ =\ cmpts.begin();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00616}00616\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ sub\ :\ parsed)}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00617}00617\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00618}00618\ \ \ \ \ \ \ \ \ \ \ \ \ *iter\ =\ word(sub.str());}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ ++iter;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00620}00620\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00621}00621\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00622}00622\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00623}00623\ \ \ \ \ \textcolor{keywordflow}{return}\ cmpts;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00624}00624\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00625}00625\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00626}00626\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00627}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a827c37f8850b853b8a3429900be2174c}{00627}}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a827c37f8850b853b8a3429900be2174c}{Foam::basic2TThermo::p}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00628}00628\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00629}00629\ \ \ \ \ \textcolor{keywordflow}{return}\ p\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00630}00630\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00631}00631\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00632}00632\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00633}\mbox{\hyperlink{classFoam_1_1basic2TThermo_ab76eb7ef42e08faa113dad03f6a960a7}{00633}}\ \textcolor{keyword}{const}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a827c37f8850b853b8a3429900be2174c}{Foam::basic2TThermo::p}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00634}00634\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00635}00635\ \ \ \ \ \textcolor{keywordflow}{return}\ p\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00636}00636\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00637}00637\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00638}00638\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00639}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a2dc0d90f1d86fd2e4004526b79f248e5}{00639}}\ \textcolor{keyword}{const}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a2dc0d90f1d86fd2e4004526b79f248e5}{Foam::basic2TThermo::TTR}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00640}00640\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00641}00641\ \ \ \ \ \textcolor{keywordflow}{return}\ TTR\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00642}00642\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00644}00644\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00645}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a6a37ab13eaa2b46a20bf80c0870f271c}{00645}}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a2dc0d90f1d86fd2e4004526b79f248e5}{Foam::basic2TThermo::TTR}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00646}00646\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00647}00647\ \ \ \ \ \textcolor{keywordflow}{return}\ TTR\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00648}00648\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00649}00649\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00650}\mbox{\hyperlink{classFoam_1_1basic2TThermo_aad45fbdc347298056253dd16030b750c}{00650}}\ \textcolor{keyword}{const}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_aad45fbdc347298056253dd16030b750c}{Foam::basic2TThermo::TVib}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00651}00651\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00652}00652\ \ \ \ \ \textcolor{keywordflow}{return}\ TVib\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00653}00653\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00655}00655\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00656}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a32fca3668547765755ff30ba4ada7876}{00656}}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_aad45fbdc347298056253dd16030b750c}{Foam::basic2TThermo::TVib}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00657}00657\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00658}00658\ \ \ \ \ \textcolor{keywordflow}{return}\ TVib\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00659}00659\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00660}00660\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00661}00661\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00662}\mbox{\hyperlink{classFoam_1_1basic2TThermo_af7259de139320ae7c58cad248b411141}{00662}}\ \textcolor{keyword}{const}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_af7259de139320ae7c58cad248b411141}{Foam::basic2TThermo::alpha}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00663}00663\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00664}00664\ \ \ \ \ \textcolor{keywordflow}{return}\ alpha\_;}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00665}00665\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00666}00666\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00667}00667\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00668}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a0e6f832ed37ba5b26b5296955f678ff9}{00668}}\ \textcolor{keyword}{const}\ Foam::scalarField\&\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_af7259de139320ae7c58cad248b411141}{Foam::basic2TThermo::alpha}}(\textcolor{keyword}{const}\ label\ patchi)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00669}00669\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00670}00670\ \ \ \ \ \textcolor{keywordflow}{return}\ alpha\_.boundaryField()[patchi];}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00671}00671\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00672}00672\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00673}00673\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00674}\mbox{\hyperlink{classFoam_1_1basic2TThermo_a1ada067aff95fb468a37f9d5fe9677ba}{00674}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a1ada067aff95fb468a37f9d5fe9677ba}{Foam::basic2TThermo::read}}()}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00675}00675\ \{}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00676}00676\ \ \ \ \ \textcolor{keywordflow}{return}\ regIOobject::read();}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00677}00677\ \}}
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00678}00678\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00679}00679\ }
+\DoxyCodeLine{\Hypertarget{basic2TThermo_2basic2TThermo_8C_source_l00680}00680\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

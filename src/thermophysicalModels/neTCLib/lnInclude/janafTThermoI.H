@@ -1,1 +1,0 @@
-../T/specie/thermo/janafT/janafTThermoI.H

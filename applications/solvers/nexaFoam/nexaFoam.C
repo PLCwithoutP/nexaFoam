@@ -38,7 +38,6 @@ Description
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
-#include "neTThermo.H"
 #include "ne2TThermo.H"
 #include "turbulentFluidThermoModel.H"
 #include "fixedRhoFvPatchScalarField.H"
@@ -46,7 +45,6 @@ Description
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 
-#include "typeDecider.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -88,13 +86,13 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        //const scalarField& cpInt = (thermo.Cp())().primitiveField();
+        //const scalarField& cpInt = (thermo2T.Cp())().primitiveField();
         myFile << "Time is : " << runTime.timeName() << endl;
-        myFile << "Average Cv value in internal cells is : \n" << (thermo.Cv())().average().value() << endl;
-        myFile << "Average Cp value in internal cells is : \n" << (thermo.Cp())().average().value() << endl;
-        myFile << "Average Gamma value in internal cells is : \n" << (thermo.gamma())().average().value() << endl;
-        myFile << "Average mu value in internal cells is : \n" << (thermo.mu())().average().value() << endl;
-        myFile << "Average kappa value in internal cells is : \n" << (thermo.kappa())().average().value() << endl;
+        myFile << "Average Cv value in internal cells is : \n" << (thermo2T.Cv())().average().value() << endl;
+        myFile << "Average Cp value in internal cells is : \n" << (thermo2T.Cp())().average().value() << endl;
+        myFile << "Average Gamma value in internal cells is : \n" << (thermo2T.gamma())().average().value() << endl;
+        myFile << "Average mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
+        myFile << "Average kappa value in internal cells is : \n" << (thermo2T.kappa())().average().value() << endl;
 
         #include "readTimeControls.H"
 
@@ -117,11 +115,11 @@ int main(int argc, char *argv[])
         surfaceVectorField rhoU_neg(interpolate(rhoU, neg, U.name()));
 
         volScalarField rPsi("rPsi", 1.0/psi);
-        surfaceScalarField rPsi_pos(interpolate(rPsi, pos, T.name()));
-        surfaceScalarField rPsi_neg(interpolate(rPsi, neg, T.name()));
+        surfaceScalarField rPsi_pos(interpolate(rPsi, pos, TTR.name()));
+        surfaceScalarField rPsi_neg(interpolate(rPsi, neg, TTR.name()));
 
-        surfaceScalarField e_pos(interpolate(e, pos, T.name()));
-        surfaceScalarField e_neg(interpolate(e, neg, T.name()));
+        surfaceScalarField e_pos(interpolate(e, pos, TTR.name()));
+        surfaceScalarField e_neg(interpolate(e, neg, TTR.name()));
 
         surfaceVectorField U_pos("U_pos", rhoU_pos/rho_pos);
         surfaceVectorField U_neg("U_neg", rhoU_neg/rho_neg);
@@ -144,17 +142,17 @@ int main(int argc, char *argv[])
             phiv_neg -= meshPhi;
         }
 
-        volScalarField c("c", sqrt(thermo.Cp()/thermo.Cv()*rPsi));
+        volScalarField c("c", sqrt(thermo2T.Cp()/thermo2T.Cv()*rPsi));
         surfaceScalarField cSf_pos
         (
             "cSf_pos",
-            interpolate(c, pos, T.name())*mesh.magSf()
+            interpolate(c, pos, TTR.name())*mesh.magSf()
         );
 
         surfaceScalarField cSf_neg
         (
             "cSf_neg",
-            interpolate(c, neg, T.name())*mesh.magSf()
+            interpolate(c, neg, TTR.name())*mesh.magSf()
         );
 
         surfaceScalarField ap
@@ -275,7 +273,7 @@ int main(int argc, char *argv[])
 
         e = rhoE/rho - 0.5*magSqr(U);
         e.correctBoundaryConditions();
-        thermo.correct();
+        thermo2T.correct();
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
@@ -288,7 +286,7 @@ int main(int argc, char *argv[])
                 fvm::ddt(rho, e) - fvc::ddt(rho, e)
               - fvm::laplacian(turbulence->alphaEff(), e)
             );
-            thermo.correct();
+            thermo2T.correct();
             rhoE = rho*(e + 0.5*magSqr(U));
         }
         p.ref() =

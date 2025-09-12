@@ -1,1 +1,0 @@
-../T/basic/neTThermo/neTThermo.C

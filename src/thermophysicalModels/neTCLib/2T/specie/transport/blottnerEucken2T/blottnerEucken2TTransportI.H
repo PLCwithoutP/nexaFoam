@@ -86,34 +86,35 @@ Foam::blottnerEucken2TTransport<Thermo2T>::New
 template<class Thermo2T>
 inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::mu
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
     //Info << "Function called" << endl;
-    return 0.1*exp((AB_*log(T) + BB_)*log(T) + CB_);
+    return 0.1*exp((AB_*log(TTR) + BB_)*log(TTR) + CB_);
 }
 
 
 template<class Thermo2T>
-inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::kappa_TR
+inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::kappaTR
 (
-    const scalar p, const scalar T
+    const scalar p, const scalar TTR
 ) const
 {
-    //Info << "kappa_TR function called" << endl;
-    scalar Cv_T_ = this->Cv(p, T);
-    scalar Cv_R_ = this->Cv(p, T);
-    return mu(T)*((5/2)*Cv_T_ + Cv_R_);
+    // This function needs to be corrected
+    //Info << "kappaTR function called" << endl;
+    scalar Cv_T_ = this->CvT(p, TTR);
+    scalar Cv_R_ = this->CvT(p, TTR);
+    return mu(TTR)*((5/2)*Cv_T_ + Cv_R_);
 }
 
 template<class Thermo2T>
-inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::kappa_V
+inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::kappaVib
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
     scalar nv_ = 1.2;
-    return nv_*mu(T);
+    return nv_*mu(TTR);
 }
 
 
@@ -121,11 +122,11 @@ template<class Thermo2T>
 inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::alphah
 (
     const scalar p,
-    const scalar T
+    const scalar TTR
 ) const
 {
 
-    return kappa_TR(p, T)/this->Cp(p, T);
+    return kappaTR(p, TTR)/this->CpTR(p, TTR);
 }
 
 

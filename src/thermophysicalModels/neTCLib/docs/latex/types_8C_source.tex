@@ -1,0 +1,40 @@
+\doxysection{types.\+C}
+\hypertarget{types_8C_source}{}\label{types_8C_source}\index{types.C@{types.C}}
+\mbox{\hyperlink{types_8C}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00008}00008\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00009}00009\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00010}00010\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00011}00011\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00012}00012\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00013}00013\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00014}00014\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00016}00016\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00017}00017\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00018}00018\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00019}00019\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00020}00020\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00021}00021\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00022}00022\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00024}00024\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00026}00026\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{typeDecider_8H}{typeDecider.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}neTThermo.H"{}}\ \ \ \ \textcolor{comment}{//\ 1-\/temperature\ model}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}ne2TThermo.H"{}}\ \ \ \textcolor{comment}{//\ 2-\/temperature\ model}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00031}00031\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00032}00032\ \{}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{template}\ \textcolor{keyword}{class\ }typeDecider<neTThermo,\ ne2TThermo>;}
+\DoxyCodeLine{\Hypertarget{types_8C_source_l00034}00034\ \}}
+
+\end{DoxyCode}

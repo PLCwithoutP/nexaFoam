@@ -49,10 +49,10 @@ namespace Foam
                          Class he2TThermo Declaration
 \*---------------------------------------------------------------------------*/
 
-template<class BasicThermo, class MixtureType>
+template<class Basic2TThermo, class MixtureType>
 class he2TThermo
 :
-    public BasicThermo,
+    public Basic2TThermo,
     public MixtureType
 {
 protected:
@@ -76,14 +76,15 @@ private:
     // Private Member Functions
 
         //- Construct as copy (not implemented)
-        he2TThermo(const he2TThermo<BasicThermo, MixtureType>&);
+        he2TThermo(const he2TThermo<Basic2TThermo, MixtureType>&);
 
 
         //- Initialize he2TThermo
         void init
         (
             const volScalarField& p,
-            const volScalarField& T,
+            const volScalarField& TTR,
+            const volScalarField& TVib,
             volScalarField& he
         );
 
@@ -180,14 +181,14 @@ public:
             virtual tmp<volScalarField> he
             (
                 const volScalarField& p,
-                const volScalarField& T
+                const volScalarField& TTR
             ) const;
 
             //- Enthalpy/Internal energy for cell-set [J/kg]
             virtual tmp<scalarField> he
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const labelList& cells
             ) const;
 
@@ -195,7 +196,7 @@ public:
             virtual tmp<scalarField> he
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const label patchi
             ) const;
 
@@ -203,47 +204,94 @@ public:
             virtual tmp<volScalarField> hc() const;
 
             //- Temperature from enthalpy/internal energy for cell-set
-            virtual tmp<scalarField> THE
+            virtual tmp<scalarField> THE_TR
             (
-                const scalarField& he,
+                const scalarField& h,
                 const scalarField& p,
-                const scalarField& T0,      // starting temperature
+                const scalarField& TTR0,      // starting translational-rotational temperature
                 const labelList& cells
             ) const;
 
             //- Temperature from enthalpy/internal energy for patch
-            virtual tmp<scalarField> THE
+            virtual tmp<scalarField> THE_TR
             (
-                const scalarField& he,
+                const scalarField& h,
                 const scalarField& p,
-                const scalarField& T0,      // starting temperature
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const label patchi
+            ) const;
+
+            //- Temperature from enthalpy/internal energy for cell-set
+            virtual tmp<scalarField> TEH_Vib
+            (
+                const scalarField& h,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const scalarField& TVib0,      // starting vibrational temperature
+                const labelList& cells
+            ) const;
+
+            //- Temperature from enthalpy/internal energy for patch
+            virtual tmp<scalarField> TEH_Vib
+            (
+                const scalarField& h,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const scalarField& TVib0,      // starting vibrational temperature
                 const label patchi
             ) const;
 
             //- Heat capacity at constant pressure for patch [J/kg/K]
-            virtual tmp<scalarField> Cp
+            virtual tmp<scalarField> CpTR
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const label patchi
             ) const;
 
-            //- Heat capacity using pressure and temperature
-            virtual tmp<scalarField> Cp
+            //- Heat capacity using pressure and temperature [J/kg/K]
+            virtual tmp<scalarField> CpTR
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const labelList& cells
             ) const;
 
             //- Heat capacity at constant pressure [J/kg/K]
-            virtual tmp<volScalarField> Cp() const;
+            virtual tmp<volScalarField> CpTR() const;
 
-            //- Heat capacity at constant volume for patch [J/kg/K]
-            virtual tmp<scalarField> Cv
+            //- Translational heat capacity at constant volume [J/kg/K]
+            virtual tmp<volScalarField> CvT() const;
+
+            //- Translational heat capacity at constant volume for patch [J/kg/K]
+            virtual tmp<scalarField> CvT
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
+                const label patchi
+            ) const;
+
+            //- Rotational heat capacity at constant volume [J/kg/K]
+            virtual tmp<volScalarField> CvR() const;
+
+            //- Rotational heat capacity at constant volume for patch [J/kg/K]
+            virtual tmp<scalarField> CvR
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const label patchi
+            ) const;
+
+            //- Vibrational heat capacity at constant volume [J/kg/K]
+            virtual tmp<volScalarField> CvVib() const;
+
+            //- Vibrational heat capacity at constant volume for patch [J/kg/K]
+            virtual tmp<scalarField> CvVib
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const scalarField& Tvib,
+                const scalar ThetaVib,
                 const label patchi
             ) const;
 
@@ -251,43 +299,40 @@ public:
             virtual tmp<scalarField> rhoEoS
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const labelList& cells
             ) const;
 
-            //- Heat capacity at constant volume [J/kg/K]
-            virtual tmp<volScalarField> Cv() const;
-
-            //- Gamma = Cp/Cv []
+            //- Gamma = CpTR/CvT []
             virtual tmp<volScalarField> gamma() const;
 
-            //- Gamma = Cp/Cv for patch []
+            //- Gamma = CpTR/CvT for patch []
             virtual tmp<scalarField> gamma
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const label patchi
             ) const;
 
-            //- Heat capacity at constant pressure/volume for patch [J/kg/K]
-            virtual tmp<scalarField> Cpv
+            //- Translational-Rotational heat capacity at constant pressure/volume for patch [J/kg/K]
+            virtual tmp<scalarField> CpvTR
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const label patchi
             ) const;
 
-            //- Heat capacity at constant pressure/volume [J/kg/K]
-            virtual tmp<volScalarField> Cpv() const;
+            //- Translational-Rotational heat capacity at constant pressure/volume [J/kg/K]
+            virtual tmp<volScalarField> CpvTR() const;
 
-            //- Heat capacity ratio []
-            virtual tmp<volScalarField> CpByCpv() const;
+            //- Translational-Rotational heat capacity ratio []
+            virtual tmp<volScalarField> CpByCpvTR() const;
 
-            //- Heat capacity ratio for patch []
-            virtual tmp<scalarField> CpByCpv
+            //- Translational-Rotational heat capacity ratio for patch []
+            virtual tmp<scalarField> CpByCpvTR
             (
                 const scalarField& p,
-                const scalarField& T,
+                const scalarField& TTR,
                 const label patchi
             ) const;
 
@@ -297,21 +342,31 @@ public:
 
         // Fields derived from transport state variables
 
-            //- Thermal diffusivity for temperature of mixture [J/m/s/K]
-            virtual tmp<volScalarField> kappa() const;
+            //- Translational-rotational thermal diffusivity for temperature of mixture [J/m/s/K]
+            virtual tmp<volScalarField> kappaTR() const;
 
-            //- Thermal diffusivity for temperature
+            //- Translational-rotational thermal diffusivity for temperature
             //  of mixture for patch [J/m/s/K]
-            virtual tmp<scalarField> kappa
+            virtual tmp<scalarField> kappaTR
             (
                 const label patchi
             ) const;
 
-             //- Thermal diffusivity for energy of mixture [kg/m/s]
-            virtual tmp<volScalarField> alphahe() const;
+            //- Vibrational thermal diffusivity for temperature of mixture [J/m/s/K]
+            virtual tmp<volScalarField> kappaVib() const;
 
-            //- Thermal diffusivity for energy of mixture for patch [kg/m/s]
-            virtual tmp<scalarField> alphahe(const label patchi) const;
+            //- Vibrational thermal diffusivity for temperature
+            //  of mixture for patch [J/m/s/K]
+            virtual tmp<scalarField> kappaVib
+            (
+                const label patchi
+            ) const;
+
+             //- Translational-rotational thermal diffusivity for energy of mixture [kg/m/s]
+            virtual tmp<volScalarField> alphaheTR() const;
+
+            //- Translational-rotational thermal diffusivity for energy of mixture for patch [kg/m/s]
+            virtual tmp<scalarField> alphaheTR(const label patchi) const;
 
             //- Effective thermal diffusivity for temperature
             //  of mixture [J/m/s/K]

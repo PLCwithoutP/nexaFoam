@@ -42,7 +42,7 @@ namespace Foam
 
 Foam::ne2TThermo::ne2TThermo(const fvMesh& mesh, const word& phaseName)
 :
-    fluidThermo(mesh, phaseName),
+    fluid2TThermo(mesh, phaseName),
 
     psi_
     (
@@ -83,7 +83,7 @@ Foam::ne2TThermo::ne2TThermo
     const word& dictionaryName
 )
 :
-    fluidThermo(mesh, phaseName, dictionaryName),
+    fluid2TThermo(mesh, phaseName, dictionaryName),
 
     psi_
     (
@@ -124,7 +124,7 @@ Foam::autoPtr<Foam::ne2TThermo> Foam::ne2TThermo::New
     const word& phaseName
 )
 {
-    return basicThermo::New<ne2TThermo>(mesh, phaseName);
+    return basic2TThermo::New<ne2TThermo>(mesh, phaseName);
 }
 
 
@@ -135,7 +135,7 @@ Foam::autoPtr<Foam::ne2TThermo> Foam::ne2TThermo::New
     const word& dictionaryName
 )
 {
-     return basicThermo::New<ne2TThermo>(mesh, phaseName, dictionaryName);
+     return basic2TThermo::New<ne2TThermo>(mesh, phaseName, dictionaryName);
 }
 
 

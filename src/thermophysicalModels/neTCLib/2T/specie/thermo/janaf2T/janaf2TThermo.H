@@ -106,7 +106,7 @@ private:
     // Private Data
 
         // Temperature limits of applicability of functions
-        scalar Tlow_, Thigh_, Tcommon_;
+        scalar Tlow_, Thigh_, Tcommon_, ThetaVib_;
 
         coeffArray highCpCoeffs_;
         coeffArray lowCpCoeffs_;
@@ -118,7 +118,7 @@ private:
         void checkInputData() const;
 
         //- Return the coefficients corresponding to the given temperature
-        inline const coeffArray& coeffs(const scalar T) const;
+        inline const coeffArray& coeffs(const scalar TTR) const;
 
 
 public:
@@ -132,6 +132,7 @@ public:
             const scalar Tlow,
             const scalar Thigh,
             const scalar Tcommon,
+            const scalar ThetaVib,
             const coeffArray& highCpCoeffs,
             const coeffArray& lowCpCoeffs,
             const bool convertCoeffs = false
@@ -153,7 +154,7 @@ public:
         }
 
         //- Limit the temperature to be in the range Tlow_ to Thigh_
-        inline scalar limit(const scalar T) const;
+        inline scalar limit(const scalar TTR) const;
 
 
         // Access
@@ -167,6 +168,9 @@ public:
             //- Return const access to the common temperature
             inline scalar Tcommon() const;
 
+            //- Return const access to the vibrational temperature coefficient
+            inline scalar ThetaVib() const;
+
             //- Return const access to the high temperature poly coefficients
             inline const coeffArray& highCpCoeffs() const;
 
@@ -177,22 +181,22 @@ public:
         // Fundamental properties
 
             //- Heat capacity at constant pressure [J/(kg K)]
-            inline scalar Cp(const scalar p, const scalar T) const;
+            inline scalar CpTR(const scalar p, const scalar TTR) const;
 
             //- Absolute Enthalpy [J/kg]
-            inline scalar Ha(const scalar p, const scalar T) const;
+            inline scalar Ha(const scalar p, const scalar TTR) const;
 
             //- Sensible enthalpy [J/kg]
-            inline scalar Hs(const scalar p, const scalar T) const;
+            inline scalar Hs(const scalar p, const scalar TTR) const;
 
             //- Chemical enthalpy [J/kg]
             inline scalar Hc() const;
 
             //- Entropy [J/(kg K)]
-            inline scalar S(const scalar p, const scalar T) const;
+            inline scalar S(const scalar p, const scalar TTR) const;
 
             //- Gibbs free energy of the mixture in the standard state [J/kg]
-            inline scalar Gstd(const scalar T) const;
+            inline scalar Gstd(const scalar TTR) const;
 
             #include "HtoEthermo2T.H"
 
@@ -201,7 +205,7 @@ public:
 
 
             //- Temperature derivative of heat capacity at constant pressure
-            inline scalar dCpdT(const scalar p, const scalar T) const;
+            inline scalar dCpdT(const scalar p, const scalar TTR) const;
 
 
         // I-O

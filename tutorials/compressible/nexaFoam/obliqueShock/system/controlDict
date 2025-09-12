@@ -16,7 +16,7 @@ FoamFile
 
 libs 
 (
-    "libneTCLib.so"
+    "libneTCLib_2T.so"
 );
 
 application     nexaFoam;

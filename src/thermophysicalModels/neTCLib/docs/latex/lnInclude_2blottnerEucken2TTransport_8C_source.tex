@@ -1,0 +1,112 @@
+\doxysection{ln\+Include/blottner\+Eucken2\+TTransport.C}
+\hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source}{}\label{lnInclude_2blottnerEucken2TTransport_8C_source}\index{blottnerEucken2TTransport.C@{blottnerEucken2TTransport.C}}
+\mbox{\hyperlink{lnInclude_2blottnerEucken2TTransport_8C}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2017\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00009}00009\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00010}00010\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00011}00011\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00012}00012\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00013}00013\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00014}00014\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00015}00015\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00016}00016\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00018}00018\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00019}00019\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00020}00020\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00021}00021\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00022}00022\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00023}00023\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00024}00024\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00025}00025\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00026}00026\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{transport_2blottnerEucken2T_2blottnerEucken2TTransport_8H}{blottnerEucken2TTransport.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}IOstreams.H"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00031}00031\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Private\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00033}00033\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00034}00034\ Foam::scalar\ \mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport}{Foam::blottnerEucken2TTransport<Thermo2T>::readCoeff}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00035}00035\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ coeffName,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{const}\ dictionary\&\ dict}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00038}00038\ )}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{return}\ dict.subDict(\textcolor{stringliteral}{"{}transport"{}}).get<scalar>(coeffName);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00044}00044\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Constructors\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00046}00046\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00047}\mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_a5bf780feb32920a8e2d48934821e6ebf}{00047}}\ \mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_aa68f4efe59b0e5fc5c342927e931a365}{Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport}}(\textcolor{keyword}{const}\ dictionary\&\ dict)}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00048}00048\ :}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00049}00049\ \ \ \ \ Thermo2T(dict),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00050}00050\ \ \ \ \ AB\_(readCoeff(\textcolor{stringliteral}{"{}AB"{}},\ dict)),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00051}00051\ \ \ \ \ BB\_(readCoeff(\textcolor{stringliteral}{"{}BB"{}},\ dict)),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00052}00052\ \ \ \ \ CB\_(readCoeff(\textcolor{stringliteral}{"{}CB"{}},\ dict))}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00053}00053\ \{\}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00056}00056\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00057}\mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_a4aea51bd388ee4f7d7c2e42f4f8358ff}{00057}}\ \mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_aa68f4efe59b0e5fc5c342927e931a365}{Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00058}00058\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00059}00059\ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ t,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00060}00060\ \ \ \ \ \textcolor{keyword}{const}\ dictionary\&\ dict}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00061}00061\ )}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00062}00062\ :}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00063}00063\ \ \ \ \ Thermo2T(t),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00064}00064\ \ \ \ \ AB\_(readCoeff(\textcolor{stringliteral}{"{}AB"{}},\ dict)),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00065}00065\ \ \ \ \ BB\_(readCoeff(\textcolor{stringliteral}{"{}BB"{}},\ dict)),}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00066}00066\ \ \ \ \ CB\_(readCoeff(\textcolor{stringliteral}{"{}CB"{}},\ dict))}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00067}00067\ \{\}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00070}00070\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00072}00072\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00073}\mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_a0d4bc2de5af7ec4ffd81542eb52ea656}{00073}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport_a0d4bc2de5af7ec4ffd81542eb52ea656}{Foam::blottnerEucken2TTransport<Thermo2T>::write}}(Ostream\&\ os)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00074}00074\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00075}00075\ \ \ \ \ os.beginBlock(this-\/>specie::name());}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00077}00077\ \ \ \ \ Thermo2T::write(os);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//\ Entries\ in\ dictionary\ format}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00080}00080\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00081}00081\ \ \ \ \ \ \ \ \ os.beginBlock(\textcolor{stringliteral}{"{}transport"{}});}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00082}00082\ \ \ \ \ \ \ \ \ os.writeEntry(\textcolor{stringliteral}{"{}AB"{}},\ AB\_);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00083}00083\ \ \ \ \ \ \ \ \ os.writeEntry(\textcolor{stringliteral}{"{}BB"{}},\ BB\_);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00084}00084\ \ \ \ \ \ \ \ \ os.writeEntry(\textcolor{stringliteral}{"{}CB"{}},\ CB\_);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00085}00085\ \ \ \ \ \ \ \ \ os.endBlock();}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00088}00088\ \ \ \ \ os.endBlock();}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00092}00092\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ IOstream\ Operators\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00094}00094\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00095}00095\ Foam::Ostream\&\ Foam::operator<<}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00096}00096\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00097}00097\ \ \ \ \ Ostream\&\ os,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00098}00098\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1blottnerEucken2TTransport}{blottnerEucken2TTransport<Thermo2T>}}\&\ st}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00099}00099\ )}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00100}00100\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00101}00101\ \ \ \ \ st.write(os);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00103}00103\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2blottnerEucken2TTransport_8C_source_l00106}00106\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

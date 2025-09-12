@@ -61,7 +61,8 @@ class heNe2TThermo
         void calculate
         (
             const volScalarField& p,
-            volScalarField& T,
+            volScalarField& TTR,
+            volScalarField& TVib,
             volScalarField& he,
             volScalarField& psi,
             volScalarField& mu,

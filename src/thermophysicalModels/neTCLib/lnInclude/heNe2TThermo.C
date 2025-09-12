@@ -1,1 +1,0 @@
-../2T/basic/ne2TThermo/heNe2TThermo.C

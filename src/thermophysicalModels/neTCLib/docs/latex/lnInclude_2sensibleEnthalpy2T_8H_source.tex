@@ -1,0 +1,181 @@
+\doxysection{ln\+Include/sensible\+Enthalpy2T.H}
+\hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source}{}\label{lnInclude_2sensibleEnthalpy2T_8H_source}\index{sensibleEnthalpy2T.H@{sensibleEnthalpy2T.H}}
+\mbox{\hyperlink{lnInclude_2sensibleEnthalpy2T_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2012-\/2017\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00009}00009\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00010}00010\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00011}00011\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00012}00012\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00013}00013\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00014}00014\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00015}00015\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00016}00016\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00018}00018\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00019}00019\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00020}00020\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00021}00021\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00022}00022\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00023}00023\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00024}00024\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00025}00025\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00026}00026\ \textcolor{comment}{Class}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00027}00027\ \textcolor{comment}{\ \ \ \ Foam::sensibleEnthalpy2T}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00029}00029\ \textcolor{comment}{Group}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00030}00030\ \textcolor{comment}{\ \ \ \ grpSpecieThermo}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00031}00031\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00032}00032\ \textcolor{comment}{Description}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00033}00033\ \textcolor{comment}{\ \ \ \ Thermodynamics\ mapping\ class\ to\ expose\ the\ sensible\ enthalpy\ functions.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00034}00034\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00035}00035\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00037}00037\ \textcolor{preprocessor}{\#ifndef\ sensibleEnthalpy2T\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00038}00038\ \textcolor{preprocessor}{\#define\ sensibleEnthalpy2T\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00040}00040\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00042}00042\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00045}00045\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00046}00046\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Class\ sensibleEnthalpy2T\ Declaration}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00047}00047\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00049}00049\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00050}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T}{00050}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T}{sensibleEnthalpy2T}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00051}00051\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00053}00053\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Constructors}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00058}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_ab953f02487180f3a230a78901c357ee8}{00058}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_ab953f02487180f3a230a78901c357ee8}{sensibleEnthalpy2T}}()}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00059}00059\ \ \ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00062}00062\ \ \ \ \ \textcolor{comment}{//\ Member\ Functions}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Return\ the\ instantiated\ type\ name}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00065}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_adc030c1e9303fa11481e1a4fb1a491b4}{00065}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ word\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_adc030c1e9303fa11481e1a4fb1a491b4}{typeName}}()}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00066}00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}sensibleEnthalpy2T"{}};}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00068}00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fundamental\ properties}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00072}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_ad94c0e2e82025e6e49263f44e743a85c}{00072}}\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ word\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_ad94c0e2e82025e6e49263f44e743a85c}{energyName}}()}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}h"{}};}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Heat\ capacity\ at\ constant\ pressure\ [J/(kg\ K)]}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00078}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a4156090b8aed76e10d7453ec6e398ff0}{00078}}\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a4156090b8aed76e10d7453ec6e398ff0}{CpvTR}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ thermo2T,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00084}00084\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00085}00085\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Using\ volatile\ to\ prevent\ compiler\ optimisations\ leading\ to}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ a\ sigfpe}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cp\ =\ thermo2T.CpTR(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cp;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00090}00090\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thermo2T.CpTR(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00092}00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ CpTR/CpTR\ []}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00096}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_aa3febf4e6db9af0cbe31db5ba5ffc74d}{00096}}\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_aa3febf4e6db9af0cbe31db5ba5ffc74d}{CpByCpvTR}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ thermo2T,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00102}00102\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Sensible\ enthalpy\ [J/kg]}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00107}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a2e4b6c5859073f784a6aeb9578e6762a}{00107}}\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a2e4b6c5859073f784a6aeb9578e6762a}{HE}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ thermo2T,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00113}00113\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00114}00114\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Using\ volatile\ to\ prevent\ compiler\ optimisations\ leading\ to}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ a\ sigfpe}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ hs\ =\ thermo2T.Hs(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hs;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00119}00119\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thermo2T.Hs(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00121}00121\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ sensible\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00126}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a4458d0b4d85c142b83ffb37cae71c175}{00126}}\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a4458d0b4d85c142b83ffb37cae71c175}{THE\_TR}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ thermo2T,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ h,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00133}00133\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00134}00134\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Using\ volatile\ to\ prevent\ compiler\ optimisations\ leading\ to}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ a\ sigfpe}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ ths\ =\ thermo2T.THs\_TR(h,\ p,\ TTR0);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ths;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00139}00139\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thermo2T.THs\_TR(h,\ p,\ TTR0);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00141}00141\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Temperature\ from\ sensible\ internal\ energy}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ given\ an\ initial\ temperature\ T0}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00146}\mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a14c7c017fa9ceeac9292daad370c0117}{00146}}\ \ \ \ \ \ \ \ \ \ \ \ \ scalar\ \mbox{\hyperlink{classFoam_1_1sensibleEnthalpy2T_a14c7c017fa9ceeac9292daad370c0117}{TEH\_Vib}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Thermo2T\&\ thermo2T,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ eVib,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR0,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TVib0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00154}00154\ \textcolor{keyword}{\ \ \ \ \ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00155}00155\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Using\ volatile\ to\ prevent\ compiler\ optimisations\ leading\ to}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ a\ sigfpe}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ tesVib\ =\ thermo2T.TEs\_Vib(eVib,\ p,\ TVib0);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tesVib;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00160}00160\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ thermo2T.TEs\_Vib(eVib,\ p,\ TTR0,\ TVib0);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00162}00162\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00164}00164\ \};}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00167}00167\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00169}00169\ \}\ \textcolor{comment}{//\ End\ namespace\ Foam}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00171}00171\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00173}00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2sensibleEnthalpy2T_8H_source_l00175}00175\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

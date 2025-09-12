@@ -1,0 +1,207 @@
+\doxysection{fluid2\+TThermo/make2\+TThermo.H File Reference}
+\hypertarget{fluid2TThermo_2make2TThermo_8H}{}\label{fluid2TThermo_2make2TThermo_8H}\index{make2TThermo.H@{make2TThermo.H}}
+{\ttfamily \#include "{}fluid2\+TThermo.\+H"{}}\newline
+{\ttfamily \#include "{}add\+To\+Run\+Time\+Selection\+Table.\+H"{}}\newline
+Include dependency graph for fluid2\+TThermo/make2\+TThermo.H\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{fluid2TThermo_2make2TThermo_8H__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a964e52183c083280c4df08dfa78c94f6}{typedef\+Thermo\+Physics}}(Transport,  Type,  Thermo,  Eqn\+Of\+State,  Specie)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a294d66a80c9d645f1539fc1c09402572}{define\+Thermo\+Physics\+Thermo}}(Base\+Thermo,  CThermo,  Mixture,  Thermo\+Phys)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a0f9695abd17c225b5923ed0eebf833a3}{add\+Thermo\+Physics\+Thermo}}(Base\+Thermo,  CThermo\+Mixture\+Thermo\+Phys)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a1511ade83a97a9ccd0b928ba1f4157f8}{make\+Thermo\+Physics\+Thermo}}(Base\+Thermo,  CThermo,  Mixture,  Thermo\+Phys)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a3b2933f9dc9d88486001d89ccf0a3aff}{make\+Thermo\+Physics\+Thermos}}(Base\+Thermo,  CThermo,  Mixture,  Thermo\+Phys)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a89abcd953a7aa5201bbbf7d1d240bffd}{make\+Thermo}}(Base\+Thermo,  CThermo,  Mixture,  Transport,  Type,  Thermo,  Eqn\+Of\+State,  Specie)
+\item 
+\#define \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_aadf2a351adcfc9d3529b703b44154034}{make\+Thermos}}(Base\+Thermo,  CThermo,  Mixture,  Transport,  Type,  Thermo,  Eqn\+Of\+State,  Specie)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a0f9695abd17c225b5923ed0eebf833a3}\label{fluid2TThermo_2make2TThermo_8H_a0f9695abd17c225b5923ed0eebf833a3} 
+\index{make2TThermo.H@{make2TThermo.H}!addThermoPhysicsThermo@{addThermoPhysicsThermo}}
+\index{addThermoPhysicsThermo@{addThermoPhysicsThermo}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{addThermoPhysicsThermo}{addThermoPhysicsThermo}}
+{\footnotesize\ttfamily \#define add\+Thermo\+Physics\+Thermo(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo\+Mixture\+Thermo\+Phys }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addToRunTimeSelectionTable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BaseThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermoMixtureThermoPhys,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fvMesh\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addToRunTimeSelectionTable\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BaseThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermoMixtureThermoPhys,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ fvMeshDictPhase\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ );}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00081}{81}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a294d66a80c9d645f1539fc1c09402572}\label{fluid2TThermo_2make2TThermo_8H_a294d66a80c9d645f1539fc1c09402572} 
+\index{make2TThermo.H@{make2TThermo.H}!defineThermoPhysicsThermo@{defineThermoPhysicsThermo}}
+\index{defineThermoPhysicsThermo@{defineThermoPhysicsThermo}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{defineThermoPhysicsThermo}{defineThermoPhysicsThermo}}
+{\footnotesize\ttfamily \#define define\+Thermo\+Physics\+Thermo(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo,  }\item[{}]{Mixture,  }\item[{}]{Thermo\+Phys }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermo\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ BaseThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ Mixture<ThermoPhys>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ >\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermo\#\#Mixture\#\#ThermoPhys;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ defineTemplateTypeNameAndDebugWithName\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermo\#\#Mixture\#\#ThermoPhys,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (\#CThermo\textcolor{stringliteral}{"{}<"{}}\ +\ Mixture<ThermoPhys>::typeName()\ +\ \textcolor{stringliteral}{"{}>"{}}).c\_str(),\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00063}{63}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a89abcd953a7aa5201bbbf7d1d240bffd}\label{fluid2TThermo_2make2TThermo_8H_a89abcd953a7aa5201bbbf7d1d240bffd} 
+\index{make2TThermo.H@{make2TThermo.H}!makeThermo@{makeThermo}}
+\index{makeThermo@{makeThermo}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{makeThermo}{makeThermo}}
+{\footnotesize\ttfamily \#define make\+Thermo(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo,  }\item[{}]{Mixture,  }\item[{}]{Transport,  }\item[{}]{Type,  }\item[{}]{Thermo,  }\item[{}]{Eqn\+Of\+State,  }\item[{}]{Specie }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ typedefThermoPhysics(Transport,Type,Thermo,EqnOfState,Specie);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a1511ade83a97a9ccd0b928ba1f4157f8}{makeThermoPhysicsThermo}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BaseThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Mixture,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Transport\#\#Type\#\#Thermo\#\#EqnOfState\#\#Specie\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00115}{115}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a1511ade83a97a9ccd0b928ba1f4157f8}\label{fluid2TThermo_2make2TThermo_8H_a1511ade83a97a9ccd0b928ba1f4157f8} 
+\index{make2TThermo.H@{make2TThermo.H}!makeThermoPhysicsThermo@{makeThermoPhysicsThermo}}
+\index{makeThermoPhysicsThermo@{makeThermoPhysicsThermo}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{makeThermoPhysicsThermo}{makeThermoPhysicsThermo}}
+{\footnotesize\ttfamily \#define make\+Thermo\+Physics\+Thermo(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo,  }\item[{}]{Mixture,  }\item[{}]{Thermo\+Phys }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ defineThermoPhysicsThermo(BaseThermo,\ CThermo,\ Mixture,\ ThermoPhys);\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addThermoPhysicsThermo(BaseThermo,\ CThermo\#\#Mixture\#\#ThermoPhys)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00098}{98}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a3b2933f9dc9d88486001d89ccf0a3aff}\label{fluid2TThermo_2make2TThermo_8H_a3b2933f9dc9d88486001d89ccf0a3aff} 
+\index{make2TThermo.H@{make2TThermo.H}!makeThermoPhysicsThermos@{makeThermoPhysicsThermos}}
+\index{makeThermoPhysicsThermos@{makeThermoPhysicsThermos}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{makeThermoPhysicsThermos}{makeThermoPhysicsThermos}}
+{\footnotesize\ttfamily \#define make\+Thermo\+Physics\+Thermos(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo,  }\item[{}]{Mixture,  }\item[{}]{Thermo\+Phys }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ defineThermoPhysicsThermo(BaseThermo,\ CThermo,\ Mixture,\ ThermoPhys);\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addThermoPhysicsThermo(basic2TThermo,\ CThermo\#\#Mixture\#\#ThermoPhys);\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addThermoPhysicsThermo(fluid2TThermo,\ CThermo\#\#Mixture\#\#ThermoPhys);\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ addThermoPhysicsThermo(BaseThermo,\ CThermo\#\#Mixture\#\#ThermoPhys)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00105}{105}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_aadf2a351adcfc9d3529b703b44154034}\label{fluid2TThermo_2make2TThermo_8H_aadf2a351adcfc9d3529b703b44154034} 
+\index{make2TThermo.H@{make2TThermo.H}!makeThermos@{makeThermos}}
+\index{makeThermos@{makeThermos}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{makeThermos}{makeThermos}}
+{\footnotesize\ttfamily \#define make\+Thermos(\begin{DoxyParamCaption}\item[{}]{Base\+Thermo,  }\item[{}]{CThermo,  }\item[{}]{Mixture,  }\item[{}]{Transport,  }\item[{}]{Type,  }\item[{}]{Thermo,  }\item[{}]{Eqn\+Of\+State,  }\item[{}]{Specie }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ typedefThermoPhysics(Transport,Type,Thermo,EqnOfState,Specie);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_a3b2933f9dc9d88486001d89ccf0a3aff}{makeThermoPhysicsThermos}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ BaseThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CThermo,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Mixture,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Transport\#\#Type\#\#Thermo\#\#EqnOfState\#\#Specie\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00128}{128}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+
+\Hypertarget{fluid2TThermo_2make2TThermo_8H_a964e52183c083280c4df08dfa78c94f6}\label{fluid2TThermo_2make2TThermo_8H_a964e52183c083280c4df08dfa78c94f6} 
+\index{make2TThermo.H@{make2TThermo.H}!typedefThermoPhysics@{typedefThermoPhysics}}
+\index{typedefThermoPhysics@{typedefThermoPhysics}!make2TThermo.H@{make2TThermo.H}}
+\doxysubsubsection{\texorpdfstring{typedefThermoPhysics}{typedefThermoPhysics}}
+{\footnotesize\ttfamily \#define typedef\+Thermo\+Physics(\begin{DoxyParamCaption}\item[{}]{Transport,  }\item[{}]{Type,  }\item[{}]{Thermo,  }\item[{}]{Eqn\+Of\+State,  }\item[{}]{Specie }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typedef}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Transport\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ species::thermo2T\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Thermo\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ EqnOfState\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Specie\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ >\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ >,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ >\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ >\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Transport\#\#Type\#\#Thermo\#\#EqnOfState\#\#Specie}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source_l00043}{43}} of file \mbox{\hyperlink{fluid2TThermo_2make2TThermo_8H_source}{fluid2\+TThermo/make2\+TThermo.\+H}}.
+

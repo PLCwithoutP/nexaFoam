@@ -153,19 +153,19 @@ public:
         }
 
         //- Dynamic viscosity [kg/ms]
-        inline scalar mu(const scalar T) const;
+        inline scalar mu(const scalar TTR) const;
 
         //- Thermal translational-rotational conductivity [W/mK]
-        inline scalar kappa_TR(const scalar p, const scalar T) const;
+        inline scalar kappaTR(const scalar p, const scalar TTR) const;
 
         //- Thermal vibrational conductivity [W/mK]
-        inline scalar kappa_V(const scalar T) const;
+        inline scalar kappaVib(const scalar TTR) const;
 
         //- Thermal diffusivity of enthalpy [kg/ms]
-        inline scalar alphah(const scalar p, const scalar T) const;
+        inline scalar alphah(const scalar p, const scalar TTR) const;
 
         // Species diffusivity
-        //inline scalar D(const scalar p, const scalar T) const;
+        //inline scalar D(const scalar p, const scalar TTR) const;
 
         //- Write to Ostream
         void write(Ostream& os) const;

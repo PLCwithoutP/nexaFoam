@@ -47,9 +47,9 @@ Description
 #include "eConstThermo.H"
 #include "janaf2TThermo.H"
 
-#include "sensibleEnthalpy2T.H"
-#include "sensibleInternalEnergy2T.H"
 #include "thermo2T.H"
+#include "sensibleEnthalpy2T.H"
+
 
 #include "blottnerEucken2TTransport.H"
 
@@ -70,23 +70,6 @@ namespace Foam
             sensibleEnthalpy2T
         >
     > blottnerEucken2TGasHThermoPhysics;
-
-    // thermo2T physics types based on sensibleInternalEnergy
-
-    typedef
-    blottnerEucken2TTransport
-    <
-        species::thermo2T
-        <
-            janaf2TThermo
-            <
-                perfectGas<specie>
-            >,
-            sensibleInternalEnergy2T
-        >
-    > blottnerEucken2TGasEThermoPhysics;
-
-
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

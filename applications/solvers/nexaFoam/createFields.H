@@ -1,13 +1,17 @@
-#include "decideTempModel.H"
 #include "createRDeltaT.H"
 
-ne2TThermo& thermo = p2T();
+autoPtr<ne2TThermo> n2Thermo
+(
+    ne2TThermo::New(mesh)
+);
 
-volScalarField& e = thermo.he();
+ne2TThermo& thermo2T = n2Thermo();
+
+volScalarField& e = thermo2T.he();
 
 
-/* const scalarField& muInt = (thermo.mu())().primitiveField();
-Info << "Mu value in internal cells is : \n" << (thermo.mu())().primitiveField() << endl; */
+/* const scalarField& muInt = (thermo2T.mu())().primitiveField();
+Info << "Mu value in internal cells is : \n" << (thermo2T.mu())().primitiveField() << endl; */
 
 Info<< "Reading field U\n" << endl;
 volVectorField U
@@ -33,7 +37,7 @@ volScalarField rho
         IOobject::NO_READ,
         IOobject::AUTO_WRITE
     ),
-    thermo.rho()
+    thermo2T.rho()
 );
 
 volVectorField rhoU
@@ -96,7 +100,7 @@ autoPtr<compressible::turbulenceModel> turbulence
         rho,
         U,
         phi,
-        thermo
+        thermo2T
     )
 );
 

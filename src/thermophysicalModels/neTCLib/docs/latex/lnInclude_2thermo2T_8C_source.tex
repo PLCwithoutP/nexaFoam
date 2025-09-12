@@ -1,0 +1,76 @@
+\doxysection{ln\+Include/thermo2T.C}
+\hypertarget{lnInclude_2thermo2T_8C_source}{}\label{lnInclude_2thermo2T_8C_source}\index{thermo2T.C@{thermo2T.C}}
+\mbox{\hyperlink{lnInclude_2thermo2T_8C}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2017\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00009}00009\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00010}00010\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00011}00011\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00012}00012\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00013}00013\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00014}00014\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00015}00015\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00016}00016\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00018}00018\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00019}00019\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00020}00020\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00021}00021\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00022}00022\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00023}00023\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00024}00024\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00025}00025\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00026}00026\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{thermo_2thermo2T_2thermo2T_8H}{thermo2T.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00030}00030\ \textcolor{comment}{/*\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ private\ static\ data\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ */}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00032}00032\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00033}00033\ \textcolor{keyword}{const}\ Foam::scalar\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{Foam::species::thermo2T<Thermo2T,\ Type>::tol\_}}\ =\ 1.0e-\/4;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00035}00035\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00036}00036\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{Foam::species::thermo2T<Thermo2T,\ Type>::maxIter\_}}\ =\ 100;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00039}00039\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Constructors\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00041}00041\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00042}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a95126f1c357cf1bec624da3f87c1442a}{00042}}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a090e9de21c317382566751044cd35ad7}{Foam::species::thermo2T<Thermo2T,\ Type>::thermo2T}}(\textcolor{keyword}{const}\ dictionary\&\ dict)}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00043}00043\ :}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00044}00044\ \ \ \ \ Thermo2T(dict)}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00045}00045\ \{\}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00048}00048\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00050}00050\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00051}\mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3abbbb6c3d9e6bb5517f4c82d6485184}{00051}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T_a3abbbb6c3d9e6bb5517f4c82d6485184}{Foam::species::thermo2T<Thermo2T,\ Type>::write}}(Ostream\&\ os)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00052}00052\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00053}00053\ \ \ \ \ Thermo2T::write(os);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00057}00057\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Ostream\ Operator\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00059}00059\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Thermo2T,\ \textcolor{keyword}{template}<\textcolor{keyword}{class}>\ \textcolor{keyword}{class\ }Type>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00060}00060\ Foam::Ostream\&\ Foam::species::operator<<}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00061}00061\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00062}00062\ \ \ \ \ Ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1species_1_1thermo2T}{thermo2T<Thermo2T,\ Type>}}\&\ st}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00063}00063\ )}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00064}00064\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00065}00065\ \ \ \ \ st.write(os);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2thermo2T_8C_source_l00070}00070\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

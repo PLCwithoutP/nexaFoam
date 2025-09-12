@@ -48,9 +48,6 @@ namespace Foam
 {
     // sensible enthalpy based reactions
     typedef Reaction<blottnerEucken2TGasHThermoPhysics> blottnerEucken2TGasHThermoPhysicsHReaction;
-
-    // internal energy based reactions
-    typedef Reaction<blottnerEucken2TGasEThermoPhysics> blottnerEucken2TGasEThermoPhysicsHReaction;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

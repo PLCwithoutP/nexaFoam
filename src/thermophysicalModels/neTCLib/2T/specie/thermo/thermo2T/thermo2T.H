@@ -118,6 +118,17 @@ class thermo2T
             scalar (thermo2T::*limit)(const scalar) const
         ) const;
 
+        inline scalar TVib
+        (
+            scalar f,
+            scalar p,
+            scalar TTR,
+            scalar TVib0,
+            scalar (thermo2T::*F)(const scalar, const scalar, const scalar, const scalar) const,
+            scalar (thermo2T::*dFdT)(const scalar, const scalar) const,
+            scalar (thermo2T::*limit)(const scalar) const
+        ) const;
+
 
 public:
 
@@ -183,77 +194,89 @@ public:
 
 
             //- Heat capacity at constant pressure/volume [J/(kg K)]
-            inline scalar Cpv(const scalar p, const scalar T) const;
+            inline scalar CpvTR(const scalar p, const scalar TTR) const;
 
-            //- Gamma = Cp/Cv []
-            inline scalar gamma(const scalar p, const scalar T) const;
+            //- Gamma = CpTR/CvT []
+            inline scalar gamma(const scalar p, const scalar TTR) const;
 
             //- Ratio of heat capacity at constant pressure to that at
             //  constant pressure/volume []
-            inline scalar CpByCpv(const scalar p, const scalar T) const;
+            inline scalar CpByCpvTR(const scalar p, const scalar TTR) const;
 
             //- Enthalpy/Internal energy [J/kg]
-            inline scalar HE(const scalar p, const scalar T) const;
+            inline scalar HE(const scalar p, const scalar TTR) const;
 
             //- Gibbs free energy [J/kg]
-            inline scalar G(const scalar p, const scalar T) const;
+            inline scalar G(const scalar p, const scalar TTR) const;
 
             //- Helmholtz free energy [J/kg]
-            inline scalar A(const scalar p, const scalar T) const;
+            inline scalar A(const scalar p, const scalar TTR) const;
 
 
         // Mole specific derived properties
 
             //- Heat capacity at constant pressure [J/(kmol K)]
-            inline scalar cp(const scalar p, const scalar T) const;
+            inline scalar cpTR(const scalar p, const scalar TTR) const;
 
             //- Absolute Enthalpy [J/kmol]
-            inline scalar ha(const scalar p, const scalar T) const;
+            inline scalar ha(const scalar p, const scalar TTR) const;
 
             //- Sensible enthalpy [J/kmol]
-            inline scalar hs(const scalar p, const scalar T) const;
+            inline scalar hs(const scalar p, const scalar TTR) const;
 
             //- Chemical enthalpy [J/kmol]
             inline scalar hc() const;
 
             //- Entropy [J/(kmol K)]
-            inline scalar s(const scalar p, const scalar T) const;
+            inline scalar s(const scalar p, const scalar TTR) const;
 
             //- Enthalpy/Internal energy [J/kmol]
-            inline scalar he(const scalar p, const scalar T) const;
+            inline scalar he(const scalar p, const scalar TTR) const;
 
-            //- Heat capacity at constant volume [J/(kmol K)]
-            inline scalar cv(const scalar p, const scalar T) const;
+            //- Translational heat capacity at constant volume [J/(kmol K)]
+            inline scalar cvT(const scalar p, const scalar TTR) const;
 
-            //- Sensible internal energy [J/kmol]
-            inline scalar es(const scalar p, const scalar T) const;
+            //- Rotational heat capacity at constant volume [J/(kmol K)]
+            inline scalar cvR(const scalar p, const scalar TTR) const;
 
-            //- Absolute internal energy [J/kmol]
-            inline scalar ea(const scalar p, const scalar T) const;
+            //- Vibrational heat capacity at constant volume [J/(kmol K)]
+            inline scalar cvVib(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const;
+
+            //- Translational sensible internal energy [J/kmol]
+            inline scalar esT(const scalar p, const scalar TTR) const;
+
+            //- Translational absolute internal energy [J/kmol]
+            inline scalar eaT(const scalar p, const scalar TTR) const;
+
+            //- Rotational sensible internal energy [J/kmol]
+            inline scalar esR(const scalar p, const scalar TTR) const;
+
+            //- Vibrational sensible internal energy [J/kmol]
+            inline scalar esVib(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const;
 
             //- Gibbs free energy [J/kmol]
-            inline scalar g(const scalar p, const scalar T) const;
+            inline scalar g(const scalar p, const scalar TTR) const;
 
             //- Helmholtz free energy [J/kmol]
-            inline scalar a(const scalar p, const scalar T) const;
+            inline scalar a(const scalar p, const scalar TTR) const;
 
 
         // Equilibrium reaction thermodynamics
 
             //- Equilibrium constant [] i.t.o fugacities
             //  = PIi(fi/Pstd)^nui
-            inline scalar K(const scalar p, const scalar T) const;
+            inline scalar K(const scalar p, const scalar TTR) const;
 
             //- Equilibrium constant [] i.t.o. partial pressures
             //  = PIi(pi/Pstd)^nui
             //  For low pressures (where the gas mixture is near perfect) Kp = K
-            inline scalar Kp(const scalar p, const scalar T) const;
+            inline scalar Kp(const scalar p, const scalar TTR) const;
 
             //- Equilibrium constant i.t.o. molar concentration
             //  = PIi(ci/cstd)^nui
             //  For low pressures (where the gas mixture is near perfect)
-            //  Kc = Kp(pstd/(RR*T))^nu
-            inline scalar Kc(const scalar p, const scalar T) const;
+            //  Kc = Kp(pstd/(RR*TTR))^nu
+            inline scalar Kc(const scalar p, const scalar TTR) const;
 
             //- Equilibrium constant [] i.t.o. mole-fractions
             //  For low pressures (where the gas mixture is near perfect)
@@ -261,7 +284,7 @@ public:
             inline scalar Kx
             (
                 const scalar p,
-                const scalar T
+                const scalar TTR
             ) const;
 
             //- Equilibrium constant [] i.t.o. number of moles
@@ -270,7 +293,7 @@ public:
             inline scalar Kn
             (
                 const scalar p,
-                const scalar T,
+                const scalar TTR,
                 const scalar n
             ) const;
 
@@ -278,57 +301,77 @@ public:
         // Energy->temperature  inversion functions
 
             //- Temperature from enthalpy or internal energy
-            //  given an initial temperature T0
-            inline scalar THE
+            //  given an initial temperature TTR0
+            inline scalar THE_TR
             (
                 const scalar H,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
+            ) const;
+
+            //- Temperature from enthalpy or internal energy
+            //  given an initial temperature TVib0
+            inline scalar TEH_Vib
+            (
+                const scalar esVib,
+                const scalar p,
+                const scalar TTR0,
+                const scalar TVib0
             ) const;
 
             //- Temperature from sensible enthalpy given an initial T0
-            inline scalar THs
+            inline scalar THs_TR
             (
                 const scalar Hs,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
             ) const;
 
             //- Temperature from absolute enthalpy
             //  given an initial temperature T0
-            inline scalar THa
+            inline scalar THa_TR
             (
                 const scalar H,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
             ) const;
 
             //- Temperature from sensible internal energy
             //  given an initial temperature T0
-            inline scalar TEs
+            inline scalar TEs_TR
             (
                 const scalar E,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
+            ) const;
+
+            //- Temperature from sensible internal energy
+            //  given an initial temperature T0
+            inline scalar TEs_Vib
+            (
+                const scalar E,
+                const scalar p,
+                const scalar TTR0,
+                const scalar TVib0
             ) const;
 
             //- Temperature from absolute internal energy
             //  given an initial temperature T0
-            inline scalar TEa
+            inline scalar TEa_TR
             (
                 const scalar E,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
             ) const;
 
 
         // Derivative term used for Jacobian
 
             //- Derivative of B (acooding to Niemeyer et al.) w.r.t. temperature
-            inline scalar dKcdTbyKc(const scalar p, const scalar T) const;
+            inline scalar dKcdTbyKc(const scalar p, const scalar TTR) const;
 
             //- Derivative of cp w.r.t. temperature
-            inline scalar dcpdT(const scalar p, const scalar T) const;
+            inline scalar dcpdT(const scalar p, const scalar TTR) const;
 
 
         // I-O

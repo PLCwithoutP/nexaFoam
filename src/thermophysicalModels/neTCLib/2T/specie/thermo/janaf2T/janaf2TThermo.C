@@ -65,6 +65,7 @@ Foam::janaf2TThermo<EquationOfState>::janaf2TThermo(const dictionary& dict)
     Tlow_(dict.subDict("thermodynamics").get<scalar>("Tlow")),
     Thigh_(dict.subDict("thermodynamics").get<scalar>("Thigh")),
     Tcommon_(dict.subDict("thermodynamics").get<scalar>("Tcommon")),
+    ThetaVib_(dict.subDict("thermodynamics").get<scalar>("ThetaVibrational")),
     highCpCoeffs_(dict.subDict("thermodynamics").lookup("highCpCoeffs")),
     lowCpCoeffs_(dict.subDict("thermodynamics").lookup("lowCpCoeffs"))
 {
@@ -101,6 +102,7 @@ void Foam::janaf2TThermo<EquationOfState>::write(Ostream& os) const
         os.writeEntry("Tlow", Tlow_);
         os.writeEntry("Thigh", Thigh_);
         os.writeEntry("Tcommon", Tcommon_);
+        os.writeEntry("ThetaVib", ThetaVib_);
         os.writeEntry("highCpCoeffs", highCpCoeffs);
         os.writeEntry("lowCpCoeffs", lowCpCoeffs);
         os.endBlock();

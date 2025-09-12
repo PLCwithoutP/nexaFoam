@@ -1,9 +1,10 @@
-volScalarField& p = thermo.p();
-const volScalarField& T = thermo.T();
-const volScalarField& psi = thermo.psi();
+volScalarField& p = thermo2T.p();
+const volScalarField& TTR = thermo2T.TTR();
+const volScalarField& TVib = thermo2T.TVib();
+const volScalarField& psi = thermo2T.psi();
 
 bool inviscid(true);
-if (max(thermo.mu().cref().primitiveField()) > 0.0)
+if (max(thermo2T.mu().cref().primitiveField()) > 0.0)
 {
     inviscid = false;
 }

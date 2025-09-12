@@ -1,0 +1,20 @@
+#!/bin/bash
+
+clear
+source $HOME/OF2412/OpenFOAM-v2412/etc/bashrc
+echo "##############################################################################################"
+echo "Compiling libspecie_2T"
+echo "##############################################################################################"
+cd ./2T/specie
+wclean
+wmake
+echo "Process is completed"
+echo "##############################################################################################"
+cd ..
+echo "Compiling libneTCLib_2T"
+echo "##############################################################################################"
+cd ./basic
+wclean
+wmake
+echo "Process is completed"
+echo "Compilation is finished"

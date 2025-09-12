@@ -1,0 +1,96 @@
+\doxysection{type\+Decider.\+H}
+\hypertarget{typeDecider_8H_source}{}\label{typeDecider_8H_source}\index{typeDecider.H@{typeDecider.H}}
+\mbox{\hyperlink{typeDecider_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00008}00008\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00009}00009\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00010}00010\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00011}00011\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00012}00012\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00013}00013\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00014}00014\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00016}00016\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00017}00017\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00018}00018\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00019}00019\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00020}00020\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00021}00021\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00022}00022\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00024}00024\ \textcolor{comment}{Class}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00025}00025\ \textcolor{comment}{\ \ \ \ Foam::typeDecider}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00027}00027\ \textcolor{comment}{Group}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00028}00028\ \textcolor{comment}{\ \ \ \ grp}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00029}00029\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00030}00030\ \textcolor{comment}{Description}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00031}00031\ \textcolor{comment}{\ \ \ \ Decide\ which\ temperature\ model\ (1T\ or\ 2T)\ to\ use.}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00032}00032\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00033}00033\ \textcolor{comment}{\ \ \ \ Template\ params:}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00034}00034\ \textcolor{comment}{\ \ \ \ -\/\ neTThermo\ :\ the\ 1-\/temperature\ thermo\ class\ (e.g.\ neTThermo)}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00035}00035\ \textcolor{comment}{\ \ \ \ -\/\ ne2TThermo\ :\ the\ 2-\/temperature\ thermo\ class\ (e.g.\ ne2TThermo)}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00036}00036\ \textcolor{comment}{SourceFiles}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00037}00037\ \textcolor{comment}{\ \ \ \ typeDeciderI.H}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00038}00038\ \textcolor{comment}{\ \ \ \ typeDecider.C}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00039}00039\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00040}00040\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00042}00042\ \textcolor{preprocessor}{\#ifndef\ typeDecider\_H}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00043}00043\ \textcolor{preprocessor}{\#define\ typeDecider\_H}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00045}00045\ \textcolor{preprocessor}{\#include\ "{}autoPtr.H"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00046}00046\ \textcolor{preprocessor}{\#include\ "{}word.H"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00047}00047\ \textcolor{preprocessor}{\#include\ "{}fvMesh.H"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00048}00048\ \textcolor{preprocessor}{\#include\ "{}error.H"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00050}00050\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00051}00051\ \{}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00053}00053\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ OneT,\ \textcolor{keyword}{class}\ TwoT>}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00054}\mbox{\hyperlink{classFoam_1_1typeDecider}{00054}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFoam_1_1typeDecider}{typeDecider}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00055}00055\ \{}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00057}00057\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00058}\mbox{\hyperlink{classFoam_1_1typeDecider_a613ce62d9279cef7ce403a36ef2f996d}{00058}}\ \ \ \ \ \ \ \ \ IOdictionary\ \mbox{\hyperlink{classFoam_1_1typeDecider_a613ce62d9279cef7ce403a36ef2f996d}{thermoDict}};}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00059}\mbox{\hyperlink{classFoam_1_1typeDecider_a20f9652403997bcf9fdc3f0768841f02}{00059}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dictionary\ \mbox{\hyperlink{classFoam_1_1typeDecider_a20f9652403997bcf9fdc3f0768841f02}{tt}};}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00060}\mbox{\hyperlink{classFoam_1_1typeDecider_a38c8c51f86eeda470654bdec0c34a62d}{00060}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ word\ \mbox{\hyperlink{classFoam_1_1typeDecider_a38c8c51f86eeda470654bdec0c34a62d}{tempModel}};}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ from\ mesh\ and\ phase\ name}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00066}00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1typeDecider}{typeDecider}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00067}00067\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00069}00069\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//\ Member\ Functions}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00072}00072\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/\ Construct\ exactly\ one\ of\ the\ thermos\ based\ on\ \`{}type`}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classFoam_1_1typeDecider_a0e74eeba87c32ab9e522545763f9abf2}{construct}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00075}00075\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ autoPtr<OneT>\&\ p1T,}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ autoPtr<TwoT>\&\ p2T,}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00079}00079\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00080}00080\ \};}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00082}00082\ \}\ \textcolor{comment}{//\ namespace\ Foam}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00084}00084\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{typeDeciderI_8H}{typeDeciderI.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00086}00086\ \textcolor{preprocessor}{\#ifdef\ NoRepository}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00087}00087\ \textcolor{preprocessor}{\#\ \ \ include\ "{}\mbox{\hyperlink{typeDecider_8C}{typeDecider.C}}"{}}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00088}00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{typeDecider_8H_source_l00090}00090\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

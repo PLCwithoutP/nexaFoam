@@ -41,7 +41,7 @@ SourceFiles
 #ifndef ne2TThermo_H
 #define ne2TThermo_H
 
-#include "fluidThermo.H"
+#include "fluid2TThermo.H"
 #include "runTimeSelectionTables.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -55,7 +55,7 @@ namespace Foam
 
 class ne2TThermo
 :
-    public fluidThermo
+    public fluid2TThermo
 {
 
 protected:

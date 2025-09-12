@@ -1,0 +1,113 @@
+\doxysection{ln\+Include/\+Hto\+Ethermo2T.H}
+\hypertarget{lnInclude_2HtoEthermo2T_8H_source}{}\label{lnInclude_2HtoEthermo2T_8H_source}\index{HtoEthermo2T.H@{HtoEthermo2T.H}}
+\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00001}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a9aa70b42d27cada92be491a2a1109f97}{00001}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a9aa70b42d27cada92be491a2a1109f97}{CvT}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00002}00002\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00003}00003\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00004}00004\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00005}00005\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00006}00006\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00007}00007\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00008}00008\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpTR\ =\ \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_aa0b7c65135f8132343b868a05ac7ff86}{CpTR}}(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00009}00009\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpmcvTR\ =\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{return}\ cpTR\ -\/\ cpmcvTR;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00011}00011\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{lnInclude_2EtoHthermo2T_8H_aa0b7c65135f8132343b868a05ac7ff86}{CpTR}}(p,\ TTR)\ -\/\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00013}00013\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00016}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a12c443092fb4d206761484c82d18f4f7}{00016}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a12c443092fb4d206761484c82d18f4f7}{CvR}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00017}00017\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00020}00020\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00021}00021\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00022}00022\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpmcvTR\ =\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{return}\ cpmcvTR;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00025}00025\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{return}\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00027}00027\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00030}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a6f5e917bdf7a3b76688797d3de4da87f}{00030}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a6f5e917bdf7a3b76688797d3de4da87f}{CvVib}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00031}00031\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TVib,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ ThetaVib}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00036}00036\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00037}00037\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00038}00038\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00039}00039\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ dimensionlessVibTemp\ =\ 0.5*ThetaVib/TVib\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ div\ =\ sinh(0.5*ThetaVib/TVib);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpmcvTR\ =\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{return}\ cpmcvTR*dimensionlessVibTemp/div;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00043}00043\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ EquationOfState::CpMCv(p,\ TTR)*(0.5*ThetaVib/TVib)/sinh(0.5*ThetaVib/TVib);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00045}00045\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00048}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_aa622b286906cf6c85953f0830d98205d}{00048}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_aa622b286906cf6c85953f0830d98205d}{EsT}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00049}00049\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00052}00052\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00053}00053\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00054}00054\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ hsT\ =\ Hs(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ rho\ =\ EquationOfState::rho(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{return}\ hsT\ -\/\ p/rho;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00058}00058\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ Hs(p,\ TTR)\ -\/\ p/EquationOfState::rho(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00060}00060\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00063}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_ad1ab0e2e035188c5db5719c2054b4d66}{00063}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_ad1ab0e2e035188c5db5719c2054b4d66}{EsR}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00064}00064\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00065}00065\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00066}00066\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00067}00067\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00068}00068\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00069}00069\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00070}00070\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpmcvTR\ =\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{return}\ cpmcvTR*TTR;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00072}00072\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{return}\ EquationOfState::CpMCv(p,\ TTR)*TTR;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00074}00074\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00075}00075\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00077}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a81280ffba29ab63b2c08aacfd44ec213}{00077}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a81280ffba29ab63b2c08aacfd44ec213}{EsVib}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00078}00078\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00080}00080\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TVib,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ ThetaVib}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00083}00083\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00084}00084\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00085}00085\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ div\ =\ exp(ThetaVib/TVib)\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00087}00087\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ cpmcvTR\ =\ EquationOfState::CpMCv(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ cpmcvTR*ThetaVib/div;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00089}00089\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{return}\ EquationOfState::CpMCv(p,\ TTR)*ThetaVib/(exp(ThetaVib/TVib)\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00091}00091\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00092}00092\ \}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00094}\mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a97af4dd6149ff5d688175fc177d4521c}{00094}}\ \textcolor{keyword}{inline}\ scalar\ \mbox{\hyperlink{lnInclude_2HtoEthermo2T_8H_a97af4dd6149ff5d688175fc177d4521c}{EaT}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00095}00095\ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{const}\ scalar\ TTR}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00098}00098\ )\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00099}00099\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00100}00100\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_clang\_\_}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00101}00101\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ haT\ =\ Ha(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00102}00102\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keyword}{const}\ scalar\ rho\ =\ EquationOfState::rho(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{return}\ haT\ -\/\ p/rho;}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00104}00104\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{return}\ Ha(p,\ TTR)\ -\/\ p/EquationOfState::rho(p,\ TTR);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00106}00106\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2HtoEthermo2T_8H_source_l00107}00107\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,133 @@
+\doxysection{ln\+Include/he\+Ne2\+TThermo.H}
+\hypertarget{lnInclude_2heNe2TThermo_8H_source}{}\label{lnInclude_2heNe2TThermo_8H_source}\index{heNe2TThermo.H@{heNe2TThermo.H}}
+\mbox{\hyperlink{lnInclude_2heNe2TThermo_8H}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2016\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2015-\/2017\ OpenCFD\ Ltd.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00010}00010\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00011}00011\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00012}00012\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00014}00014\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00015}00015\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00016}00016\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00017}00017\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00019}00019\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00020}00020\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00021}00021\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00022}00022\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00024}00024\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00025}00025\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00027}00027\ \textcolor{comment}{Class}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00028}00028\ \textcolor{comment}{\ \ \ \ Foam::heNe2TThermo}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00029}00029\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00030}00030\ \textcolor{comment}{Description}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00031}00031\ \textcolor{comment}{\ \ \ \ Energy\ for\ a\ mixture\ based\ on\ compressibility}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00032}00032\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00033}00033\ \textcolor{comment}{SourceFiles}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00034}00034\ \textcolor{comment}{\ \ \ \ heNe2TThermo.C}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00035}00035\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00036}00036\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00038}00038\ \textcolor{preprocessor}{\#ifndef\ heNe2TThermo\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00039}00039\ \textcolor{preprocessor}{\#define\ heNe2TThermo\_H}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00041}00041\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ne2TThermo_2ne2TThermo_8H}{ne2TThermo.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{lnInclude_2he2TThermo_8H}{he2TThermo.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00044}00044\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00046}00046\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00049}00049\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00050}00050\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Class\ heNe2TThermo\ Declaration}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00051}00051\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00053}00053\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ BasicNe2TThermo,\ \textcolor{keyword}{class}\ MixtureType>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00054}\mbox{\hyperlink{classFoam_1_1heNe2TThermo}{00054}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classFoam_1_1heNe2TThermo}{heNe2TThermo}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00055}00055\ :}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{public}\ \mbox{\hyperlink{classFoam_1_1he2TThermo}{he2TThermo}}<BasicNe2TThermo,\ MixtureType>}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00057}00057\ \{}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ Private\ Member\ Functions}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Calculate\ the\ thermo\ variables}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ calculate}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00062}00062\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ volScalarField\&\ p,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ TTR,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ TVib,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ \mbox{\hyperlink{classFoam_1_1he2TThermo_acb5910c874509eee02394fafcee58d85}{he}},}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ psi,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ mu,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ volScalarField\&\ alpha,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ doOldTimes}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00071}00071\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ as\ copy\ (not\ implemented)}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00074}00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1heNe2TThermo}{heNe2TThermo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classFoam_1_1heNe2TThermo}{heNe2TThermo<BasicNe2TThermo,\ MixtureType>}}\&);}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00077}00077\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//-\/\ Runtime\ type\ information}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00080}00080\ \ \ \ \ TypeName(\textcolor{stringliteral}{"{}heNe2TThermo"{}});}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00083}00083\ \ \ \ \ \textcolor{comment}{//\ Constructors}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Construct\ from\ mesh\ and\ phase\ name}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00086}00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1heNe2TThermo}{heNe2TThermo}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00087}00087\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00090}00090\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ \ Construct\ from\ mesh\ and\ phase\ name\ and\ dict\ name}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00093}00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classFoam_1_1heNe2TThermo}{heNe2TThermo}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00094}00094\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName,}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ word\&\ dictionaryName}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00098}00098\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//-\/\ Destructor}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00102}00102\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classFoam_1_1heNe2TThermo_abaa5a326690ddebd59f523c9dae23ca0}{\string~heNe2TThermo}}();}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00105}00105\ \ \ \ \ \textcolor{comment}{//\ Member\ functions}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/\ Update\ properties}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1heNe2TThermo_a021f0feec5726dd84b9fc2cc8a234879}{correct}}();}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00110}00110\ \};}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00113}00113\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00115}00115\ \}\ \textcolor{comment}{//\ End\ namespace\ Foam}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00117}00117\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00119}00119\ \textcolor{preprocessor}{\#ifdef\ NoRepository}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00120}00120\ \textcolor{preprocessor}{\#\ \ \ include\ "{}heNe2TThermo.C"{}}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00121}00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00123}00123\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00125}00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{lnInclude_2heNe2TThermo_8H_source_l00127}00127\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

@@ -56,6 +56,19 @@
         "baseIOdictionary.C": "cpp",
         "error.C": "cpp",
         "sigSegv.C": "cpp",
-        "objectRegistryTemplates.C": "cpp"
+        "objectRegistryTemplates.C": "cpp",
+        "basicThermo.C": "cpp",
+        "basicTThermo.C": "cpp",
+        "fluidThermo.C": "cpp",
+        "fluidTThermo.C": "cpp",
+        "basicTThermoTemplates.C": "cpp",
+        "fluid2TThermo.C": "cpp",
+        "basic2TThermo.C": "cpp",
+        "basic2TThermoTemplates.C": "cpp",
+        "thermodynamicConstants.C": "cpp",
+        "*.tcc": "cpp",
+        "ThermalDiffusivity.C": "cpp",
+        "GeometricFieldFunctions.C": "cpp",
+        "random": "cpp"
     }
 }

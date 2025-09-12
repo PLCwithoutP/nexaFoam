@@ -1,0 +1,638 @@
+\doxysection{Foam\+::janaf2\+TThermo\texorpdfstring{$<$}{<} Equation\+Of\+State \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classFoam_1_1janaf2TThermo}{}\label{classFoam_1_1janaf2TThermo}\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+
+
+{\ttfamily \#include $<$janaf2\+TThermo.\+H$>$}
+
+
+
+Inheritance diagram for Foam\+::janaf2\+TThermo\texorpdfstring{$<$}{<} Equation\+Of\+State \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{classFoam_1_1janaf2TThermo__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Foam\+::janaf2\+TThermo\texorpdfstring{$<$}{<} Equation\+Of\+State \texorpdfstring{$>$}{>}\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{classFoam_1_1janaf2TThermo__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Fixed\+List$<$ scalar, \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}{n\+Coeffs\+\_\+}} $>$ \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}}
+\item 
+typedef Fixed\+List$<$ scalar, \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}{n\+Coeffs\+\_\+}} $>$ \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad}{janaf2\+TThermo}} (const Equation\+Of\+State \&st, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a44f172e024c2de3a463bd09ba70a70c6}{Tlow}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4c639cb763b803260d08e358497f55a4}{Thigh}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ab2751820f959ba824d4c886f628c2094}{Tcommon}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_aee4c1ccb47cd4acb4d191786d95dcd11}{Theta\+Vib}}, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4960f908c8b096fcec9da2b9f7054550}{high\+Cp\+Coeffs}}, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9650e8bfba6021c250e34e52f94319e2}{low\+Cp\+Coeffs}}, const bool convert\+Coeffs=false)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3}{janaf2\+TThermo}} (const dictionary \&dict)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747}{janaf2\+TThermo}} (const word \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a52728b84ff239aab7638290e190dd726}{limit}} (const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a44f172e024c2de3a463bd09ba70a70c6}{Tlow}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4c639cb763b803260d08e358497f55a4}{Thigh}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ab2751820f959ba824d4c886f628c2094}{Tcommon}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_aee4c1ccb47cd4acb4d191786d95dcd11}{Theta\+Vib}} () const
+\item 
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4960f908c8b096fcec9da2b9f7054550}{high\+Cp\+Coeffs}} () const
+\item 
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9650e8bfba6021c250e34e52f94319e2}{low\+Cp\+Coeffs}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a0b9423bebfb4fbd8567e9299ce0a23d6}{Cp\+TR}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ac703d779e15282f235ce2b8672692074}{Ha}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9fb29410ef6568aa1c8823ca72833a58}{Hs}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ae57ec802c1b8925da5f13e5ad1aa744d}{Hc}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a7dee0baae8e13613c1521b2a2b0fc670}{S}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a84f7df74bdee9aeba36b0414dbca4b16}{Gstd}} (const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a77c4d02d1264188fc2b4bedbea6d8e08}{d\+CpdT}} (const scalar p, const scalar TTR) const
+\item 
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c}{write}} (Ostream \&os) const
+\item 
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42}{operator+=}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad}{janaf2\+TThermo}} (const Equation\+Of\+State \&st, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a44f172e024c2de3a463bd09ba70a70c6}{Tlow}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4c639cb763b803260d08e358497f55a4}{Thigh}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ab2751820f959ba824d4c886f628c2094}{Tcommon}}, const scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_aee4c1ccb47cd4acb4d191786d95dcd11}{Theta\+Vib}}, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a4960f908c8b096fcec9da2b9f7054550}{high\+Cp\+Coeffs}}, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9650e8bfba6021c250e34e52f94319e2}{low\+Cp\+Coeffs}}, const bool convert\+Coeffs=false)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3}{janaf2\+TThermo}} (const dictionary \&dict)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747}{janaf2\+TThermo}} (const word \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a7de2761caa93370f47dc8648a408f97f}{limit}} (const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a194b1aa6d9b894361ea11aa8772867de}{Tlow}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_aa4bbd3b075ccc519918c2361a5f564a5}{Thigh}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a68a2d375545075ce7ca534772ebb85c9}{Tcommon}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_af8a933b64835a635b828a416842fc66b}{Theta\+Vib}} () const
+\item 
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a11c613e02116d4e5391dbe603f9f9971}{high\+Cp\+Coeffs}} () const
+\item 
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a120b9b7b6334ba6c2c64b0f5f2a3614e}{low\+Cp\+Coeffs}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a94cc48b51e9aaebf746ece4d27cc871c}{Cp\+TR}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ae2a94cb644352747f41aa45c96fbc91f}{Ha}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a8ae900ca27f6e1e73181dac1b9b25814}{Hs}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9a88a96ad5201703ff47a13d2e536e62}{Hc}} () const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a8dbf001ffb86445db159a61bbe77f837}{S}} (const scalar p, const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a35c3c6abfbb1ab668389e27213d944b0}{Gstd}} (const scalar TTR) const
+\item 
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abe3ff88ae2d7a20cb958ccd99b082404}{d\+CpdT}} (const scalar p, const scalar TTR) const
+\item 
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c}{write}} (Ostream \&os) const
+\item 
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42}{operator+=}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static word \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2}{type\+Name}} ()
+\item 
+static word \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2}{type\+Name}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}{n\+Coeffs\+\_\+}} = 7
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa}{operator+}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0}{operator\texorpdfstring{$\ast$}{*}}} (const scalar, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb}{operator==}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+Ostream \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15}{operator$<$$<$}} (Ostream \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa}{operator+}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0}{operator\texorpdfstring{$\ast$}{*}}} (const scalar, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb}{operator==}} (const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\item 
+Ostream \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15}{operator$<$$<$}} (Ostream \&, const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class Equation\+Of\+State$>$\newline
+class Foam\+::janaf2\+TThermo$<$ Equation\+Of\+State $>$}
+
+
+Definition at line \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source_l00092}{92}} of file \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source}{thermo/janaf2\+T/janaf2\+TThermo.\+H}}.
+
+
+
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}\label{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!coeffArray@{coeffArray}}
+\index{coeffArray@{coeffArray}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{coeffArray}{coeffArray}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+typedef Fixed\+List$<$scalar, \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}{n\+Coeffs\+\_\+}}$>$ \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::coeff\+Array}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source_l00101}{101}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source}{ln\+Include/janaf2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}\label{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!coeffArray@{coeffArray}}
+\index{coeffArray@{coeffArray}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{coeffArray}{coeffArray}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+typedef Fixed\+List$<$scalar, \mbox{\hyperlink{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}{n\+Coeffs\+\_\+}}$>$ \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::coeff\+Array}
+
+
+
+Definition at line \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source_l00101}{101}} of file \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source}{thermo/janaf2\+T/janaf2\+TThermo.\+H}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad}\label{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const Equation\+Of\+State \&}]{st,  }\item[{const scalar}]{Tlow,  }\item[{const scalar}]{Thigh,  }\item[{const scalar}]{Tcommon,  }\item[{const scalar}]{Theta\+Vib,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&}]{high\+Cp\+Coeffs,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&}]{low\+Cp\+Coeffs,  }\item[{const bool}]{convert\+Coeffs = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3}\label{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const dictionary \&}]{dict }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermo_8C_source_l00062}{62}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermo_8C_source}{ln\+Include/janaf2\+TThermo.\+C}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source_l00100}{Foam\+::janaf2\+TThermo$<$ Equation\+Of\+State $>$\+::n\+Coeffs\+\_\+}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747}\label{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [3/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const word \&}]{name,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{jt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00093}{93}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+
+
+References \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source_l00100}{Foam\+::janaf2\+TThermo$<$ Equation\+Of\+State $>$\+::n\+Coeffs\+\_\+}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad}\label{classFoam_1_1janaf2TThermo_a6082edcb023b73948cb718cac957c8ad} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [4/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const Equation\+Of\+State \&}]{st,  }\item[{const scalar}]{Tlow,  }\item[{const scalar}]{Thigh,  }\item[{const scalar}]{Tcommon,  }\item[{const scalar}]{Theta\+Vib,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&}]{high\+Cp\+Coeffs,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \&}]{low\+Cp\+Coeffs,  }\item[{const bool}]{convert\+Coeffs = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3}\label{classFoam_1_1janaf2TThermo_acf442c337a412ba137277e357d6d11f3} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [5/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const dictionary \&}]{dict }\end{DoxyParamCaption})}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747}\label{classFoam_1_1janaf2TThermo_a399ba6d805cd2f1f4fffaeb85d432747} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!janaf2TThermo@{janaf2TThermo}}
+\index{janaf2TThermo@{janaf2TThermo}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{janaf2TThermo()}{janaf2TThermo()}\hspace{0.1cm}{\footnotesize\ttfamily [6/6]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo (\begin{DoxyParamCaption}\item[{const word \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classFoam_1_1janaf2TThermo_a0b9423bebfb4fbd8567e9299ce0a23d6}\label{classFoam_1_1janaf2TThermo_a0b9423bebfb4fbd8567e9299ce0a23d6} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00179}{179}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a94cc48b51e9aaebf746ece4d27cc871c}\label{classFoam_1_1janaf2TThermo_a94cc48b51e9aaebf746ece4d27cc871c} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!CpTR@{CpTR}}
+\index{CpTR@{CpTR}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{CpTR()}{CpTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Cp\+TR (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a77c4d02d1264188fc2b4bedbea6d8e08}\label{classFoam_1_1janaf2TThermo_a77c4d02d1264188fc2b4bedbea6d8e08} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!dCpdT@{dCpdT}}
+\index{dCpdT@{dCpdT}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{dCpdT()}{dCpdT()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::d\+CpdT (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00269}{269}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_abe3ff88ae2d7a20cb958ccd99b082404}\label{classFoam_1_1janaf2TThermo_abe3ff88ae2d7a20cb958ccd99b082404} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!dCpdT@{dCpdT}}
+\index{dCpdT@{dCpdT}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{dCpdT()}{dCpdT()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::d\+CpdT (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a84f7df74bdee9aeba36b0414dbca4b16}\label{classFoam_1_1janaf2TThermo_a84f7df74bdee9aeba36b0414dbca4b16} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Gstd@{Gstd}}
+\index{Gstd@{Gstd}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Gstd()}{Gstd()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Gstd (\begin{DoxyParamCaption}\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00250}{250}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a35c3c6abfbb1ab668389e27213d944b0}\label{classFoam_1_1janaf2TThermo_a35c3c6abfbb1ab668389e27213d944b0} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Gstd@{Gstd}}
+\index{Gstd@{Gstd}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Gstd()}{Gstd()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Gstd (\begin{DoxyParamCaption}\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ac703d779e15282f235ce2b8672692074}\label{classFoam_1_1janaf2TThermo_ac703d779e15282f235ce2b8672692074} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Ha@{Ha}}
+\index{Ha@{Ha}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Ha()}{Ha()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Ha (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00193}{193}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ae2a94cb644352747f41aa45c96fbc91f}\label{classFoam_1_1janaf2TThermo_ae2a94cb644352747f41aa45c96fbc91f} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Ha@{Ha}}
+\index{Ha@{Ha}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Ha()}{Ha()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Ha (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ae57ec802c1b8925da5f13e5ad1aa744d}\label{classFoam_1_1janaf2TThermo_ae57ec802c1b8925da5f13e5ad1aa744d} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Hc@{Hc}}
+\index{Hc@{Hc}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Hc()}{Hc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Hc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00220}{220}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a9a88a96ad5201703ff47a13d2e536e62}\label{classFoam_1_1janaf2TThermo_a9a88a96ad5201703ff47a13d2e536e62} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Hc@{Hc}}
+\index{Hc@{Hc}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Hc()}{Hc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Hc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a4960f908c8b096fcec9da2b9f7054550}\label{classFoam_1_1janaf2TThermo_a4960f908c8b096fcec9da2b9f7054550} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!highCpCoeffs@{highCpCoeffs}}
+\index{highCpCoeffs@{highCpCoeffs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{highCpCoeffs()}{highCpCoeffs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{\+::coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::high\+Cp\+Coeffs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00164}{164}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a11c613e02116d4e5391dbe603f9f9971}\label{classFoam_1_1janaf2TThermo_a11c613e02116d4e5391dbe603f9f9971} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!highCpCoeffs@{highCpCoeffs}}
+\index{highCpCoeffs@{highCpCoeffs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{highCpCoeffs()}{highCpCoeffs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::high\+Cp\+Coeffs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a9fb29410ef6568aa1c8823ca72833a58}\label{classFoam_1_1janaf2TThermo_a9fb29410ef6568aa1c8823ca72833a58} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Hs@{Hs}}
+\index{Hs@{Hs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Hs()}{Hs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Hs (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00209}{209}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a8ae900ca27f6e1e73181dac1b9b25814}\label{classFoam_1_1janaf2TThermo_a8ae900ca27f6e1e73181dac1b9b25814} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Hs@{Hs}}
+\index{Hs@{Hs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Hs()}{Hs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Hs (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a52728b84ff239aab7638290e190dd726}\label{classFoam_1_1janaf2TThermo_a52728b84ff239aab7638290e190dd726} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!limit@{limit}}
+\index{limit@{limit}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{limit()}{limit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::limit (\begin{DoxyParamCaption}\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00116}{116}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a7de2761caa93370f47dc8648a408f97f}\label{classFoam_1_1janaf2TThermo_a7de2761caa93370f47dc8648a408f97f} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!limit@{limit}}
+\index{limit@{limit}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{limit()}{limit()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::limit (\begin{DoxyParamCaption}\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a9650e8bfba6021c250e34e52f94319e2}\label{classFoam_1_1janaf2TThermo_a9650e8bfba6021c250e34e52f94319e2} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!lowCpCoeffs@{lowCpCoeffs}}
+\index{lowCpCoeffs@{lowCpCoeffs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{lowCpCoeffs()}{lowCpCoeffs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{\+::coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::low\+Cp\+Coeffs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00172}{172}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a120b9b7b6334ba6c2c64b0f5f2a3614e}\label{classFoam_1_1janaf2TThermo_a120b9b7b6334ba6c2c64b0f5f2a3614e} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!lowCpCoeffs@{lowCpCoeffs}}
+\index{lowCpCoeffs@{lowCpCoeffs}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{lowCpCoeffs()}{lowCpCoeffs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+const \mbox{\hyperlink{classFoam_1_1janaf2TThermo_abc121ce13d3954578f8f3e4da39b2321}{coeff\+Array}} \& \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::low\+Cp\+Coeffs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42}\label{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{jt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00283}{283}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42}\label{classFoam_1_1janaf2TThermo_ae363e2c1fe15b2a6854ddbd7d34fbc42} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::operator+= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a7dee0baae8e13613c1521b2a2b0fc670}\label{classFoam_1_1janaf2TThermo_a7dee0baae8e13613c1521b2a2b0fc670} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!S@{S}}
+\index{S@{S}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{S()}{S()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::S (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00234}{234}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a8dbf001ffb86445db159a61bbe77f837}\label{classFoam_1_1janaf2TThermo_a8dbf001ffb86445db159a61bbe77f837} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!S@{S}}
+\index{S@{S}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{S()}{S()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::S (\begin{DoxyParamCaption}\item[{const scalar}]{p,  }\item[{const scalar}]{TTR }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_ab2751820f959ba824d4c886f628c2094}\label{classFoam_1_1janaf2TThermo_ab2751820f959ba824d4c886f628c2094} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Tcommon@{Tcommon}}
+\index{Tcommon@{Tcommon}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Tcommon()}{Tcommon()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Tcommon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00151}{151}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a68a2d375545075ce7ca534772ebb85c9}\label{classFoam_1_1janaf2TThermo_a68a2d375545075ce7ca534772ebb85c9} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Tcommon@{Tcommon}}
+\index{Tcommon@{Tcommon}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Tcommon()}{Tcommon()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Tcommon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_aee4c1ccb47cd4acb4d191786d95dcd11}\label{classFoam_1_1janaf2TThermo_aee4c1ccb47cd4acb4d191786d95dcd11} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!ThetaVib@{ThetaVib}}
+\index{ThetaVib@{ThetaVib}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{ThetaVib()}{ThetaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Theta\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00157}{157}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_af8a933b64835a635b828a416842fc66b}\label{classFoam_1_1janaf2TThermo_af8a933b64835a635b828a416842fc66b} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!ThetaVib@{ThetaVib}}
+\index{ThetaVib@{ThetaVib}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{ThetaVib()}{ThetaVib()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Theta\+Vib (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a4c639cb763b803260d08e358497f55a4}\label{classFoam_1_1janaf2TThermo_a4c639cb763b803260d08e358497f55a4} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Thigh@{Thigh}}
+\index{Thigh@{Thigh}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Thigh()}{Thigh()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Thigh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00144}{144}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_aa4bbd3b075ccc519918c2361a5f564a5}\label{classFoam_1_1janaf2TThermo_aa4bbd3b075ccc519918c2361a5f564a5} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Thigh@{Thigh}}
+\index{Thigh@{Thigh}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Thigh()}{Thigh()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Thigh (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a44f172e024c2de3a463bd09ba70a70c6}\label{classFoam_1_1janaf2TThermo_a44f172e024c2de3a463bd09ba70a70c6} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Tlow@{Tlow}}
+\index{Tlow@{Tlow}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Tlow()}{Tlow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Foam\+::scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Tlow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00137}{137}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source}{ln\+Include/janaf2\+TThermo\+I.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a194b1aa6d9b894361ea11aa8772867de}\label{classFoam_1_1janaf2TThermo_a194b1aa6d9b894361ea11aa8772867de} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!Tlow@{Tlow}}
+\index{Tlow@{Tlow}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{Tlow()}{Tlow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+scalar \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::\+Tlow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2}\label{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!typeName@{typeName}}
+\index{typeName@{typeName}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{typeName()}{typeName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+static word \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::type\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source_l00151}{151}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source}{ln\+Include/janaf2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2}\label{classFoam_1_1janaf2TThermo_a73bc6d34d8c6a58238858717b4bdcac2} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!typeName@{typeName}}
+\index{typeName@{typeName}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{typeName()}{typeName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+static word \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::type\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source_l00151}{151}} of file \mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H_source}{thermo/janaf2\+T/janaf2\+TThermo.\+H}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c}\label{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!write@{write}}
+\index{write@{write}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::write (\begin{DoxyParamCaption}\item[{Ostream \&}]{os }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermo_8C_source_l00086}{86}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermo_8C_source}{ln\+Include/janaf2\+TThermo.\+C}}.
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c}\label{classFoam_1_1janaf2TThermo_a9b49983a8582594925cca29a3bd3e99c} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!write@{write}}
+\index{write@{write}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+void \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::write (\begin{DoxyParamCaption}\item[{Ostream \&}]{os }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0}\label{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const scalar}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0}\label{classFoam_1_1janaf2TThermo_a6c4eb04977a9d6d5ea27b11af16728d0} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{const scalar}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa}\label{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator+}{operator+}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa}\label{classFoam_1_1janaf2TThermo_a79484c94cda88b38c41dddcffd1cfaaa} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator+@{operator+}}
+\index{operator+@{operator+}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator+}{operator+}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator+ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15}\label{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Ostream \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15}\label{classFoam_1_1janaf2TThermo_a87803fb7e28e0fab5da9a7d4ca54fe15} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+Ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Ostream \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb}\label{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\Hypertarget{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb}\label{classFoam_1_1janaf2TThermo_a0df182d85b0c6bf3ffa431a916829bdb} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+\mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}} operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{,  }\item[{const \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{janaf2\+TThermo}}$<$ Equation\+Of\+State $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6}\label{classFoam_1_1janaf2TThermo_a81b074c6a9993fe40a05b9ce67fc99d6} 
+\index{Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}!nCoeffs\_@{nCoeffs\_}}
+\index{nCoeffs\_@{nCoeffs\_}!Foam::janaf2TThermo$<$ EquationOfState $>$@{Foam::janaf2TThermo$<$ EquationOfState $>$}}
+\doxysubsubsection{\texorpdfstring{nCoeffs\_}{nCoeffs\_}}
+{\footnotesize\ttfamily template$<$class Equation\+Of\+State $>$ \\
+static constexpr int \mbox{\hyperlink{classFoam_1_1janaf2TThermo}{Foam\+::janaf2\+TThermo}}$<$ Equation\+Of\+State $>$\+::n\+Coeffs\+\_\+ = 7\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source_l00100}{100}} of file \mbox{\hyperlink{lnInclude_2janaf2TThermo_8H_source}{ln\+Include/janaf2\+TThermo.\+H}}.
+
+
+
+Referenced by \mbox{\hyperlink{lnInclude_2janaf2TThermo_8C_source_l00062}{Foam\+::janaf2\+TThermo$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo()}}, and \mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H_source_l00094}{Foam\+::janaf2\+TThermo$<$ Equation\+Of\+State $>$\+::janaf2\+TThermo()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lnInclude_2janaf2TThermo_8H}{ln\+Include/janaf2\+TThermo.\+H}}\item 
+\mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8H}{thermo/janaf2\+T/janaf2\+TThermo.\+H}}\item 
+\mbox{\hyperlink{lnInclude_2janaf2TThermo_8C}{ln\+Include/janaf2\+TThermo.\+C}}\item 
+\mbox{\hyperlink{lnInclude_2janaf2TThermoI_8H}{ln\+Include/janaf2\+TThermo\+I.\+H}}\item 
+\mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermo_8C}{thermo/janaf2\+T/janaf2\+TThermo.\+C}}\item 
+\mbox{\hyperlink{thermo_2janaf2T_2janaf2TThermoI_8H}{thermo/janaf2\+T/janaf2\+TThermo\+I.\+H}}\end{DoxyCompactItemize}

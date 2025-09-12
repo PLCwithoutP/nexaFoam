@@ -36,6 +36,7 @@ mixture
         Tlow            100;
         Thigh           10000;
         Tcommon         1000;
+        ThetaVibrational 1;
         highCpCoeffs
         (
             2.9525407

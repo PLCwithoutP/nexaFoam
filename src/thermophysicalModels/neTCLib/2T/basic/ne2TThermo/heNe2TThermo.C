@@ -34,7 +34,8 @@ template<class BasicNe2TThermo, class MixtureType>
 void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 (
     const volScalarField& p,
-    volScalarField& T,
+    volScalarField& TTR,
+    volScalarField& TVib,
     volScalarField& he,
     volScalarField& psi,
     volScalarField& mu,
@@ -42,14 +43,15 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     const bool doOldTimes
 )
 {
-    // Note: update oldTimes before current time so that if T.oldTime() is
-    // created from T, it starts from the unconverted T
-    if (doOldTimes && (p.nOldTimes() || T.nOldTimes()))
+    // Note: update oldTimes before current time so that if TTR.oldTime() is
+    // created from TTR, it starts from the unconverted TTR
+    if (doOldTimes && (p.nOldTimes() || TTR.nOldTimes() || TVib.nOldTimes()))
     {
         calculate
         (
             p.oldTime(),
-            T.oldTime(),
+            TTR.oldTime(),
+            TVib.oldTime(),
             he.oldTime(),
             psi.oldTime(),
             mu.oldTime(),
@@ -61,34 +63,46 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     const scalarField& hCells = he.primitiveField();
     const scalarField& pCells = p.primitiveField();
 
-    scalarField& TCells = T.primitiveFieldRef();
+    scalarField& TTRCells = TTR.primitiveFieldRef();
+    scalarField& TVibCells = TVib.primitiveFieldRef();
     scalarField& psiCells = psi.primitiveFieldRef();
     scalarField& muCells = mu.primitiveFieldRef();
     scalarField& alphaCells = alpha.primitiveFieldRef();
 
-    forAll(TCells, celli)
+    forAll(TTRCells, celli)
     {
         const typename MixtureType::thermoType& mixture_ =
             this->cellMixture(celli);
 
-        if (this->updateT())
+        if (this->updateTTR())
         {
-            TCells[celli] = mixture_.THE
+            TTRCells[celli] = mixture_.THE_TR
             (
                 hCells[celli],
                 pCells[celli],
-                TCells[celli]
+                TTRCells[celli]
             );
         }
 
-        psiCells[celli] = mixture_.psi(pCells[celli], TCells[celli]);
+        if (this->updateTVib())
+        {
+            TVibCells[celli] = mixture_.TEH_Vib
+            (
+                hCells[celli],
+                pCells[celli],
+                TTRCells[celli],
+                TVibCells[celli]
+            );
+        }
+        psiCells[celli] = mixture_.psi(pCells[celli], TTRCells[celli]);
 
-        muCells[celli] = mixture_.mu(TCells[celli]);
-        alphaCells[celli] = mixture_.alphah(pCells[celli], TCells[celli]);
+        muCells[celli] = mixture_.mu(TTRCells[celli]);
+        alphaCells[celli] = mixture_.alphah(pCells[celli], TTRCells[celli]);
     }
 
     const volScalarField::Boundary& pBf = p.boundaryField();
-    volScalarField::Boundary& TBf = T.boundaryFieldRef();
+    volScalarField::Boundary& TTRBf = TTR.boundaryFieldRef();
+    volScalarField::Boundary& TVibBf = TVib.boundaryFieldRef();
     volScalarField::Boundary& psiBf = psi.boundaryFieldRef();
     volScalarField::Boundary& heBf = he.boundaryFieldRef();
     volScalarField::Boundary& muBf = mu.boundaryFieldRef();
@@ -97,41 +111,47 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     forAll(pBf, patchi)
     {
         const fvPatchScalarField& pp = pBf[patchi];
-        fvPatchScalarField& pT = TBf[patchi];
+        fvPatchScalarField& pTTR = TTRBf[patchi];
+        fvPatchScalarField& pTVib = TVibBf[patchi];
         fvPatchScalarField& ppsi = psiBf[patchi];
         fvPatchScalarField& phe = heBf[patchi];
         fvPatchScalarField& pmu = muBf[patchi];
         fvPatchScalarField& palpha = alphaBf[patchi];
 
-        if (pT.fixesValue())
+        if (pTTR.fixesValue())
         {
-            forAll(pT, facei)
+            forAll(pTTR, facei)
             {
                 const typename MixtureType::thermoType& mixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                phe[facei] = mixture_.HE(pp[facei], pT[facei]);
+                phe[facei] = mixture_.HE(pp[facei], pTTR[facei]);
 
-                ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
-                pmu[facei] = mixture_.mu(pT[facei]);
-                palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
+                ppsi[facei] = mixture_.psi(pp[facei], pTTR[facei]);
+                pmu[facei] = mixture_.mu(pTTR[facei]);
+                palpha[facei] = mixture_.alphah(pp[facei], pTTR[facei]);
             }
         }
         else
         {
-            forAll(pT, facei)
+            forAll(pTTR, facei)
             {
                 const typename MixtureType::thermoType& mixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                if (this->updateT())
+                if (this->updateTTR())
                 {
-                    pT[facei] = mixture_.THE(phe[facei], pp[facei], pT[facei]);
+                    pTTR[facei] = mixture_.THE_TR(phe[facei], pp[facei], pTTR[facei]);
                 }
 
-                ppsi[facei] = mixture_.psi(pp[facei], pT[facei]);
-                pmu[facei] = mixture_.mu(pT[facei]);
-                palpha[facei] = mixture_.alphah(pp[facei], pT[facei]);
+                if (this->updateTVib())
+                {
+                    pTVib[facei] = mixture_.TEH_Vib(phe[facei], pp[facei], pTTR[facei], pTVib[facei]);
+                }
+
+                ppsi[facei] = mixture_.psi(pp[facei], pTTR[facei]);
+                pmu[facei] = mixture_.mu(pTTR[facei]);
+                palpha[facei] = mixture_.alphah(pp[facei], pTTR[facei]);
             }
         }
     }
@@ -151,7 +171,8 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
     calculate
     (
         this->p_,
-        this->T_,
+        this->TTR_,
+        this->TVib_,
         this->he_,
         this->psi_,
         this->mu_,
@@ -174,7 +195,8 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
     calculate
     (
         this->p_,
-        this->T_,
+        this->TTR_,
+        this->TVib_,
         this->he_,
         this->psi_,
         this->mu_,
@@ -202,7 +224,8 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correct()
     calculate
     (
         this->p_,
-        this->T_,
+        this->TTR_,
+        this->TVib_,
         this->he_,
         this->psi_,
         this->mu_,

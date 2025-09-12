@@ -75,29 +75,29 @@ public:
             }
 
             //- Heat capacity at constant pressure [J/(kg K)]
-            scalar Cpv
+            scalar CpvTR
             (
                 const Thermo2T& thermo2T,
                 const scalar p,
-                const scalar T
+                const scalar TTR
             ) const
             {
                 #ifdef __clang__
                 // Using volatile to prevent compiler optimisations leading to
                 // a sigfpe
-                volatile const scalar cp = thermo2T.Cp(p, T);
+                volatile const scalar cp = thermo2T.CpTR(p, TTR);
                 return cp;
                 #else
-                return thermo2T.Cp(p, T);
+                return thermo2T.CpTR(p, TTR);
                 #endif
             }
 
-            //- Cp/Cp []
-            scalar CpByCpv
+            //- CpTR/CpTR []
+            scalar CpByCpvTR
             (
                 const Thermo2T& thermo2T,
                 const scalar p,
-                const scalar T
+                const scalar TTR
             ) const
             {
                 return 1;
@@ -108,36 +108,57 @@ public:
             (
                 const Thermo2T& thermo2T,
                 const scalar p,
-                const scalar T
+                const scalar TTR
             ) const
             {
                 #ifdef __clang__
                 // Using volatile to prevent compiler optimisations leading to
                 // a sigfpe
-                volatile const scalar hs = thermo2T.Hs(p, T);
+                volatile const scalar hs = thermo2T.Hs(p, TTR);
                 return hs;
                 #else
-                return thermo2T.Hs(p, T);
+                return thermo2T.Hs(p, TTR);
                 #endif
             }
 
-            //- Temperature from sensible enthalpy
+            //- Temperature from sensible internal energy
             //  given an initial temperature T0
-            scalar THE
+            scalar THE_TR
             (
                 const Thermo2T& thermo2T,
                 const scalar h,
                 const scalar p,
-                const scalar T0
+                const scalar TTR0
             ) const
             {
                 #ifdef __clang__
                 // Using volatile to prevent compiler optimisations leading to
                 // a sigfpe
-                volatile const scalar ths = thermo2T.THs(h, p, T0);
+                volatile const scalar ths = thermo2T.THs_TR(h, p, TTR0);
                 return ths;
                 #else
-                return thermo2T.THs(h, p, T0);
+                return thermo2T.THs_TR(h, p, TTR0);
+                #endif
+            }
+
+            //- Temperature from sensible internal energy
+            //  given an initial temperature T0
+            scalar TEH_Vib
+            (
+                const Thermo2T& thermo2T,
+                const scalar eVib,
+                const scalar p,
+                const scalar TTR0,
+                const scalar TVib0
+            ) const
+            {
+                #ifdef __clang__
+                // Using volatile to prevent compiler optimisations leading to
+                // a sigfpe
+                volatile const scalar tesVib = thermo2T.TEs_Vib(eVib, p, TVib0);
+                return tesVib;
+                #else
+                return thermo2T.TEs_Vib(eVib, p, TTR0, TVib0);
                 #endif
             }
 };

@@ -1,0 +1,200 @@
+\doxysection{ne2\+TThermo/ne2\+TThermo.C}
+\hypertarget{ne2TThermo_2ne2TThermo_8C_source}{}\label{ne2TThermo_2ne2TThermo_8C_source}\index{ne2TThermo.C@{ne2TThermo.C}}
+\mbox{\hyperlink{ne2TThermo_2ne2TThermo_8C}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00001}00001\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*\(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00002}00002\ \textcolor{comment}{\ \ =========\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00003}00003\ \textcolor{comment}{\ \ \(\backslash\)\(\backslash\)\ \ \ \ \ \ /\ \ F\ ield\ \ \ \ \ \ \ \ \ |\ OpenFOAM:\ The\ Open\ Source\ CFD\ Toolbox}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00004}00004\ \textcolor{comment}{\ \ \ \(\backslash\)\(\backslash\)\ \ \ \ /\ \ \ O\ peration\ \ \ \ \ |}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00005}00005\ \textcolor{comment}{\ \ \ \ \(\backslash\)\(\backslash\)\ \ /\ \ \ \ A\ nd\ \ \ \ \ \ \ \ \ \ \ |\ www.openfoam.com}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00006}00006\ \textcolor{comment}{\ \ \ \ \ \(\backslash\)\(\backslash\)/\ \ \ \ \ M\ anipulation\ \ |}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00007}00007\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00008}00008\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2011-\/2017\ OpenFOAM\ Foundation}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00009}00009\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2017-\/2023\ OpenCFD\ Ltd.}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00010}00010\ \textcolor{comment}{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00011}00011\ \textcolor{comment}{License}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00012}00012\ \textcolor{comment}{\ \ \ \ This\ file\ is\ part\ of\ OpenFOAM.}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00014}00014\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify\ it}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00015}00015\ \textcolor{comment}{\ \ \ \ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00016}00016\ \textcolor{comment}{\ \ \ \ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00017}00017\ \textcolor{comment}{\ \ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00018}00018\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00019}00019\ \textcolor{comment}{\ \ \ \ OpenFOAM\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,\ but\ WITHOUT}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00020}00020\ \textcolor{comment}{\ \ \ \ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of\ MERCHANTABILITY\ or}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00021}00021\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00022}00022\ \textcolor{comment}{\ \ \ \ for\ more\ details.}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00024}00024\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00025}00025\ \textcolor{comment}{\ \ \ \ along\ with\ OpenFOAM.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00026}00026\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00027}00027\ \textcolor{comment}{\(\backslash\)*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ne2TThermo_2ne2TThermo_8H}{ne2TThermo.H}}"{}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00031}00031\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00033}00033\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceFoam}{Foam}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00034}00034\ \{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00035}00035\ \ \ \ \ defineTypeNameAndDebug(ne2TThermo,\ 0);}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00036}00036\ \ \ \ \ \mbox{\hyperlink{namespaceFoam_a8a40e2887064415acaeaaedd3f47d0fd}{defineRunTimeSelectionTable}}(ne2TThermo,\ fvMesh);}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{namespaceFoam_a8a40e2887064415acaeaaedd3f47d0fd}{defineRunTimeSelectionTable}}(ne2TThermo,\ fvMeshDictPhase);}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00041}00041\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Constructors\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00043}00043\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ab4c9b48707193f2c2f37b63512ee791c}{Foam::ne2TThermo::ne2TThermo}}(\textcolor{keyword}{const}\ fvMesh\&\ mesh,\ \textcolor{keyword}{const}\ word\&\ phaseName)}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00044}00044\ :}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00045}00045\ \ \ \ \ fluid2TThermo(mesh,\ phaseName),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00047}00047\ \ \ \ \ psi\_}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00048}00048\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00049}00049\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00050}00050\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}psi"{}}),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00057}00057\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00058}00058\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00059}00059\ \ \ \ \ \ \ \ \ dimensionSet(0,\ -\/2,\ 2,\ 0,\ 0)}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00060}00060\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00062}00062\ \ \ \ \ mu\_}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00063}00063\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00064}00064\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00065}00065\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}mu"{}}),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00072}00072\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00073}00073\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00074}00074\ \ \ \ \ \ \ \ \ dimensionSet(1,\ -\/1,\ -\/1,\ 0,\ 0)}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00075}00075\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00076}00076\ \{\}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00079}00079\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ab4c9b48707193f2c2f37b63512ee791c}{Foam::ne2TThermo::ne2TThermo}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00080}00080\ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00081}00081\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ dictionaryName}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00084}00084\ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00085}00085\ :}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00086}00086\ \ \ \ \ fluid2TThermo(mesh,\ phaseName,\ dictionaryName),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00088}00088\ \ \ \ \ psi\_}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00089}00089\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00090}00090\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00091}00091\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}psi"{}}),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00098}00098\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00099}00099\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00100}00100\ \ \ \ \ \ \ \ \ dimensionSet(0,\ -\/2,\ 2,\ 0,\ 0)}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00101}00101\ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00103}00103\ \ \ \ \ mu\_}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00104}00104\ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00105}00105\ \ \ \ \ \ \ \ \ IOobject}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00106}00106\ \ \ \ \ \ \ \ \ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ phaseScopedName(\textcolor{stringliteral}{"{}thermo"{}},\ \textcolor{stringliteral}{"{}mu"{}}),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ mesh.time().timeName(),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_READ,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::NO\_WRITE,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ IOobject::REGISTER}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00113}00113\ \ \ \ \ \ \ \ \ ),}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00114}00114\ \ \ \ \ \ \ \ \ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00115}00115\ \ \ \ \ \ \ \ \ dimensionSet(1,\ -\/1,\ -\/1,\ 0,\ 0)}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00116}00116\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00117}00117\ \{\}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00119}00119\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Selectors\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00121}00121\ Foam::autoPtr<Foam::ne2TThermo>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ae02e017099286cb1dbe8aac02a7a97b6}{Foam::ne2TThermo::New}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00122}00122\ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00123}00123\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00124}00124\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00125}00125\ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00126}00126\ \{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a7fe14c11b973fd052ac3379d2104525c}{basic2TThermo::New<ne2TThermo>}}(\mbox{\hyperlink{classFoam_1_1ne2TThermo_ae02e017099286cb1dbe8aac02a7a97b6}{mesh}},\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ae02e017099286cb1dbe8aac02a7a97b6}{phaseName}});}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00131}00131\ Foam::autoPtr<Foam::ne2TThermo>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ae02e017099286cb1dbe8aac02a7a97b6}{Foam::ne2TThermo::New}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00132}00132\ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00133}00133\ \ \ \ \ \textcolor{keyword}{const}\ fvMesh\&\ mesh,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00134}00134\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ phaseName,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00135}00135\ \ \ \ \ \textcolor{keyword}{const}\ word\&\ dictionaryName}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00136}00136\ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00137}00137\ \{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00138}00138\ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classFoam_1_1basic2TThermo_a7fe14c11b973fd052ac3379d2104525c}{basic2TThermo::New<ne2TThermo>}}(mesh,\ phaseName,\ dictionaryName);}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00142}00142\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Destructor\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00144}00144\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ab5954c03d8ef58983161eadc5f6500cf}{Foam::ne2TThermo::\string~ne2TThermo}}()}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00145}00145\ \{\}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00148}00148\ \textcolor{comment}{//\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ Member\ Functions\ \ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ //}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00150}00150\ Foam::tmp<Foam::volScalarField>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ab35e972da8529ff1e667abb2fe727879}{Foam::ne2TThermo::rho}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00151}00151\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{return}\ p\_*psi\_;}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00153}00153\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00156}00156\ Foam::tmp<Foam::scalarField>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_ab35e972da8529ff1e667abb2fe727879}{Foam::ne2TThermo::rho}}(\textcolor{keyword}{const}\ label\ patchi)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00157}00157\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{return}\ p\_.boundaryField()[patchi]*psi\_.boundaryField()[patchi];}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00159}00159\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00162}00162\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_a9653cc0de6ebd44f1458915bc762487c}{Foam::ne2TThermo::correctRho}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00163}00163\ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00164}00164\ \ \ \ \ \textcolor{keyword}{const}\ Foam::volScalarField\&\ deltaRho,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00165}00165\ \ \ \ \ \textcolor{keyword}{const}\ dimensionedScalar\&\ rhoMin,}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00166}00166\ \ \ \ \ \textcolor{keyword}{const}\ dimensionedScalar\&\ rhoMax}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00167}00167\ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00168}00168\ \{\}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00170}00170\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_a9653cc0de6ebd44f1458915bc762487c}{Foam::ne2TThermo::correctRho}}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00171}00171\ (}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00172}00172\ \ \ \ \ \textcolor{keyword}{const}\ Foam::volScalarField\&\ deltaRho}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00173}00173\ )}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00174}00174\ \{\}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00176}00176\ \textcolor{keyword}{const}\ Foam::volScalarField\&\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_a94f57f9828dfc42cb1235caccd9e8026}{Foam::ne2TThermo::psi}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00177}00177\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{return}\ psi\_;}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00179}00179\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00182}00182\ Foam::tmp<Foam::volScalarField>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_a22adf15a6698fbb09b38c209d970a0cc}{Foam::ne2TThermo::mu}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00183}00183\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00184}00184\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00185}00185\ \ \ \ \ \textcolor{keywordflow}{return}\ mu\_;}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00186}00186\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00189}00189\ Foam::tmp<Foam::scalarField>\ \mbox{\hyperlink{classFoam_1_1ne2TThermo_a22adf15a6698fbb09b38c209d970a0cc}{Foam::ne2TThermo::mu}}(\textcolor{keyword}{const}\ label\ patchi)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00190}00190\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{return}\ mu\_.boundaryField()[patchi];}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00192}00192\ \}}
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{ne2TThermo_2ne2TThermo_8C_source_l00194}00194\ \textcolor{comment}{//\ *************************************************************************\ //}}
+
+\end{DoxyCode}

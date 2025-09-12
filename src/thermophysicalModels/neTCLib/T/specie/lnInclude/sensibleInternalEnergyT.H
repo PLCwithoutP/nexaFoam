@@ -1,1 +1,0 @@
-../thermo/sensibleInternalEnergyT/sensibleInternalEnergyT.H
