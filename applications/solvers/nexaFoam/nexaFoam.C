@@ -34,13 +34,12 @@ Description
 
 \*---------------------------------------------------------------------------*/
 
-#include <variant>
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
 #include "ne2TThermo.H"
-#include "turbulentFluidThermoModel.H"
-#include "fixedRhoFvPatchScalarField.H"
+#include "turbulentFluidTThermoModel.H"
+#include "fixed2TRhoFvPatchScalarField.H"
 #include "directionInterpolate.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
@@ -88,11 +87,19 @@ int main(int argc, char *argv[])
     {
         //const scalarField& cpInt = (thermo2T.Cp())().primitiveField();
         myFile << "Time is : " << runTime.timeName() << endl;
-        myFile << "Average Cv value in internal cells is : \n" << (thermo2T.Cv())().average().value() << endl;
-        myFile << "Average Cp value in internal cells is : \n" << (thermo2T.Cp())().average().value() << endl;
-        myFile << "Average Gamma value in internal cells is : \n" << (thermo2T.gamma())().average().value() << endl;
-        myFile << "Average mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
-        myFile << "Average kappa value in internal cells is : \n" << (thermo2T.kappa())().average().value() << endl;
+        myFile << "Average Translational-Rotational Cv value in internal cells is : \n" << (thermo2T.CvT())().average().value() << endl;
+        myFile << "Average Translational-Rotational Cp value in internal cells is : \n" << (thermo2T.CpTR())().average().value() << endl;
+        myFile << "Average Vibrational Cv value in internal cells is : \n" << (thermo2T.CvVib())().average().value() << endl;
+        myFile << "Average Translational-Rotational mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
+        myFile << "Average Translational-Rotational kappa value in internal cells is : \n" << (thermo2T.kappaTR())().average().value() << endl;
+        myFile << "Average Vibrational kappa value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
+        //myFile << "Average Translational internal energy is : \n" << (thermo2T.EsT(p, TTR))().average().value() << endl;
+        //myFile << "Average Rotational internal energy is : \n" << (thermo2T.esR())().average().value() << endl;
+
+        // Average value
+        const dimensionedScalar avg_hTR = sum(mesh.V()*fvc::domainIntegrate(hTR)) / sum(mesh.V());
+
+        myFile << "Average translational-rotational enthalpy is: " << avg_hTR << nl;
 
         #include "readTimeControls.H"
 
@@ -118,8 +125,8 @@ int main(int argc, char *argv[])
         surfaceScalarField rPsi_pos(interpolate(rPsi, pos, TTR.name()));
         surfaceScalarField rPsi_neg(interpolate(rPsi, neg, TTR.name()));
 
-        surfaceScalarField e_pos(interpolate(e, pos, TTR.name()));
-        surfaceScalarField e_neg(interpolate(e, neg, TTR.name()));
+        surfaceScalarField e_pos(interpolate(hTR, pos, TTR.name()));
+        surfaceScalarField e_neg(interpolate(hTR, neg, TTR.name()));
 
         surfaceVectorField U_pos("U_pos", rhoU_pos/rho_pos);
         surfaceVectorField U_neg("U_neg", rhoU_neg/rho_neg);
@@ -142,7 +149,7 @@ int main(int argc, char *argv[])
             phiv_neg -= meshPhi;
         }
 
-        volScalarField c("c", sqrt(thermo2T.Cp()/thermo2T.Cv()*rPsi));
+        volScalarField c("c", sqrt(thermo2T.CpTR()/thermo2T.CvT()*rPsi));
         surfaceScalarField cSf_pos
         (
             "cSf_pos",
@@ -271,23 +278,23 @@ int main(int argc, char *argv[])
           - fvc::div(sigmaDotU)
         );
 
-        e = rhoE/rho - 0.5*magSqr(U);
-        e.correctBoundaryConditions();
+        hTR = rhoE/rho - 0.5*magSqr(U);
+        hTR.correctBoundaryConditions();
         thermo2T.correct();
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
-                e.boundaryField() + 0.5*magSqr(U.boundaryField())
+                hTR.boundaryField() + 0.5*magSqr(U.boundaryField())
             );
         if (!inviscid)
         {
             solve
             (
-                fvm::ddt(rho, e) - fvc::ddt(rho, e)
-              - fvm::laplacian(turbulence->alphaEff(), e)
+                fvm::ddt(rho, hTR) - fvc::ddt(rho, hTR)
+              - fvm::laplacian(turbulence->alphaEff(), hTR)
             );
             thermo2T.correct();
-            rhoE = rho*(e + 0.5*magSqr(U));
+            rhoE = rho*(hTR + 0.5*magSqr(U));
         }
         p.ref() =
             rho()

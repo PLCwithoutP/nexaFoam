@@ -125,7 +125,7 @@ class thermo2T
             scalar TTR,
             scalar TVib0,
             scalar (thermo2T::*F)(const scalar, const scalar, const scalar, const scalar) const,
-            scalar (thermo2T::*dFdT)(const scalar, const scalar) const,
+            scalar (thermo2T::*dFdT)(const scalar, const scalar, const scalar, const scalar) const,
             scalar (thermo2T::*limit)(const scalar) const
         ) const;
 

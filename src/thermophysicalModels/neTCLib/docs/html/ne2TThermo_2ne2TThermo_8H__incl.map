@@ -1,7 +1,0 @@
-<map id="ne2TThermo.H" name="ne2TThermo.H">
-<area shape="rect" id="Node000001" title=" " alt="" coords="103,5,222,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,136,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,33,98,72,95,68,146,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="161,79,351,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,29,232,68,228,72,176,33"/>
-</map>

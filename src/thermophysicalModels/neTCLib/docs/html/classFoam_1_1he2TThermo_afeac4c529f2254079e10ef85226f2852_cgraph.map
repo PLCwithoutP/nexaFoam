@@ -1,8 +1,0 @@
-<map id="Foam::he2TThermo::kappaTR" name="Foam::he2TThermo::kappaTR">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,217,31"/>
-<area shape="rect" id="Node000002" href="$lnInclude_2EtoHthermo2T_8H.html#aa0b7c65135f8132343b868a05ac7ff86" title=" " alt="" coords="265,5,321,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,15,252,15,252,21,218,21"/>
-<area shape="rect" id="Node000003" href="$lnInclude_2HtoEthermo2T_8H.html#a9aa70b42d27cada92be491a2a1109f97" title=" " alt="" coords="369,5,416,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="322,23,356,24,356,29,322,29"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="369,13,335,12,335,6,369,8"/>
-</map>

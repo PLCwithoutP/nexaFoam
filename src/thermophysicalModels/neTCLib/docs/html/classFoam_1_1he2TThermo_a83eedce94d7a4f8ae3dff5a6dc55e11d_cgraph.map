@@ -1,8 +1,0 @@
-<map id="Foam::he2TThermo::kappaVib" name="Foam::he2TThermo::kappaVib">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,221,31"/>
-<area shape="rect" id="Node000002" href="$lnInclude_2EtoHthermo2T_8H.html#aa0b7c65135f8132343b868a05ac7ff86" title=" " alt="" coords="269,5,325,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,15,256,15,256,21,222,21"/>
-<area shape="rect" id="Node000003" href="$lnInclude_2HtoEthermo2T_8H.html#a9aa70b42d27cada92be491a2a1109f97" title=" " alt="" coords="373,5,420,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="326,23,360,24,360,29,326,29"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="373,13,339,12,339,6,373,8"/>
-</map>

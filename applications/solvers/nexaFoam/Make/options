@@ -1,5 +1,7 @@
 EXE_INC = \
     -IBCs/lnInclude \
+    -I../../../src/TurbulenceModels/turbulenceModels/lnInclude \
+    -I../../../src/TurbulenceModels/compressible/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/T/basic/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/T/specie/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/2T/basic/lnInclude \
@@ -19,13 +21,14 @@ EXE_LIBS = \
     -lneTCLib_2T \
     -lneTCspecie_T \
     -lneTCspecie_2T \
+    -lneCompressibleTurbulenceModels \
     -lfiniteVolume \
     -lfvOptions \
     -lmeshTools \
     -lcompressibleTransportModels \
     -lfluidThermophysicalModels \
     -lspecie \
-    -lrhoCentralFoam \
+    -lnexaFoam \
     -lturbulenceModels \
     -lcompressibleTurbulenceModels \
     -lthermoTools \

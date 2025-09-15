@@ -601,15 +601,15 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsSort.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsEvaluate.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsTemplates.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/zeroGradientFvPatchFields.H \
-$(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/fixedEnergyFvPatchScalarField.H \
+lnInclude/fixed2TEnergyFvPatchScalarField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedValueFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedValueFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedValueFvPatchField.C \
-$(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/gradientEnergyFvPatchScalarField.H \
+lnInclude/gradient2TEnergyFvPatchScalarField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedGradientFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedGradientFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedGradientFvPatchField.C \
-$(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/mixedEnergyFvPatchScalarField.H \
+lnInclude/mixed2TEnergyFvPatchScalarField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.C \
@@ -773,7 +773,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedJumpAMIFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/jumpCyclicAMIFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/jumpCyclicAMIFvPatchField.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedJumpAMIFvPatchField.C \
-$(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/energyJumpFvPatchScalarField.H \
-$(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/energyJumpAMIFvPatchScalarField.H \
+lnInclude/energy2TJumpFvPatchScalarField.H \
+lnInclude/energy2TJumpAMIFvPatchScalarField.H \
 
 #END

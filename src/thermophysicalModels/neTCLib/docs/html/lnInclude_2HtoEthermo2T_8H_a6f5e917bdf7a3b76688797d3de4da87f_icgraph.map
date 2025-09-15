@@ -1,7 +1,0 @@
-<map id="CvVib" name="CvVib">
-<area shape="rect" id="Node000001" title=" " alt="" coords="248,35,308,60"/>
-<area shape="rect" id="Node000002" href="$classFoam_1_1he2TThermo.html#a3e471847023347e28667a1bc8ec8747a" title=" " alt="" coords="5,5,200,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,43,178,33,179,28,235,38"/>
-<area shape="rect" id="Node000003" href="$classFoam_1_1species_1_1thermo2T.html#abf02af698eaf98dca451dcf0496aa3ce" title=" " alt="" coords="9,55,196,95"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,57,196,63,196,58,234,52"/>
-</map>

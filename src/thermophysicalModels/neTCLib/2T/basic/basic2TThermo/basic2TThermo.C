@@ -30,13 +30,13 @@ License
 #include "stringOps.H"
 #include "wordIOList.H"
 #include "zeroGradientFvPatchFields.H"
-#include "fixedEnergyFvPatchScalarField.H"
-#include "gradientEnergyFvPatchScalarField.H"
-#include "mixedEnergyFvPatchScalarField.H"
+#include "fixed2TEnergyFvPatchScalarField.H"
+#include "gradient2TEnergyFvPatchScalarField.H"
+#include "mixed2TEnergyFvPatchScalarField.H"
 #include "fixedJumpFvPatchFields.H"
 #include "fixedJumpAMIFvPatchFields.H"
-#include "energyJumpFvPatchScalarField.H"
-#include "energyJumpAMIFvPatchScalarField.H"
+#include "energy2TJumpFvPatchScalarField.H"
+#include "energy2TJumpAMIFvPatchScalarField.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
@@ -205,7 +205,7 @@ Foam::wordList Foam::basic2TThermo::heBoundaryTypes()
     {
         if (isA<fixedValueFvPatchScalarField>(tbf[patchi]))
         {
-            hbt[patchi] = fixedEnergyFvPatchScalarField::typeName;
+            hbt[patchi] = fixed2TEnergyFvPatchScalarField::typeName;
         }
         else if
         (
@@ -213,19 +213,19 @@ Foam::wordList Foam::basic2TThermo::heBoundaryTypes()
          || isA<fixedGradientFvPatchScalarField>(tbf[patchi])
         )
         {
-            hbt[patchi] = gradientEnergyFvPatchScalarField::typeName;
+            hbt[patchi] = gradient2TEnergyFvPatchScalarField::typeName;
         }
         else if (isA<mixedFvPatchScalarField>(tbf[patchi]))
         {
-            hbt[patchi] = mixedEnergyFvPatchScalarField::typeName;
+            hbt[patchi] = mixed2TEnergyFvPatchScalarField::typeName;
         }
         else if (isA<fixedJumpFvPatchScalarField>(tbf[patchi]))
         {
-            hbt[patchi] = energyJumpFvPatchScalarField::typeName;
+            hbt[patchi] = energy2TJumpFvPatchScalarField::typeName;
         }
         else if (isA<fixedJumpAMIFvPatchScalarField>(tbf[patchi]))
         {
-            hbt[patchi] = energyJumpAMIFvPatchScalarField::typeName;
+            hbt[patchi] = energy2TJumpAMIFvPatchScalarField::typeName;
         }
     }
 

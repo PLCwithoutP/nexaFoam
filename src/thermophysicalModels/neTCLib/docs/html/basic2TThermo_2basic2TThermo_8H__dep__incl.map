@@ -1,7 +1,0 @@
-<map id="basic2TThermo.H" name="basic2TThermo.H">
-<area shape="rect" id="Node000001" title=" " alt="" coords="101,5,237,31"/>
-<area shape="rect" id="Node000002" href="$basic2TThermo_2basic2TThermo_8C.html" title=" " alt="" coords="5,79,140,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,41,90,81,87,76,141,37"/>
-<area shape="rect" id="Node000003" href="$basic2TThermo_2basic2TThermoTemplates_8C.html" title=" " alt="" coords="165,79,367,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,37,252,76,249,81,194,41"/>
-</map>

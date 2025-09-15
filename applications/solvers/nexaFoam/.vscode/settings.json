@@ -35,6 +35,8 @@
         "FieldFieldFunctions.C": "cpp",
         "FieldField.C": "cpp",
         "char.C": "cpp",
-        "OSstream.C": "cpp"
+        "OSstream.C": "cpp",
+        "turbulentFluidThermoModel.C": "cpp",
+        "turbulentTransportModel.C": "cpp"
     }
 }

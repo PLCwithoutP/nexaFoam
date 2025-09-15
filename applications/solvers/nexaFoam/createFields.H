@@ -7,8 +7,7 @@ autoPtr<ne2TThermo> n2Thermo
 
 ne2TThermo& thermo2T = n2Thermo();
 
-volScalarField& e = thermo2T.he();
-
+volScalarField& hTR = thermo2T.he();
 
 /* const scalarField& muInt = (thermo2T.mu())().primitiveField();
 Info << "Mu value in internal cells is : \n" << (thermo2T.mu())().primitiveField() << endl; */
@@ -63,7 +62,7 @@ volScalarField rhoE
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    rho*(e + 0.5*magSqr(U))
+    rho*(hTR + 0.5*magSqr(U))
 );
 
 surfaceScalarField pos

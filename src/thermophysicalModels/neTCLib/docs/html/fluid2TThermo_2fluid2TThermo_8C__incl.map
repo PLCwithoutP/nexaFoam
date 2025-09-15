@@ -1,9 +1,0 @@
-<map id="fluid2TThermo.C" name="fluid2TThermo.C">
-<area shape="rect" id="Node000001" title=" " alt="" coords="110,5,239,31"/>
-<area shape="rect" id="Node000002" href="$fluid2TThermo_2fluid2TThermo_8H.html" title=" " alt="" coords="109,79,240,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,31,177,65,172,65,172,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,141,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="160,106,103,146,100,142,157,102"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="166,152,389,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,102,251,142,248,146,190,106"/>
-</map>

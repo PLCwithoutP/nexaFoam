@@ -1,8 +1,0 @@
-<map id="Foam::blottnerEucken2TTransport::alphah" name="Foam::blottnerEucken2TTransport::alphah">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,244,45"/>
-<area shape="rect" id="Node000002" href="$lnInclude_2EtoHthermo2T_8H.html#aa0b7c65135f8132343b868a05ac7ff86" title=" " alt="" coords="292,13,348,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,23,278,23,278,28,244,28"/>
-<area shape="rect" id="Node000003" href="$lnInclude_2HtoEthermo2T_8H.html#a9aa70b42d27cada92be491a2a1109f97" title=" " alt="" coords="396,13,443,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="348,31,382,31,382,37,348,36"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="396,20,362,19,362,14,396,15"/>
-</map>

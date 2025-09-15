@@ -1,9 +1,0 @@
-<map id="ne2TThermo.C" name="ne2TThermo.C">
-<area shape="rect" id="Node000001" title=" " alt="" coords="104,5,221,31"/>
-<area shape="rect" id="Node000002" href="$ne2TThermo_2ne2TThermo_8H.html" title=" " alt="" coords="103,79,222,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,31,165,65,160,65,160,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,136,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="150,106,98,146,95,141,146,102"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="161,152,351,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="179,102,232,141,228,146,176,106"/>
-</map>

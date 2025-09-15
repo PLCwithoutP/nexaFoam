@@ -1,5 +1,5 @@
-U/maxwellSlipUFvPatchVectorField.C
-T/smoluchowskiJumpTFvPatchScalarField.C
-rho/fixedRhoFvPatchScalarField.C
+U/maxwellSlipU2TFvPatchVectorField.C
+T/smoluchowskiJump2TTFvPatchScalarField.C
+rho/fixed2TRhoFvPatchScalarField.C
 
-LIB = $(FOAM_LIBBIN)/librhoCentralFoam
+LIB = $(FOAM_LIBBIN)/libnexaFoam

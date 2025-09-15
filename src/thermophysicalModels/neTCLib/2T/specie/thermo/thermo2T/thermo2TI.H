@@ -96,7 +96,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TVib
     scalar TTR,
     scalar TVib0,
     scalar (thermo2T<Thermo2T, Type>::*F)(const scalar, const scalar, const scalar, const scalar) const,
-    scalar (thermo2T<Thermo2T, Type>::*dFdT)(const scalar, const scalar)
+    scalar (thermo2T<Thermo2T, Type>::*dFdT)(const scalar, const scalar, const scalar, const scalar)
         const,
     scalar (thermo2T<Thermo2T, Type>::*limit)(const scalar) const
 ) const
@@ -118,7 +118,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TVib
         Test = Tnew;
         Tnew =
             (this->*limit)
-            (Test - ((this->*F)(p, TTR, Test, this->ThetaVib()) - f)/(this->*dFdT)(p, Test));
+            (Test - ((this->*F)(p, TTR, Test, this->ThetaVib()) - f)/(this->*dFdT)(p, TTR, Test, this->ThetaVib()));
 
         if (iter++ > maxIter_)
         {
