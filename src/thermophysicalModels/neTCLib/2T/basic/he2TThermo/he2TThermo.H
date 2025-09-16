@@ -60,7 +60,7 @@ protected:
     // Protected data
 
         //- Energy field
-        volScalarField he_;
+        volScalarField h_;
 
 
     // Protected Member Functions
@@ -68,7 +68,7 @@ protected:
         // Enthalpy/Internal energy
 
             //- Correct the enthalpy/internal energy field boundaries
-            void heBoundaryCorrection(volScalarField& he);
+            void hBoundaryCorrection(volScalarField& h);
 
 
 private:
@@ -85,7 +85,7 @@ private:
             const volScalarField& p,
             const volScalarField& TTR,
             const volScalarField& TVib,
-            volScalarField& he
+            volScalarField& h
         );
 
 
@@ -162,15 +162,15 @@ public:
 
             //- Enthalpy/Internal energy [J/kg]
             //  Non-const access allowed for transport equations
-            virtual volScalarField& he()
+            virtual volScalarField& h()
             {
-                return he_;
+                return h_;
             }
 
             //- Enthalpy/Internal energy [J/kg]
-            virtual const volScalarField& he() const
+            virtual const volScalarField& h() const
             {
-                return he_;
+                return h_;
             }
 
 
@@ -178,14 +178,14 @@ public:
 
             //- Enthalpy/Internal energy
             //  for given pressure and temperature [J/kg]
-            virtual tmp<volScalarField> he
+            virtual tmp<volScalarField> h
             (
                 const volScalarField& p,
                 const volScalarField& TTR
             ) const;
 
             //- Enthalpy/Internal energy for cell-set [J/kg]
-            virtual tmp<scalarField> he
+            virtual tmp<scalarField> h
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -193,7 +193,7 @@ public:
             ) const;
 
             //- Enthalpy/Internal energy for patch [J/kg]
-            virtual tmp<scalarField> he
+            virtual tmp<scalarField> h
             (
                 const scalarField& p,
                 const scalarField& TTR,

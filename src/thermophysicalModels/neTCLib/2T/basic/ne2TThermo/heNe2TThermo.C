@@ -36,7 +36,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     const volScalarField& p,
     volScalarField& TTR,
     volScalarField& TVib,
-    volScalarField& he,
+    volScalarField& h,
     volScalarField& psi,
     volScalarField& mu,
     volScalarField& alpha,
@@ -52,7 +52,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
             p.oldTime(),
             TTR.oldTime(),
             TVib.oldTime(),
-            he.oldTime(),
+            h.oldTime(),
             psi.oldTime(),
             mu.oldTime(),
             alpha.oldTime(),
@@ -60,7 +60,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
         );
     }
 
-    const scalarField& hCells = he.primitiveField();
+    const scalarField& hCells = h.primitiveField();
     const scalarField& pCells = p.primitiveField();
 
     scalarField& TTRCells = TTR.primitiveFieldRef();
@@ -104,7 +104,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     volScalarField::Boundary& TTRBf = TTR.boundaryFieldRef();
     volScalarField::Boundary& TVibBf = TVib.boundaryFieldRef();
     volScalarField::Boundary& psiBf = psi.boundaryFieldRef();
-    volScalarField::Boundary& heBf = he.boundaryFieldRef();
+    volScalarField::Boundary& heBf = h.boundaryFieldRef();
     volScalarField::Boundary& muBf = mu.boundaryFieldRef();
     volScalarField::Boundary& alphaBf = alpha.boundaryFieldRef();
 
@@ -125,7 +125,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 const typename MixtureType::thermoType& mixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                phe[facei] = mixture_.HE(pp[facei], pTTR[facei]);
+                phe[facei] = mixture_.H(pp[facei], pTTR[facei]);
 
                 ppsi[facei] = mixture_.psi(pp[facei], pTTR[facei]);
                 pmu[facei] = mixture_.mu(pTTR[facei]);
@@ -173,7 +173,7 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
         this->p_,
         this->TTR_,
         this->TVib_,
-        this->he_,
+        this->h_,
         this->psi_,
         this->mu_,
         this->alpha_,
@@ -197,7 +197,7 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
         this->p_,
         this->TTR_,
         this->TVib_,
-        this->he_,
+        this->h_,
         this->psi_,
         this->mu_,
         this->alpha_,
@@ -226,7 +226,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correct()
         this->p_,
         this->TTR_,
         this->TVib_,
-        this->he_,
+        this->h_,
         this->psi_,
         this->mu_,
         this->alpha_,

@@ -153,11 +153,11 @@ protected:
 
         //- Return the enthalpy/internal energy field boundary types
         //- by interrogating the temperature field boundary types
-        wordList heBoundaryTypes();
+        wordList hBoundaryTypes();
 
         //- Return the enthalpy/internal energy field boundary base types
         //- by interrogating the temperature field boundary types
-        wordList heBoundaryBaseTypes();
+        wordList hBoundaryBaseTypes();
 
         //- No copy construct
         basic2TThermo(const basic2TThermo&) = delete;
@@ -397,21 +397,21 @@ public:
             //- Enthalpy/Internal energy [J/kg]
             //  Non-const access allowed for transport equations
             //  Encapsulates all energy modes
-            virtual volScalarField& he() = 0;
+            virtual volScalarField& h() = 0;
 
             //- Enthalpy/Internal energy [J/kg]
-            virtual const volScalarField& he() const = 0;
+            virtual const volScalarField& h() const = 0;
 
             //- Enthalpy/Internal energy
             //  for given pressure and temperature [J/kg]
-            virtual tmp<volScalarField> he
+            virtual tmp<volScalarField> h
             (
                 const volScalarField& p,
                 const volScalarField& TTR
             ) const = 0;
 
             //- Enthalpy/Internal energy for cell-set [J/kg]
-            virtual tmp<scalarField> he
+            virtual tmp<scalarField> h
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -419,7 +419,7 @@ public:
             ) const = 0;
 
             //- Enthalpy/Internal energy for patch [J/kg]
-            virtual tmp<scalarField> he
+            virtual tmp<scalarField> h
             (
                 const scalarField& p,
                 const scalarField& TTR,

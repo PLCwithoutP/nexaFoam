@@ -161,7 +161,7 @@ Foam::word Foam::basic2TThermo::makeThermoName
 
 // * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
 
-Foam::wordList Foam::basic2TThermo::heBoundaryBaseTypes()
+Foam::wordList Foam::basic2TThermo::hBoundaryBaseTypes()
 {
     const volScalarField::Boundary& tbf = this->TTR_.boundaryField();
 
@@ -195,7 +195,7 @@ Foam::wordList Foam::basic2TThermo::heBoundaryBaseTypes()
 }
 
 
-Foam::wordList Foam::basic2TThermo::heBoundaryTypes()
+Foam::wordList Foam::basic2TThermo::hBoundaryTypes()
 {
     const volScalarField::Boundary& tbf = this->TTR_.boundaryField();
 
@@ -486,7 +486,7 @@ const Foam::basic2TThermo& Foam::basic2TThermo::lookupThermo
     {
         if
         (
-            &(thermo.he().internalField())
+            &(thermo.h().internalField())
          == &(pf.internalField())
         )
         {
@@ -505,11 +505,11 @@ void Foam::basic2TThermo::validate
     const word& a
 ) const
 {
-    if (!(he().name() == phasePropertyName(a)))
+    if (!(h().name() == phasePropertyName(a)))
     {
         FatalErrorInFunction
             << "Supported energy type is " << phasePropertyName(a)
-            << ", thermodynamics package provides " << he().name()
+            << ", thermodynamics package provides " << h().name()
             << exit(FatalError);
     }
 }
@@ -524,15 +524,15 @@ void Foam::basic2TThermo::validate
     if
     (
        !(
-            he().name() == phasePropertyName(a)
-         || he().name() == phasePropertyName(b)
+            h().name() == phasePropertyName(a)
+         || h().name() == phasePropertyName(b)
         )
     )
     {
         FatalErrorInFunction
             << "Supported energy types: " << phasePropertyName(a)
             << " and " << phasePropertyName(b)
-            << ", thermodynamics package provides " << he().name()
+            << ", thermodynamics package provides " << h().name()
             << exit(FatalError);
     }
 }
@@ -548,9 +548,9 @@ void Foam::basic2TThermo::validate
     if
     (
        !(
-            he().name() == phasePropertyName(a)
-         || he().name() == phasePropertyName(b)
-         || he().name() == phasePropertyName(c)
+            h().name() == phasePropertyName(a)
+         || h().name() == phasePropertyName(b)
+         || h().name() == phasePropertyName(c)
         )
     )
     {
@@ -558,7 +558,7 @@ void Foam::basic2TThermo::validate
             << "Supported energy types: " << phasePropertyName(a)
             << ", " << phasePropertyName(b)
             << " and " << phasePropertyName(c)
-            << ", thermodynamics package provides " << he().name()
+            << ", thermodynamics package provides " << h().name()
             << exit(FatalError);
     }
 }
@@ -575,10 +575,10 @@ void Foam::basic2TThermo::validate
     if
     (
        !(
-            he().name() == phasePropertyName(a)
-         || he().name() == phasePropertyName(b)
-         || he().name() == phasePropertyName(c)
-         || he().name() == phasePropertyName(d)
+            h().name() == phasePropertyName(a)
+         || h().name() == phasePropertyName(b)
+         || h().name() == phasePropertyName(c)
+         || h().name() == phasePropertyName(d)
         )
     )
     {
@@ -587,7 +587,7 @@ void Foam::basic2TThermo::validate
             << ", " << phasePropertyName(b)
             << ", " << phasePropertyName(c)
             << " and " << phasePropertyName(d)
-            << ", thermodynamics package provides " << he().name()
+            << ", thermodynamics package provides " << h().name()
             << exit(FatalError);
     }
 }

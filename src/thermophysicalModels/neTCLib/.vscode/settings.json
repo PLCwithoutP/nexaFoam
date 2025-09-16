@@ -18,6 +18,12 @@
         "heNe2TThermo.C": "cpp",
         "fluid2TThermo.C": "cpp",
         "basic2TThermoTemplates.C": "cpp",
-        "ne2TZoneThermos.C": "cpp"
+        "ne2TZoneThermos.C": "cpp",
+        "hNe2TThermo.C": "cpp",
+        "energy2TJumpFvPatchScalarField.C": "cpp",
+        "energy2TJumpAMIFvPatchScalarField.C": "cpp",
+        "fixed2TEnergyFvPatchScalarField.C": "cpp",
+        "gradient2TEnergyFvPatchScalarField.C": "cpp",
+        "mixed2TEnergyFvPatchScalarField.C": "cpp"
     }
 }

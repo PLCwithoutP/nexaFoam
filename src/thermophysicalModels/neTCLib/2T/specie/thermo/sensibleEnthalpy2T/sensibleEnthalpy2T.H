@@ -104,7 +104,7 @@ public:
             }
 
             //- Sensible enthalpy [J/kg]
-            scalar HE
+            scalar H
             (
                 const Thermo2T& thermo2T,
                 const scalar p,

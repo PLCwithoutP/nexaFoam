@@ -34,7 +34,7 @@ License
 
 template<class Basic2TThermo, class MixtureType>
 void Foam::he2TThermo<Basic2TThermo, MixtureType>::
-heBoundaryCorrection(volScalarField& h)
+hBoundaryCorrection(volScalarField& h)
 {
     volScalarField::Boundary& hBf = h.boundaryFieldRef();
 
@@ -60,40 +60,40 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     const volScalarField& p,
     const volScalarField& TTR,
     const volScalarField& TVib,
-    volScalarField& he
+    volScalarField& h
 )
 {
-    scalarField& heCells = he.primitiveFieldRef();
+    scalarField& hCells = h.primitiveFieldRef();
     const scalarField& pCells = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
     //const scalarField& TVibCells = TVib.primitiveField();
 
-    forAll(heCells, celli)
+    forAll(hCells, celli)
     {
-        heCells[celli] =
-            this->cellMixture(celli).HE(pCells[celli], TTRCells[celli]);
+        hCells[celli] =
+            this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
     }
 
-    volScalarField::Boundary& heBf = he.boundaryFieldRef();
+    volScalarField::Boundary& hBf = h.boundaryFieldRef();
 
-    forAll(heBf, patchi)
+    forAll(hBf, patchi)
     {
-        heBf[patchi] == this->he
+        hBf[patchi] == this->h
         (
             p.boundaryField()[patchi],
             TTR.boundaryField()[patchi],
             patchi
         );
 
-        heBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
+        hBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
     }
 
-    this->heBoundaryCorrection(he);
+    this->hBoundaryCorrection(h);
 
     // Note: TTR does not have oldTime
     if (p.nOldTimes())
     {
-        init(p.oldTime(), TTR.oldTime(), TVib.oldTime(), he.oldTime());
+        init(p.oldTime(), TTR.oldTime(), TVib.oldTime(), h.oldTime());
     }
 }
 
@@ -110,7 +110,7 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
     Basic2TThermo(mesh, phaseName),
     MixtureType(*this, mesh, phaseName),
 
-    he_
+    h_
     (
         IOobject
         (
@@ -125,11 +125,11 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         ),
         mesh,
         dimEnergy/dimMass,
-        this->heBoundaryTypes(),
-        this->heBoundaryBaseTypes()
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, he_);
+    init(this->p_, this->TTR_, this->TVib_, h_);
 }
 
 
@@ -144,7 +144,7 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
     Basic2TThermo(mesh, dict, phaseName),
     MixtureType(*this, mesh, phaseName),
 
-    he_
+    h_
     (
         IOobject
         (
@@ -159,11 +159,11 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         ),
         mesh,
         dimEnergy/dimMass,
-        this->heBoundaryTypes(),
-        this->heBoundaryBaseTypes()
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, he_);
+    init(this->p_, this->TTR_, this->TVib_, h_);
 }
 
 
@@ -178,7 +178,7 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
     Basic2TThermo(mesh, phaseName, dictionaryName),
     MixtureType(*this, mesh, phaseName),
 
-    he_
+    h_
     (
         IOobject
         (
@@ -193,11 +193,11 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         ),
         mesh,
         dimEnergy/dimMass,
-        this->heBoundaryTypes(),
-        this->heBoundaryBaseTypes()
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, he_);
+    init(this->p_, this->TTR_, this->TVib_, h_);
 }
 
 
@@ -212,7 +212,7 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::~he2TThermo()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class Basic2TThermo, class MixtureType>
-Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
+Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::h
 (
     const volScalarField& p,
     const volScalarField& TTR
@@ -222,35 +222,35 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
 
     auto the = volScalarField::New
     (
-        "he",
+        "h",
         IOobject::NO_REGISTER,
         mesh,
-        he_.dimensions()
+        h_.dimensions()
     );
-    auto& he = the.ref();
+    auto& h = the.ref();
 
-    scalarField& heCells = he.primitiveFieldRef();
+    scalarField& hCells = h.primitiveFieldRef();
     const scalarField& pCells = p;
     const scalarField& TTRCells = TTR;
 
-    forAll(heCells, celli)
+    forAll(hCells, celli)
     {
-        heCells[celli] =
-            this->cellMixture(celli).HE(pCells[celli], TTRCells[celli]);
+        hCells[celli] =
+            this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
     }
 
-    volScalarField::Boundary& heBf = he.boundaryFieldRef();
+    volScalarField::Boundary& hBf = h.boundaryFieldRef();
 
-    forAll(heBf, patchi)
+    forAll(hBf, patchi)
     {
-        scalarField& hep = heBf[patchi];
+        scalarField& hp = hBf[patchi];
         const scalarField& pp = p.boundaryField()[patchi];
         const scalarField& TTRp = TTR.boundaryField()[patchi];
 
-        forAll(hep, facei)
+        forAll(hp, facei)
         {
-            hep[facei] =
-                this->patchFaceMixture(patchi, facei).HE(pp[facei], TTRp[facei]);
+            hp[facei] =
+                this->patchFaceMixture(patchi, facei).H(pp[facei], TTRp[facei]);
         }
     }
 
@@ -259,7 +259,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
 
 
 template<class Basic2TThermo, class MixtureType>
-Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::h
 (
     const scalarField& p,
     const scalarField& TTR,
@@ -267,11 +267,11 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
 ) const
 {
     auto the = tmp<scalarField>::New(TTR.size());
-    auto& he = the.ref();
+    auto& h = the.ref();
 
     forAll(TTR, celli)
     {
-        he[celli] = this->cellMixture(cells[celli]).HE(p[celli], TTR[celli]);
+        h[celli] = this->cellMixture(cells[celli]).H(p[celli], TTR[celli]);
     }
 
     return the;
@@ -279,7 +279,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
 
 
 template<class Basic2TThermo, class MixtureType>
-Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::h
 (
     const scalarField& p,
     const scalarField& TTR,
@@ -287,12 +287,12 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::he
 ) const
 {
     auto the = tmp<scalarField>::New(TTR.size());
-    auto& he = the.ref();
+    auto& h = the.ref();
 
     forAll(TTR, facei)
     {
-        he[facei] =
-            this->patchFaceMixture(patchi, facei).HE(p[facei], TTR[facei]);
+        h[facei] =
+            this->patchFaceMixture(patchi, facei).H(p[facei], TTR[facei]);
     }
 
     return the;
@@ -310,7 +310,7 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::hc() const
         "hc",
         IOobject::NO_REGISTER,
         mesh,
-        he_.dimensions()
+        h_.dimensions()
     );
     auto& hcf = thc.ref();
 

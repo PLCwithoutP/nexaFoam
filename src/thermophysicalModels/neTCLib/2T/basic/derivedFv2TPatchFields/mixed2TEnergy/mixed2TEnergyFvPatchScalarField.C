@@ -118,13 +118,13 @@ void Foam::mixed2TEnergyFvPatchScalarField::updateCoeffs()
     Tw.evaluate();
 
     valueFraction() = Tw.valueFraction();
-    refValue() = thermo.he(pw, Tw.refValue(), patchi);
+    refValue() = thermo.h(pw, Tw.refValue(), patchi);
     refGrad() =
         thermo.CpvTR(pw, Tw, patchi)*Tw.refGrad()
       + patch().deltaCoeffs()*
         (
-            thermo.he(pw, Tw, patchi)
-          - thermo.he(pw, Tw, patch().faceCells())
+            thermo.h(pw, Tw, patchi)
+          - thermo.h(pw, Tw, patch().faceCells())
         );
 
     mixedFvPatchScalarField::updateCoeffs();

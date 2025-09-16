@@ -204,7 +204,7 @@ public:
             inline scalar CpByCpvTR(const scalar p, const scalar TTR) const;
 
             //- Enthalpy/Internal energy [J/kg]
-            inline scalar HE(const scalar p, const scalar TTR) const;
+            inline scalar H(const scalar p, const scalar TTR) const;
 
             //- Gibbs free energy [J/kg]
             inline scalar G(const scalar p, const scalar TTR) const;
@@ -231,7 +231,7 @@ public:
             inline scalar s(const scalar p, const scalar TTR) const;
 
             //- Enthalpy/Internal energy [J/kmol]
-            inline scalar he(const scalar p, const scalar TTR) const;
+            inline scalar h(const scalar p, const scalar TTR) const;
 
             //- Translational heat capacity at constant volume [J/(kmol K)]
             inline scalar cvT(const scalar p, const scalar TTR) const;
