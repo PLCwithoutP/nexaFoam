@@ -30,9 +30,7 @@ License
 
 #include "specie.H"
 #include "perfectGas.H"
-#include "PengRobinsonGas.H"
-#include "hConstThermo.H"
-#include "eConstThermo.H"
+
 #include "janaf2TThermo.H"
 #include "sensibleEnthalpy2T.H"
 #include "thermo2T.H"

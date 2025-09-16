@@ -3,7 +3,6 @@ fluid2TThermo/fluid2TThermo.C
 
 ne2TThermo/ne2TThermo.C
 ne2TThermo/ne2TThermos.C
-ne2TThermo/ne2TZoneThermos.C
 
 derivedFv2TPatchFields/fixed2TEnergy/fixed2TEnergyFvPatchScalarField.C
 derivedFv2TPatchFields/gradient2TEnergy/gradient2TEnergyFvPatchScalarField.C
