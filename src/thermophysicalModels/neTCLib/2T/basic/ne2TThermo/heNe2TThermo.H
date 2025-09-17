@@ -64,6 +64,9 @@ class heNe2TThermo
             volScalarField& TTR,
             volScalarField& TVib,
             volScalarField& h,
+            volScalarField& esT,
+            volScalarField& esR,
+            volScalarField& esVib,
             volScalarField& psi,
             volScalarField& mu,
             volScalarField& alpha,
@@ -96,7 +99,6 @@ public:
             const word& phaseName,
             const word& dictionaryName
         );
-
 
     //- Destructor
     virtual ~heNe2TThermo();

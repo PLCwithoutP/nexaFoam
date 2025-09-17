@@ -22,7 +22,7 @@ thermoType
     thermo          janaf2T;
     equationOfState perfectGas;
     specie          specie;
-    energy          sensibleEnthalpy2T;
+    energy          sensibleCalculation2T;
 }
 
 mixture

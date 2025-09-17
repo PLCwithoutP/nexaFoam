@@ -401,6 +401,27 @@ public:
             //- Enthalpy [J/kg]
             virtual const volScalarField& h() const = 0;
 
+            //- Translational Internal Energy [J/kg]
+            //  Non-const access allowed for transport equations
+            virtual volScalarField& esT() = 0;
+
+            //- Translational Internal Energy [J/kg]
+            virtual const volScalarField& esT() const = 0;
+
+            //- Rotational Internal Energy [J/kg]
+            //  Non-const access allowed for transport equations
+            virtual volScalarField& esR() = 0;
+
+            //- Rotational Internal Energy [J/kg]
+            virtual const volScalarField& esR() const = 0;
+
+            //- Vibrational Internal Energy [J/kg]
+            //  Non-const access allowed for transport equations
+            virtual volScalarField& esVib() = 0;
+
+            //- Vibrational Internal Energy [J/kg]
+            virtual const volScalarField& esVib() const = 0;
+
             //- Enthalpy
             //  for given pressure and temperature [J/kg]
             virtual tmp<volScalarField> h
@@ -425,11 +446,89 @@ public:
                 const label patchi
             ) const = 0;
 
+            //- Translational Internal Energy
+            //  for given pressure and temperature [J/kg]
+            virtual tmp<volScalarField> esT
+            (
+                const volScalarField& p,
+                const volScalarField& TTR
+            ) const = 0;
+
+            //- Translational Internal Energy for cell-set [J/kg]
+            virtual tmp<scalarField> esT
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const labelList& cells
+            ) const = 0;
+
+            //- Translational Internal Energy for patch [J/kg]
+            virtual tmp<scalarField> esT
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const label patchi
+            ) const = 0;
+
+            //- Rotational Internal Energy
+            //  for given pressure and temperature [J/kg]
+            virtual tmp<volScalarField> esR
+            (
+                const volScalarField& p,
+                const volScalarField& TTR
+            ) const = 0;
+
+            //- Rotational Internal Energy for cell-set [J/kg]
+            virtual tmp<scalarField> esR
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const labelList& cells
+            ) const = 0;
+
+            //- Rotational Internal Energy for patch [J/kg]
+            virtual tmp<scalarField> esR
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const label patchi
+            ) const = 0;
+
+            //- Vibrational Internal Energy
+            //  for given pressure and temperature [J/kg]
+            virtual tmp<volScalarField> esVib
+            (
+                const volScalarField& p,
+                const volScalarField& TTR,
+                const volScalarField& TVib,
+                const scalar ThetaVib
+            ) const = 0;
+
+            //- Vibrational Internal Energy for cell-set [J/kg]
+            virtual tmp<scalarField> esVib
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const scalarField& TVib,
+                const scalar ThetaVib,
+                const labelList& cells
+            ) const = 0;
+
+            //- Vibrational Internal Energy for patch [J/kg]
+            virtual tmp<scalarField> esVib
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const scalarField& TVib,
+                const scalar ThetaVib,
+                const label patchi
+            ) const = 0;
+
             //- Chemical enthalpy [J/kg]
             virtual tmp<volScalarField> hc() const = 0;
 
             //- Temperature from enthalpy for cell-set
-            virtual tmp<scalarField> THE_TR
+            virtual tmp<scalarField> TH_TR
             (
                 const scalarField& h,
                 const scalarField& p,
@@ -438,7 +537,7 @@ public:
             ) const = 0;
 
             //- Temperature from enthalpy for patch
-            virtual tmp<scalarField> THE_TR
+            virtual tmp<scalarField> TH_TR
             (
                 const scalarField& h,
                 const scalarField& p,
@@ -447,7 +546,7 @@ public:
             ) const = 0;
 
             //- Temperature from vibrational internal energy for cell-set
-            virtual tmp<scalarField> TEH_Vib
+            virtual tmp<scalarField> TE_Vib
             (
                 const scalarField& esVib,
                 const scalarField& p,
@@ -457,7 +556,7 @@ public:
             ) const = 0;
 
             //- Temperature from vibrational internal energy for patch
-            virtual tmp<scalarField> TEH_Vib
+            virtual tmp<scalarField> TE_Vib
             (
                 const scalarField& esVib,
                 const scalarField& p,

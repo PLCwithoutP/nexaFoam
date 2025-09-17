@@ -48,7 +48,7 @@ Description
 #include "janaf2TThermo.H"
 
 #include "thermo2T.H"
-#include "sensibleEnthalpy2T.H"
+#include "sensibleCalculation2T.H"
 
 
 #include "blottnerEucken2TTransport.H"
@@ -57,7 +57,7 @@ Description
 
 namespace Foam
 {
-    // thermo2T physics types based on sensibleEnthalpy
+    // thermo2T physics types based on sensibleCalculation
     typedef
     blottnerEucken2TTransport
     <
@@ -67,9 +67,9 @@ namespace Foam
             <
                 perfectGas<specie>
             >,
-            sensibleEnthalpy2T
+            sensibleCalculation2T
         >
-    > blottnerEucken2TGasHThermoPhysics;
+    > blottnerEucken2TGasCThermoPhysics;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -108,7 +108,7 @@ class thermo2T
         //- Return the temperature corresponding to the value of the
         //  thermodynamic property f, given the function f = F(p, T)
         //  and dF(p, T)/dT
-        inline scalar T
+        inline scalar TTR
         (
             scalar f,
             scalar p,
@@ -159,7 +159,7 @@ public:
         }
 
         //- Name of Enthalpy/Internal energy
-        static inline word heName();
+        static inline word hName();
 
 
         // Fundamental properties
@@ -203,8 +203,17 @@ public:
             //  constant pressure/volume []
             inline scalar CpByCpvTR(const scalar p, const scalar TTR) const;
 
-            //- Enthalpy/Internal energy [J/kg]
+            //- Enthalpy [J/kg]
             inline scalar H(const scalar p, const scalar TTR) const;
+            
+            //- Translational Internal Energy [J/kg]
+            inline scalar EsT(const scalar p, const scalar TTR) const;
+                        
+            //- Rotational Internal Energy [J/kg]
+            inline scalar EsR(const scalar p, const scalar TTR) const;
+
+            //- Vibrational Internal Energy [J/kg]
+            inline scalar EsV(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const;
 
             //- Gibbs free energy [J/kg]
             inline scalar G(const scalar p, const scalar TTR) const;
@@ -302,7 +311,7 @@ public:
 
             //- Temperature from enthalpy or internal energy
             //  given an initial temperature TTR0
-            inline scalar THE_TR
+            inline scalar TH_TR
             (
                 const scalar H,
                 const scalar p,
@@ -311,7 +320,7 @@ public:
 
             //- Temperature from enthalpy or internal energy
             //  given an initial temperature TVib0
-            inline scalar TEH_Vib
+            inline scalar TE_Vib
             (
                 const scalar esVib,
                 const scalar p,

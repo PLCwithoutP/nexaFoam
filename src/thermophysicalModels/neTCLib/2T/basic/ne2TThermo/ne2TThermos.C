@@ -32,7 +32,7 @@ License
 #include "perfectGas.H"
 
 #include "janaf2TThermo.H"
-#include "sensibleEnthalpy2T.H"
+#include "sensibleCalculation2T.H"
 #include "thermo2T.H"
 
 #include "heNe2TThermo.H"
@@ -54,7 +54,7 @@ makeThermos
     heNe2TThermo,
     pureMixture,
     blottnerEucken2TTransport,
-    sensibleEnthalpy2T,
+    sensibleCalculation2T,
     janaf2TThermo,
     perfectGas,
     specie

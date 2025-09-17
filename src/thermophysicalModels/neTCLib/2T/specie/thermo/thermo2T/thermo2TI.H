@@ -41,7 +41,7 @@ inline Foam::species::thermo2T<Thermo2T, Type>::thermo2T
 
 
 template<class Thermo2T, template<class> class Type>
-inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::T
+inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TTR
 (
     scalar f,
     scalar p,
@@ -155,7 +155,7 @@ inline Foam::species::thermo2T<Thermo2T, Type>::thermo2T
 
 template<class Thermo2T, template<class> class Type>
 inline Foam::word
-Foam::species::thermo2T<Thermo2T, Type>::heName()
+Foam::species::thermo2T<Thermo2T, Type>::hName()
 {
     return Type<thermo2T<Thermo2T, Type>>::energyName();
 }
@@ -202,6 +202,26 @@ Foam::species::thermo2T<Thermo2T, Type>::H(const scalar p, const scalar TTR) con
     return Type<thermo2T<Thermo2T, Type>>::H(*this, p, TTR);
 }
 
+template<class Thermo2T, template<class> class Type>
+inline Foam::scalar
+Foam::species::thermo2T<Thermo2T, Type>::EsT(const scalar p, const scalar TTR) const
+{
+    return Type<thermo2T<Thermo2T, Type>>::EsT(*this, p, TTR);
+}
+
+template<class Thermo2T, template<class> class Type>
+inline Foam::scalar
+Foam::species::thermo2T<Thermo2T, Type>::EsR(const scalar p, const scalar TTR) const
+{
+    return Type<thermo2T<Thermo2T, Type>>::EsR(*this, p, TTR);
+}
+
+template<class Thermo2T, template<class> class Type>
+inline Foam::scalar
+Foam::species::thermo2T<Thermo2T, Type>::EsV(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const
+{
+    return Type<thermo2T<Thermo2T, Type>>::EsV(*this, p, TTR, TVib, ThetaVib);
+}
 
 template<class Thermo2T, template<class> class Type>
 inline Foam::scalar
@@ -417,18 +437,18 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::Kn
 
 
 template<class Thermo2T, template<class> class Type>
-inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::THE_TR
+inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TH_TR
 (
     const scalar h,
     const scalar p,
     const scalar TTR0
 ) const
 {
-    return Type<thermo2T<Thermo2T, Type>>::THE_TR(*this, h, p, TTR0);
+    return Type<thermo2T<Thermo2T, Type>>::TH_TR(*this, h, p, TTR0);
 }
 
 template<class Thermo2T, template<class> class Type>
-inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TEH_Vib
+inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TE_Vib
 (
     const scalar esVib,
     const scalar p,
@@ -436,7 +456,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TEH_Vib
     const scalar TVib0
 ) const
 {
-    return Type<thermo2T<Thermo2T, Type>>::TEH_Vib(*this, esVib, p, TTR0, TVib0);
+    return Type<thermo2T<Thermo2T, Type>>::TE_Vib(*this, esVib, p, TTR0, TVib0);
 }
 
 
@@ -448,7 +468,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::THs_TR
     const scalar TTR0
 ) const
 {
-    return T
+    return TTR
     (
         hs,
         p,
@@ -468,7 +488,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::THa_TR
     const scalar TTR0
 ) const
 {
-    return T
+    return TTR
     (
         ha,
         p,
@@ -488,7 +508,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TEs_TR
     const scalar TTR0
 ) const
 {
-    return T
+    return TTR
     (
         es,
         p,
@@ -529,7 +549,7 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TEa_TR
     const scalar TTR0
 ) const
 {
-    return T
+    return TTR
     (
         ea,
         p,

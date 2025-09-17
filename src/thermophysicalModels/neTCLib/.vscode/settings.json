@@ -24,6 +24,8 @@
         "energy2TJumpAMIFvPatchScalarField.C": "cpp",
         "fixed2TEnergyFvPatchScalarField.C": "cpp",
         "gradient2TEnergyFvPatchScalarField.C": "cpp",
-        "mixed2TEnergyFvPatchScalarField.C": "cpp"
+        "mixed2TEnergyFvPatchScalarField.C": "cpp",
+        "*.tcc": "cpp",
+        "GeometricField.C": "cpp"
     }
 }

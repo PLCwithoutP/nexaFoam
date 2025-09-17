@@ -610,7 +610,7 @@ $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/perfectGas.C \
 ../specie/lnInclude/HtoEthermo2T.H \
 ../specie/lnInclude/janaf2TThermoI.H \
 ../specie/lnInclude/janaf2TThermo.C \
-../specie/lnInclude/sensibleEnthalpy2T.H \
+../specie/lnInclude/sensibleCalculation2T.H \
 ../specie/lnInclude/thermo2T.H \
 ../specie/lnInclude/thermo2TI.H \
 ../specie/lnInclude/thermo2T.C \

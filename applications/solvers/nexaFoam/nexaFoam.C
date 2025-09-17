@@ -93,13 +93,16 @@ int main(int argc, char *argv[])
         myFile << "Average Translational-Rotational mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
         myFile << "Average Translational-Rotational kappa value in internal cells is : \n" << (thermo2T.kappaTR())().average().value() << endl;
         myFile << "Average Vibrational kappa value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
-        //myFile << "Average Translational internal energy is : \n" << (thermo2T.EsT(p, TTR))().average().value() << endl;
-        //myFile << "Average Rotational internal energy is : \n" << (thermo2T.esR())().average().value() << endl;
 
-        // Average value
+        // Average enthalpy value
         const dimensionedScalar avg_hTR = sum(mesh.V()*fvc::domainIntegrate(hTR)) / sum(mesh.V());
 
         myFile << "Average translational-rotational enthalpy is: " << avg_hTR << nl;
+        
+        // Average enthalpy value
+        const dimensionedScalar avg_esT = sum(mesh.V()*fvc::domainIntegrate(eST)) / sum(mesh.V());
+
+        myFile << "Average translational internal energy is: " << avg_esT << nl;
 
         #include "readTimeControls.H"
 

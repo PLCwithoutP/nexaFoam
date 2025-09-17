@@ -38,16 +38,12 @@ Description
 #include "thermoPhysics2TTypes.H"
 #include "Reaction.H"
 
-#include "icoPolynomial.H"
-#include "hPolynomialThermo.H"
-#include "polynomialTransport.H"
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
     // sensible enthalpy based reactions
-    typedef Reaction<blottnerEucken2TGasHThermoPhysics> blottnerEucken2TGasHThermoPhysicsHReaction;
+    typedef Reaction<blottnerEucken2TGasCThermoPhysics> blottnerEucken2TGasCThermoPhysicsHReaction;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
