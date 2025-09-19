@@ -21,6 +21,16 @@
             ],
             "preLaunchTask": "wmake-build",
             "miDebuggerPath": "/usr/bin/gdb"
-        }
+        },
+        {
+      "name": "Debug",
+      "type": "lldb",
+      "request": "launch",
+            "program": "/home/t12022124597/OpenFOAM/t12022124597-v2412/platforms/linux64GccDPInt32Dbg/bin/nexaFoam",
+      "args": [],
+            "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/obliqueShock",
+            "preLaunchTask": "wmake-build",
+    }
+
     ]
 }

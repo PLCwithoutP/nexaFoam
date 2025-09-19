@@ -421,6 +421,7 @@ Foam::basic2TThermo::basic2TThermo
     )
 {
     this->readIfPresent("updateTTR", TOwnerTR_);  // Manual override
+    this->readIfPresent("updateTVib", TOwnerVib_);  // Manual override
 
     if (debug)
     {
@@ -429,6 +430,7 @@ Foam::basic2TThermo::basic2TThermo
             << " dictionary:" << dictionaryName
             << " TTR:" << TTR_.name()
             << " updateTTR:" << TOwnerTR_
+            << " updateTVib:" << TOwnerVib_
             << " alphaName:" << alpha_.name()
             << endl;
     }

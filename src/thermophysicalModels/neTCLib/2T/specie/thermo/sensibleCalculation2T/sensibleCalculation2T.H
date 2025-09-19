@@ -122,7 +122,7 @@ public:
             }
 
             //- Sensible translational internal energy [J/kg]
-            scalar EsT
+            scalar ET
             (
                 const Thermo2T& thermo2T,
                 const scalar p,
@@ -140,7 +140,7 @@ public:
             }
 
             //- Sensible rotational internal energy [J/kg]
-            scalar EsR
+            scalar ER
             (
                 const Thermo2T& thermo2T,
                 const scalar p,
@@ -158,7 +158,7 @@ public:
             }
 
             //- Sensible vibrational internal energy [J/kg]
-            scalar EsV
+            scalar EV
             (
                 const Thermo2T& thermo2T,
                 const scalar p,

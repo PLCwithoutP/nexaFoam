@@ -63,13 +63,13 @@ protected:
         volScalarField h_;
 
         //- Translational Energy field
-        volScalarField esT_;
+        volScalarField eT_;
 
         //- Rotational Energy field
-        volScalarField esR_;
+        volScalarField eR_;
 
         //- Vibrational Energy field
-        volScalarField esVib_;
+        volScalarField eVib_;
 
 
     // Protected Member Functions
@@ -94,7 +94,10 @@ private:
             const volScalarField& p,
             const volScalarField& TTR,
             const volScalarField& TVib,
-            volScalarField& h
+            volScalarField& h,
+            volScalarField& eT,
+            volScalarField& eR,
+            volScalarField& eVib
         );
 
 
@@ -184,41 +187,41 @@ public:
 
             //- Translational Internal Energy [J/kg]
             //  Non-const access allowed for transport equations
-            virtual volScalarField& esT()
+            virtual volScalarField& eT()
             {
-                return esT_;
+                return eT_;
             }
 
             //- Translational Internal Energy [J/kg]
-            virtual const volScalarField& esT() const
+            virtual const volScalarField& eT() const
             {
-                return esT_;
+                return eT_;
             }
 
             //- Rotational Internal Energy [J/kg]
             //  Non-const access allowed for transport equations
-            virtual volScalarField& esR()
+            virtual volScalarField& eR()
             {
-                return esR_;
+                return eR_;
             }
 
             //- Rotational Internal Energy [J/kg]
-            virtual const volScalarField& esR() const
+            virtual const volScalarField& eR() const
             {
-                return esR_;
+                return eR_;
             }
 
             //- Vibrational Internal Energy [J/kg]
             //  Non-const access allowed for transport equations
-            virtual volScalarField& esVib()
+            virtual volScalarField& eVib()
             {
-                return esVib_;
+                return eVib_;
             }
 
             //- Vibrational Internal Energy [J/kg]
-            virtual const volScalarField& esVib() const
+            virtual const volScalarField& eVib() const
             {
-                return esVib_;
+                return eVib_;
             }
 
         // Fields derived from thermodynamic state variables
@@ -249,14 +252,14 @@ public:
 
             //- Translational Internal Energy
             //  for given pressure and temperature [J/kg]
-            virtual tmp<volScalarField> esT
+            virtual tmp<volScalarField> eT
             (
                 const volScalarField& p,
                 const volScalarField& TTR
             ) const;
 
             //- Translational Internal Energy for cell-set [J/kg]
-            virtual tmp<scalarField> esT
+            virtual tmp<scalarField> eT
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -264,7 +267,7 @@ public:
             ) const;
 
             //- Translational Internal Energy for patch [J/kg]
-            virtual tmp<scalarField> esT
+            virtual tmp<scalarField> eT
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -273,14 +276,14 @@ public:
 
             //- Rotational Internal Energy
             //  for given pressure and temperature [J/kg]
-            virtual tmp<volScalarField> esR
+            virtual tmp<volScalarField> eR
             (
                 const volScalarField& p,
                 const volScalarField& TTR
             ) const;
 
             //- Rotational Internal Energy for cell-set [J/kg]
-            virtual tmp<scalarField> esR
+            virtual tmp<scalarField> eR
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -288,7 +291,7 @@ public:
             ) const;
 
             //- Rotational Internal Energy for patch [J/kg]
-            virtual tmp<scalarField> esR
+            virtual tmp<scalarField> eR
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -297,7 +300,7 @@ public:
 
             //- Vibrational Internal Energy
             //  for given pressure and temperature [J/kg]
-            virtual tmp<volScalarField> esVib
+            virtual tmp<volScalarField> eVib
             (
                 const volScalarField& p,
                 const volScalarField& TTR,
@@ -306,7 +309,7 @@ public:
             ) const;
 
             //- Vibrational Internal Energy for cell-set [J/kg]
-            virtual tmp<scalarField> esVib
+            virtual tmp<scalarField> eVib
             (
                 const scalarField& p,
                 const scalarField& TTR,
@@ -316,7 +319,7 @@ public:
             ) const;
 
             //- Vibrational Internal Energy for patch [J/kg]
-            virtual tmp<scalarField> esVib
+            virtual tmp<scalarField> eVib
             (
                 const scalarField& p,
                 const scalarField& TTR,

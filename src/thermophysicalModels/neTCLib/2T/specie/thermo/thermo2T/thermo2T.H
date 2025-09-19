@@ -207,13 +207,13 @@ public:
             inline scalar H(const scalar p, const scalar TTR) const;
             
             //- Translational Internal Energy [J/kg]
-            inline scalar EsT(const scalar p, const scalar TTR) const;
+            inline scalar ET(const scalar p, const scalar TTR) const;
                         
             //- Rotational Internal Energy [J/kg]
-            inline scalar EsR(const scalar p, const scalar TTR) const;
+            inline scalar ER(const scalar p, const scalar TTR) const;
 
             //- Vibrational Internal Energy [J/kg]
-            inline scalar EsV(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const;
+            inline scalar EV(const scalar p, const scalar TTR, const scalar TVib, const scalar ThetaVib) const;
 
             //- Gibbs free energy [J/kg]
             inline scalar G(const scalar p, const scalar TTR) const;
@@ -239,7 +239,7 @@ public:
             //- Entropy [J/(kmol K)]
             inline scalar s(const scalar p, const scalar TTR) const;
 
-            //- Enthalpy/Internal energy [J/kmol]
+            //- Enthalpy [J/kmol]
             inline scalar h(const scalar p, const scalar TTR) const;
 
             //- Translational heat capacity at constant volume [J/(kmol K)]

@@ -58,15 +58,29 @@ int main(int argc, char *argv[])
         " support for mesh-motion and topology changes."
     );
 
+    Info << "First check" << endl;
     #define NO_CONTROL
     #include "postProcess.H"
 
+    Info << "Second check" << endl;
     #include "addCheckCaseOptions.H"
+
+    Info << "Third check" << endl;
     #include "setRootCaseLists.H"
+
+    Info << "Fourth check" << endl;
     #include "createTime.H"
+
+    Info << "Fifth check" << endl;
     #include "createDynamicFvMesh.H"
+    
+    Info << "Sixth check" << endl;
     #include "createFields.H"
+    
+    Info << "Seventh check" << endl;
     #include "createFieldRefs.H"
+
+    Info << "Eight check" << endl;
     #include "createTimeControls.H"
 
     turbulence->validate();
@@ -99,10 +113,12 @@ int main(int argc, char *argv[])
 
         myFile << "Average translational-rotational enthalpy is: " << avg_hTR << nl;
         
+        volScalarField& eT = thermo2T.eT();
+        
         // Average enthalpy value
-        const dimensionedScalar avg_esT = sum(mesh.V()*fvc::domainIntegrate(eST)) / sum(mesh.V());
+        const dimensionedScalar avg_eT = sum(mesh.V()*fvc::domainIntegrate(eT)) / sum(mesh.V());
 
-        myFile << "Average translational internal energy is: " << avg_esT << nl;
+        myFile << "Average translational internal energy is: " << avg_eT << nl;
 
         #include "readTimeControls.H"
 

@@ -1,0 +1,30 @@
+Time is : 0
+Average Translational-Rotational Cv value in internal cells is : 
+1058.59
+Average Translational-Rotational Cp value in internal cells is : 
+1355.39
+Average Vibrational Cv value in internal cells is : 
+296.802
+Average Translational-Rotational mu value in internal cells is : 
+0.000116901
+Average Translational-Rotational kappa value in internal cells is : 
+0.37125
+Average Vibrational kappa value in internal cells is : 
+0.37125
+Average translational-rotational enthalpy is: (sum((V*domainIntegrate(h)))|sum(V)) [0 5 -2 0 0 0 0] 2.45511e+06
+Average translational internal energy is: (sum((V*domainIntegrate(eT)))|sum(V)) [0 5 -2 0 0 0 0] 1.84667e+06
+Time is : 0.0025
+Average Translational-Rotational Cv value in internal cells is : 
+1061.68
+Average Translational-Rotational Cp value in internal cells is : 
+1358.48
+Average Vibrational Cv value in internal cells is : 
+296.802
+Average Translational-Rotational mu value in internal cells is : 
+0.000119741
+Average Translational-Rotational kappa value in internal cells is : 
+0.381381
+Average Vibrational kappa value in internal cells is : 
+0.381381
+Average translational-rotational enthalpy is: (sum((V*domainIntegrate(h)))|sum(V)) [0 5 -2 0 0 0 0] 2.55088e+06
+Average translational internal energy is: (sum((V*domainIntegrate(eT)))|sum(V)) [0 5 -2 0 0 0 0] 1.84667e+06

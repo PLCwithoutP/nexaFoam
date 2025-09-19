@@ -41,6 +41,8 @@
 EXE_INC = -IBCs/lnInclude -I../../../src/TurbulenceModels/turbulenceModels/lnInclude -I../../../src/TurbulenceModels/compressible/lnInclude -I../../../src/thermophysicalModels/neTCLib/T/basic/lnInclude -I../../../src/thermophysicalModels/neTCLib/T/specie/lnInclude -I../../../src/thermophysicalModels/neTCLib/2T/basic/lnInclude -I../../../src/thermophysicalModels/neTCLib/2T/specie/lnInclude -I$(LIB_SRC)/finiteVolume/lnInclude -I$(LIB_SRC)/meshTools/lnInclude -I$(LIB_SRC)/transportModels/compressible/lnInclude -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude -I$(LIB_SRC)/dynamicFvMesh/lnInclude
 # 17 "Make/options"
 
-EXE_LIBS = -L$(FOAM_USER_LIBBIN) -lneTCLib_T -lneTCLib_2T -lneTCspecie_T -lneTCspecie_2T -lneCompressibleTurbulenceModels -lfiniteVolume -lfvOptions -lmeshTools -lcompressibleTransportModels -lfluidThermophysicalModels -lspecie -lnexaFoam -lturbulenceModels -lcompressibleTurbulenceModels -lthermoTools -ldynamicFvMesh -ltopoChangerFvMesh
+EXE_LIBS = -L$(FOAM_USER_LIBBIN) -lneTCLib_2T -lneTCspecie_2T -lneCompressibleTurbulenceModels -lfiniteVolume -lfvOptions -lmeshTools -lcompressibleTransportModels -lfluidThermophysicalModels -lspecie -lnexaFoam -lturbulenceModels -lcompressibleTurbulenceModels -lthermoTools -ldynamicFvMesh -ltopoChangerFvMesh
+# 35 "Make/options"
+
 
 # options

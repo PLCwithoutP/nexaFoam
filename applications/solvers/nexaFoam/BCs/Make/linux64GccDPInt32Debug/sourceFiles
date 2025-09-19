@@ -1,0 +1,6 @@
+SOURCE = \
+U/maxwellSlipU2TFvPatchVectorField.C \
+T/smoluchowskiJump2TTFvPatchScalarField.C \
+rho/fixed2TRhoFvPatchScalarField.C \
+
+# sources
