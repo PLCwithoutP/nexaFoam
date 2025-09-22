@@ -33,24 +33,38 @@ License
 template<class EquationOfState>
 void Foam::janaf2TThermo<EquationOfState>::checkInputData() const
 {
-    if (Tlow_ >= Thigh_)
+    if (TAbsLow_ >= TAbsHigh_)
     {
         FatalErrorInFunction
-            << "Tlow(" << Tlow_ << ") >= Thigh(" << Thigh_ << ')'
+            << "TAbsLow(" << TAbsLow_ << ") >= TAbsHigh(" << TAbsHigh_ << ')'
             << exit(FatalError);
     }
 
-    if (Tcommon_ <= Tlow_)
+    if ((TFirstInt_ <= TAbsLow_))
     {
         FatalErrorInFunction
-            << "Tcommon(" << Tcommon_ << ") <= Tlow(" << Tlow_ << ')'
+            << "TFirstInt(" << TFirstInt_ << ") <= TAbsLow(" << TAbsLow_ << ')'
             << exit(FatalError);
     }
 
-    if (Tcommon_ > Thigh_)
+    if ((TSecondInt_ <= TAbsLow_))
     {
         FatalErrorInFunction
-            << "Tcommon(" << Tcommon_ << ") > Thigh(" << Thigh_ << ')'
+            << "TSecondInt(" << TSecondInt_ << ") <= TAbsLow(" << TAbsLow_ << ')'
+            << exit(FatalError);
+    }
+
+    if (TFirstInt_ > TAbsHigh_)
+    {
+        FatalErrorInFunction
+            << "TFirstInt(" << TFirstInt_ << ") > TAbsHigh(" << TAbsHigh_ << ')'
+            << exit(FatalError);
+    }
+
+    if (TSecondInt_ > TAbsHigh_)
+    {
+        FatalErrorInFunction
+            << "TSecondInt(" << TSecondInt_ << ") > TAbsHigh(" << TAbsHigh_ << ')'
             << exit(FatalError);
     }
 }
@@ -62,17 +76,20 @@ template<class EquationOfState>
 Foam::janaf2TThermo<EquationOfState>::janaf2TThermo(const dictionary& dict)
 :
     EquationOfState(dict),
-    Tlow_(dict.subDict("thermodynamics").get<scalar>("Tlow")),
-    Thigh_(dict.subDict("thermodynamics").get<scalar>("Thigh")),
-    Tcommon_(dict.subDict("thermodynamics").get<scalar>("Tcommon")),
+    TAbsLow_(dict.subDict("thermodynamics").get<scalar>("TAbsLow")),
+    TAbsHigh_(dict.subDict("thermodynamics").get<scalar>("TAbsHigh")),
+    TFirstInt_(dict.subDict("thermodynamics").get<scalar>("TFirstInt")),
+    TSecondInt_(dict.subDict("thermodynamics").get<scalar>("TSecondInt")),
     ThetaVib_(dict.subDict("thermodynamics").get<scalar>("ThetaVibrational")),
     highCpCoeffs_(dict.subDict("thermodynamics").lookup("highCpCoeffs")),
+    midCpCoeffs_(dict.subDict("thermodynamics").lookup("midCpCoeffs")),
     lowCpCoeffs_(dict.subDict("thermodynamics").lookup("lowCpCoeffs"))
 {
     // Convert coefficients to mass-basis
     for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
     {
         highCpCoeffs_[coefLabel] *= this->R();
+        midCpCoeffs_[coefLabel] *= this->R();
         lowCpCoeffs_[coefLabel] *= this->R();
     }
 
@@ -89,21 +106,25 @@ void Foam::janaf2TThermo<EquationOfState>::write(Ostream& os) const
 
     // Convert coefficients back to dimensionless form
     coeffArray highCpCoeffs;
+    coeffArray midCpCoeffs;
     coeffArray lowCpCoeffs;
     for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
     {
         highCpCoeffs[coefLabel] = highCpCoeffs_[coefLabel]/this->R();
+        midCpCoeffs[coefLabel] = midCpCoeffs_[coefLabel]/this->R();
         lowCpCoeffs[coefLabel] = lowCpCoeffs_[coefLabel]/this->R();
     }
 
     // Entries in dictionary format
     {
         os.beginBlock("thermodynamics");
-        os.writeEntry("Tlow", Tlow_);
-        os.writeEntry("Thigh", Thigh_);
-        os.writeEntry("Tcommon", Tcommon_);
+        os.writeEntry("TAbsLow", TAbsLow_);
+        os.writeEntry("TAbsHigh", TAbsHigh_);
+        os.writeEntry("TFirstInt", TFirstInt_);
+        os.writeEntry("TSecondInt", TSecondInt_);
         os.writeEntry("ThetaVib", ThetaVib_);
         os.writeEntry("highCpCoeffs", highCpCoeffs);
+        os.writeEntry("midCpCoeffs", midCpCoeffs);
         os.writeEntry("lowCpCoeffs", lowCpCoeffs);
         os.endBlock();
     }

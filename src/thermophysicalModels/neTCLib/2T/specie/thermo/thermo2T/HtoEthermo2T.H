@@ -36,12 +36,26 @@ inline scalar CvVib
 ) const
 {
     #ifdef __clang__
-    volatile const scalar dimensionlessVibTemp = 0.5*ThetaVib/TVib 
-    volatile const scalar div = sinh(0.5*ThetaVib/TVib);
-    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
-    return cpmcvTR*dimensionlessVibTemp/div;
+    if (ThetaVib <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        volatile const scalar dimensionlessVibTemp = 0.5*ThetaVib/TVib 
+        volatile const scalar div = sinh(0.5*ThetaVib/TVib);
+        volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+        return cpmcvTR*dimensionlessVibTemp/div;
+    }
     #else
-    return EquationOfState::CpMCv(p, TTR)*(0.5*ThetaVib/TVib)/sinh(0.5*ThetaVib/TVib);
+    if (ThetaVib <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        return EquationOfState::CpMCv(p, TTR)*(0.5*ThetaVib/TVib)/sinh(0.5*ThetaVib/TVib);
+    }
     #endif
 }
 
@@ -83,11 +97,25 @@ inline scalar EsVib
 ) const
 {
     #ifdef __clang__
-    volatile const scalar div = exp(ThetaVib/TVib) - 1;
-    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
-    return cpmcvTR*ThetaVib/div;
+    if (ThetaVib <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        volatile const scalar div = exp(ThetaVib/TVib) - 1;
+        volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+        return cpmcvTR*ThetaVib/div;
+    }
     #else
-    return EquationOfState::CpMCv(p, TTR)*ThetaVib/(exp(ThetaVib/TVib) - 1);
+    if (ThetaVib <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        return EquationOfState::CpMCv(p, TTR)*ThetaVib/(exp(ThetaVib/TVib) - 1);
+    }
     #endif
 }
 

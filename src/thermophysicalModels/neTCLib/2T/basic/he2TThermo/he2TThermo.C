@@ -81,11 +81,11 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
         hCells[celli] =
             this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
         eTCells[celli] =
-            this->cellMixture(celli).EsT(pCells[celli], TTRCells[celli]);
+            this->cellMixture(celli).ET(pCells[celli], TTRCells[celli]);
         eRCells[celli] =
-            this->cellMixture(celli).EsR(pCells[celli], TTRCells[celli]);
+            this->cellMixture(celli).ER(pCells[celli], TTRCells[celli]);
         eVibCells[celli] =
-            this->cellMixture(celli).EsVib(pCells[celli], TTRCells[celli], TVibCells[celli], theta);
+            this->cellMixture(celli).EV(pCells[celli], TTRCells[celli], TVibCells[celli], theta);
     }
 
     volScalarField::Boundary& hBf = h.boundaryFieldRef();
@@ -534,7 +534,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eT
     forAll(eTCells, celli)
     {
         eTCells[celli] =
-            this->cellMixture(celli).EsT(pCells[celli], TTRCells[celli]);
+            this->cellMixture(celli).ET(pCells[celli], TTRCells[celli]);
     }
 
     volScalarField::Boundary& eTBf = eT.boundaryFieldRef();
@@ -548,7 +548,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eT
         forAll(esTp, facei)
         {
             esTp[facei] =
-                this->patchFaceMixture(patchi, facei).EsT(pp[facei], TTRp[facei]);
+                this->patchFaceMixture(patchi, facei).ET(pp[facei], TTRp[facei]);
         }
     }
 
@@ -569,7 +569,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eT
 
     forAll(TTR, celli)
     {
-        eT[celli] = this->cellMixture(cells[celli]).EsT(p[celli], TTR[celli]);
+        eT[celli] = this->cellMixture(cells[celli]).ET(p[celli], TTR[celli]);
     }
 
     return test;
@@ -590,7 +590,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eT
     forAll(TTR, facei)
     {
         eT[facei] =
-            this->patchFaceMixture(patchi, facei).EsT(p[facei], TTR[facei]);
+            this->patchFaceMixture(patchi, facei).ET(p[facei], TTR[facei]);
     }
 
     return test;
@@ -621,7 +621,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eR
     forAll(eRCells, celli)
     {
         eRCells[celli] =
-            this->cellMixture(celli).EsR(pCells[celli], TTRCells[celli]);
+            this->cellMixture(celli).ER(pCells[celli], TTRCells[celli]);
     }
 
     volScalarField::Boundary& eRBf = eR.boundaryFieldRef();
@@ -635,7 +635,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eR
         forAll(esRp, facei)
         {
             esRp[facei] =
-                this->patchFaceMixture(patchi, facei).EsR(pp[facei], TTRp[facei]);
+                this->patchFaceMixture(patchi, facei).ER(pp[facei], TTRp[facei]);
         }
     }
 
@@ -656,7 +656,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eR
 
     forAll(TTR, celli)
     {
-        eR[celli] = this->cellMixture(cells[celli]).EsR(p[celli], TTR[celli]);
+        eR[celli] = this->cellMixture(cells[celli]).ER(p[celli], TTR[celli]);
     }
 
     return tesr;
@@ -677,7 +677,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eR
     forAll(TTR, facei)
     {
         eR[facei] =
-            this->patchFaceMixture(patchi, facei).EsR(p[facei], TTR[facei]);
+            this->patchFaceMixture(patchi, facei).ER(p[facei], TTR[facei]);
     }
 
     return tesr;
@@ -711,7 +711,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eV
     forAll(eVibCells, celli)
     {
         eVibCells[celli] =
-            this->cellMixture(celli).EsVib(pCells[celli], TTRCells[celli], TVibCells[celli], ThetaVib);
+            this->cellMixture(celli).EV(pCells[celli], TTRCells[celli], TVibCells[celli], ThetaVib);
     }
 
     volScalarField::Boundary& eVibBf = eVib.boundaryFieldRef();
@@ -726,7 +726,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eV
         forAll(esVibp, facei)
         {
             esVibp[facei] =
-                this->patchFaceMixture(patchi, facei).EsVib(pp[facei], TTRp[facei], TVibp[facei], ThetaVib);
+                this->patchFaceMixture(patchi, facei).EV(pp[facei], TTRp[facei], TVibp[facei], ThetaVib);
         }
     }
 
@@ -749,7 +749,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eVib
 
     forAll(TTR, celli)
     {
-        eVib[celli] = this->cellMixture(cells[celli]).EsVib(p[celli], TTR[celli], TVib[celli], ThetaVib);
+        eVib[celli] = this->cellMixture(cells[celli]).EV(p[celli], TTR[celli], TVib[celli], ThetaVib);
     }
 
     return tesvib;
@@ -772,7 +772,7 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eVib
     forAll(TTR, facei)
     {
         eVib[facei] =
-            this->patchFaceMixture(patchi, facei).EsVib(p[facei], TTR[facei], TVib[facei], ThetaVib);
+            this->patchFaceMixture(patchi, facei).EV(p[facei], TTR[facei], TVib[facei], ThetaVib);
     }
 
     return tesvib;

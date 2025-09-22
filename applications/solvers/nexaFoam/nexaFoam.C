@@ -108,17 +108,23 @@ int main(int argc, char *argv[])
         myFile << "Average Translational-Rotational kappa value in internal cells is : \n" << (thermo2T.kappaTR())().average().value() << endl;
         myFile << "Average Vibrational kappa value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
 
-        // Average enthalpy value
-        const dimensionedScalar avg_hTR = sum(mesh.V()*fvc::domainIntegrate(hTR)) / sum(mesh.V());
+        Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
+        myFile << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
 
-        myFile << "Average translational-rotational enthalpy is: " << avg_hTR << nl;
-        
-        volScalarField& eT = thermo2T.eT();
-        
-        // Average enthalpy value
-        const dimensionedScalar avg_eT = sum(mesh.V()*fvc::domainIntegrate(eT)) / sum(mesh.V());
+        Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
+        myFile << "Average vibrational temperature is: " << TVib.average().value() << nl;
 
-        myFile << "Average translational internal energy is: " << avg_eT << nl;
+        Info << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
+        myFile << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
+
+        Info << "Average translational internal energy is: " << eT.average().value() << nl;
+        myFile << "Average translational internal energy is: " << eT.average().value() << nl;
+
+        Info << "Average rotational internal energy is: " << eR.average().value() << nl;
+        myFile << "Average rotational internal energy is: " << eR.average().value() << nl;
+
+        Info << "Average vibrational internal energy is: " << eV.average().value() << nl;
+        myFile << "Average vibrational internal energy is: " << eV.average().value() << nl;
 
         #include "readTimeControls.H"
 
@@ -299,6 +305,9 @@ int main(int argc, char *argv[])
 
         hTR = rhoE/rho - 0.5*magSqr(U);
         hTR.correctBoundaryConditions();
+        eT.correctBoundaryConditions();
+        eR.correctBoundaryConditions();
+        eV.correctBoundaryConditions();
         thermo2T.correct();
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*

@@ -28,8 +28,8 @@ License
 #include "ne2TThermo.H"
 #include "make2TThermo.H"
 
-#include "specie.H"
-#include "perfectGas.H"
+#include "specie2T.H"
+#include "perfect2TGas.H"
 
 #include "janaf2TThermo.H"
 #include "sensibleCalculation2T.H"
@@ -56,8 +56,8 @@ makeThermos
     blottnerEucken2TTransport,
     sensibleCalculation2T,
     janaf2TThermo,
-    perfectGas,
-    specie
+    perfect2TGas,
+    specie2T
 );
 
 

@@ -69,8 +69,8 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
 
     const scalarField& hCells = h.primitiveField();
-    //const scalarField& eTCells = eT.primitiveField();
-    //const scalarField& eRCells = eR.primitiveField();
+    const scalarField& eTCells = eT.primitiveField();
+    const scalarField& eRCells = eR.primitiveField();
     const scalarField& eVibCells = eVib.primitiveField();
     const scalarField& pCells = p.primitiveField();
 
@@ -106,7 +106,6 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
             );
         }
         psiCells[celli] = mixture_.psi(pCells[celli], TTRCells[celli]);
-
         muCells[celli] = mixture_.mu(TTRCells[celli]);
         alphaCells[celli] = mixture_.alphah(pCells[celli], TTRCells[celli]);
     }

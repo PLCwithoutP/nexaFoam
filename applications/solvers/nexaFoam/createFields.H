@@ -8,6 +8,9 @@ autoPtr<ne2TThermo> n2Thermo
 ne2TThermo& thermo2T = n2Thermo();
 
 volScalarField& hTR = thermo2T.h();
+volScalarField& eT = thermo2T.eT();
+volScalarField& eR = thermo2T.eR();
+volScalarField& eV = thermo2T.eVib();
 
 /* const scalarField& muInt = (thermo2T.mu())().primitiveField();
 Info << "Mu value in internal cells is : \n" << (thermo2T.mu())().primitiveField() << endl; */

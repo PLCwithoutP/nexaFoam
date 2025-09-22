@@ -27,7 +27,7 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "janaf2TThermo.H"
-#include "specie.H"
+#include "specie2T.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
@@ -35,19 +35,22 @@ template<class EquationOfState>
 inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
 (
     const EquationOfState& st,
-    const scalar Tlow,
-    const scalar Thigh,
-    const scalar Tcommon,
+    const scalar TAbsLow,
+    const scalar TAbsHigh,
+    const scalar TFirstInt,
+    const scalar TSecondInt,
     const scalar ThetaVib,
     const typename janaf2TThermo<EquationOfState>::coeffArray& highCpCoeffs,
+    const typename janaf2TThermo<EquationOfState>::coeffArray& midCpCoeffs,
     const typename janaf2TThermo<EquationOfState>::coeffArray& lowCpCoeffs,
     const bool convertCoeffs
 )
 :
     EquationOfState(st),
-    Tlow_(Tlow),
-    Thigh_(Thigh),
-    Tcommon_(Tcommon),
+    TAbsLow_(TAbsLow),
+    TAbsHigh_(TAbsHigh),
+    TFirstInt_(TFirstInt),
+    TSecondInt_(TSecondInt),
     ThetaVib_(ThetaVib)
 {
     if (convertCoeffs)
@@ -55,6 +58,7 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
         for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
         {
             highCpCoeffs_[coefLabel] = highCpCoeffs[coefLabel]*this->R();
+            midCpCoeffs_[coefLabel] = midCpCoeffs[coefLabel]*this->R();
             lowCpCoeffs_[coefLabel] = lowCpCoeffs[coefLabel]*this->R();
         }
     }
@@ -63,6 +67,7 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
         for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
         {
             highCpCoeffs_[coefLabel] = highCpCoeffs[coefLabel];
+            midCpCoeffs_[coefLabel] = midCpCoeffs[coefLabel];
             lowCpCoeffs_[coefLabel] = lowCpCoeffs[coefLabel];
         }
     }
@@ -76,9 +81,13 @@ Foam::janaf2TThermo<EquationOfState>::coeffs
     const scalar TTR
 ) const
 {
-    if (TTR < Tcommon_)
+    if (TTR < TFirstInt_)
     {
         return lowCpCoeffs_;
+    }
+    else if ((TTR >= TFirstInt_) && (TTR < TSecondInt_))
+    {
+        return midCpCoeffs_;
     }
     else
     {
@@ -97,14 +106,16 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
 )
 :
     EquationOfState(name, jt),
-    Tlow_(jt.Tlow_),
-    Thigh_(jt.Thigh_),
-    Tcommon_(jt.Tcommon_),
+    TAbsLow_(jt.TAbsLow_),
+    TAbsHigh_(jt.TAbsHigh_),
+    TFirstInt_(jt.TFirstInt_),
+    TSecondInt_(jt.TSecondInt_),
     ThetaVib_(jt.ThetaVib_)
 {
     for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
     {
         highCpCoeffs_[coefLabel] = jt.highCpCoeffs_[coefLabel];
+        midCpCoeffs_[coefLabel] = jt.midCpCoeffs_[coefLabel];
         lowCpCoeffs_[coefLabel] = jt.lowCpCoeffs_[coefLabel];
     }
 }
@@ -118,15 +129,15 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::limit
     const scalar TTR
 ) const
 {
-    if (TTR < Tlow_ || TTR > Thigh_)
+    if (TTR < TAbsLow_ || TTR > TAbsHigh_)
     {
         WarningInFunction
             << "attempt to use janaf2TThermo<EquationOfState>"
                " out of temperature range "
-            << Tlow_ << " -> " << Thigh_ << ";  TTR = " << TTR
+            << TAbsLow_ << " -> " << TAbsHigh_ << ";  TTR = " << TTR
             << endl;
 
-        return clamp(TTR, Tlow_, Thigh_);
+        return clamp(TTR, TAbsLow_, TAbsHigh_);
     }
 
     return TTR;
@@ -134,23 +145,28 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::limit
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Tlow() const
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::TAbsLow() const
 {
-    return Tlow_;
+    return TAbsLow_;
 }
 
 
 template<class EquationOfState>
-inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Thigh() const
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::TAbsHigh() const
 {
-    return Thigh_;
+    return TAbsHigh_;
 }
 
+template<class EquationOfState>
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::TFirstInt() const
+{
+    return TFirstInt_;
+}
 
 template<class EquationOfState>
-inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Tcommon() const
+inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::TSecondInt() const
 {
-    return Tcommon_;
+    return TSecondInt_;
 }
 
 template<class EquationOfState>
@@ -166,6 +182,12 @@ Foam::janaf2TThermo<EquationOfState>::highCpCoeffs() const
     return highCpCoeffs_;
 }
 
+template<class EquationOfState>
+inline const typename Foam::janaf2TThermo<EquationOfState>::coeffArray&
+Foam::janaf2TThermo<EquationOfState>::midCpCoeffs() const
+{
+    return midCpCoeffs_;
+}
 
 template<class EquationOfState>
 inline const typename Foam::janaf2TThermo<EquationOfState>::coeffArray&
@@ -184,8 +206,8 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::CpTR
 {
     const coeffArray& a = coeffs(TTR);
     return
-        ((((a[4]*TTR + a[3])*TTR + a[2])*TTR + a[1])*TTR + a[0])
-      + EquationOfState::Cp(p, TTR);
+        a[0]/(TTR*TTR) + a[1]/TTR + a[2] + (a[3] + (a[4] + (a[5] + a[6]*TTR)*TTR)*TTR)*TTR
+      + EquationOfState::CpT(p, TTR);
 }
 
 
@@ -199,9 +221,10 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Ha
     const coeffArray& a = coeffs(TTR);
     return
     (
-        ((((a[4]/5.0*TTR + a[3]/4.0)*TTR + a[2]/3.0)*TTR + a[1]/2.0)*TTR + a[0])*TTR
-      + a[5]
-    ) + EquationOfState::H(p, TTR);
+        ((((a[6]/5.0*TTR + a[5]/4.0)*TTR + a[4]/3.0)*TTR + a[3]/2.0)*TTR + a[2])*TTR
+        + a[1]*log(TTR) - a[0]/TTR
+      + a[7]
+    ) + EquationOfState::HT(p, TTR);
 }
 
 
@@ -222,10 +245,9 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Hc() const
     const coeffArray& a = lowCpCoeffs_;
     return
     (
-        (
-            (((a[4]/5.0*Tstd + a[3]/4.0)*Tstd + a[2]/3.0)*Tstd + a[1]/2.0)*Tstd
-          + a[0]
-        )*Tstd + a[5]
+        ((((a[6]/5.0*Tstd + a[5]/4.0)*Tstd + a[4]/3.0)*Tstd + a[3]/2.0)*Tstd + a[2])*Tstd
+        + a[1]*log(Tstd) - a[0]/Tstd
+        + a[7]
     );
 }
 
@@ -240,8 +262,8 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::S
     const coeffArray& a = coeffs(TTR);
     return
     (
-        (((a[4]/4.0*TTR + a[3]/3.0)*TTR + a[2]/2.0)*TTR + a[1])*TTR + a[0]*log(TTR)
-      + a[6]
+      -a[0]/(TTR*TTR*2) - a[1]/TTR + a[2]*log(TTR) + (a[3] + (a[4]/2 + (a[5]/3 + a[6]/4*TTR)*TTR)*TTR)*TTR
+      + a[8]
     ) + EquationOfState::S(p, TTR);
 }
 
@@ -249,18 +271,13 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::S
 template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::Gstd
 (
+    const scalar p,
     const scalar TTR
 ) const
 {
-    const coeffArray& a = coeffs(TTR);
     return
     (
-        (
-            a[0]*(1 - log(TTR))
-          - (((a[4]/20.0*TTR + a[3]/12.0)*TTR + a[2]/6.0)*TTR + a[1]/2.0)*TTR
-          - a[6]
-        )*TTR
-      + a[5]
+        Ha(p,TTR) - S(p,TTR)*TTR
     );
 }
 
@@ -274,7 +291,7 @@ inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::dCpdT
 {
     const coeffArray& a = coeffs(TTR);
     return
-        (((4*a[4]*TTR + 3*a[3])*TTR + 2*a[2])*TTR + a[1]);
+        (-2)*a[0]/(TTR*TTR*TTR) - a[1]/(TTR*TTR) + 1 + a[3] + 2*a[4]*TTR + 3*a[5]*TTR*TTR + 4*a[6]*TTR*TTR*TTR;
 }
 
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
@@ -294,19 +311,33 @@ inline void Foam::janaf2TThermo<EquationOfState>::operator+=
         Y1 /= this->Y();
         const scalar Y2 = jt.Y()/this->Y();
 
-        Tlow_ = max(Tlow_, jt.Tlow_);
-        Thigh_ = min(Thigh_, jt.Thigh_);
+        TAbsLow_ = max(TAbsLow_, jt.TAbsLow_);
+        TAbsHigh_ = min(TAbsHigh_, jt.TAbsHigh_);
 
         if
         (
             janaf2TThermo<EquationOfState>::debug
-         && !equal(Tcommon_, jt.Tcommon_)
+         && !equal(TFirstInt_, jt.TFirstInt_)
         )
         {
             FatalErrorInFunction
-                << "Tcommon " << Tcommon_ << " for "
+                << "TFirstInt " << TFirstInt_ << " for "
                 << (this->name().size() ? this->name() : "others")
-                << " != " << jt.Tcommon_ << " for "
+                << " != " << jt.TFirstInt_ << " for "
+                << (jt.name().size() ? jt.name() : "others")
+                << exit(FatalError);
+        }
+
+        if
+        (
+            janaf2TThermo<EquationOfState>::debug
+         && !equal(TSecondInt_, jt.TSecondInt_)
+        )
+        {
+            FatalErrorInFunction
+                << "TSecondInt " << TSecondInt_ << " for "
+                << (this->name().size() ? this->name() : "others")
+                << " != " << jt.TSecondInt_ << " for "
                 << (jt.name().size() ? jt.name() : "others")
                 << exit(FatalError);
         }
@@ -321,6 +352,9 @@ inline void Foam::janaf2TThermo<EquationOfState>::operator+=
             highCpCoeffs_[coefLabel] =
                 Y1*highCpCoeffs_[coefLabel]
               + Y2*jt.highCpCoeffs_[coefLabel];
+            midCpCoeffs_[coefLabel] =
+                Y1*midCpCoeffs_[coefLabel]
+              + Y2*jt.midCpCoeffs_[coefLabel];
 
             lowCpCoeffs_[coefLabel] =
                 Y1*lowCpCoeffs_[coefLabel]
@@ -347,10 +381,12 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
         return janaf2TThermo<EquationOfState>
         (
             eofs,
-            jt1.Tlow_,
-            jt1.Thigh_,
-            jt1.Tcommon_,
+            jt1.TAbsLow_,
+            jt1.TAbsHigh_,
+            jt1.TFirstInt_,
+            jt1.TSecondInt_,
             jt1.highCpCoeffs_,
+            jt1.midCpCoeffs_,
             jt1.lowCpCoeffs_
         );
     }
@@ -360,6 +396,7 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
         const scalar Y2 = jt2.Y()/eofs.Y();
 
         typename janaf2TThermo<EquationOfState>::coeffArray highCpCoeffs;
+        typename janaf2TThermo<EquationOfState>::coeffArray midCpCoeffs;
         typename janaf2TThermo<EquationOfState>::coeffArray lowCpCoeffs;
 
         for
@@ -373,6 +410,10 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
                 Y1*jt1.highCpCoeffs_[coefLabel]
               + Y2*jt2.highCpCoeffs_[coefLabel];
 
+            midCpCoeffs[coefLabel] =
+                Y1*jt1.midCpCoeffs_[coefLabel]
+              + Y2*jt2.midCpCoeffs_[coefLabel];
+
             lowCpCoeffs[coefLabel] =
                 Y1*jt1.lowCpCoeffs_[coefLabel]
               + Y2*jt2.lowCpCoeffs_[coefLabel];
@@ -381,24 +422,39 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
         if
         (
             janaf2TThermo<EquationOfState>::debug
-         && !equal(jt1.Tcommon_, jt2.Tcommon_)
+         && !equal(jt1.TFirstInt_, jt2.TFirstInt_)
         )
         {
             FatalErrorInFunction
-                << "Tcommon " << jt1.Tcommon_ << " for "
+                << "TFirstInt " << jt1.TFirstInt_ << " for "
                 << (jt1.name().size() ? jt1.name() : "others")
-                << " != " << jt2.Tcommon_ << " for "
+                << " != " << jt2.TFirstInt_ << " for "
                 << (jt2.name().size() ? jt2.name() : "others")
                 << exit(FatalError);
         }
 
+        if
+        (
+            janaf2TThermo<EquationOfState>::debug
+         && !equal(jt1.TSecondInt_, jt2.TSecondInt_)
+        )
+        {
+            FatalErrorInFunction
+                << "TSecondInt " << jt1.TSecondInt_ << " for "
+                << (jt1.name().size() ? jt1.name() : "others")
+                << " != " << jt2.TSecondInt_ << " for "
+                << (jt2.name().size() ? jt2.name() : "others")
+                << exit(FatalError);
+        }
         return janaf2TThermo<EquationOfState>
         (
             eofs,
-            max(jt1.Tlow_, jt2.Tlow_),
-            min(jt1.Thigh_, jt2.Thigh_),
-            jt1.Tcommon_,
+            max(jt1.TAbsLow_, jt2.TAbsLow_),
+            min(jt1.TAbsHigh_, jt2.TAbsHigh_),
+            jt1.TFirstInt_,
+            jt1.TSecondInt_,
             highCpCoeffs,
+            midCpCoeffs,
             lowCpCoeffs
         );
     }
@@ -415,10 +471,12 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator*
     return janaf2TThermo<EquationOfState>
     (
         s*static_cast<const EquationOfState&>(jt),
-        jt.Tlow_,
-        jt.Thigh_,
-        jt.Tcommon_,
+        jt.TAbsLow_,
+        jt.TAbsHigh_,
+        jt.TFirstInt_,
+        jt.TSecondInt_,
         jt.highCpCoeffs_,
+        jt.midCpCoeffs_,
         jt.lowCpCoeffs_
     );
 }
@@ -441,6 +499,7 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
     const scalar Y2 = jt1.Y()/eofs.Y();
 
     typename janaf2TThermo<EquationOfState>::coeffArray highCpCoeffs;
+    typename janaf2TThermo<EquationOfState>::coeffArray midCpCoeffs;
     typename janaf2TThermo<EquationOfState>::coeffArray lowCpCoeffs;
 
     for
@@ -454,6 +513,10 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
             Y1*jt2.highCpCoeffs_[coefLabel]
           - Y2*jt1.highCpCoeffs_[coefLabel];
 
+        midCpCoeffs[coefLabel] =
+            Y1*jt2.midCpCoeffs_[coefLabel]
+          - Y2*jt1.midCpCoeffs_[coefLabel];
+
         lowCpCoeffs[coefLabel] =
             Y1*jt2.lowCpCoeffs_[coefLabel]
           - Y2*jt1.lowCpCoeffs_[coefLabel];
@@ -462,13 +525,13 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
     if
     (
         janaf2TThermo<EquationOfState>::debug
-     && !equal(jt2.Tcommon_, jt1.Tcommon_)
+     && !equal(jt2.TFirstInt_, jt1.TFirstInt_)
     )
     {
         FatalErrorInFunction
-            << "Tcommon " << jt2.Tcommon_ << " for "
+            << "TFirstInt " << jt2.TFirstInt_ << " for "
             << (jt2.name().size() ? jt2.name() : "others")
-            << " != " << jt1.Tcommon_ << " for "
+            << " != " << jt1.TFirstInt_ << " for "
             << (jt1.name().size() ? jt1.name() : "others")
             << exit(FatalError);
     }
@@ -476,10 +539,12 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
     return janaf2TThermo<EquationOfState>
     (
         eofs,
-        max(jt2.Tlow_, jt1.Tlow_),
-        min(jt2.Thigh_, jt1.Thigh_),
-        jt2.Tcommon_,
+        max(jt2.TAbsLow_, jt1.TAbsLow_),
+        min(jt2.TAbsHigh_, jt1.TAbsHigh_),
+        jt2.TFirstInt_,
+        jt2.TSecondInt_,
         highCpCoeffs,
+        midCpCoeffs,
         lowCpCoeffs
     );
 }

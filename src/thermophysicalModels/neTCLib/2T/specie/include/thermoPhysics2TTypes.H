@@ -35,22 +35,11 @@ Description
 #ifndef thermoPhysics2TTypes_H
 #define thermoPhysics2TTypes_H
 
-#include "specie.H"
-#include "perfectGas.H"
-#include "PengRobinsonGas.H"
-#include "incompressiblePerfectGas.H"
-#include "rPolynomial.H"
-#include "perfectFluid.H"
-#include "adiabaticPerfectFluid.H"
-#include "rhoConst.H"
-#include "hConstThermo.H"
-#include "eConstThermo.H"
+#include "specie2T.H"
+#include "perfect2TGas.H"
 #include "janaf2TThermo.H"
-
 #include "thermo2T.H"
 #include "sensibleCalculation2T.H"
-
-
 #include "blottnerEucken2TTransport.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -65,7 +54,7 @@ namespace Foam
         <
             janaf2TThermo
             <
-                perfectGas<specie>
+                perfect2TGas<specie2T>
             >,
             sensibleCalculation2T
         >

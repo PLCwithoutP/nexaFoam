@@ -603,7 +603,7 @@ Foam::wordList Foam::basic2TThermo::splitThermoName
 {
     // Split on ",<>" but include space for good measure.
     // Splits things like
-    // "hePsiThermo<pureMixture<const<hConst<perfectGas<specie>>,enthalpy>>>"
+    // "hePsiThermo<pureMixture<const<hConst<perfect2TGas<specie>>,enthalpy>>>"
 
     const auto parsed = stringOps::splitAny<std::string>(thermoName, " ,<>");
     const int nParsed(parsed.size());

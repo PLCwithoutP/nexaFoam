@@ -72,7 +72,7 @@ Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport
 template<class Thermo2T>
 void Foam::blottnerEucken2TTransport<Thermo2T>::write(Ostream& os) const
 {
-    os.beginBlock(this->specie::name());
+    os.beginBlock(this->specie2T::name());
 
     Thermo2T::write(os);
 

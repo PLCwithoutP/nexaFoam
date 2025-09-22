@@ -97,7 +97,7 @@ public:
 
     // Public Data
 
-        static constexpr int nCoeffs_ = 7;
+        static constexpr int nCoeffs_ = 9;
         typedef FixedList<scalar, nCoeffs_> coeffArray;
 
 
@@ -106,9 +106,11 @@ private:
     // Private Data
 
         // Temperature limits of applicability of functions
-        scalar Tlow_, Thigh_, Tcommon_, ThetaVib_;
+        scalar TAbsLow_, TAbsHigh_, TFirstInt_, TSecondInt_; 
+        scalar ThetaVib_;
 
         coeffArray highCpCoeffs_;
+        coeffArray midCpCoeffs_;
         coeffArray lowCpCoeffs_;
 
 
@@ -129,11 +131,13 @@ public:
         inline janaf2TThermo
         (
             const EquationOfState& st,
-            const scalar Tlow,
-            const scalar Thigh,
-            const scalar Tcommon,
+            const scalar TAbsLow,
+            const scalar TAbsHigh,
+            const scalar TFirstInt,
+            const scalar TSecondInt,
             const scalar ThetaVib,
             const coeffArray& highCpCoeffs,
+            const coeffArray& midCpCoeffs,
             const coeffArray& lowCpCoeffs,
             const bool convertCoeffs = false
         );
@@ -153,26 +157,32 @@ public:
             return "janaf2T<" + EquationOfState::typeName() + '>';
         }
 
-        //- Limit the temperature to be in the range Tlow_ to Thigh_
+        //- Limit the temperature to be in the range TAbsLow_ to TAbsHigh_
         inline scalar limit(const scalar TTR) const;
 
 
         // Access
 
-            //- Return const access to the low temperature limit
-            inline scalar Tlow() const;
+            //- Return const access to the lowest possible temperature limit
+            inline scalar TAbsLow() const;
 
-            //- Return const access to the high temperature limit
-            inline scalar Thigh() const;
+            //- Return const access to the highest possible temperature limit
+            inline scalar TAbsHigh() const;
+            
+            //- Return const access to the first interval temperature
+            inline scalar TFirstInt() const;
 
-            //- Return const access to the common temperature
-            inline scalar Tcommon() const;
+            //- Return const access to the second interval temperature
+            inline scalar TSecondInt() const;
 
             //- Return const access to the vibrational temperature coefficient
             inline scalar ThetaVib() const;
 
             //- Return const access to the high temperature poly coefficients
             inline const coeffArray& highCpCoeffs() const;
+
+            //- Return const access to the mid temperature poly coefficients
+            inline const coeffArray& midCpCoeffs() const;
 
             //- Return const access to the low temperature poly coefficients
             inline const coeffArray& lowCpCoeffs() const;
@@ -196,7 +206,7 @@ public:
             inline scalar S(const scalar p, const scalar TTR) const;
 
             //- Gibbs free energy of the mixture in the standard state [J/kg]
-            inline scalar Gstd(const scalar TTR) const;
+            inline scalar Gstd(const scalar p, const scalar TTR) const;
 
             #include "HtoEthermo2T.H"
 
