@@ -1,5 +1,5 @@
 #include "createRDeltaT.H"
-
+#include "vibrationalFieldCheck.H"
 autoPtr<ne2TThermo> n2Thermo
 (
     ne2TThermo::New(mesh)
@@ -10,10 +10,25 @@ ne2TThermo& thermo2T = n2Thermo();
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
 volScalarField& eR = thermo2T.eR();
-volScalarField& eV = thermo2T.eVib();
+volScalarField& eV = thermo2T.eR();
 
-/* const scalarField& muInt = (thermo2T.mu())().primitiveField();
-Info << "Mu value in internal cells is : \n" << (thermo2T.mu())().primitiveField() << endl; */
+if (vibrationalCheck)
+{
+    eV = thermo2T.eVib();
+}
+/* IOdictionary thermoDict_
+(
+    IOobject
+    (
+        "thermophysicalDict",
+        mesh.time().constant(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    )    
+);
+
+const scalar& thetaVib_ = thermoDict_.subDict("thermodynamics").get<scalar>("ThetaVibrational"); */
 
 Info<< "Reading field U\n" << endl;
 volVectorField U

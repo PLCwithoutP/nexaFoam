@@ -73,6 +73,17 @@ class heNe2TThermo
             const bool doOldTimes
         );
 
+        //- Update the internal energy variables
+        void calculateIntEnergies
+        (
+            const volScalarField& p,
+            const volScalarField& TTR,
+            const volScalarField& TVib,
+            volScalarField& esT,
+            volScalarField& esR,
+            volScalarField& esVib
+        );
+
         //- Construct as copy (not implemented)
         heNe2TThermo(const heNe2TThermo<BasicNe2TThermo, MixtureType>&);
 
@@ -108,6 +119,7 @@ public:
 
         //- Update properties
         virtual void correct();
+        virtual void correctIntEnergies();
 
 };
 

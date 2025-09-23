@@ -32,7 +32,7 @@ License
 #include "makeTurbulenceTModel.H"
 
 #include "TThermalDiffusivity.H"
-#include "EddyDiffusivity.H"
+#include "TEddyDiffusivity.H"
 
 #include "laminarModel.H"
 #include "RASModel.H"

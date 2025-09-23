@@ -101,14 +101,14 @@ void Foam::energy2TJumpFvPatchScalarField::updateCoeffs()
 
     if (this->cyclicPatch().owner())
     {
-        const basic2TThermo& thermo = basic2TThermo::lookupThermo(*this);
+        const basic2TThermo& thermo2T = basic2TThermo::lookupThermo(*this);
         label patchID = patch().index();
-
-        const scalarField& pp = thermo.p().boundaryField()[patchID];
+    
+        const scalarField& pp = thermo2T.p().boundaryField()[patchID];
         const fixedJumpFvPatchScalarField& TbPatch =
             refCast<const fixedJumpFvPatchScalarField>
             (
-                thermo.TTR().boundaryField()[patchID]
+                thermo2T.TTR().boundaryField()[patchID]
             );
 
         fixedJumpFvPatchScalarField& Tbp =
@@ -121,8 +121,8 @@ void Foam::energy2TJumpFvPatchScalarField::updateCoeffs()
 
         setJump
         (
-            thermo.h(pp, Tbp+Tbp.jump(), faceCells)
-          - thermo.h(pp, Tbp, faceCells)
+            thermo2T.h(pp, Tbp+Tbp.jump(), faceCells)
+          - thermo2T.h(pp, Tbp, faceCells)
         );
     }
 

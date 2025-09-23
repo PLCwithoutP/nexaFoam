@@ -628,6 +628,8 @@ $(WM_PROJECT_DIR)/src/TurbulenceModels/compressible/lnInclude/EddyDiffusivity.H 
 $(WM_PROJECT_DIR)/src/TurbulenceModels/compressible/lnInclude/EddyDiffusivity.C \
 lnInclude/TThermalDiffusivity.H \
 lnInclude/TThermalDiffusivity.C \
+lnInclude/TEddyDiffusivity.H \
+lnInclude/TEddyDiffusivity.C \
 $(WM_PROJECT_DIR)/src/TurbulenceModels/turbulenceModels/lnInclude/laminarModel.H \
 $(WM_PROJECT_DIR)/src/TurbulenceModels/turbulenceModels/lnInclude/laminarModel.C \
 $(WM_PROJECT_DIR)/src/TurbulenceModels/turbulenceModels/lnInclude/Stokes.H \

@@ -100,11 +100,9 @@ inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::kappaTR
     const scalar p, const scalar TTR
 ) const
 {
-    // This function needs to be corrected
-    //Info << "kappaTR function called" << endl;
     scalar Cv_T_ = this->CvT(p, TTR);
-    scalar Cv_R_ = this->CvT(p, TTR);
-    return mu(TTR)*((5/2)*Cv_T_ + Cv_R_);
+    scalar Cv_R_ = this->CvR(p, TTR);
+    return mu(TTR)*((2.5)*Cv_T_ + Cv_R_);
 }
 
 template<class Thermo2T>

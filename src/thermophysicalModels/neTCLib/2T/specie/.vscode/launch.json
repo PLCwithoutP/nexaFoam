@@ -5,7 +5,7 @@
             "name": "OF-Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/t12022124597/OpenFOAM/t12022124597-v2412/platforms/linux64GccDPInt32Dbg/bin/nexaFoam",
+            "program": "/home/t12022124597/OpenFOAM/t12022124597-v2412/platforms/linux64GccDPInt32Debug/bin/nexaFoam",
             "args": [],
             "stopAtEntry": false,
             "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/obliqueShock",

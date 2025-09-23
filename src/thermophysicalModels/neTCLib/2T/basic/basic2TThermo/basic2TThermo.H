@@ -349,6 +349,9 @@ public:
         //- Update properties
         virtual void correct() = 0;
 
+        //- Update properties
+        virtual void correctIntEnergies() = 0;
+
         //- Return the name of the thermo physics
         virtual word thermoName() const = 0;
 

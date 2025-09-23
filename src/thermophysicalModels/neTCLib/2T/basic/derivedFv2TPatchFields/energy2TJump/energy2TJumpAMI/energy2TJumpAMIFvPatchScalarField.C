@@ -101,14 +101,14 @@ void Foam::energy2TJumpAMIFvPatchScalarField::updateCoeffs()
 
     if (this->cyclicAMIPatch().owner())
     {
-        const basic2TThermo& thermo = basic2TThermo::lookupThermo(*this);
+        const basic2TThermo& thermo2T = basic2TThermo::lookupThermo(*this);
         label patchID = patch().index();
 
-        const scalarField& pp = thermo.p().boundaryField()[patchID];
+        const scalarField& pp = thermo2T.p().boundaryField()[patchID];
         const fixedJumpAMIFvPatchScalarField& TbPatch =
             refCast<const fixedJumpAMIFvPatchScalarField>
             (
-                thermo.TTR().boundaryField()[patchID]
+                thermo2T.TTR().boundaryField()[patchID]
             );
 
         fixedJumpAMIFvPatchScalarField& Tbp =
@@ -120,8 +120,8 @@ void Foam::energy2TJumpAMIFvPatchScalarField::updateCoeffs()
         const labelUList& faceCells = this->patch().faceCells();
 
         jump_ =
-            thermo.h(pp, Tbp+Tbp.jump(), faceCells)
-          - thermo.h(pp, Tbp, faceCells);
+            thermo2T.h(pp, Tbp+Tbp.jump(), faceCells)
+          - thermo2T.h(pp, Tbp, faceCells);
     }
 
     fixedJumpAMIFvPatchField<scalar>::updateCoeffs();

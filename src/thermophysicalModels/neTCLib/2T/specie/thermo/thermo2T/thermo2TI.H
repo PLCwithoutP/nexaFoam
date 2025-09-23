@@ -244,6 +244,7 @@ inline Foam::scalar
 Foam::species::thermo2T<Thermo2T, Type>::cpTR(const scalar p, const scalar TTR) const
 {
     return this->CpTR(p, TTR)*this->W();
+    //return this->CpTR(p, TTR);
 }
 
 

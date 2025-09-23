@@ -44,13 +44,11 @@ Description
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
-
-    #include "furkanDebug.H"
+    #include "logDebugCreate.H"
     argList::addNote
     (
         "Density-based compressible flow solver based on"
@@ -58,29 +56,14 @@ int main(int argc, char *argv[])
         " support for mesh-motion and topology changes."
     );
 
-    Info << "First check" << endl;
     #define NO_CONTROL
     #include "postProcess.H"
-
-    Info << "Second check" << endl;
     #include "addCheckCaseOptions.H"
-
-    Info << "Third check" << endl;
     #include "setRootCaseLists.H"
-
-    Info << "Fourth check" << endl;
     #include "createTime.H"
-
-    Info << "Fifth check" << endl;
     #include "createDynamicFvMesh.H"
-    
-    Info << "Sixth check" << endl;
     #include "createFields.H"
-    
-    Info << "Seventh check" << endl;
     #include "createFieldRefs.H"
-
-    Info << "Eight check" << endl;
     #include "createTimeControls.H"
 
     turbulence->validate();
@@ -99,33 +82,8 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        //const scalarField& cpInt = (thermo2T.Cp())().primitiveField();
-        myFile << "Time is : " << runTime.timeName() << endl;
-        myFile << "Average Translational-Rotational Cv value in internal cells is : \n" << (thermo2T.CvT())().average().value() << endl;
-        myFile << "Average Translational-Rotational Cp value in internal cells is : \n" << (thermo2T.CpTR())().average().value() << endl;
-        myFile << "Average Vibrational Cv value in internal cells is : \n" << (thermo2T.CvVib())().average().value() << endl;
-        myFile << "Average Translational-Rotational mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
-        myFile << "Average Translational-Rotational kappa value in internal cells is : \n" << (thermo2T.kappaTR())().average().value() << endl;
-        myFile << "Average Vibrational kappa value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
-
-        Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
-        myFile << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
-
-        Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
-        myFile << "Average vibrational temperature is: " << TVib.average().value() << nl;
-
-        Info << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
-        myFile << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
-
-        Info << "Average translational internal energy is: " << eT.average().value() << nl;
-        myFile << "Average translational internal energy is: " << eT.average().value() << nl;
-
-        Info << "Average rotational internal energy is: " << eR.average().value() << nl;
-        myFile << "Average rotational internal energy is: " << eR.average().value() << nl;
-
-        Info << "Average vibrational internal energy is: " << eV.average().value() << nl;
-        myFile << "Average vibrational internal energy is: " << eV.average().value() << nl;
-
+        #include "runTimeLogging.H"
+        
         #include "readTimeControls.H"
 
         if (!LTS)
@@ -307,8 +265,12 @@ int main(int argc, char *argv[])
         hTR.correctBoundaryConditions();
         eT.correctBoundaryConditions();
         eR.correctBoundaryConditions();
-        eV.correctBoundaryConditions();
+        if (vibrationalCheck)
+        {
+            eV.correctBoundaryConditions();
+        }
         thermo2T.correct();
+        thermo2T.correctIntEnergies();
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
@@ -322,7 +284,8 @@ int main(int argc, char *argv[])
               - fvm::laplacian(turbulence->alphaEff(), hTR)
             );
             thermo2T.correct();
-            rhoE = rho*(hTR + 0.5*magSqr(U));
+            thermo2T.correctIntEnergies();
+            rhoE = rho*(hTR + 0.5*magSqr(U));        
         }
         p.ref() =
             rho()

@@ -99,20 +99,20 @@ void Foam::gradient2TEnergyFvPatchScalarField::updateCoeffs()
         return;
     }
 
-    const basic2TThermo& thermo = basic2TThermo::lookupThermo(*this);
+    const basic2TThermo& thermo2T = basic2TThermo::lookupThermo(*this);
     const label patchi = patch().index();
 
-    const scalarField& pw = thermo.p().boundaryField()[patchi];
+    const scalarField& pw = thermo2T.p().boundaryField()[patchi];
     fvPatchScalarField& Tw =
-        const_cast<fvPatchScalarField&>(thermo.TTR().boundaryField()[patchi]);
+        const_cast<fvPatchScalarField&>(thermo2T.TTR().boundaryField()[patchi]);
 
     Tw.evaluate();
 
-    gradient() = thermo.CpvTR(pw, Tw, patchi)*Tw.snGrad()
+    gradient() = thermo2T.CpvTR(pw, Tw, patchi)*Tw.snGrad()
       + patch().deltaCoeffs()*
         (
-            thermo.h(pw, Tw, patchi)
-          - thermo.h(pw, Tw, patch().faceCells())
+            thermo2T.h(pw, Tw, patchi)
+          - thermo2T.h(pw, Tw, patch().faceCells())
         );
 
     fixedGradientFvPatchScalarField::updateCoeffs();

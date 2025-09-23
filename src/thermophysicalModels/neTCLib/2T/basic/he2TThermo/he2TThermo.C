@@ -1457,9 +1457,53 @@ template<class Basic2TThermo, class MixtureType>
 Foam::tmp<Foam::volScalarField>
 Foam::he2TThermo<Basic2TThermo, MixtureType>::kappaVib() const
 {
-    tmp<Foam::volScalarField> kappaVib(CpTR()*this->alpha_);
-    kappaVib.ref().rename("kappaVib");
-    return kappaVib;
+    auto tK = Foam::tmp<Foam::volScalarField>
+    (
+        new Foam::volScalarField
+        (
+            Foam::IOobject
+            (
+                "kappaVib",
+                this->p_.time().timeName(),
+                this->p_.mesh(),
+                Foam::IOobject::NO_READ,
+                Foam::IOobject::NO_WRITE
+            ),
+            this->p_.mesh(),
+            // W/(m·K)
+            Foam::dimensionedScalar
+            (
+                "zero",
+                dimEnergy/(dimTime*dimLength*dimTemperature),
+                0.0
+            ),
+            this->TVib_.boundaryField().types()
+        )
+    );
+
+    auto& K = tK.ref();
+
+    // internal field
+    {
+        const Foam::scalarField& Ti  = this->TTR_.primitiveField();
+        Foam::scalarField&       Ki  = K.primitiveFieldRef();
+        forAll(Ki, i)
+        {
+            const typename MixtureType::thermoType& mixture_ =
+                this->cellMixture(i);
+            Ki[i] = mixture_.kappaVib(Ti[i]); // scalar overload
+        }
+    }
+
+    
+    // patch fields
+    forAll(K.boundaryField(), patchi)
+    {
+        K.boundaryFieldRef()[patchi] = this->kappaVib(patchi);
+    }
+
+    K.rename("kappaVib");
+    return tK;
 }
 
 
@@ -1469,13 +1513,22 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::kappa
     const label patchi
 ) const
 {
-    return
-        CpTR
-        (
-            this->p_.boundaryField()[patchi],
-            this->TVib_.boundaryField()[patchi],
-            patchi
-        )*this->alpha_.boundaryField()[patchi];
+
+    const Foam::scalarField& Tp = this->TTR_.boundaryField()[patchi];
+
+    Foam::tmp<Foam::scalarField> tKp(new Foam::scalarField(Tp.size()));
+    Foam::scalarField& Kp = tKp.ref();
+
+    
+    forAll(Kp, i)
+    {
+        const typename MixtureType::thermoType& mixture_ =
+            this->cellMixture(i);
+        // If scalar function is on the transport object, call transport().kappaVib(...)
+        Kp[i] = mixture_.kappaVib(Tp[i]);  // scalar overload
+    }
+
+    return tKp;
 }
 
 
