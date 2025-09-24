@@ -14,22 +14,24 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "initialConditions"
+
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 1000;
+internalField   uniform $TVibValue;
 
 boundaryField
 {
     top
     {
         type            fixedValue;
-        value           uniform 1000;
+        value           uniform $TVibValue;
     }
 
     inlet
     {
         type            fixedValue;
-        value           uniform 1000;
+        value           uniform $TVibValue;
     }
 
     outlet

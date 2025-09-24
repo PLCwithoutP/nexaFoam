@@ -24,7 +24,7 @@ thermoType
     specie          specie2T;
     energy          sensibleCalculation2T;
 }
-/*
+
 // N2
 mixture
 {
@@ -85,7 +85,7 @@ mixture
         CB              -1.0805e+01;
         //Pr            0.7020; // Valid 200-10000 K
     }
-}*/
+}
 /*
 // O2
 mixture
@@ -212,7 +212,7 @@ mixture
         //Pr            0.8133; // Valid 200-10000 K
     }
 }*/
-
+/*
 // O
 mixture
 {
@@ -274,7 +274,7 @@ mixture
         CB              -1.0383e+01;
         //Pr            0.7053; // Valid 200-10000 K
     }
-}
+}*/
 /*
 // NO
 mixture

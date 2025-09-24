@@ -1,30 +1,42 @@
 Time is : 0
 Average Translational Cv value in internal cells is : 
-787.575
+870.36
 Average Rotational Cv value in internal cells is : 
-519.674
+296.802
 Average Translational-Rotational Cp value in internal cells is : 
-1307.25
+1167.16
+Average Vibrational Cv value in internal cells is : 
+192.046
 Average Translational-Rotational mu value in internal cells is : 
-5.94696e-05
+4.01105e-05
 Average Translational-Rotational kappa value in internal cells is : 
-0.147997
+0.0991814
+Average Vibrational kappa value in internal cells is : 
+4.81326e-05
 Average translational-rotational temperature is: 1000
-Average translational-rotational enthalpy is: 928786
-Average translational internal energy is: 409113
-Average rotational internal energy is: 519674
+Average vibrational temperature is: 1000
+Average translational-rotational enthalpy is: 766137
+Average translational internal energy is: 469335
+Average rotational internal energy is: 296802
+Average vibrational internal energy is: 35596.1
 Time is : 0.0025
 Average Translational Cv value in internal cells is : 
-786.148
+870.36
 Average Rotational Cv value in internal cells is : 
-519.674
+296.802
 Average Translational-Rotational Cp value in internal cells is : 
-1305.82
+1167.16
+Average Vibrational Cv value in internal cells is : 
+192.046
 Average Translational-Rotational mu value in internal cells is : 
-6.28093e-05
+4.01105e-05
 Average Translational-Rotational kappa value in internal cells is : 
-0.15608
-Average translational-rotational temperature is: 1092.91
-Average translational-rotational enthalpy is: 1.05013e+06
-Average translational internal energy is: 482180
-Average rotational internal energy is: 567954
+0.0991814
+Average Vibrational kappa value in internal cells is : 
+4.81326e-05
+Average translational-rotational temperature is: 1000
+Average vibrational temperature is: 1000
+Average translational-rotational enthalpy is: 766137
+Average translational internal energy is: 469335
+Average rotational internal energy is: 296802
+Average vibrational internal energy is: 35596.1

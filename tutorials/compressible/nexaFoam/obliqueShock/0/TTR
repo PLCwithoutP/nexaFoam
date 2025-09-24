@@ -14,22 +14,24 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "initialConditions"
+
 dimensions      [0 0 0 1 0 0 0];
 
-internalField   uniform 1000;
+internalField   uniform $TTRValue;
 
 boundaryField
 {
     top
     {
         type            fixedValue;
-        value           uniform 1258.53;
+        value           uniform $TTRValue;
     }
 
     inlet
     {
         type            fixedValue;
-        value           uniform 1000;
+        value           uniform $TTRValue;
     }
 
     outlet

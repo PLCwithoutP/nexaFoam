@@ -14,22 +14,24 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "initialConditions"
+
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform (2.9 0 0);
+internalField   uniform $velocityValue;
 
 boundaryField
 {
     top
     {
         type            fixedValue;
-        value           uniform (2.61933 -0.50632 0);
+        value           uniform $velocityValue;
     }
 
     inlet
     {
         type            fixedValue;
-        value           uniform (2.9 0 0);
+        value           uniform $velocityValue;
     }
 
     outlet
