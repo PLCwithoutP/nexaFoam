@@ -103,7 +103,10 @@
 			"turbulentFluidTThermoModels.C": "cpp",
 			"turbulentFluidTThermoModel.C": "cpp",
 			"multiComponentMixture.C": "cpp",
-			"sigFpe.C": "cpp"
+			"sigFpe.C": "cpp",
+			"solidProperties.C": "cpp",
+			"DimensionedField.C": "cpp",
+			"PurePhaseModel.C": "cpp"
 		}
 	}
 }

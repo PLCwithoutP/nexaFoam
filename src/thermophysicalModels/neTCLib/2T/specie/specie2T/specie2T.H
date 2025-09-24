@@ -78,7 +78,11 @@ class specie2T
         //- Molecular weight of specie2T [kg/kmol]
         scalar molWeight_;
 
+        //- Decide atomic or molecular specie
+        enum speciesType {tAtomic, tMolecular};
 
+        //- Atomic/molecular type of specie 
+        speciesType speciesType_;
 public:
 
     //- Declare type-name (with debug switch)
@@ -94,14 +98,15 @@ public:
     // Constructors
 
         //- Construct from components without name
-        inline specie2T(const scalar Y, const scalar molWeight);
+        inline specie2T(const scalar Y, const scalar molWeight, const speciesType kind);
 
         //- Construct from components with name
         inline specie2T
         (
             const word& name,
             const scalar Y,
-            const scalar molWeight
+            const scalar molWeight,
+            const speciesType kind
         );
 
         //- Construct as named copy
@@ -109,7 +114,6 @@ public:
 
         //- Construct from dictionary
         explicit specie2T(const dictionary& dict);
-
 
     // Member Functions
 
@@ -127,7 +131,16 @@ public:
             //- Gas constant [J/(kg K)]
             inline scalar R() const;
 
+            //- Expose specie type
+            inline speciesType speciesKind() const;
 
+            //- Check if specie is molecular
+            inline bool isMolecular() const;
+
+            //- Check if specie is atomic
+            inline bool isAtomic() const;
+
+            static const Foam::Enum<speciesType> speciesTypeNames;
         // IO
 
             //- Write to Ostream
@@ -153,6 +166,7 @@ public:
     // IOstream Operators
 
         friend Ostream& operator<<(Ostream&, const specie2T&);
+
 };
 
 

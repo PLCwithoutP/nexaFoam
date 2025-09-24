@@ -32,126 +32,126 @@ using namespace Foam::constant::thermodynamic;
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
-template<class Specie>
-inline Foam::perfect2TGas<Specie>::perfect2TGas(const Specie& sp)
+template<class Specie2T>
+inline Foam::perfect2TGas<Specie2T>::perfect2TGas(const Specie2T& sp)
 :
-    Specie(sp)
+    Specie2T(sp)
 {}
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-template<class Specie>
-inline Foam::perfect2TGas<Specie>::perfect2TGas
+template<class Specie2T>
+inline Foam::perfect2TGas<Specie2T>::perfect2TGas
 (
     const word& name,
-    const perfect2TGas<Specie>& pg
+    const perfect2TGas<Specie2T>& pg
 )
 :
-    Specie(name, pg)
+    Specie2T(name, pg)
 {}
 
 
-template<class Specie>
-inline Foam::autoPtr<Foam::perfect2TGas<Specie>>
-Foam::perfect2TGas<Specie>::clone() const
+template<class Specie2T>
+inline Foam::autoPtr<Foam::perfect2TGas<Specie2T>>
+Foam::perfect2TGas<Specie2T>::clone() const
 {
-    return autoPtr<perfect2TGas<Specie>>::New(*this);
+    return autoPtr<perfect2TGas<Specie2T>>::New(*this);
 }
 
 
-template<class Specie>
-inline Foam::autoPtr<Foam::perfect2TGas<Specie>> Foam::perfect2TGas<Specie>::New
+template<class Specie2T>
+inline Foam::autoPtr<Foam::perfect2TGas<Specie2T>> Foam::perfect2TGas<Specie2T>::New
 (
     const dictionary& dict
 )
 {
-    return autoPtr<perfect2TGas<Specie>>::New(dict);
+    return autoPtr<perfect2TGas<Specie2T>>::New(dict);
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::rho(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::rho(scalar p, scalar T) const
 {
     return p/(this->R()*T);
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::HT(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::HT(scalar p, scalar T) const
 {
     return 0;
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::CpT(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::CpT(scalar p, scalar T) const
 {
     return 0;
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::ET(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::ET(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::ER(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::ER(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::EV(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::EV(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::CvT(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::CvT(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::CvR(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::CvR(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::CvVib(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::CvVib(scalar p, scalar T) const
 {
     return 0;
 }
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::S(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::S(scalar p, scalar T) const
 {
     return -this->R()*log(p/Pstd);
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::psi(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::psi(scalar p, scalar T) const
 {
     return 1.0/(this->R()*T);
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::Z(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::Z(scalar p, scalar T) const
 {
     return 1;
 }
 
 
-template<class Specie>
-inline Foam::scalar Foam::perfect2TGas<Specie>::CpMCv(scalar p, scalar T) const
+template<class Specie2T>
+inline Foam::scalar Foam::perfect2TGas<Specie2T>::CpMCv(scalar p, scalar T) const
 {
     return this->R();
 }
@@ -159,57 +159,57 @@ inline Foam::scalar Foam::perfect2TGas<Specie>::CpMCv(scalar p, scalar T) const
 
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
-template<class Specie>
-inline void Foam::perfect2TGas<Specie>::operator+=(const perfect2TGas<Specie>& pg)
+template<class Specie2T>
+inline void Foam::perfect2TGas<Specie2T>::operator+=(const perfect2TGas<Specie2T>& pg)
 {
-    Specie::operator+=(pg);
+    Specie2T::operator+=(pg);
 }
 
 
-template<class Specie>
-inline void Foam::perfect2TGas<Specie>::operator*=(const scalar s)
+template<class Specie2T>
+inline void Foam::perfect2TGas<Specie2T>::operator*=(const scalar s)
 {
-    Specie::operator*=(s);
+    Specie2T::operator*=(s);
 }
 
 
 // * * * * * * * * * * * * * * * Friend Operators  * * * * * * * * * * * * * //
 
-template<class Specie>
-inline Foam::perfect2TGas<Specie> Foam::operator+
+template<class Specie2T>
+inline Foam::perfect2TGas<Specie2T> Foam::operator+
 (
-    const perfect2TGas<Specie>& pg1,
-    const perfect2TGas<Specie>& pg2
+    const perfect2TGas<Specie2T>& pg1,
+    const perfect2TGas<Specie2T>& pg2
 )
 {
-    return perfect2TGas<Specie>
+    return perfect2TGas<Specie2T>
     (
-        static_cast<const Specie&>(pg1) + static_cast<const Specie&>(pg2)
+        static_cast<const Specie2T&>(pg1) + static_cast<const Specie2T&>(pg2)
     );
 }
 
 
-template<class Specie>
-inline Foam::perfect2TGas<Specie> Foam::operator*
+template<class Specie2T>
+inline Foam::perfect2TGas<Specie2T> Foam::operator*
 (
     const scalar s,
-    const perfect2TGas<Specie>& pg
+    const perfect2TGas<Specie2T>& pg
 )
 {
-    return perfect2TGas<Specie>(s*static_cast<const Specie&>(pg));
+    return perfect2TGas<Specie2T>(s*static_cast<const Specie2T&>(pg));
 }
 
 
-template<class Specie>
-inline Foam::perfect2TGas<Specie> Foam::operator==
+template<class Specie2T>
+inline Foam::perfect2TGas<Specie2T> Foam::operator==
 (
-    const perfect2TGas<Specie>& pg1,
-    const perfect2TGas<Specie>& pg2
+    const perfect2TGas<Specie2T>& pg1,
+    const perfect2TGas<Specie2T>& pg2
 )
 {
-    return perfect2TGas<Specie>
+    return perfect2TGas<Specie2T>
     (
-        static_cast<const Specie&>(pg1) == static_cast<const Specie&>(pg2)
+        static_cast<const Specie2T&>(pg1) == static_cast<const Specie2T&>(pg2)
     );
 }
 

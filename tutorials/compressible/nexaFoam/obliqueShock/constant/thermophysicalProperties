@@ -31,6 +31,7 @@ mixture
     specie
     {
         molWeight       28.01348; // g.m^(-3)
+        type            molecular;
     }
     thermodynamics
     {
@@ -92,6 +93,7 @@ mixture
     specie
     {
         molWeight       31.9988; // g.m^(-3)
+        type            molecular;
     }
     // B. J. McBride, M. J. Zehe, and S. Gordon, "NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species", NASA/TP-2002-211556, 2002.
     thermodynamics
@@ -147,13 +149,14 @@ mixture
         //Pr            0.7051; // Valid 200-10000 K
     }
 }*/
-
+/*
 // N
 mixture
 {
     specie
     {
         molWeight       14.0067; // g.m^(-3)
+        type            atomic;
     }
     // B. J. McBride, M. J. Zehe, and S. Gordon, "NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species", NASA/TP-2002-211556, 2002.
     thermodynamics
@@ -162,7 +165,7 @@ mixture
         TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
-        ThetaVibrational   1e-6; // K
+        ThetaVibrational   0; // K
         highCpCoeffs
         (
             5.475181050e+08
@@ -208,14 +211,15 @@ mixture
         CB              -1.0976e+01;
         //Pr            0.8133; // Valid 200-10000 K
     }
-}
-/*
+}*/
+
 // O
 mixture
 {
     specie
     {
         molWeight       15.9994; // g.m^(-3)
+        type            atomic;
     }
     // B. J. McBride, M. J. Zehe, and S. Gordon, "NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species", NASA/TP-2002-211556, 2002.
     thermodynamics
@@ -224,7 +228,7 @@ mixture
         TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
-        ThetaVibrational   1e-6; // K
+        ThetaVibrational   0; // K
         highCpCoeffs
         (
             1.779004264e+08
@@ -270,7 +274,7 @@ mixture
         CB              -1.0383e+01;
         //Pr            0.7053; // Valid 200-10000 K
     }
-}*/
+}
 /*
 // NO
 mixture
@@ -278,6 +282,7 @@ mixture
     specie
     {
         molWeight       30.0061; // g.m^(-3)
+        type            molecular;
     }
     // B. J. McBride, M. J. Zehe, and S. Gordon, "NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species", NASA/TP-2002-211556, 2002.
     thermodynamics

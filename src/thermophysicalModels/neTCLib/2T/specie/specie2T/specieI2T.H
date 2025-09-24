@@ -34,23 +34,27 @@ inline Foam::specie2T::specie2T
 (
     const word& name,
     const scalar Y,
-    const scalar molWeight
+    const scalar molWeight,
+    const speciesType kind
 )
 :
     name_(name),
     Y_(Y),
-    molWeight_(molWeight)
+    molWeight_(molWeight),
+    speciesType_(kind)
 {}
 
 
 inline Foam::specie2T::specie2T
 (
     const scalar Y,
-    const scalar molWeight
+    const scalar molWeight,
+    const speciesType kind
 )
 :
     Y_(Y),
-    molWeight_(molWeight)
+    molWeight_(molWeight),
+    speciesType_(kind)
 {}
 
 
@@ -60,7 +64,8 @@ inline Foam::specie2T::specie2T(const word& name, const specie2T& st)
 :
     name_(name),
     Y_(st.Y_),
-    molWeight_(st.molWeight_)
+    molWeight_(st.molWeight_),
+    speciesType_(st.speciesType_)
 {}
 
 
@@ -90,6 +95,22 @@ inline Foam::scalar Foam::specie2T::R() const
 }
 
 
+inline Foam::specie2T::speciesType Foam::specie2T::speciesKind() const
+{
+    return speciesType_;
+}
+
+
+inline bool Foam::specie2T::isMolecular() const
+{
+    return speciesType_ == tMolecular;
+}
+
+
+inline bool Foam::specie2T::isAtomic() const
+{
+    return speciesType_ == tAtomic;
+}
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
 inline void Foam::specie2T::operator=(const specie2T& st)
@@ -97,6 +118,7 @@ inline void Foam::specie2T::operator=(const specie2T& st)
     // Preserve original name
     Y_ = st.Y_;
     molWeight_ = st.molWeight_;
+    speciesType_ = st.speciesType_;
 }
 
 
@@ -129,7 +151,8 @@ inline Foam::specie2T Foam::operator+(const specie2T& st1, const specie2T& st2)
         return specie2T
         (
             sumY,
-            sumY/(st1.Y_/st1.molWeight_ + st2.Y_/st2.molWeight_)
+            sumY/(st1.Y_/st1.molWeight_ + st2.Y_/st2.molWeight_),
+            st1.speciesType_
         );
     }
     else
@@ -144,7 +167,8 @@ inline Foam::specie2T Foam::operator*(const scalar s, const specie2T& st)
     return specie2T
     (
         s*st.Y_,
-        st.molWeight_
+        st.molWeight_,
+        st.speciesType_
     );
 }
 
@@ -158,7 +182,7 @@ inline Foam::specie2T Foam::operator==(const specie2T& st1, const specie2T& st2)
     }
 
     const scalar diffRW = st2.Y_/st2.molWeight_ - st1.Y_/st1.molWeight_;
-
+    const Foam::specie2T::speciesType kind = st1.speciesType_;
     #ifdef __clang__
     // Using intermediate volatile bool to prevent compiler optimising out the
     // if block (above) - CLANG 3.7.1
@@ -172,7 +196,7 @@ inline Foam::specie2T Foam::operator==(const specie2T& st1, const specie2T& st2)
     }
     #endif
 
-    return specie2T(diffY, molWeight);
+    return specie2T(diffY, molWeight, kind);
 }
 
 

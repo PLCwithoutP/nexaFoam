@@ -30,26 +30,26 @@ License
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-template<class Specie>
-Foam::perfect2TGas<Specie>::perfect2TGas(const dictionary& dict)
+template<class Specie2T>
+Foam::perfect2TGas<Specie2T>::perfect2TGas(const dictionary& dict)
 :
-    Specie(dict)
+    Specie2T(dict)
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-template<class Specie>
-void Foam::perfect2TGas<Specie>::write(Ostream& os) const
+template<class Specie2T>
+void Foam::perfect2TGas<Specie2T>::write(Ostream& os) const
 {
-    Specie::write(os);
+    Specie2T::write(os);
 }
 
 
 // * * * * * * * * * * * * * * * Ostream Operator  * * * * * * * * * * * * * //
 
-template<class Specie>
-Foam::Ostream& Foam::operator<<(Ostream& os, const perfect2TGas<Specie>& pg)
+template<class Specie2T>
+Foam::Ostream& Foam::operator<<(Ostream& os, const perfect2TGas<Specie2T>& pg)
 {
     pg.write(os);
     return os;

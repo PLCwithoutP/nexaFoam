@@ -78,12 +78,18 @@ class heNe2TThermo
         (
             const volScalarField& p,
             const volScalarField& TTR,
-            const volScalarField& TVib,
             volScalarField& esT,
-            volScalarField& esR,
-            volScalarField& esVib
+            volScalarField& esR
         );
 
+        //- Update the vibrational energy variable
+        void calculateVibEnergies
+        (
+            const volScalarField& p,
+            const volScalarField& TTR,
+            const volScalarField& TVib,
+            volScalarField& esVib
+        );
         //- Construct as copy (not implemented)
         heNe2TThermo(const heNe2TThermo<BasicNe2TThermo, MixtureType>&);
 
@@ -120,6 +126,7 @@ public:
         //- Update properties
         virtual void correct();
         virtual void correctIntEnergies();
+        virtual void correctVibEnergy();
 
 };
 

@@ -101,6 +101,12 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TVib
     scalar (thermo2T<Thermo2T, Type>::*limit)(const scalar) const
 ) const
 {
+    const Foam::specie2T& sp = static_cast<const Foam::specie2T&>(*this);
+
+    if (sp.isAtomic())
+    {
+        return 0;
+    }
     if (TVib0 < 0)
     {
         FatalErrorInFunction

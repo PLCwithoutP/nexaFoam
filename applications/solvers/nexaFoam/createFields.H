@@ -10,11 +10,27 @@ ne2TThermo& thermo2T = n2Thermo();
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
 volScalarField& eR = thermo2T.eR();
-volScalarField& eV = thermo2T.eR();
-
+autoPtr<volScalarField> eVPtr
+(
+    new volScalarField 
+    (
+        IOobject
+        (
+            "eV",
+            runTime.timeName(), 
+            mesh, 
+            IOobject::NO_READ, 
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
+    )
+);
+volScalarField& eV = eVPtr();
 if (vibrationalCheck)
 {
     eV = thermo2T.eVib();
+    eV.correctBoundaryConditions();
 }
 /* IOdictionary thermoDict_
 (

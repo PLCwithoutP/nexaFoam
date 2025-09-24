@@ -28,6 +28,7 @@ License
 
 #include "specie2T.H"
 #include "constants.H"
+#include "Enum.H"
 
 /* * * * * * * * * * * * * * * public constants  * * * * * * * * * * * * * * */
 
@@ -43,7 +44,8 @@ Foam::specie2T::specie2T(const dictionary& dict)
 :
     name_(dict.dictName()),
     Y_(dict.subDict("specie").getOrDefault<scalar>("massFraction", 1)),
-    molWeight_(dict.subDict("specie").get<scalar>("molWeight"))
+    molWeight_(dict.subDict("specie").get<scalar>("molWeight")),
+    speciesType_(speciesTypeNames.get(dict.subDict("specie").lookupOrDefault<word>("type", "molecular")))
 {}
 
 
@@ -56,10 +58,18 @@ void Foam::specie2T::write(Ostream& os) const
         os.beginBlock("specie");
         os.writeEntryIfDifferent<scalar>("massFraction", 1, Y_);
         os.writeEntry("molWeight", molWeight_);
+        os.writeEntry("type", speciesType_);
         os.endBlock();
     }
 }
 
+const Foam::Enum<Foam::specie2T::speciesType> Foam::specie2T::speciesTypeNames
+{
+    
+    {Foam::specie2T::tMolecular, "molecular"},
+    {Foam::specie2T::tAtomic, "atomic"}
+
+};
 
 // * * * * * * * * * * * * * * * Ostream Operator  * * * * * * * * * * * * * //
 

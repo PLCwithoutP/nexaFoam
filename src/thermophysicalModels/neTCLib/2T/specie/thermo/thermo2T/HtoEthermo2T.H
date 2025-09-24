@@ -36,7 +36,7 @@ inline scalar CvVib
 ) const
 {
     #ifdef __clang__
-    if (ThetaVib <= 1)
+    if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
     }
@@ -48,7 +48,7 @@ inline scalar CvVib
         return cpmcvTR*dimensionlessVibTemp/div;
     }
     #else
-    if (ThetaVib <= 1)
+    if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
     }
@@ -97,7 +97,7 @@ inline scalar EsVib
 ) const
 {
     #ifdef __clang__
-    if (ThetaVib <= 1)
+    if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
     }
@@ -108,7 +108,7 @@ inline scalar EsVib
         return cpmcvTR*ThetaVib/div;
     }
     #else
-    if (ThetaVib <= 1)
+    if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
     }

@@ -27,7 +27,7 @@ Class
     Foam::perfect2TGas
 
 Group
-    grpSpecieEquationOfState
+    grpSpecie2TEquationOfState
 
 Description
     Perfect gas equation of state.
@@ -50,34 +50,34 @@ namespace Foam
 
 // Forward declaration of friend functions and operators
 
-template<class Specie> class perfect2TGas;
+template<class Specie2T> class perfect2TGas;
 
-template<class Specie>
-inline perfect2TGas<Specie> operator+
+template<class Specie2T>
+inline perfect2TGas<Specie2T> operator+
 (
-    const perfect2TGas<Specie>&,
-    const perfect2TGas<Specie>&
+    const perfect2TGas<Specie2T>&,
+    const perfect2TGas<Specie2T>&
 );
 
-template<class Specie>
-inline perfect2TGas<Specie> operator*
+template<class Specie2T>
+inline perfect2TGas<Specie2T> operator*
 (
     const scalar,
-    const perfect2TGas<Specie>&
+    const perfect2TGas<Specie2T>&
 );
 
-template<class Specie>
-inline perfect2TGas<Specie> operator==
+template<class Specie2T>
+inline perfect2TGas<Specie2T> operator==
 (
-    const perfect2TGas<Specie>&,
-    const perfect2TGas<Specie>&
+    const perfect2TGas<Specie2T>&,
+    const perfect2TGas<Specie2T>&
 );
 
-template<class Specie>
+template<class Specie2T>
 Ostream& operator<<
 (
     Ostream&,
-    const perfect2TGas<Specie>&
+    const perfect2TGas<Specie2T>&
 );
 
 
@@ -85,10 +85,10 @@ Ostream& operator<<
                            Class perfect2TGas Declaration
 \*---------------------------------------------------------------------------*/
 
-template<class Specie>
+template<class Specie2T>
 class perfect2TGas
 :
-    public Specie
+    public Specie2T
 {
 
 public:
@@ -96,7 +96,7 @@ public:
     // Constructors
 
         //- Construct from components
-        inline perfect2TGas(const Specie& sp);
+        inline perfect2TGas(const Specie2T& sp);
 
         //- Construct from dictionary
         perfect2TGas(const dictionary& dict);
@@ -110,13 +110,12 @@ public:
         // Selector from dictionary
         inline static autoPtr<perfect2TGas> New(const dictionary& dict);
 
-
     // Member functions
 
         //- Return the instantiated type name
         static word typeName()
         {
-            return "perfect2TGas<" + word(Specie::typeName_()) + '>';
+            return "perfect2TGas<" + word(Specie2T::typeName_()) + '>';
         }
 
 
@@ -182,19 +181,19 @@ public:
 
     // Friend operators
 
-        friend perfect2TGas operator+ <Specie>
+        friend perfect2TGas operator+ <Specie2T>
         (
             const perfect2TGas&,
             const perfect2TGas&
         );
 
-        friend perfect2TGas operator* <Specie>
+        friend perfect2TGas operator* <Specie2T>
         (
             const scalar s,
             const perfect2TGas&
         );
 
-        friend perfect2TGas operator== <Specie>
+        friend perfect2TGas operator== <Specie2T>
         (
             const perfect2TGas&,
             const perfect2TGas&
@@ -203,7 +202,7 @@ public:
 
     // Ostream Operator
 
-        friend Ostream& operator<< <Specie>
+        friend Ostream& operator<< <Specie2T>
         (
             Ostream&,
             const perfect2TGas&

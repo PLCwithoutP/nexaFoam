@@ -1,1 +1,0 @@
-../turbulentFluidTThermoModels/turbulentFluidTThermoModel.H

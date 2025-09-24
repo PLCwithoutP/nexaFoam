@@ -78,7 +78,6 @@ Foam::basic2TThermo::getThermoOrDie
 )
 {
     const dictionary* dictptr = thermoDict.findDict("thermoType");
-
     if (dictptr)
     {
         const auto& thermoTypeDict = *dictptr;
