@@ -264,13 +264,18 @@ int main(int argc, char *argv[])
         hTR = rhoE/rho - 0.5*magSqr(U);
         hTR.correctBoundaryConditions();
         eT.correctBoundaryConditions();
-        eR.correctBoundaryConditions();
         if (vibrationalCheck)
         {
+            eR.correctBoundaryConditions();
             eV.correctBoundaryConditions();
         }
         thermo2T.correct();
-        thermo2T.correctIntEnergies();
+        thermo2T.correctTEnergy();
+        if (vibrationalCheck)
+        {
+            thermo2T.correctREnergy();
+            thermo2T.correctVibEnergy();
+        }
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
@@ -284,7 +289,12 @@ int main(int argc, char *argv[])
               - fvm::laplacian(turbulence->alphaEff(), hTR)
             );
             thermo2T.correct();
-            thermo2T.correctIntEnergies();
+            thermo2T.correctTEnergy();
+            if (vibrationalCheck)
+            {
+                thermo2T.correctREnergy();
+                thermo2T.correctVibEnergy();
+            }
             rhoE = rho*(hTR + 0.5*magSqr(U));        
         }
         p.ref() =

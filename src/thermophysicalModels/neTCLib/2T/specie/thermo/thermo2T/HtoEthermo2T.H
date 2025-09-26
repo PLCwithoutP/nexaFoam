@@ -20,10 +20,24 @@ inline scalar CvR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
-    return cpmcvTR;
+    if (static_cast<const specie2T&>(*this).isAtomic())
+    {
+        return 0;
+    }
+    else
+    {
+        volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+        return cpmcvTR;
+    }
     #else
-    return EquationOfState::CpMCv(p, TTR);
+    if (static_cast<const specie2T&>(*this).isAtomic())
+    {
+        return 0;
+    }
+    else
+    {
+        return EquationOfState::CpMCv(p, TTR);
+    }
     #endif
 }
 
@@ -81,10 +95,24 @@ inline scalar EsR
 ) const
 {
     #ifdef __clang__
-    volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
-    return cpmcvTR*TTR;
+    if (static_cast<const specie2T&>(*this).isAtomic())
+    {
+        return 0;
+    }
+    else
+    {
+        volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
+        return cpmcvTR*TTR;
+    }
     #else
-    return EquationOfState::CpMCv(p, TTR)*TTR;
+    if (static_cast<const specie2T&>(*this).isAtomic())
+    {
+        return 0;
+    }
+    else
+    {
+        return EquationOfState::CpMCv(p, TTR)*TTR;
+    }
     #endif
 }
 

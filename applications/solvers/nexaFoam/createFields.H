@@ -9,7 +9,25 @@ ne2TThermo& thermo2T = n2Thermo();
 
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
-volScalarField& eR = thermo2T.eR();
+
+autoPtr<volScalarField> eRPtr
+(
+    new volScalarField 
+    (
+        IOobject
+        (
+            "eR",
+            runTime.timeName(), 
+            mesh, 
+            IOobject::NO_READ, 
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
+    )
+);
+volScalarField& eR = eRPtr();
+
 autoPtr<volScalarField> eVPtr
 (
     new volScalarField 
@@ -27,24 +45,15 @@ autoPtr<volScalarField> eVPtr
     )
 );
 volScalarField& eV = eVPtr();
+
 if (vibrationalCheck)
 {
+    eR = thermo2T.eR();
+    eR.correctBoundaryConditions();
+
     eV = thermo2T.eVib();
     eV.correctBoundaryConditions();
 }
-/* IOdictionary thermoDict_
-(
-    IOobject
-    (
-        "thermophysicalDict",
-        mesh.time().constant(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    )    
-);
-
-const scalar& thetaVib_ = thermoDict_.subDict("thermodynamics").get<scalar>("ThetaVibrational"); */
 
 Info<< "Reading field U\n" << endl;
 volVectorField U

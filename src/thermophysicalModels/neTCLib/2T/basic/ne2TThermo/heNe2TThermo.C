@@ -175,17 +175,15 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 }
 
 template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateIntEnergies
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateTEnergy
 (
     const volScalarField& p,
     const volScalarField& TTR,
-    volScalarField& eT,
-    volScalarField& eR
+    volScalarField& eT
 )
 {
 
     scalarField& eTCells = eT.primitiveFieldRef();
-    scalarField& eRCells = eR.primitiveFieldRef();
 
     const scalarField& pCells = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
@@ -201,24 +199,17 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateIntEnergies
             TTRCells[celli]
         );
 
-        eRCells[celli] = mixture_.ER
-        (
-            pCells[celli],
-            TTRCells[celli]
-        );
     }
 
     const volScalarField::Boundary& pBf = p.boundaryField();
     const volScalarField::Boundary& TTRBf = TTR.boundaryField();
     volScalarField::Boundary& eTBf = eT.boundaryFieldRef();
-    volScalarField::Boundary& eRBf = eR.boundaryFieldRef();
 
     forAll(pBf, patchi)
     {
         const fvPatchScalarField& pp = pBf[patchi];
         const fvPatchScalarField& pTTR = TTRBf[patchi];
         fvPatchScalarField& pesT = eTBf[patchi];
-        fvPatchScalarField& pesR = eRBf[patchi];
 
         if (pTTR.fixesValue())
         {
@@ -228,6 +219,55 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateIntEnergies
                     this->patchFaceMixture(patchi, facei);
 
                 pesT[facei] = mixture_.ET(pp[facei], pTTR[facei]);
+
+            }
+        }
+    }
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateREnergy
+(
+    const volScalarField& p,
+    const volScalarField& TTR,
+    volScalarField& eR
+)
+{
+
+    scalarField& eRCells = eR.primitiveFieldRef();
+
+    const scalarField& pCells = p.primitiveField();
+    const scalarField& TTRCells = TTR.primitiveField();
+
+    forAll(TTRCells, celli)
+    {
+        const typename MixtureType::thermoType& mixture_ =
+            this->cellMixture(celli);
+
+        eRCells[celli] = mixture_.ER
+        (
+            pCells[celli],
+            TTRCells[celli]
+        );
+    }
+
+    const volScalarField::Boundary& pBf = p.boundaryField();
+    const volScalarField::Boundary& TTRBf = TTR.boundaryField();
+    volScalarField::Boundary& eRBf = eR.boundaryFieldRef();
+
+    forAll(pBf, patchi)
+    {
+        const fvPatchScalarField& pp = pBf[patchi];
+        const fvPatchScalarField& pTTR = TTRBf[patchi];
+        fvPatchScalarField& pesR = eRBf[patchi];
+
+        if (pTTR.fixesValue())
+        {
+            forAll(pTTR, facei)
+            {
+                const typename MixtureType::thermoType& mixture_ =
+                    this->patchFaceMixture(patchi, facei);
+
                 pesR[facei] = mixture_.ER(pp[facei], pTTR[facei]);
 
             }
@@ -236,7 +276,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateIntEnergies
 }
 
 template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergies
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
 (
     const volScalarField& p,
     const volScalarField& TTR,
@@ -381,15 +421,29 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correct()
 }
 
 template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctIntEnergies()
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctTEnergy()
 {
     DebugInFunction << endl;
 
-    calculateIntEnergies
+    calculateTEnergy
     (
         this->p_,
         this->TTR_,
-        this->eT_,
+        this->eT_
+    );
+
+    DebugInFunction << "Finished" << endl;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctREnergy()
+{
+    DebugInFunction << endl;
+
+    calculateREnergy
+    (
+        this->p_,
+        this->TTR_,
         this->eR_
     );
 
@@ -401,7 +455,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibEnergy()
 {
     DebugInFunction << endl;
 
-    calculateVibEnergies
+    calculateVibEnergy
     (
         this->p_,
         this->TTR_,
