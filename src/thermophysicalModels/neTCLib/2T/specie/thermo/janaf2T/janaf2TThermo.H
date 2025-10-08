@@ -113,6 +113,7 @@ private:
         coeffArray midCpCoeffs_;
         coeffArray lowCpCoeffs_;
 
+        bool convertCoeffs_;
 
     // Private Member Functions
 

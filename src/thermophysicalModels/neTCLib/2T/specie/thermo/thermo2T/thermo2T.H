@@ -218,9 +218,6 @@ public:
             //- Gibbs free energy [J/kg]
             inline scalar G(const scalar p, const scalar TTR) const;
 
-            //- Helmholtz free energy [J/kg]
-            inline scalar A(const scalar p, const scalar TTR) const;
-
 
         // Mole specific derived properties
 

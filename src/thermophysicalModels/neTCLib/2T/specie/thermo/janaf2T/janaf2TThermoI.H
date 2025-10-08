@@ -51,9 +51,10 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     TAbsHigh_(TAbsHigh),
     TFirstInt_(TFirstInt),
     TSecondInt_(TSecondInt),
-    ThetaVib_(ThetaVib)
+    ThetaVib_(ThetaVib),
+    convertCoeffs_(convertCoeffs)
 {
-    if (convertCoeffs)
+    if (convertCoeffs_)
     {
         for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
         {
@@ -385,15 +386,19 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
             jt1.TAbsHigh_,
             jt1.TFirstInt_,
             jt1.TSecondInt_,
+            jt1.ThetaVib_,
             jt1.highCpCoeffs_,
             jt1.midCpCoeffs_,
-            jt1.lowCpCoeffs_
+            jt1.lowCpCoeffs_,
+            jt1.convertCoeffs_
         );
     }
     else
     {
         const scalar Y1 = jt1.Y()/eofs.Y();
         const scalar Y2 = jt2.Y()/eofs.Y();
+
+        const scalar thetaVibMix = jt1.ThetaVib_ * Y1 + jt2.ThetaVib_ * Y2;
 
         typename janaf2TThermo<EquationOfState>::coeffArray highCpCoeffs;
         typename janaf2TThermo<EquationOfState>::coeffArray midCpCoeffs;
@@ -453,6 +458,7 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
             min(jt1.TAbsHigh_, jt2.TAbsHigh_),
             jt1.TFirstInt_,
             jt1.TSecondInt_,
+            thetaVibMix,
             highCpCoeffs,
             midCpCoeffs,
             lowCpCoeffs
@@ -475,9 +481,11 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator*
         jt.TAbsHigh_,
         jt.TFirstInt_,
         jt.TSecondInt_,
+        jt.ThetaVib_,
         jt.highCpCoeffs_,
         jt.midCpCoeffs_,
-        jt.lowCpCoeffs_
+        jt.lowCpCoeffs_,
+        jt.convertCoeffs_
     );
 }
 
@@ -495,9 +503,9 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
      == static_cast<const EquationOfState&>(jt2)
     );
 
-    const scalar Y1 = jt2.Y()/eofs.Y();
-    const scalar Y2 = jt1.Y()/eofs.Y();
-
+    const scalar Y1 = jt1.Y()/eofs.Y();
+    const scalar Y2 = jt2.Y()/eofs.Y();
+    const scalar thetaVibMix = jt1.ThetaVib_ * Y1 + jt2.ThetaVib_ * Y2;
     typename janaf2TThermo<EquationOfState>::coeffArray highCpCoeffs;
     typename janaf2TThermo<EquationOfState>::coeffArray midCpCoeffs;
     typename janaf2TThermo<EquationOfState>::coeffArray lowCpCoeffs;
@@ -510,16 +518,16 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
     )
     {
         highCpCoeffs[coefLabel] =
-            Y1*jt2.highCpCoeffs_[coefLabel]
-          - Y2*jt1.highCpCoeffs_[coefLabel];
+            Y1*jt1.highCpCoeffs_[coefLabel]
+          - Y2*jt2.highCpCoeffs_[coefLabel];
 
         midCpCoeffs[coefLabel] =
-            Y1*jt2.midCpCoeffs_[coefLabel]
-          - Y2*jt1.midCpCoeffs_[coefLabel];
+            Y1*jt1.midCpCoeffs_[coefLabel]
+          - Y2*jt2.midCpCoeffs_[coefLabel];
 
         lowCpCoeffs[coefLabel] =
-            Y1*jt2.lowCpCoeffs_[coefLabel]
-          - Y2*jt1.lowCpCoeffs_[coefLabel];
+            Y1*jt1.lowCpCoeffs_[coefLabel]
+          - Y2*jt2.lowCpCoeffs_[coefLabel];
     }
 
     if
@@ -543,9 +551,11 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
         min(jt2.TAbsHigh_, jt1.TAbsHigh_),
         jt2.TFirstInt_,
         jt2.TSecondInt_,
+        thetaVibMix,
         highCpCoeffs,
         midCpCoeffs,
-        lowCpCoeffs
+        lowCpCoeffs,
+        jt2.convertCoeffs_
     );
 }
 

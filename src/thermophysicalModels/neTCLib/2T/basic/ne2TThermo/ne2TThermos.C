@@ -36,7 +36,7 @@ License
 #include "thermo2T.H"
 
 #include "heNe2TThermo.H"
-#include "pureMixture.H"
+#include "pure2TMixture.H"
 
 #include "thermoPhysics2TTypes.H"
 
@@ -52,7 +52,7 @@ makeThermos
 (
     ne2TThermo,
     heNe2TThermo,
-    pureMixture,
+    pure2TMixture,
     blottnerEucken2TTransport,
     sensibleCalculation2T,
     janaf2TThermo,

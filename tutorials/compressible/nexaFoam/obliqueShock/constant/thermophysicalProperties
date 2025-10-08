@@ -17,7 +17,7 @@ FoamFile
 thermoType
 {
     type            heNe2TThermo;
-    mixture         pureMixture;
+    mixture         pure2TMixture;
     transport       blottnerEucken2T;
     thermo          janaf2T;
     equationOfState perfect2TGas;

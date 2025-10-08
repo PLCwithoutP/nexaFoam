@@ -38,7 +38,7 @@ SourceFiles
 #ifndef he2TThermo_H
 #define he2TThermo_H
 
-#include "basicMixture.H"
+#include "basic2TMixture.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -136,14 +136,14 @@ public:
     // Member functions
 
         //- Return the composition of the mixture
-        virtual typename MixtureType::basicMixtureType&
+        virtual typename MixtureType::basic2TMixtureType&
         composition()
         {
             return *this;
         }
 
         //- Return the composition of the mixture
-        virtual const typename MixtureType::basicMixtureType&
+        virtual const typename MixtureType::basic2TMixtureType&
         composition() const
         {
             return *this;
@@ -418,7 +418,7 @@ public:
             (
                 const scalarField& p,
                 const scalarField& TTR,
-                const scalarField& Tvib,
+                const scalarField& TVib,
                 const scalar ThetaVib,
                 const label patchi
             ) const;

@@ -1,0 +1,7 @@
+mixtures/basicMultiComponent2TMixture/basicMultiComponent2TMixture.C
+mixtures/basicSpecie2TMixture/basicSpecie2TMixture.C
+
+neReactionThermo/neReactionThermo.C
+neReactionThermo/neReactionThermos.C
+
+LIB = $(FOAM_LIBBIN)/libneReactionThermophysicalModels

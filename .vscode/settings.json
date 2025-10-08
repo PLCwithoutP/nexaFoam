@@ -95,6 +95,21 @@
         "maxwellSlipU2TFvPatchVectorField.C": "cpp",
         "functional": "cpp",
         "dimensionSets.C": "cpp",
-        "fvcVolumeIntegrate.C": "cpp"
+        "fvcVolumeIntegrate.C": "cpp",
+        "pure2TMixture.C": "cpp",
+        "Specie2TMixture.C": "cpp",
+        "singleComponent2TMixture.C": "cpp",
+        "reactingMixture.C": "cpp",
+        "reacting2TMixture.C": "cpp",
+        "multiComponent2TMixture.C": "cpp",
+        "basicSpecie2TMixture.C": "cpp",
+        "basicMultiComponent2TMixture.C": "cpp",
+        "neReactionThermo.C": "cpp",
+        "neReactionThermos.C": "cpp",
+        "ReynoldsAnalogy.C": "cpp",
+        "chemkinReaderExtended.C": "cpp",
+        "make2TChemistryReaders.C": "cpp",
+        "foamChemistry2TReader.C": "cpp",
+        "chemistryReader2T.C": "cpp"
     }
 }

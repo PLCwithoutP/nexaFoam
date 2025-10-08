@@ -239,14 +239,6 @@ Foam::species::thermo2T<Thermo2T, Type>::G(const scalar p, const scalar TTR) con
 
 template<class Thermo2T, template<class> class Type>
 inline Foam::scalar
-Foam::species::thermo2T<Thermo2T, Type>::A(const scalar p, const scalar TTR) const
-{
-    return this->Ea(p, TTR) - TTR*this->S(p, TTR);
-}
-
-
-template<class Thermo2T, template<class> class Type>
-inline Foam::scalar
 Foam::species::thermo2T<Thermo2T, Type>::cpTR(const scalar p, const scalar TTR) const
 {
     return this->CpTR(p, TTR)*this->W();
