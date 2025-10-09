@@ -11,10 +11,11 @@ IOdictionary thermoDict_
     )    
 );
 
-const dictionary& mix = thermoDict_.subDict("mixture");
+/* const dictionary& mix = thermoDict_.subDict("mixture");
 const dictionary& sp  = mix.subDict("specie");
 
 word specieKind = Foam::word("");
 sp.readIfPresent("type", specieKind);  // SAFE: no fatal if missing
-
-const bool vibrationalCheck = (specieKind == "molecular");
+ */
+//const bool vibrationalCheck = (specieKind == "molecular");
+const bool vibrationalCheck = true;

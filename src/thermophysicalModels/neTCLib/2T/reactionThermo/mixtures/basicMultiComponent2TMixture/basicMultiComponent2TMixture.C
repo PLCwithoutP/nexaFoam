@@ -53,9 +53,10 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
 
     forAll(species_, i)
     {
+        const word fldName = "Y_" + species_[i];
         IOobject header
         (
-            IOobject::groupName(species_[i], phaseName),
+            IOobject::groupName(fldName, phaseName),
             mesh.time().timeName(),
             mesh,
             IOobject::NO_READ
@@ -75,7 +76,7 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
                 (
                     IOobject
                     (
-                        IOobject::groupName(species_[i], phaseName),
+                        IOobject::groupName(fldName, phaseName),
                         mesh.time().timeName(),
                         mesh,
                         IOobject::MUST_READ,
@@ -97,7 +98,7 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
                     YdefaultName,
                     mesh.time().timeName(),
                     mesh,
-                    IOobject::MUST_READ,
+                    IOobject::READ_IF_PRESENT, // Changed from MUST_READ
                     IOobject::NO_WRITE,
                     IOobject::NO_REGISTER
                 );
@@ -107,7 +108,7 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
                     YdefaultName,
                     mesh.time().constant(),
                     mesh,
-                    IOobject::MUST_READ,
+                    IOobject::READ_IF_PRESENT,
                     IOobject::NO_WRITE
                 );
 
@@ -116,7 +117,7 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
                     YdefaultName,
                     Time::timeName(0),
                     mesh,
-                    IOobject::MUST_READ,
+                    IOobject::READ_IF_PRESENT,
                     IOobject::NO_WRITE
                 );
 
@@ -141,7 +142,7 @@ Foam::basicMultiComponent2TMixture::basicMultiComponent2TMixture
                 (
                     IOobject
                     (
-                        IOobject::groupName(species_[i], phaseName),
+                        IOobject::groupName(fldName, phaseName),
                         mesh.time().timeName(),
                         mesh,
                         IOobject::NO_READ,

@@ -1,11 +1,14 @@
 #include "createRDeltaT.H"
 #include "vibrationalFieldCheck.H"
-autoPtr<ne2TThermo> n2Thermo
+autoPtr<ne2TThermo> thermoSelector
 (
     ne2TThermo::New(mesh)
 );
 
-ne2TThermo& thermo2T = n2Thermo();
+ne2TThermo& thermo2T = thermoSelector();
+
+/* const auto& mix = thermo2T.composition();
+const wordList& s = mix.species();  */
 
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
