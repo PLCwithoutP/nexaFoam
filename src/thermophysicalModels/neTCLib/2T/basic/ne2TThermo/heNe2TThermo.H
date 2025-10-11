@@ -50,10 +50,10 @@ namespace Foam
                          Class heNe2TThermo Declaration
 \*---------------------------------------------------------------------------*/
 
-template<class BasicNe2TThermo, class MixtureType>
+template<class ne2TThermoType, class MixtureType>
 class heNe2TThermo
 :
-    public he2TThermo<BasicNe2TThermo, MixtureType>
+    public he2TThermo<ne2TThermoType, MixtureType>
 {
     // Private Member Functions
 
@@ -98,7 +98,7 @@ class heNe2TThermo
             volScalarField& esVib
         );
         //- Construct as copy (not implemented)
-        heNe2TThermo(const heNe2TThermo<BasicNe2TThermo, MixtureType>&);
+        heNe2TThermo(const heNe2TThermo<ne2TThermoType, MixtureType>&);
 
 
 public:

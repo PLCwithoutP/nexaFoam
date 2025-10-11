@@ -1,4 +1,17 @@
 myFile << "Time is : " << runTime.timeName() << endl;
+
+forAll(Y, i)
+{
+    const volScalarField& Yi = Y[i];
+
+    const scalar volAvg =
+        Yi.weightedAverage(mesh.V()).value();
+
+    Info << "Average mass fraction of " << Yi.name() << " is:  " << volAvg << nl;
+    myFile << "Average mass fraction of " << Yi.name() << " is:  " << volAvg << nl;
+}
+
+
 myFile << "Average Translational Cv value in internal cells is : \n" << (thermo2T.CvT())().average().value() << endl;
 if(vibrationalCheck)
 {

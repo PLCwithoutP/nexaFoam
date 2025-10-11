@@ -110,6 +110,8 @@
         "chemkinReaderExtended.C": "cpp",
         "make2TChemistryReaders.C": "cpp",
         "foamChemistry2TReader.C": "cpp",
-        "chemistryReader2T.C": "cpp"
+        "chemistryReader2T.C": "cpp",
+        "ne2TReactionThermo.C": "cpp",
+        "ne2TReactionThermos.C": "cpp"
     }
 }

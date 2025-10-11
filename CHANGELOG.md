@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2025-10-11
+
+### Added
+- [ ] Multiple species are now accepted as input.
+
+---
+
 ## [1.0.0] - 2025-09-24
 
 ### Added

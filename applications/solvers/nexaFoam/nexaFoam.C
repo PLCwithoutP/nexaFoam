@@ -37,7 +37,7 @@ Description
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
-#include "ne2TThermo.H"
+#include "ne2TReactionThermo.H"
 #include "turbulentFluidTThermoModel.H"
 #include "fixed2TRhoFvPatchScalarField.H"
 #include "directionInterpolate.H"

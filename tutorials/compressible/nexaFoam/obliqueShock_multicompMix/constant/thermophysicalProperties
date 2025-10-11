@@ -27,11 +27,11 @@ thermoType
 
 species
 (
-    N2
+    //N2
     O2
 );
 
-
+/*
 N2
 {
     specie
@@ -91,7 +91,8 @@ N2
         CB              -1.0805e+01;
         //Pr            0.7020; // Valid 200-10000 K
     }
-}
+}*/
+
 
 O2
 {

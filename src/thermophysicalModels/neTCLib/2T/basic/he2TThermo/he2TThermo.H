@@ -49,10 +49,10 @@ namespace Foam
                          Class he2TThermo Declaration
 \*---------------------------------------------------------------------------*/
 
-template<class Basic2TThermo, class MixtureType>
+template<class ne2TThermoType, class MixtureType>
 class he2TThermo
 :
-    public Basic2TThermo,
+    public ne2TThermoType,
     public MixtureType
 {
 protected:
@@ -85,7 +85,7 @@ private:
     // Private Member Functions
 
         //- Construct as copy (not implemented)
-        he2TThermo(const he2TThermo<Basic2TThermo, MixtureType>&);
+        he2TThermo(const he2TThermo<ne2TThermoType, MixtureType>&);
 
 
         //- Initialize he2TThermo
