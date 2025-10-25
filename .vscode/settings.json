@@ -112,6 +112,9 @@
         "foamChemistry2TReader.C": "cpp",
         "chemistryReader2T.C": "cpp",
         "ne2TReactionThermo.C": "cpp",
-        "ne2TReactionThermos.C": "cpp"
+        "ne2TReactionThermos.C": "cpp",
+        "baseMixingRule.C": "cpp",
+        "Wilke.C": "cpp",
+        "WilkeMR.C": "cpp"
     }
 }
