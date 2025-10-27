@@ -1,8 +1,6 @@
-#!/bin/sh
-cd "${0%/*}" || exit    # Run from this directory
-#------------------------------------------------------------------------------
+#!/bin/bash
 
-clear
+source $HOME/OF2412/OpenFOAM-v2412/etc/bashrc
 
 dash_line() {
   msg="$*"
@@ -26,14 +24,6 @@ dash_line() {
   printf '\n'
 }
 
-echo " "
-echo " "
-dash_line " Cleaning nexaFoam "
-printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
-wclean libso BCs
+dash_line " Compiling TurbulenceModels/ "
 wclean
-printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
-dash_line " Cleaning is completed "
-echo " "
-echo " "
-#------------------------------------------------------------------------------
+wmake

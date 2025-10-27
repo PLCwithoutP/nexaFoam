@@ -115,6 +115,10 @@
         "ne2TReactionThermos.C": "cpp",
         "baseMixingRule.C": "cpp",
         "Wilke.C": "cpp",
-        "WilkeMR.C": "cpp"
+        "WilkeMR.C": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "string_view": "cpp"
     }
 }
