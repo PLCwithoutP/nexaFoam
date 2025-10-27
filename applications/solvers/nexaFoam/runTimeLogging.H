@@ -1,14 +1,22 @@
 myFile << "Time is : " << runTime.timeName() << endl;
 
-forAll(Y, i)
+forAll(spec, i)
 {
-    const volScalarField& Yi = Y[i];
+    const volScalarField& Yi = Y_species[i];
+    const scalar Wi = mix.W(i);
+    const scalar mui = mix.mu(i,TTR.average().value());
 
     const scalar volAvg =
         Yi.weightedAverage(mesh.V()).value();
 
     Info << "Average mass fraction of " << Yi.name() << " is:  " << volAvg << nl;
     myFile << "Average mass fraction of " << Yi.name() << " is:  " << volAvg << nl;
+
+    Info << "Mol weight of " << spec[i] << " is:  " << Wi << nl;
+    myFile << "Mol weight of " << spec[i] << " is:  " << Wi << nl;
+
+    Info << "Average viscosity of " << spec[i] << " is:  " << mui << nl;
+    myFile << "Average viscosity of " << spec[i] << " is:  " << mui << nl;
 }
 
 

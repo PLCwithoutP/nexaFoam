@@ -8,7 +8,10 @@ autoPtr<ne2TReactionThermo> thermoSelector
 ne2TReactionThermo& thermo2T = thermoSelector();
 
 auto& mix = thermo2T.composition();
-PtrList<volScalarField>& Y = mix.Y();
+
+const speciesTable& spec  = mix.species();
+
+PtrList<volScalarField>& Y_species = mix.Y();
 
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
