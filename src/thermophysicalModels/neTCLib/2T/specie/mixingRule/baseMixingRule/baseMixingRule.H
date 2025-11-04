@@ -88,9 +88,6 @@ public:
         //- Return the scalar quantity
         virtual tmp<volScalarField> Qscalar(const volScalarField& Yi) const = 0;
 
-        //- Return the vectoral quantity
-        virtual tmp<volVectorField> Qvector(const volScalarField& Yi) const = 0;
-
         //- Return the scalar quantity for patch
         virtual tmp<scalarField> Qscalar(const label patchi, const volScalarField& Yi) const = 0;
 

@@ -86,9 +86,6 @@ class WilkeMR
             //- Return the scalar quantity
             inline tmp<volScalarField> Qscalar(const volScalarField& Yi) const;
 
-            //- Return the vectoral quantity
-            inline tmp<volVectorField> Qvector(const volScalarField& Yi) const;
-
             //- Return the scalar quantity for patch
             inline tmp<scalarField> Qscalar(const label patchi, const volScalarField& Yi) const;
 
@@ -99,8 +96,6 @@ class WilkeMR
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace Foam
-
-#include "WilkeMRI.H"
 
 #ifdef NoRepository
     #include "WilkeMR.C"
