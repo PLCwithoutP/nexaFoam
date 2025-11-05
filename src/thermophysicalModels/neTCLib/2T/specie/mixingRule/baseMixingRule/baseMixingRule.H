@@ -76,7 +76,10 @@ public:
     // Constructors
 
         //- Construct from components
-        baseMixingRule();
+        baseMixingRule
+        (
+            const basicMultiComponent2TMixture& mc2Tmix
+        );
 
 
     //- Destructor
@@ -86,10 +89,19 @@ public:
     // Member Functions
 
         //- Return the scalar quantity
-        virtual tmp<volScalarField> Qscalar(const volScalarField& Yi) const = 0;
+        virtual tmp<volScalarField> Qscalar
+        (
+            const volScalarField& Qspecie,
+            const volScalarField& Yi
+            ) const = 0;
 
         //- Return the scalar quantity for patch
-        virtual tmp<scalarField> Qscalar(const label patchi, const volScalarField& Yi) const = 0;
+        virtual tmp<scalarField> Qscalar
+        (
+            const label patchi,
+            const volScalarField& Qspecie,
+            const volScalarField& Yi
+        ) const = 0;
 
 };
 

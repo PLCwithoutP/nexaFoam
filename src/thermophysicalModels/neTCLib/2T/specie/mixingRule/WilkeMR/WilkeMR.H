@@ -43,6 +43,7 @@ SourceFiles
 #define WilkeMR_H
 
 #include "baseMixingRule.H"
+#include "volFields.H"
 
 namespace Foam
 {
@@ -61,7 +62,6 @@ class WilkeMR
     private:
         // Private Data
             List<scalar> W_;       // [kg/kmol] or [g/mol]
-
             PtrList<volScalarField> mu_;  // species viscosities
             PtrList<volScalarField> x_;   // mole fractions
     
@@ -72,8 +72,26 @@ class WilkeMR
         //- No copy assignment
         void operator=(const WilkeMR&) = delete;
 
+        // find the index of Yi inside mixture_.Y()
+        label specieIndex(const volScalarField& Yi) const;
+        
+        // recompute x_k from current Y_k (robust if fields change during run)
+        void updateX();
+
+        // φ_ij for Wilke rule (field version)
+        tmp<volScalarField> phi_ij(const label i, const label j) const;
+
     public:
         // Constructors
+            
+            //- Construct from components
+            WilkeMR
+            (
+                const basicMultiComponent2TMixture& mc2Tmix
+            );
+
+            //- Destructor
+            ~WilkeMR();
 
         // Member Functions
 
@@ -82,15 +100,28 @@ class WilkeMR
             {
                 return "WilkeMR";
             }
+            
+            //- Transform mass fraction to mole fraction
+            inline tmp<volScalarField> YtoX
+            (
+                const volScalarField& Yi
+            ) const;
 
             //- Return the scalar quantity
-            inline tmp<volScalarField> Qscalar(const volScalarField& Yi) const;
+            inline tmp<volScalarField> Qscalar
+            (
+                const volScalarField& Qspecie,
+                const volScalarField& Yi
+                ) const;
 
             //- Return the scalar quantity for patch
-            inline tmp<scalarField> Qscalar(const label patchi, const volScalarField& Yi) const;
+            inline tmp<scalarField> Qscalar
+            (
+                const label patchi,
+                const volScalarField& Qspecie,
+                const volScalarField& Yi
+            ) const;
 
-            //- Return the scaling factor for mixture
-            inline scalar phiSpecie(const volScalarField& Yi) const;
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

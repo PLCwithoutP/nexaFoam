@@ -1,1 +1,0 @@
-../mixingRule/WilkeMR/WilkeMRI.H

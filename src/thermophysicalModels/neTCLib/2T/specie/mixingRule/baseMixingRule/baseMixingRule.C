@@ -40,7 +40,7 @@ namespace Foam
 
 Foam::baseMixingRule::baseMixingRule
 (
-    const basicMultiComponent2TMixture& mc2Tmix,
+    const basicMultiComponent2TMixture& mc2Tmix
 )
 :
 mixture_ (mc2Tmix)
