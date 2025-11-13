@@ -613,7 +613,7 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \
 lnInclude/basicMultiComponent2TMixtureI.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/specieElement.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/specieElementI.H \
-../basic/lnInclude/heNe2TThermo.H \
+ne2TReactionThermo/heNe2TReactionThermo.H \
 ../basic/lnInclude/he2TThermo.H \
 ../basic/lnInclude/he2TThermo.C \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/gradientEnergyFvPatchScalarField.H \
@@ -624,6 +624,11 @@ $(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/mixedEnergyFvPatchSca
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.C \
+ne2TReactionThermo/heNe2TReactionThermo.C \
+lnInclude/WilkeMR.H \
+lnInclude/baseMR.H \
+lnInclude/WilkeMR.C \
+../basic/lnInclude/heNe2TThermo.H \
 ../basic/lnInclude/heNe2TThermo.C \
 ../specie/lnInclude/specie2T.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/thermodynamicConstants.H \

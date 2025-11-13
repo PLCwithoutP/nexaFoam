@@ -1,6 +1,7 @@
 EXE_INC = \
     -I../specie/lnInclude \
     -I../specie/include \
+    -I../laterClasses/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \

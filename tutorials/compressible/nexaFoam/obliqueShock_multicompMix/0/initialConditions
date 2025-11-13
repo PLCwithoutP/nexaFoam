@@ -22,7 +22,7 @@ pressureValue  1;
 
 velocityValue  (2.9 0 0);
 
-N2_mol_fraction 0.8;
-O2_mol_fraction 0.2;
+N2_mol_fraction 0.45;
+O2_mol_fraction 0.55;
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

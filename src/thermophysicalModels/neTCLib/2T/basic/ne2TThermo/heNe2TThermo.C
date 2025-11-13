@@ -67,7 +67,6 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
     }
 
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
-
     const scalarField& hCells = h.primitiveField();
     const scalarField& eVibCells = eVib.primitiveField();
     const scalarField& pCells = p.primitiveField();
@@ -80,12 +79,12 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 
     forAll(TTRCells, celli)
     {
-        const typename MixtureType::thermoType& mixture_ =
+        const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);                  
         
         if (this->updateTTR())
         {
-            TTRCells[celli] = mixture_.TH_TR
+            TTRCells[celli] = cellMixture_.TH_TR
             (
                 hCells[celli],
                 pCells[celli],
@@ -95,7 +94,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 
         if (this->updateTVib())
         {
-            TVibCells[celli] = mixture_.TE_Vib
+            TVibCells[celli] = cellMixture_.TE_Vib
             (
                 eVibCells[celli],
                 pCells[celli],
@@ -103,9 +102,9 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 TVibCells[celli]
             );
         }
-        psiCells[celli] = mixture_.psi(pCells[celli], TTRCells[celli]);
-        muCells[celli] = mixture_.mu(TTRCells[celli]);
-        alphaCells[celli] = mixture_.alphah(pCells[celli], TTRCells[celli]);
+        psiCells[celli] = cellMixture_.psi(pCells[celli], TTRCells[celli]);
+        muCells[celli] = cellMixture_.mu(TTRCells[celli]);
+        alphaCells[celli] = cellMixture_.alphah(pCells[celli], TTRCells[celli]);
     }
 
     const volScalarField::Boundary& pBf = p.boundaryField();
@@ -136,39 +135,39 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
         {
             forAll(pTTR, facei)
             {
-                const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                ph[facei] = mixture_.H(pp[facei], pTTR[facei]);
-                pesT[facei] = mixture_.ET(pp[facei], pTTR[facei]);
-                pesR[facei] = mixture_.ER(pp[facei], pTTR[facei]);
-                pesVib[facei] = mixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+                ph[facei] = cellMixture_.H(pp[facei], pTTR[facei]);
+                pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
+                pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
+                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
 
-                ppsi[facei] = mixture_.psi(pp[facei], pTTR[facei]);
-                pmu[facei] = mixture_.mu(pTTR[facei]);
-                palpha[facei] = mixture_.alphah(pp[facei], pTTR[facei]);
+                ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
+                pmu[facei] = cellMixture_.mu(pTTR[facei]);
+                palpha[facei] = cellMixture_.alphah(pp[facei], pTTR[facei]);
             }
         }
         else
         {
             forAll(pTTR, facei)
             {
-                const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
                 if (this->updateTTR())
                 {
-                    pTTR[facei] = mixture_.TH_TR(ph[facei], pp[facei], pTTR[facei]);
+                    pTTR[facei] = cellMixture_.TH_TR(ph[facei], pp[facei], pTTR[facei]);
                 }
 
                 if (this->updateTVib())
                 {
-                    pTVib[facei] = mixture_.TE_Vib(pesVib[facei], pp[facei], pTTR[facei], pTVib[facei]);
+                    pTVib[facei] = cellMixture_.TE_Vib(pesVib[facei], pp[facei], pTTR[facei], pTVib[facei]);
                 }
 
-                ppsi[facei] = mixture_.psi(pp[facei], pTTR[facei]);
-                pmu[facei] = mixture_.mu(pTTR[facei]);
-                palpha[facei] = mixture_.alphah(pp[facei], pTTR[facei]);
+                ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
+                pmu[facei] = cellMixture_.mu(pTTR[facei]);
+                palpha[facei] = cellMixture_.alphah(pp[facei], pTTR[facei]);
             }
         }
     }
@@ -190,10 +189,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateTEnergy
 
     forAll(TTRCells, celli)
     {
-        const typename MixtureType::thermoType& mixture_ =
+        const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);
         
-        eTCells[celli] = mixture_.ET
+        eTCells[celli] = cellMixture_.ET
         (
             pCells[celli],
             TTRCells[celli]
@@ -215,10 +214,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateTEnergy
         {
             forAll(pTTR, facei)
             {
-                const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                pesT[facei] = mixture_.ET(pp[facei], pTTR[facei]);
+                pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
 
             }
         }
@@ -241,10 +240,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateREnergy
 
     forAll(TTRCells, celli)
     {
-        const typename MixtureType::thermoType& mixture_ =
+        const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);
 
-        eRCells[celli] = mixture_.ER
+        eRCells[celli] = cellMixture_.ER
         (
             pCells[celli],
             TTRCells[celli]
@@ -265,10 +264,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateREnergy
         {
             forAll(pTTR, facei)
             {
-                const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                pesR[facei] = mixture_.ER(pp[facei], pTTR[facei]);
+                pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
 
             }
         }
@@ -294,10 +293,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
 
     forAll(TTRCells, celli)
     {
-        const typename MixtureType::thermoType& mixture_ =
+        const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);
 
-        eVibCells[celli] = mixture_.EV
+        eVibCells[celli] = cellMixture_.EV
         (
             pCells[celli],
             TTRCells[celli],
@@ -322,10 +321,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
         {
             forAll(pTTR, facei)
             {
-                const typename MixtureType::thermoType& mixture_ =
+                const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                pesVib[facei] = mixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
 
             }
         }

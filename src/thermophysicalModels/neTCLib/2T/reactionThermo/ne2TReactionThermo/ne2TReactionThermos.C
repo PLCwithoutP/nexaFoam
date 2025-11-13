@@ -29,6 +29,7 @@ License
 #include "make2TReactionThermo.H"
 
 #include "ne2TReactionThermo.H"
+#include "heNe2TReactionThermo.H"
 #include "heNe2TThermo.H"
 
 #include "specie2T.H"
@@ -48,6 +49,27 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+
+// Multi-component thermo for sensible calculation
+
+make2TThermoPhysicsReactionThermos
+(
+    ne2TThermo,
+    ne2TReactionThermo,
+    heNe2TReactionThermo,
+    multiComponent2TMixture,
+    blottnerEucken2TGasCThermoPhysics
+);
+
+// Single-component thermo for sensible calculation
+
+make2TThermoPhysicsReactionThermo
+(
+    ne2TReactionThermo,
+    heNe2TReactionThermo,
+    singleComponent2TMixture,
+    blottnerEucken2TGasCThermoPhysics
+);
 
 // Multi-component thermo for sensible calculation
 

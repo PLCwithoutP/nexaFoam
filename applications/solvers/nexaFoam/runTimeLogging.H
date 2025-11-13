@@ -5,6 +5,7 @@ forAll(spec, i)
     const volScalarField& Yi = Y_species[i];
     const scalar Wi = mix.W(i);
     const scalar mui = mix.mu(i,TTR.average().value());
+    const scalar kappaTRi = mix.kappaTR(i,p.average().value(), TTR.average().value());
 
     const scalar volAvg =
         Yi.weightedAverage(mesh.V()).value();
@@ -17,6 +18,9 @@ forAll(spec, i)
 
     Info << "Average viscosity of " << spec[i] << " is:  " << mui << nl;
     myFile << "Average viscosity of " << spec[i] << " is:  " << mui << nl;
+
+    Info << "Average thermal conductivity of " << spec[i] << " is:  " << kappaTRi << nl;
+    myFile << "Average thermal conductivity of " << spec[i] << " is:  " << kappaTRi << nl;
 }
 
 

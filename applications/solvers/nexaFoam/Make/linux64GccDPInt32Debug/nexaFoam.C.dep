@@ -929,6 +929,7 @@ $(WM_PROJECT_DIR)/src/dynamicFvMesh/lnInclude/createDynamicFvMesh.H \
 createFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createRDeltaT.H \
 vibrationalFieldCheck.H \
+createMixture.H \
 createFieldRefs.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createTimeControls.H \
 readFluxScheme.H \

@@ -125,6 +125,16 @@
         "typeinfo": "cpp",
         "fusedGaussGrad.C": "cpp",
         "specie2T.C": "cpp",
-        "perfect2TGas.C": "cpp"
+        "perfect2TGas.C": "cpp",
+        "Wassiljewa.C": "cpp",
+        "bitset": "cpp",
+        "sigInt.C": "cpp",
+        "regex": "cpp",
+        "DictionaryBase.C": "cpp",
+        "FieldFunctions.C": "cpp",
+        "UPstreamReduce.C": "cpp",
+        "Scalar.C": "cpp",
+        "LaheyKEpsilon.C": "cpp",
+        "heNe2TReactionThermo.C": "cpp"
     }
 }
