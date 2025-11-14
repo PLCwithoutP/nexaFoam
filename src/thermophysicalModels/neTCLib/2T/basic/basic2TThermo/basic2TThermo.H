@@ -358,6 +358,9 @@ public:
         //- Update properties
         virtual void correctVibEnergy() = 0;
 
+        virtual scalar wilkeKappaAverage() const = 0;
+        virtual scalar wilkeMuAverage() const = 0;
+
         //- Return the name of the thermo physics
         virtual word thermoName() const = 0;
 

@@ -135,6 +135,14 @@
         "UPstreamReduce.C": "cpp",
         "Scalar.C": "cpp",
         "LaheyKEpsilon.C": "cpp",
-        "heNe2TReactionThermo.C": "cpp"
+        "heNe2TReactionThermo.C": "cpp",
+        "GeometricScalarField.C": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "system_error": "cpp",
+        "triFaceTemplates.C": "cpp",
+        "fvcAverage.C": "cpp",
+        "laminarModel.C": "cpp",
+        "IATE.C": "cpp"
     }
 }

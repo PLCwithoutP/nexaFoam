@@ -465,4 +465,20 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibEnergy()
     DebugInFunction << "Finished" << endl;
 }
 
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
+() const
+{
+    return 0;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
+() const
+{
+    return 0;
+}
+
 // ************************************************************************* //

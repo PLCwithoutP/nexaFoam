@@ -6,6 +6,7 @@ forAll(spec, i)
     const scalar Wi = mix.W(i);
     const scalar mui = mix.mu(i,TTR.average().value());
     const scalar kappaTRi = mix.kappaTR(i,p.average().value(), TTR.average().value());
+    const scalar CpTRi = mix.CpTR(i,p.average().value(), TTR.average().value());
 
     const scalar volAvg =
         Yi.weightedAverage(mesh.V()).value();
@@ -21,6 +22,9 @@ forAll(spec, i)
 
     Info << "Average thermal conductivity of " << spec[i] << " is:  " << kappaTRi << nl;
     myFile << "Average thermal conductivity of " << spec[i] << " is:  " << kappaTRi << nl;
+
+    Info << "Average CpTR of " << spec[i] << " is:  " << CpTRi << nl;
+    myFile << "Average CpTR of " << spec[i] << " is:  " << CpTRi << nl;
 }
 
 
@@ -34,11 +38,14 @@ if(vibrationalCheck)
 {
     myFile << "Average Vibrational Cv value in internal cells is : \n" << (thermo2T.CvVib())().average().value() << endl;
 }
-myFile << "Average Translational-Rotational mu value in internal cells is : \n" << (thermo2T.mu())().average().value() << endl;
-myFile << "Average Translational-Rotational kappa value in internal cells is : \n" << (thermo2T.kappaTR())().average().value() << endl;
+myFile << "Average viscosity of value in internal cells is : \n" << thermo2T.wilkeMuAverage() << endl;
+Info << "Average viscosity of value in internal cells is : \n" << thermo2T.wilkeMuAverage() << endl;
+
+myFile << "Average thermal conductivity of value in internal cells is : \n" << thermo2T.wilkeKappaAverage() << endl;
+Info << "Average thermal conductivity of value in internal cells is : \n" << thermo2T.wilkeKappaAverage() << endl;
 if(vibrationalCheck)
 {
-    myFile << "Average Vibrational kappa value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
+    myFile << "Average vibrational thermal conductivity value in internal cells is : \n" << (thermo2T.kappaVib())().average().value() << endl;
 }
 
 Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;

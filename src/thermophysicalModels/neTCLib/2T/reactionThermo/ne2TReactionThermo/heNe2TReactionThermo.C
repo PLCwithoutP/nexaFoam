@@ -344,6 +344,67 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
     }
 }
 
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
+() const
+{
+    // Mixing Rule definition for mixture
+    using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+    WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+    const scalarField& TTRCells = this->TTR_.primitiveField();
+    const scalarField& pCells = this->p_.primitiveField();
+
+    const fvMesh& mesh = this->TTR_.mesh();
+    const scalarField& V = mesh.V();
+    const scalar Vtot = gSum(V);
+
+    scalar sumKappaV = 0.0;
+
+    forAll(TTRCells, celli)
+    {
+        const scalar kappaCell =
+            wilkeMix.kappaTRCell(celli, pCells[celli], TTRCells[celli]);
+
+        sumKappaV += kappaCell * V[celli];
+    }
+
+    return sumKappaV / Vtot;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
+() const
+{
+    // Mixing Rule definition for mixture
+    using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+    WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+    const scalarField& TTRCells = this->TTR_.primitiveField();
+    const scalarField& pCells = this->p_.primitiveField();
+
+    const fvMesh& mesh = this->TTR_.mesh();
+    const scalarField& V = mesh.V();
+    const scalar Vtot = gSum(V);
+
+    scalar sumMuV = 0.0;
+
+    forAll(TTRCells, celli)
+    {
+        
+        const scalar muCell =
+            wilkeMix.muCell(celli, pCells[celli], TTRCells[celli]);
+
+        sumMuV += muCell * V[celli];
+    }
+
+    return sumMuV / Vtot;
+}
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class BasicNe2TThermo, class MixtureType>

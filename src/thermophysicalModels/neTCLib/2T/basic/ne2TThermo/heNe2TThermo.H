@@ -136,6 +136,9 @@ public:
         virtual void correctREnergy();
         virtual void correctVibEnergy();
 
+        virtual scalar wilkeKappaAverage() const;
+        virtual scalar wilkeMuAverage() const;
+
 };
 
 

@@ -97,6 +97,7 @@ class heNe2TReactionThermo
             const volScalarField& TVib,
             volScalarField& esVib
         );
+        
         //- Construct as copy (not implemented)
         heNe2TReactionThermo(const heNe2TReactionThermo<basicNe2TThermo, MixtureType>&);
 
@@ -135,7 +136,9 @@ public:
         virtual void correctTEnergy();
         virtual void correctREnergy();
         virtual void correctVibEnergy();
-
+        
+        virtual scalar wilkeKappaAverage() const override;
+        virtual scalar wilkeMuAverage() const;
 };
 
 
