@@ -481,4 +481,22 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
     return 0;
 }
 
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibSource
+()
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTime
+()
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    return emptyList;
+}
+
 // ************************************************************************* //

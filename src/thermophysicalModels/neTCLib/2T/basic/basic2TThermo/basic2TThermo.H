@@ -358,6 +358,9 @@ public:
         //- Update properties
         virtual void correctVibEnergy() = 0;
 
+        virtual PtrList<volScalarField>& correctVibSource() = 0;
+        virtual PtrList<volScalarField>& correctVTRelaxationTime() = 0;
+
         virtual scalar wilkeKappaAverage() const = 0;
         virtual scalar wilkeMuAverage() const = 0;
 

@@ -40,6 +40,8 @@ SourceFiles
 
 #include "ne2TReactionThermo.H"
 #include "he2TThermo.H"
+#include "WilkeMR.H"
+#include "VTEnergySource.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -98,6 +100,16 @@ class heNe2TReactionThermo
             volScalarField& esVib
         );
         
+/*         //- Calculate the vibrational-translational source
+        void calculateTrVibSource
+        (
+            const volScalarField& p,
+            const volScalarField& TTR,
+            const volScalarField& TVib,
+            const label speciei,
+            volScalarField& Q_VT
+        ); */
+
         //- Construct as copy (not implemented)
         heNe2TReactionThermo(const heNe2TReactionThermo<basicNe2TThermo, MixtureType>&);
 
@@ -136,6 +148,9 @@ public:
         virtual void correctTEnergy();
         virtual void correctREnergy();
         virtual void correctVibEnergy();
+        
+        PtrList<volScalarField>& correctVibSource();
+        PtrList<volScalarField>& correctVTRelaxationTime();
         
         virtual scalar wilkeKappaAverage() const override;
         virtual scalar wilkeMuAverage() const;

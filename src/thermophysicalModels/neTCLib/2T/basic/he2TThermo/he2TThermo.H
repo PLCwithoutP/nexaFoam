@@ -71,7 +71,6 @@ protected:
         //- Vibrational Energy field
         volScalarField eVib_;
 
-
     // Protected Member Functions
 
         // Enthalpy

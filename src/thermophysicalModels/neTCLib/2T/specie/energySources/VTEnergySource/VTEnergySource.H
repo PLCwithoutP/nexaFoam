@@ -44,6 +44,7 @@ SourceFiles
 #include "volFields.H"
 #include "IOobject.H"
 #include "mathematicalConstants.H"
+#include "PtrList.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -65,9 +66,13 @@ class VTEnergySource
 private:
 
     // Private data
-    const MixtureType& mix_;
-    const MixingRule& mr_;
+    MixtureType& mix_;
+    MixingRule& mr_;
+
     const speciesTable& names_;
+    PtrList<volScalarField> Q_VTList_;
+    PtrList<volScalarField> tauVTList_;
+
     const scalar sigma_prime_; // Effective cross section
     const scalar boltzmann_const_; // Boltzmann constant
 
@@ -78,8 +83,8 @@ public:
         //- Construct from multiComponent2TMixture& 
         VTEnergySource
         (
-            const MixtureType& mix,
-            const MixingRule& MR
+            MixtureType& mix,
+            MixingRule& MR
         );
 
     // Member functions
@@ -89,6 +94,11 @@ public:
         {
             return "VTEnergySource";
         }
+
+        void makeQVibSourceFields
+        (
+            const fvMesh& mesh
+        );
 
         label nSpecies() const 
         { 
@@ -142,20 +152,39 @@ public:
             const label s
         );
 
-        // Number density
-        scalar n_s
+        // Total number density
+        scalar n_total
         (
             const scalar p,
             const scalar TTR
         );
 
+        // Specie number density
+        scalar n_s
+        (
+            const scalar p,
+            const scalar TTR,
+            const label s,
+            const label celli
+        );
+
+        // Partial pressure
+        scalar p_s
+        (
+            const scalar p,
+            const scalar TTR,
+            const label s,
+            const label celli
+        );
         // Park Relaxation Time
         scalar T_P_sr
         (
             const scalar p,
             const scalar TTR,
-            const label s
-        )
+            const label s,
+            const label r,
+            const label celli
+        );
 
         // Millikan-White A coefficient
         scalar A_sr
@@ -186,7 +215,8 @@ public:
             const scalar p,
             const scalar TTR,
             const label s,
-            const label r
+            const label r,
+            const label celli
         );
 
         // Total Vibrational-Translational Relaxation Time for specie s
@@ -206,7 +236,40 @@ public:
             const scalar TVib,
             const label s,
             const label celli
-        )
+        );
+
+        PtrList<volScalarField>& correctVibSource
+        (
+            const volScalarField& p,
+            const volScalarField& TTR,
+            const volScalarField& TVib
+        );
+
+        PtrList<volScalarField>& correctVTRelaxationTime
+        (
+            const volScalarField& p,
+            const volScalarField& TTR
+        );
+        
+        PtrList<volScalarField>& fields()
+        {
+            return Q_VTList_;
+        }
+
+        const PtrList<volScalarField>& fields() const
+        {
+            return Q_VTList_;
+        }
+
+        PtrList<volScalarField>& tauFields()       
+        { 
+            return tauVTList_; 
+        }
+    
+        const PtrList<volScalarField>& tauFields() const 
+        { 
+            return tauVTList_; 
+        }
 };
 
 

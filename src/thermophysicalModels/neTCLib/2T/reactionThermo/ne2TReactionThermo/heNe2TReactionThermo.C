@@ -27,7 +27,6 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "heNe2TReactionThermo.H"
-#include "WilkeMR.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
@@ -344,6 +343,50 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
     }
 }
 
+/* template<class BasicNe2TThermo, class MixtureType>
+void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateTrVibSource
+(
+    const volScalarField& p,
+    const volScalarField& TTR,
+    const volScalarField& TVib,
+    const label speciei,
+    volScalarField& Q_VT
+)
+{
+    // Mixing Rule definition for mixture
+    using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+
+    using mixingRuleType = typename Foam::WilkeMR<mixingMixtureType>;
+
+    mixingRuleType wilkeMix(mix);
+    
+    VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
+
+    const scalarField& pCells = p.primitiveField();
+    const scalarField& TTRCells = TTR.primitiveField();
+    const scalarField& TVibCells = TVib.primitiveField();
+
+    scalarField& Q_VT_Cells = Q_VT.primitiveFieldRef();
+
+    forAll(TTRCells, celli)
+    {
+        scalar Qcell = 0.0;
+
+        Qcell = Q_vt_source.Q_VT_s
+        (
+            pCells[celli],
+            TTRCells[celli],
+            TVibCells[celli],
+            speciei,       
+            celli   
+        );
+ 
+
+        Q_VT_Cells[celli] = Qcell;
+    }
+} */
+
 template<class BasicNe2TThermo, class MixtureType>
 Foam::scalar
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
@@ -537,6 +580,50 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibEnergy(
     );
 
     DebugInFunction << "Finished" << endl;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>&
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibSource()
+{
+    DebugInFunction << endl;
+
+    using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+
+    using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
+
+    static mixingRuleType wilkeMix(mix);
+    static VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
+
+    PtrList<volScalarField>& Qlist =
+        Q_vt_source.correctVibSource(this->p_, this->TTR_, this->TVib_);
+
+    DebugInFunction << "Finished" << endl;
+
+    return Qlist;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>&
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTime()
+{
+    DebugInFunction << endl;
+
+    using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+
+    using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
+
+    static mixingRuleType wilkeMix(mix);
+    static VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
+
+    PtrList<volScalarField>& TauList =
+        Q_vt_source.correctVTRelaxationTime(this->p_, this->TTR_);
+
+    DebugInFunction << "Finished" << endl;
+
+    return TauList;
 }
 
 // ************************************************************************* //

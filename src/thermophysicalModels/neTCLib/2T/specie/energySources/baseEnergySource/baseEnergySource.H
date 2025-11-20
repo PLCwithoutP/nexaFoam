@@ -58,9 +58,9 @@ public:
         //- Construct from mixture type
         baseEnergySource        
         (
-            const MixtureType& mix,
-            const MixingRule& MR
-        );
+            MixtureType& mix,
+            MixingRule& MR
+        )
         {}
 };
 

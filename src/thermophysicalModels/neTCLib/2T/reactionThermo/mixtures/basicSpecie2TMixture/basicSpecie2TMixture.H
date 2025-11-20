@@ -93,6 +93,9 @@ public:
             //- Molecular weight of the given specie [kg/kmol]
             virtual scalar W(const label speciei) const = 0;
 
+            //- Specific gas constant of the given specie [kg/kmol]
+            virtual scalar R(const label speciei) const = 0;
+
             //- Chemical enthalpy [J/kg]
             virtual scalar Hc(const label speciei) const = 0;
 
@@ -221,6 +224,17 @@ public:
                 const scalar p,
                 const scalar TTR
             ) const = 0;
+
+            //- Vibrational theta constant
+            virtual scalar thetaVib
+            (
+                const label speciei
+            ) = 0;
+
+            virtual bool isSpecieMolecular
+            (
+                const label speciei
+            ) = 0;
 
             //- Species composition
             virtual autoPtr<speciesCompositionTable> specieComposition() const

@@ -87,6 +87,9 @@ public:
             //- Molecular weight of the given specie [kg/kmol]
             virtual scalar W(const label speciei) const;
 
+            //- Specific gas constant of the given specie [kg/kmol]
+            virtual scalar R(const label speciei) const;
+
             //- Chemical enthalpy [J/kg]
             virtual scalar Hc(const label speciei) const;
 
@@ -220,12 +223,12 @@ public:
             virtual scalar thetaVib
             (
                 const label speciei
-            ) const;
+            );
 
-            virtual bool isMolecular
+            virtual bool isSpecieMolecular
             (
                 const label speciei
-            ) const;
+            );
 
         // Field properties abstract functions
         // provided here to avoid issues with inheritance of virtual functions
@@ -307,6 +310,7 @@ public:
 
             //- Thermal diffusivity for temperature of mixture [J/m/s/K]
             virtual tmp<volScalarField> kappaVib() const = 0;
+
 };
 
 

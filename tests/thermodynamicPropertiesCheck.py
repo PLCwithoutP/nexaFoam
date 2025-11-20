@@ -153,7 +153,7 @@ R_O2 = R / molWeight_O2
 R_N = R / molWeight_N
 R_O = R / molWeight_O
 R_NO = R / molWeight_NO
-TTR       = 1000
+TTR       = 2000
 TVib      = 1000
 
 coeffs_N2    = JanafCoeffs(TTR, specie_N2)

@@ -40,6 +40,8 @@ SourceFiles
 
 #include "ne2TThermo.H"
 #include "he2TThermo.H"
+#include "PtrList.H"
+#include "volFields.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -135,6 +137,9 @@ public:
         virtual void correctTEnergy();
         virtual void correctREnergy();
         virtual void correctVibEnergy();
+
+        virtual PtrList<volScalarField>& correctVibSource();
+        virtual PtrList<volScalarField>& correctVTRelaxationTime();
 
         virtual scalar wilkeKappaAverage() const;
         virtual scalar wilkeMuAverage() const;

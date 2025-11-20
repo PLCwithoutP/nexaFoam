@@ -33,22 +33,93 @@ License
 template<class MixtureType, class MixingRule>
 Foam::VTEnergySource<MixtureType, MixingRule>::VTEnergySource
 (
-    const MixtureType& mixture,
-    const MixingRule& MR
+    MixtureType& mixture,
+    MixingRule& MR
 )
 :
-    baseEnergySource<MixtureType, MixingRule>(mixture),
+    baseEnergySource<MixtureType, MixingRule>(mixture,MR),
     mix_(mixture),
     mr_(MR),
     names_(mixture.species()),
-    sigma_prime_(3e-21), // N2, O2, NO
-    boltzmann_const_(1.380649e-23)
+    sigma_prime_ (3e-21), // N2, O2, NO
+    boltzmann_const_ (1.380649e-23),
+    Q_VTList_()
 {
 
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+template<class MixtureType, class MixingRuleType>
+void Foam::VTEnergySource<MixtureType, MixingRuleType>::makeQVibSourceFields
+(
+    const fvMesh& mesh
+)
+{
+    if (Q_VTList_.size() || tauVTList_.size())
+    {
+        // already built
+        return;
+    }
+
+    const PtrList<volScalarField>& Y_species = mix_.Y();
+    Q_VTList_.setSize(Y_species.size());
+    tauVTList_.setSize(Y_species.size());
+
+    forAll(Y_species, i)
+    {
+        const volScalarField& Yi = Y_species[i];
+
+        const word fieldName("Q_VT_" + Yi.name());
+        const word fieldNameTau("tau_VT_" + Yi.name());
+
+        Q_VTList_.set
+        (
+            i,
+            new volScalarField
+            (
+                IOobject
+                (
+                    fieldName,
+                    mesh.time().timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                mesh,
+                dimensionedScalar
+                (
+                    "zero",
+                    dimEnergy/dimVolume/dimTime,
+                    0.0
+                )
+            )
+        );
+        tauVTList_.set
+        (
+            i,
+            new volScalarField
+            (
+                IOobject
+                (
+                    fieldNameTau,
+                    mesh.time().timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE   // or AUTO_WRITE if you want to write them
+                ),
+                mesh,
+                dimensionedScalar
+                (
+                    "zero",
+                    dimTime,  // [s] – relaxation time
+                    0.0
+                )
+            )
+        );
+    }
+}
 
 template<class MixtureType, class MixingRule>
 Foam::scalar 
@@ -57,6 +128,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::sigmai
     const scalar TTR 
 )
 {
+    //Info << "Cross Section: " << sigma_prime_*(50000.0/TTR)*(50000.0/TTR) << nl; 
     return sigma_prime_*(50000.0/TTR)*(50000.0/TTR);
 }
 
@@ -68,7 +140,20 @@ Foam::VTEnergySource<MixtureType, MixingRule>::c_bar_s
     const label s 
 )
 {
-    return pow((8*mix_.R()*TTR)/(constant::mathematical::pi*Wi(s)) , 0.5);
+    //Info << "Most Probable Speed: " << pow((8*mix_.R(s)*TTR)/(constant::mathematical::pi), 0.5) << nl; 
+    return pow((8*mix_.R(s)*TTR)/(constant::mathematical::pi) , 0.5);
+}
+
+template<class MixtureType, class MixingRule>
+Foam::scalar 
+Foam::VTEnergySource<MixtureType, MixingRule>::n_total
+(
+    const scalar p,
+    const scalar TTR
+)
+{
+    //Info << "Total Number Density: " << p/(TTR*boltzmann_const_) << nl; 
+    return p/(TTR*boltzmann_const_);
 }
 
 template<class MixtureType, class MixingRule>
@@ -76,11 +161,56 @@ Foam::scalar
 Foam::VTEnergySource<MixtureType, MixingRule>::n_s
 (
     const scalar p,
-    const label TTR
+    const scalar TTR,
+    const label s,
+    const label celli
 )
 {
-    return p/(TTR*boltzmann_const_);
+    // total number density
+    const scalar nTot = n_total(p, TTR);   // calls the 2-argument version
+
+    // species mole fraction in this cell
+    volScalarField& XrField = mr_.computeXiFromYi(s);
+    const scalar Xr = XrField[celli];
+
+    // species number density
+    const scalar nSpecie = Xr*nTot;
+
+    /* Info<< "Number density of specie " << s
+        << " at cell " << celli
+        << " = " << nSpecie
+        << " [1/m3], Xr = " << Xr
+        << ", n_tot = " << nTot << nl; */
+
+    return nSpecie;
 }
+
+template<class MixtureType, class MixingRule>
+Foam::scalar 
+Foam::VTEnergySource<MixtureType, MixingRule>::p_s
+(
+    const scalar p,
+    const scalar TTR,   // kept for symmetry; not used
+    const label s,
+    const label celli
+)
+{
+    volScalarField& XsField = mr_.computeXiFromYi(s);
+    const scalar Xs = XsField[celli];
+
+    // partial pressure: p_s = X_s * p_total
+    const scalar pSpecie = Xs*p;
+
+    /* Optional debug:
+    Info<< "Partial pressure of specie " << s
+        << " at cell " << celli
+        << " = " << pSpecie
+        << " Pa (Xs=" << Xs << ", p_tot=" << p << ')' << nl;
+    */
+
+    return pSpecie;
+}
+
 
 template<class MixtureType, class MixingRule>
 Foam::scalar 
@@ -88,10 +218,13 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_P_sr
 (
     const scalar p,
     const scalar TTR,
-    const label s
+    const label s,
+    const label r,
+    const label celli
 )
 {
-    return 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR));
+    Info << "Tau Park: " << 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR, s, celli)) << nl; 
+    return 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR, r, celli));
 }
 
 template<class MixtureType, class MixingRule>
@@ -102,8 +235,9 @@ Foam::VTEnergySource<MixtureType, MixingRule>::A_sr
     const label r
 )
 {
-    scalar val = 1.16 * pow(10.0, -9.0/2.0);
-    return val * pow((Wi(s)*Wi(r))/(Wi(s) + Wi(r)) , 0.5) * pow(thetai(s), 4.0/3.0);
+    scalar val = 1.16 * pow(10.0, -4.5);
+    //Info << "A for specie " << s << " against specie " << r << "is : " << val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.5) * pow(thetai(s), 4.0/3.0) << nl;
+    return val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.5) * pow(thetai(s), 4.0/3.0);
 }
 
 template<class MixtureType, class MixingRule>
@@ -115,7 +249,8 @@ Foam::VTEnergySource<MixtureType, MixingRule>::B_sr
 )
 {
     scalar val = 0.015 * pow(10.0, -3.0/4.0);
-    return val * pow((Wi(s)*Wi(r))/(Wi(s) + Wi(r)) , 0.25);
+    //Info << "B for specie " << s  << " against specie " << r << "is : " << val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.25) << nl;
+    return val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.25);
 }
 
 template<class MixtureType, class MixingRule>
@@ -130,6 +265,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_MW_sr
 {
     scalar A = A_sr(s,r);
     scalar B = B_sr(s,r);
+    Info << "Tau Millikan-White: " << (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42) << nl; 
     return (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42);
 }
 
@@ -140,10 +276,12 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_sr
     const scalar p,
     const scalar TTR,
     const label s,
-    const label r
+    const label r,
+    const label celli
 )
 {
-    return T_MW_sr(p, TTR, s, r) + T_P_sr(p, TTR, s);
+    //Info << "Tau total: " << T_MW_sr(p, TTR, s, r) + T_P_sr(p, TTR, s) << nl; 
+    return T_MW_sr(p, TTR, s, r) + T_P_sr(p, TTR, s, r, celli);
 }
 
 template<class MixtureType, class MixingRule>
@@ -158,18 +296,18 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_s
 {
     scalar sumX          = 0.0;
     scalar sumX_over_tau = 0.0;
-
-    for (label r = 0; r < nSpecie_; ++r)
+    const label nSpec = mix_.Y().size();
+    
+    for (label r = 0; r < nSpec; ++r)
     {
-        if (!isMolecular(r)) continue;  // corresponds to r = mol in the sum
-
-        // X_r at this cell
-        const volScalarField& XrField = mr_.computeXiFromYi(r);
+        if (!(mix_.isSpecieMolecular(r))) continue;
+ 
+        volScalarField& XrField = mr_.computeXiFromYi(r);
         const scalar Xr = XrField[celli];
 
-        if (Xr <= SMALL) continue;     // skip negligible species
+        if (Xr <= SMALL) continue;
 
-        const scalar tau_sr = T_sr(p, TTR, s, r);
+        const scalar tau_sr = T_sr(p, TTR, s, r, celli);
 
         sumX          += Xr;
         sumX_over_tau += Xr/tau_sr;
@@ -178,19 +316,16 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_s
     // safety: no valid colliders → avoid 0/0
     if (sumX_over_tau <= SMALL)
     {
-        // choose what makes sense for you:
-        // return GREAT; or 0.0; or FatalErrorInFunction << ... << abort(FatalError);
         return GREAT;
     }
 
-    // τ_{s,V-T} = Σ X_r / Σ (X_r / τ_{s-r})
     return sumX/sumX_over_tau;
 }
 
 // Classical Landau-Teller Formula
 template<class MixtureType, class MixingRule>
 Foam::scalar 
-Foam::VTEnergySource<MixtureType, MixingRule>::Q_TR_s
+Foam::VTEnergySource<MixtureType, MixingRule>::Q_VT_s
 (
     const scalar p,
     const scalar TTR,
@@ -199,6 +334,103 @@ Foam::VTEnergySource<MixtureType, MixingRule>::Q_TR_s
     const label celli
 )
 {
-    return mix_.rho(s,p,TTR)*(mix_.EsVib(s,p,TTR,TTR,thetai(s)) - mix_.EsVib(s,p,TTR,TVib,thetai(s)))/(T_s(p, TTR, s, celli));
+    return mix_.rho(s,p_s(p, TTR, s, celli),TTR)*(mix_.EsVib(s,p,TTR,TTR,thetai(s)) 
+    - mix_.EsVib(s,p,TTR,TVib,thetai(s)))/(T_s(p, TTR, s, celli));
 }
+
+// For all species, invoke Q_VT_s() function
+template<class MixtureType, class MixingRuleType>
+Foam::PtrList<Foam::volScalarField>&
+Foam::VTEnergySource<MixtureType, MixingRuleType>::correctVibSource
+(
+    const volScalarField& p,
+    const volScalarField& TTR,
+    const volScalarField& TVib
+)
+{
+    // Ensure fields exist
+    makeQVibSourceFields(TTR.mesh());
+
+    const scalarField& pCells    = p.primitiveField();
+    const scalarField& TTRCells  = TTR.primitiveField();
+    const scalarField& TVibCells = TVib.primitiveField();
+
+    const PtrList<volScalarField>& Y_species = mix_.Y();
+
+    forAll(Y_species, speciei)
+    {
+        scalarField& Q_VT_Cells = Q_VTList_[speciei].primitiveFieldRef();
+
+        forAll(TTRCells, celli)
+        {
+            Q_VT_Cells[celli] = Q_VT_s
+            (
+                pCells[celli],
+                TTRCells[celli],
+                TVibCells[celli],
+                speciei,
+                celli
+            );
+        }
+    }
+
+    return Q_VTList_;
+}
+
+template<class MixtureType, class MixingRule>
+Foam::PtrList<Foam::volScalarField>&
+Foam::VTEnergySource<MixtureType, MixingRule>::correctVTRelaxationTime
+(
+    const volScalarField& p,
+    const volScalarField& TTR
+)
+{
+    makeQVibSourceFields(TTR.mesh());
+
+    const scalarField& pCells   = p.primitiveField();
+    const scalarField& TTRCells = TTR.primitiveField();
+
+    const label nSpec = mix_.Y().size();
+    const label nCells = TTRCells.size();
+
+    for (label s = 0; s < nSpec; ++s)
+    {
+        // If you want to skip non-molecular species entirely:
+        if (!mix_.isSpecieMolecular(s))
+        {
+            scalarField& tauCells = tauVTList_[s].primitiveFieldRef();
+            forAll(tauCells, celli)
+            {
+                tauCells[celli] = GREAT;
+            }
+            tauVTList_[s].correctBoundaryConditions();
+            continue;
+        }
+
+        scalarField& tauCells = tauVTList_[s].primitiveFieldRef();
+
+        for (label celli = 0; celli < nCells; ++celli)
+        {
+            const scalar pCell   = pCells[celli];
+            const scalar TTRCell = TTRCells[celli];
+
+            const scalar tau_sVT =
+                T_s
+                (
+                    pCell,
+                    TTRCell,
+                    s,
+                    celli
+                );
+
+            tauCells[celli] = tau_sVT;
+        }
+
+        tauVTList_[s].correctBoundaryConditions();
+    }
+
+    return tauVTList_;
+}
+
+
 // ************************************************************************* //

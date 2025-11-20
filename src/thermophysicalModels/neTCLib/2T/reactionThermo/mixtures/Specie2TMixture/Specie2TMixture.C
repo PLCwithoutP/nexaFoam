@@ -51,6 +51,15 @@ Foam::Specie2TMixture<Mixture2TType>::Specie2TMixture
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class Mixture2TType>
+Foam::scalar Foam::Specie2TMixture<Mixture2TType>::R
+(
+    const label speciei
+) const
+{
+    return this->getLocalThermo(speciei).R();
+}
+
+template<class Mixture2TType>
 Foam::scalar Foam::Specie2TMixture<Mixture2TType>::W
 (
     const label speciei
@@ -245,16 +254,16 @@ template<class Mixture2TType>
 Foam::scalar Foam::Specie2TMixture<Mixture2TType>::thetaVib
 (
     const label speciei
-) const
+)
 {
     return this->getLocalThermo(speciei).ThetaVib();
 }
 
 template<class Mixture2TType>
-bool Foam::Specie2TMixture<Mixture2TType>::isMolecular
+bool Foam::Specie2TMixture<Mixture2TType>::isSpecieMolecular
 (
     const label speciei
-) const
+)
 {
     return this->getLocalThermo(speciei).isMolecular();
 }

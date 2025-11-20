@@ -624,10 +624,13 @@ $(WM_PROJECT_DIR)/src/thermophysicalModels/basic/lnInclude/mixedEnergyFvPatchSca
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.C \
-ne2TReactionThermo/heNe2TReactionThermo.C \
 lnInclude/WilkeMR.H \
 lnInclude/baseMR.H \
 lnInclude/WilkeMR.C \
+../specie/lnInclude/VTEnergySource.H \
+../specie/lnInclude/baseEnergySource.H \
+../specie/lnInclude/VTEnergySource.C \
+ne2TReactionThermo/heNe2TReactionThermo.C \
 ../basic/lnInclude/heNe2TThermo.H \
 ../basic/lnInclude/heNe2TThermo.C \
 ../specie/lnInclude/specie2T.H \
