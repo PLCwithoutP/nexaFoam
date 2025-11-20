@@ -606,6 +606,28 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibSource()
 
 template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>&
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource()
+{
+    DebugInFunction << endl;
+
+    using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mix = this->composition();
+
+    using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
+
+    static mixingRuleType wilkeMix(mix);
+    static VVEnergySource<mixingMixtureType, mixingRuleType> Q_vv_source(mix, wilkeMix);
+
+    PtrList<volScalarField>& QVVlist =
+        Q_vv_source.correctVibVibSource(this->p_, this->TTR_, this->TVib_);
+
+    DebugInFunction << "Finished" << endl;
+
+    return QVVlist;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>&
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTime()
 {
     DebugInFunction << endl;

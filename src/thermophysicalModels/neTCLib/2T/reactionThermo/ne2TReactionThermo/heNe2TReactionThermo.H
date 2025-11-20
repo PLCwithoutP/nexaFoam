@@ -42,6 +42,7 @@ SourceFiles
 #include "he2TThermo.H"
 #include "WilkeMR.H"
 #include "VTEnergySource.H"
+#include "VVEnergySource.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -150,6 +151,7 @@ public:
         virtual void correctVibEnergy();
         
         PtrList<volScalarField>& correctVibSource();
+        PtrList<volScalarField>& correctVibVibSource();
         PtrList<volScalarField>& correctVTRelaxationTime();
         
         virtual scalar wilkeKappaAverage() const override;

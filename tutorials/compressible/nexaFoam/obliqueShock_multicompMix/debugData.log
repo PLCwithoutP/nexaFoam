@@ -6,6 +6,7 @@ Average thermal conductivity of N2 is:  0.17277
 Average CpTR of N2 is:  1284.02
 Average Q_VT of N2 is: 6527.79
 Average Tau_VT of N2 is: 2.39416e-05
+Average Q_VV of N2 is: 2.02275
 Average mass fraction of Y_O2 is:  0.55
 Mol weight of O2 is:  31.9988
 Average viscosity of O2 is:  7.21309e-05
@@ -13,6 +14,7 @@ Average thermal conductivity of O2 is:  0.184814
 Average CpTR of O2 is:  1180.78
 Average Q_VT of O2 is: 8239.03
 Average Tau_VT of O2 is: 2.55861e-05
+Average Q_VV of O2 is: -2.75593
 Average Translational Cv value in internal cells is : 
 544.454
 Average Rotational Cv value in internal cells is : 
@@ -41,6 +43,7 @@ Average thermal conductivity of N2 is:  0.17277
 Average CpTR of N2 is:  1284.02
 Average Q_VT of N2 is: 6527.52
 Average Tau_VT of N2 is: 2.39416e-05
+Average Q_VV of N2 is: 2.02285
 Average mass fraction of Y_O2 is:  0.55
 Mol weight of O2 is:  31.9988
 Average viscosity of O2 is:  7.21309e-05
@@ -48,6 +51,7 @@ Average thermal conductivity of O2 is:  0.184814
 Average CpTR of O2 is:  1180.78
 Average Q_VT of O2 is: 8238.61
 Average Tau_VT of O2 is: 2.55861e-05
+Average Q_VV of O2 is: -2.75607
 Average Translational Cv value in internal cells is : 
 544.454
 Average Rotational Cv value in internal cells is : 

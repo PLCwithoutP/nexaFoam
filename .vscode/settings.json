@@ -22,6 +22,9 @@
         "ne2TReactionThermo.C": "cpp",
         "cmath": "cpp",
         "complex": "cpp",
-        "perfect2TGas.C": "cpp"
+        "perfect2TGas.C": "cpp",
+        "VVEnergySource.C": "cpp",
+        "ostream": "cpp",
+        "specie2T.C": "cpp"
     }
 }

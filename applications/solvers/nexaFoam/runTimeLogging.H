@@ -1,6 +1,7 @@
 myFile << "Time is : " << runTime.timeName() << endl;
 
 PtrList<volScalarField>& Q_VT_species = thermo2T.correctVibSource();
+PtrList<volScalarField>& Q_VV_species = thermo2T.correctVibVibSource();
 PtrList<volScalarField>& Tau_VT_species = thermo2T.correctVTRelaxationTime();
 
 forAll(spec, i)
@@ -38,6 +39,11 @@ forAll(spec, i)
 
     Info << "Average Tau_VT of " << spec[i] << " is: " << Tau_VT_i.average().value() << nl;
     myFile << "Average Tau_VT of " << spec[i] << " is: " << Tau_VT_i.average().value() << nl;
+
+    const volScalarField& Q_VV_i = Q_VV_species[i];
+
+    Info << "Average Q_VV of " << spec[i] << " is: " << Q_VV_i.average().value() << nl;
+    myFile << "Average Q_VV of " << spec[i] << " is: " << Q_VV_i.average().value() << nl;
 
 }
 

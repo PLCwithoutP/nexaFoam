@@ -139,6 +139,7 @@ public:
         virtual void correctVibEnergy();
 
         virtual PtrList<volScalarField>& correctVibSource();
+        virtual PtrList<volScalarField>& correctVibVibSource();
         virtual PtrList<volScalarField>& correctVTRelaxationTime();
 
         virtual scalar wilkeKappaAverage() const;

@@ -223,7 +223,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_P_sr
     const label celli
 )
 {
-    Info << "Tau Park: " << 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR, s, celli)) << nl; 
+    //Info << "Tau Park: " << 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR, s, celli)) << nl; 
     return 1/(c_bar_s(TTR,s) * sigmai(TTR) * n_s(p, TTR, r, celli));
 }
 
@@ -265,7 +265,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_MW_sr
 {
     scalar A = A_sr(s,r);
     scalar B = B_sr(s,r);
-    Info << "Tau Millikan-White: " << (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42) << nl; 
+    //Info << "Tau Millikan-White: " << (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42) << nl; 
     return (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42);
 }
 

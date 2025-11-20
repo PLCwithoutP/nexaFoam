@@ -491,6 +491,15 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
 }
 
 template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource
+()
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTime
 ()
 {
