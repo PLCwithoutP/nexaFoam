@@ -25,6 +25,8 @@
         "perfect2TGas.C": "cpp",
         "VVEnergySource.C": "cpp",
         "ostream": "cpp",
-        "specie2T.C": "cpp"
+        "specie2T.C": "cpp",
+        "blottnerEucken2TTransport.C": "cpp",
+        "pure2TMixture.C": "cpp"
     }
 }

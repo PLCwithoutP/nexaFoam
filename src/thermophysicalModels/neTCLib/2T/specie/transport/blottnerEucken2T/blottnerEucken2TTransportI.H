@@ -44,7 +44,8 @@ inline Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport
     Thermo2T(t),
     AB_(AB),
     BB_(BB),
-    CB_(CB)
+    CB_(CB),
+    Le_const_(1.4)
 {}
 
 
@@ -58,7 +59,8 @@ inline Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport
     Thermo2T(name, st),
     AB_(st.AB_),
     BB_(st.BB_),
-    CB_(st.CB_)
+    CB_(st.CB_),
+    Le_const_(1.4)
 {}
 
 
@@ -127,6 +129,16 @@ inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::alphah
     return kappaTR(p, TTR)/this->CpTR(p, TTR);
 }
 
+template<class Thermo2T>
+inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::effectiveD
+(
+    const scalar p,
+    const scalar TTR
+) const
+{
+
+    return (kappaTR(p, TTR)*Le_const_)/(this->CpTR(p, TTR)*this->rho(p,TTR));
+}
 
 // * * * * * * * * * * * * * * * Member Operators  * * * * * * * * * * * * * //
 
