@@ -216,7 +216,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
 
     const scalar Mm = Wi(s)*1e-3;                             
     const scalar cbar_m = c_bar_s(TTR, s);               
-    Info << "Most probable speed is : " << cbar_m << nl;
+    //Info << "Most probable speed is : " << cbar_m << nl;
     
     for (label r = 0; r < nSpec; ++r)
     {
@@ -232,7 +232,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         const scalar velFactor =
             cbar_m * Foam::sqrt(rho_l/Ml);
 
-        Info << "Vel factor is : " << velFactor << nl;
+        //Info << "Vel factor is : " << velFactor << nl;
 
         //const scalar sigma_ml = sigmai(TTR);
         const scalar sigma_ml = sigma_prime_;            
@@ -245,7 +245,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         const scalar energyBracket =
             ev_s_Ttr*(ev_r_Tvl/ev_r_Ttr) - ev_s_Tvm;
 
-        Info << "Energy bracket is : " << energyBracket << nl;
+        //Info << "Energy bracket is : " << energyBracket << nl;
 
         Qm +=
             avagadro_const_   

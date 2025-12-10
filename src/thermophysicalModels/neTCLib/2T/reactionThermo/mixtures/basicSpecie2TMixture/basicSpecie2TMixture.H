@@ -230,7 +230,7 @@ public:
             (
                 const label speciei
             ) = 0;
-
+            
             virtual bool isSpecieMolecular
             (
                 const label speciei

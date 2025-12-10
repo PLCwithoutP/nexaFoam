@@ -49,8 +49,7 @@ Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport(const dicti
     Thermo2T(dict),
     AB_(readCoeff("AB", dict)),
     BB_(readCoeff("BB", dict)),
-    CB_(readCoeff("CB", dict)),
-    Le_const_(1.4)
+    CB_(readCoeff("CB", dict))
 {}
 
 
@@ -64,8 +63,7 @@ Foam::blottnerEucken2TTransport<Thermo2T>::blottnerEucken2TTransport
     Thermo2T(t),
     AB_(readCoeff("AB", dict)),
     BB_(readCoeff("BB", dict)),
-    CB_(readCoeff("CB", dict)),
-    Le_const_(1.4)
+    CB_(readCoeff("CB", dict))
 {}
 
 

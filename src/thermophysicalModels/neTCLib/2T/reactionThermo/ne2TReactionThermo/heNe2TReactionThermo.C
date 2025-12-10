@@ -343,50 +343,6 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
     }
 }
 
-/* template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateTrVibSource
-(
-    const volScalarField& p,
-    const volScalarField& TTR,
-    const volScalarField& TVib,
-    const label speciei,
-    volScalarField& Q_VT
-)
-{
-    // Mixing Rule definition for mixture
-    using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
-    mixingMixtureType& mix = this->composition();
-
-    using mixingRuleType = typename Foam::WilkeMR<mixingMixtureType>;
-
-    mixingRuleType wilkeMix(mix);
-    
-    VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
-
-    const scalarField& pCells = p.primitiveField();
-    const scalarField& TTRCells = TTR.primitiveField();
-    const scalarField& TVibCells = TVib.primitiveField();
-
-    scalarField& Q_VT_Cells = Q_VT.primitiveFieldRef();
-
-    forAll(TTRCells, celli)
-    {
-        scalar Qcell = 0.0;
-
-        Qcell = Q_vt_source.Q_VT_s
-        (
-            pCells[celli],
-            TTRCells[celli],
-            TVibCells[celli],
-            speciei,       
-            celli   
-        );
- 
-
-        Q_VT_Cells[celli] = Qcell;
-    }
-} */
-
 template<class BasicNe2TThermo, class MixtureType>
 Foam::scalar
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
@@ -447,6 +403,110 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
 
     return sumMuV / Vtot;
 }
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateRhoMixture
+(
+    const scalar pCell,
+    const scalar TTRCell,
+    const label  celli
+) const
+{
+    const typename MixtureType::thermoType& mixCell =
+        this->cellMixture(celli);
+
+    return mixCell.rho(pCell, TTRCell);
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::scalar
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateCpTRMixture
+(
+    const scalar pCell,
+    const scalar TTRCell,
+    const label  celli
+) const
+{
+    using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& comp = this->composition();
+
+    scalar cpMix = 0.0;
+
+    // PtrList of Y-fields, one per species
+    const auto& Y = comp.Y();
+    const label nSpec = Y.size();
+
+    for (label i = 0; i < nSpec; ++i)
+    {
+        const scalar Yi   = Y[i][celli];   // mass fraction of species i in this cell
+
+        const scalar cp_i = comp.CpTR(i, pCell, TTRCell);
+
+        cpMix += Yi*cp_i;
+    }
+
+    return cpMix;   // mixture cp_TR [J/(kg·K)] if cp_i is mass-based
+}
+
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::volScalarField
+Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() const
+{
+    using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
+    mixingMixtureType& mixingComp = this->composition();
+    WilkeMR<mixingMixtureType> wilkeMix(mixingComp);
+
+    const fvMesh& mesh = this->TTR_.mesh();
+
+    volScalarField Deff
+    (
+        IOobject
+        (
+            "Deff",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimArea/dimTime, 0.0)   // [m^2/s]
+    );
+
+    FickDM<mixingMixtureType> fickDM(mixingComp);
+
+    forAll(Deff, celli)
+    {
+        const typename MixtureType::thermoType& cellMixture_ =
+            this->cellMixture(celli);
+        const scalar pCell      = this->p_[celli];
+        const scalar TTRCell    = this->TTR_[celli];
+        const scalar CpTRCell =
+            this->calculateCpTRMixture(pCell, TTRCell, celli);
+        const scalar kappaTRCell =
+            wilkeMix.kappaTRCell(celli, pCell, TTRCell);
+        const scalar rhoCell = 
+            this->calculateRhoMixture(pCell, TTRCell, celli);
+        Info << "CpTR cell is : " << CpTRCell << " in cell " << celli << nl;
+        Info << "kappaTR cell is : " << kappaTRCell << " in cell " << celli << nl;
+        Info << "rho cell is : " << rhoCell << " in cell " << celli << nl;
+        Deff[celli] = fickDM.DeffCell
+        (
+            celli,
+            pCell,
+            TTRCell,
+            rhoCell,
+            kappaTRCell,
+            CpTRCell
+        );
+        Info << "Deff is : " << Deff[celli] << " in cell " << celli << nl;
+    }
+
+    return Deff;
+}
+
+
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

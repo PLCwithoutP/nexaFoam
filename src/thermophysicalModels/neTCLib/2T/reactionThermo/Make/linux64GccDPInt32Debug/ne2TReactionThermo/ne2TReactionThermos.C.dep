@@ -632,6 +632,9 @@ lnInclude/WilkeMR.C \
 ../specie/lnInclude/VTEnergySource.C \
 ../specie/lnInclude/VVEnergySource.H \
 ../specie/lnInclude/VVEnergySource.C \
+lnInclude/FickDM.H \
+lnInclude/baseDM.H \
+lnInclude/FickDM.C \
 ne2TReactionThermo/heNe2TReactionThermo.C \
 ../basic/lnInclude/heNe2TThermo.H \
 ../basic/lnInclude/heNe2TThermo.C \

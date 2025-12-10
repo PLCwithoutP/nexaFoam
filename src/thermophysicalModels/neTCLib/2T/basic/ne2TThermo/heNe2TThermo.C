@@ -508,4 +508,24 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
     return emptyList;
 }
 
+template<class BasicNe2TThermo, class MixtureType>
+Foam::volScalarField Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff
+() const
+{
+    const fvMesh& mesh = this->TTR_.mesh();  // or whatever field you have
+
+    return volScalarField
+    (
+        IOobject
+        (
+            "Deff",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimArea/dimTime, 0.0)  // [m^2/s]
+    );
+}
 // ************************************************************************* //

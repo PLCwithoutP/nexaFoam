@@ -94,3 +94,6 @@ if (vibrationalCheck)
     Info << "Average vibrational internal energy is: " << eV.average().value() << nl;
     myFile << "Average vibrational internal energy is: " << eV.average().value() << nl;
 }
+
+myFile << "Effective diffusion coefficient of mixture is : \n" << (thermo2T.fickDiffusionCoeff())().average().value() << endl;
+Info << "Effective diffusion coefficient of mixture is : \n" << (thermo2T.fickDiffusionCoeff())().average().value() << endl;

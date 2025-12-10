@@ -144,7 +144,7 @@ public:
 
         virtual scalar wilkeKappaAverage() const;
         virtual scalar wilkeMuAverage() const;
-
+        virtual volScalarField fickDiffusionCoeff() const;
 };
 
 

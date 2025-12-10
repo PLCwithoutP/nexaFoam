@@ -27,6 +27,17 @@
         "ostream": "cpp",
         "specie2T.C": "cpp",
         "blottnerEucken2TTransport.C": "cpp",
-        "pure2TMixture.C": "cpp"
+        "pure2TMixture.C": "cpp",
+        "FickDM.C": "cpp",
+        "ne2TThermo.C": "cpp",
+        "basicMultiComponent2TMixture.C": "cpp",
+        "facAverage.C": "cpp",
+        "FieldFunctions.C": "cpp",
+        "DimensionedField.C": "cpp",
+        "*.tcc": "cpp",
+        "chrono": "cpp",
+        "optional": "cpp",
+        "format": "cpp",
+        "system_error": "cpp"
     }
 }

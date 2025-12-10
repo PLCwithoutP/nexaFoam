@@ -105,9 +105,6 @@ class blottnerEucken2TTransport
         // Blottner's coefficients
         scalar AB_, BB_, CB_;
 
-        // Lewis Number
-        scalar Le_const_;
-
     // Private Member Functions
 
         //- Read coefficient from dictionary
@@ -165,13 +162,6 @@ public:
 
         //- Thermal diffusivity of enthalpy [kg/ms]
         inline scalar alphah(const scalar p, const scalar TTR) const;
-
-        // Species diffusivity
-        inline scalar effectiveD
-        (
-            const scalar p,
-            const scalar TTR
-        ) const;
         
         //- Write to Ostream
         void write(Ostream& os) const;

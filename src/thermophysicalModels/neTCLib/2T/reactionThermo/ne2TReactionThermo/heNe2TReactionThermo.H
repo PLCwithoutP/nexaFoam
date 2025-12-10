@@ -43,6 +43,7 @@ SourceFiles
 #include "WilkeMR.H"
 #include "VTEnergySource.H"
 #include "VVEnergySource.H"
+#include "FickDM.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -100,21 +101,23 @@ class heNe2TReactionThermo
             const volScalarField& TVib,
             volScalarField& esVib
         );
-        
-/*         //- Calculate the vibrational-translational source
-        void calculateTrVibSource
-        (
-            const volScalarField& p,
-            const volScalarField& TTR,
-            const volScalarField& TVib,
-            const label speciei,
-            volScalarField& Q_VT
-        ); */
 
         //- Construct as copy (not implemented)
         heNe2TReactionThermo(const heNe2TReactionThermo<basicNe2TThermo, MixtureType>&);
 
-
+        scalar calculateRhoMixture
+        (
+            const scalar pCell,
+            const scalar TTRCell,
+            const label  celli
+        ) const;
+        
+        scalar calculateCpTRMixture
+        (
+            const scalar pCell,
+            const scalar TTRCell,
+            const label  celli
+        ) const;
 public:
 
     //- Runtime type information
@@ -156,6 +159,7 @@ public:
         
         virtual scalar wilkeKappaAverage() const override;
         virtual scalar wilkeMuAverage() const;
+        virtual Foam::volScalarField fickDiffusionCoeff() const;
 };
 
 

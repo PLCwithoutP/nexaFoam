@@ -82,8 +82,8 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        #include "runTimeLogging.H"
-        
+        //#include "runTimeLogging.H"
+        Info << "Effective diffusion coefficient of mixture is : \n" << (thermo2T.fickDiffusionCoeff())().average().value() << endl;
         #include "readTimeControls.H"
 
         if (!LTS)

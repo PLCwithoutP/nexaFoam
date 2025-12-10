@@ -238,7 +238,6 @@ patchFaceVolMixture
     return mixtureVol_;
 }
 
-
 template<class ThermoType>
 void Foam::multiComponent2TMixture<ThermoType>::read
 (
