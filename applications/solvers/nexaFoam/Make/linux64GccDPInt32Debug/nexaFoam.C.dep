@@ -933,9 +933,7 @@ createMixture.H \
 createFieldRefs.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createTimeControls.H \
 readFluxScheme.H \
-$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/readTimeControls.H \
-$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/setDeltaT.H \
-centralCourantNo.H \
-setRDeltaT.H \
+FluxCalculators/kurganov.H \
+decideDeltaT.H \
 
 #END

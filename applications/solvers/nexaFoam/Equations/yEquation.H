@@ -26,3 +26,15 @@ Description
     Influenced heavily by reactingFoam.
 
 \*---------------------------------------------------------------------------*/
+
+forAll(spec, i)
+{
+    const volScalarField& Yi = Y_species[i];
+
+/*     solve
+    (
+        fvm::ddt(rho, Yi)
+      + fvc::div()
+      + fvc::div()
+    ) */
+}

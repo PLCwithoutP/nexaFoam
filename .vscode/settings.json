@@ -38,6 +38,19 @@
         "chrono": "cpp",
         "optional": "cpp",
         "format": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "semaphore": "cpp",
+        "algorithm": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp",
+        "numbers": "cpp",
+        "primalSolver.C": "cpp",
+        "kOmegaSST.C": "cpp",
+        "incompressibleVars.C": "cpp",
+        "GeometricField.C": "cpp",
+        "fvmDdt.C": "cpp",
+        "dimensionedScalar.C": "cpp"
     }
 }
