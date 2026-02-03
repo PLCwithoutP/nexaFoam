@@ -16,6 +16,11 @@ FoamFile
 
 solvers
 {
+    "Y_.*"
+    {
+        solver          diagonal;
+    }
+    
     "(rho|rhoU|rhoE)"
     {
         solver          diagonal;

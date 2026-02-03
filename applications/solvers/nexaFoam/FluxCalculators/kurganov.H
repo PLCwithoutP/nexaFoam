@@ -22,149 +22,947 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Description
-    Kurganov-type flux calculation schemes.
-    Kurganov-Tadmor and Kurganov-Noelle-Petrova schemes are given here.
+    Kurganov-type (central-upwind) face flux calculator.
+    - Kurganov-Tadmor ("Tadmor") and Kurganov-Noelle-Petrova (default) variants
+    - Mesh motion supported (relative flux)
+    - Designed as a black-box: inputs/outputs are explicit
+
+Notes
+    This header is intended to be included by the solver translation unit.
+    It defines a header-only class with inline functions.
 
 \*---------------------------------------------------------------------------*/
 
-//////////////////////////////////////////////////////////////////////
-// --- 1) Directed interpolation of primitive fields onto faces --- //
+#ifndef nexaFoam_KURGANOV_FLUX_CALCULATOR_H
+#define nexaFoam_KURGANOV_FLUX_CALCULATOR_H
 
-surfaceScalarField rho_pos(interpolate(rho, pos)); // Full mixture
-surfaceScalarField rho_neg(interpolate(rho, neg)); 
+#include "fvCFD.H"
+#include "directionInterpolate.H"
+#include "ne2TReactionThermo.H"
+#include "PtrList.H"
 
-surfaceVectorField rhoU_pos(interpolate(rhoU, pos, U.name()));
-surfaceVectorField rhoU_neg(interpolate(rhoU, neg, U.name()));
-
-volScalarField rPsi("rPsi", 1.0/psi);
-surfaceScalarField rPsi_pos(interpolate(rPsi, pos, TTR.name()));
-surfaceScalarField rPsi_neg(interpolate(rPsi, neg, TTR.name()));
-
-surfaceScalarField e_pos(interpolate(hTR, pos, TTR.name()));
-surfaceScalarField e_neg(interpolate(hTR, neg, TTR.name()));
-
-surfaceVectorField U_pos("U_pos", rhoU_pos/rho_pos);
-surfaceVectorField U_neg("U_neg", rhoU_neg/rho_neg);
-
-surfaceScalarField p_pos("p_pos", rho_pos*rPsi_pos);
-surfaceScalarField p_neg("p_neg", rho_neg*rPsi_neg);
-
-surfaceScalarField phi_fp("phi_fp", U_pos & mesh.Sf());
-// Note: extracted out the orientation so becomes unoriented
-phi_fp.setOriented(false);
-surfaceScalarField phi_fn("phi_fn", U_neg & mesh.Sf());
-phi_fn.setOriented(false);
-
-// Make fluxes relative to mesh-motion
-if (mesh.moving())
+namespace Foam
 {
-    surfaceScalarField meshPhi(mesh.phi());
-    meshPhi.setOriented(false);
-    phi_fp -= meshPhi;
-    phi_fn -= meshPhi;
-}
-//////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
-// --- 2) Secondary calculations and interpolations --- //
-volScalarField c("c", sqrt(thermo2T.CpTR()/thermo2T.CvT()*rPsi));
-surfaceScalarField cSf_pos
-(
-    "cSf_pos",
-    interpolate(c, pos, TTR.name())*mesh.magSf()
-);
-
-surfaceScalarField cSf_neg
-(
-    "cSf_neg",
-    interpolate(c, neg, TTR.name())*mesh.magSf()
-);
-
-// Local speed of propagations
-surfaceScalarField a_fp
-(
-    "a_fp",
-    max(max(phi_fp + cSf_pos, phi_fn + cSf_neg), v_zero)
-);
-
-surfaceScalarField a_fn
-(
-    "a_fn",
-    min(min(phi_fp - cSf_pos, phi_fn - cSf_neg), v_zero)
-);
-
-// Weighting factor, default KNP
-surfaceScalarField alpha("alpha", a_fp/(a_fp - a_fn)); 
-
-surfaceScalarField max_a("max_a", max(mag(a_fn), mag(a_fp)));
-
-// Diffusive flux, default KNP
-surfaceScalarField nw_f("nw_f", a_fn*alpha);
-
-// KT corrections
-if (fluxScheme == "Tadmor")
+class kurganovFluxCalculator
 {
-    alpha = 0.5; // Weighting factor
-    nw_f = -0.5*max_a; // Diffusive flux
-}
-//////////////////////////////////////////////////////////////////////
+    // --- Required references (inputs)
+    const fvMesh& mesh_;
+    ne2TReactionThermo& thermo2T_;
 
-//////////////////////////////////////////////////////////////////////
-// --- 3) Final flux calculation --- //
-surfaceScalarField minus_alpha("minus_alpha", 1.0 - alpha);
+    const volScalarField& rho_;
+    const volVectorField& rhoU_;
+    const volVectorField& U_;
 
-// Weighted flux calculations
-phi_fp *= alpha; // phi_f+ * alpha
-phi_fn *= minus_alpha; // phi_f- * (1 - alpha)
+    const volScalarField& psi_;
+    const volScalarField& hTR_;
+    const volScalarField& TTR_;
 
-// Diffusive corrections
-surfaceScalarField aphi_fp("aphi_fp", phi_fp - nw_f);
-surfaceScalarField aphi_fn("aphi_fn", phi_fn + nw_f);
+    const surfaceScalarField& pos_;
+    const surfaceScalarField& neg_;
 
-// Reuse max_a for the maximum positive and negative fluxes
-// estimated by the central scheme
-// This value will be employed in delta t(timestep) calculations
-max_a = max(mag(aphi_fp), mag(aphi_fn));
-//////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
-// --- 4) Face fluxes for conservative variables --- //
+    surfaceScalarField& phi_;          // mixture mass flux (updated)
 
-// Mass Flux
-phi = aphi_fp*rho_pos + aphi_fn*rho_neg;
+    const word& fluxScheme_;           // "Tadmor" or default KNP
+    const dimensionedScalar& v_zero_;  // zero with dimVolume/dimTime
 
-// Convective Momentum Flux
-surfaceVectorField phiU(aphi_fp*rhoU_pos + aphi_fn*rhoU_neg);
-phiU.setOriented(true); // Note: reassembled orientation from the pos and neg parts so becomes oriented
+    // --- Intermediate face fields (workspace)
+    surfaceScalarField rho_pos_;
+    surfaceScalarField rho_neg_;
 
-// Full Momentum Flux
-surfaceVectorField phiUp(phiU + (alpha*p_pos + minus_alpha*p_neg)*mesh.Sf());
+    surfaceVectorField rhoU_pos_;
+    surfaceVectorField rhoU_neg_;
 
-// Total Energy Flux
-surfaceScalarField phiEp
-(
-    "phiEp",
-    aphi_fp*(rho_pos*(e_pos + 0.5*magSqr(U_pos)) + p_pos)
-    + aphi_fn*(rho_neg*(e_neg + 0.5*magSqr(U_neg)) + p_neg)
-    + nw_f*p_pos - nw_f*p_neg // pressure jump stabilization term
-);
+    surfaceScalarField rPsi_pos_;
+    surfaceScalarField rPsi_neg_;
 
-// Make flux for pressure-work absolute
-if (mesh.moving())
-{
-    surfaceScalarField meshPhi(mesh.phi());
-    meshPhi.setOriented(false);
-    phiEp += meshPhi*(alpha*p_pos + minus_alpha*p_neg);
-}
+    surfaceScalarField e_pos_;
+    surfaceScalarField e_neg_;
 
-// Viscous Work Flux
-surfaceScalarField sigmaDotU
-(
-    "sigmaDotU",
+    surfaceVectorField U_pos_;
+    surfaceVectorField U_neg_;
+
+    surfaceScalarField p_pos_;
+    surfaceScalarField p_neg_;
+
+    surfaceScalarField phi_fp_;  // unoriented
+    surfaceScalarField phi_fn_;  // unoriented
+
+    surfaceScalarField cSf_pos_;
+    surfaceScalarField cSf_neg_;
+
+    surfaceScalarField a_fp_;
+    surfaceScalarField a_fn_;
+
+    surfaceScalarField alpha_;
+    surfaceScalarField minus_alpha_;
+
+    surfaceScalarField nw_f_;   // diffusive flux factor (negative for Tadmor)
+    surfaceScalarField aphi_fp_;
+    surfaceScalarField aphi_fn_;
+
+    bool mixtureCheck_; // controls whether single specie or multi specie flux will be employed
+    // --- Multispecies storage (only used when mixtureCheck_ == true)
+    label nSpecie_;
+    PtrList<surfaceScalarField> phiRhoYi_;   // face convective fluxes of rho*Yi
+
+    // --- Outputs (owned by this class)
+    surfaceVectorField phiUp_;      // full momentum flux
+    surfaceScalarField phiEp_;      // total energy flux
+    surfaceScalarField sigmaDotU_;  // viscous work flux
+    surfaceScalarField max_a_;      // max propagation speed (used in deltaT)
+
+private:
+    // ---------------------------------------------------------------------
+    // --- 1) Directed interpolation of primitive fields onto faces
+    // ---------------------------------------------------------------------
+    void calcDirectedInterpolation()
+    {
+        rho_pos_ = interpolate(rho_, pos_);
+        rho_neg_ = interpolate(rho_, neg_);
+
+        rhoU_pos_ = interpolate(rhoU_, pos_, U_.name());
+        rhoU_neg_ = interpolate(rhoU_, neg_, U_.name());
+
+        // rPsi = 1/psi (EOS-dependent)
+        volScalarField rPsi("rPsi", 1.0/psi_);
+        rPsi_pos_ = interpolate(rPsi, pos_, TTR_.name());
+        rPsi_neg_ = interpolate(rPsi, neg_, TTR_.name());
+
+        e_pos_ = interpolate(hTR_, pos_, TTR_.name());
+        e_neg_ = interpolate(hTR_, neg_, TTR_.name());
+
+        U_pos_ = rhoU_pos_/rho_pos_;
+        U_neg_ = rhoU_neg_/rho_neg_;
+
+        p_pos_ = rho_pos_*rPsi_pos_;
+        p_neg_ = rho_neg_*rPsi_neg_;
+
+        // Face-normal volumetric fluxes (unoriented for max/min ops)
+        phi_fp_ = (U_pos_ & mesh_.Sf());
+        phi_fp_.setOriented(false);
+
+        phi_fn_ = (U_neg_ & mesh_.Sf());
+        phi_fn_.setOriented(false);
+
+        // Make fluxes relative to mesh-motion
+        if (mesh_.moving())
+        {
+            surfaceScalarField meshPhi(mesh_.phi());
+            meshPhi.setOriented(false);
+            phi_fp_ -= meshPhi;
+            phi_fn_ -= meshPhi;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // --- 2) Sound speed and face sound-speed*area
+    // ---------------------------------------------------------------------
+    void calcSoundSpeed()
+    {
+        // c = sqrt(gamma/psi)  with gamma ~ Cp/Cv (here TR mode)
+        volScalarField rPsi("rPsi", 1.0/psi_);
+        volScalarField c
+        (
+            "c",
+            sqrt(thermo2T_.CpTR()/thermo2T_.CvT()*rPsi)
+        );
+
+        cSf_pos_ = interpolate(c, pos_, TTR_.name())*mesh_.magSf();
+        cSf_neg_ = interpolate(c, neg_, TTR_.name())*mesh_.magSf();
+    }
+
+    // ---------------------------------------------------------------------
+    // --- 3) Local propagation speeds and KNP/KT weights
+    // ---------------------------------------------------------------------
+    void calcPropagationSpeedsAndWeights()
+    {
+        a_fp_ = max(max(phi_fp_ + cSf_pos_, phi_fn_ + cSf_neg_), v_zero_);
+        a_fn_ = min(min(phi_fp_ - cSf_pos_, phi_fn_ - cSf_neg_), v_zero_);
+
+        // Weighting factor, default KNP
+        alpha_ = a_fp_/(a_fp_ - a_fn_);
+        minus_alpha_ = 1.0 - alpha_;
+
+        // max(|a-|,|a+|) used by KT/Tadmor and also for dt estimates
+        max_a_ = max(mag(a_fn_), mag(a_fp_));
+
+        // Diffusive flux factor, default KNP
+        nw_f_ = a_fn_*alpha_;
+
+        // KT/Tadmor corrections
+        if (fluxScheme_ == "Tadmor")
+        {
+            alpha_ = 0.5;
+            minus_alpha_ = 0.5;
+            nw_f_ = -0.5*max_a_;
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // --- 4) Build final aphi coefficients and update max_a
+    // ---------------------------------------------------------------------
+    void calcAphi()
+    {
+        // Weighted flux calculations
+        // phi_f+ * alpha , phi_f- * (1 - alpha)
+        surfaceScalarField phi_fp_w(phi_fp_*alpha_);
+        surfaceScalarField phi_fn_w(phi_fn_*minus_alpha_);
+
+        // Diffusive corrections
+        aphi_fp_ = phi_fp_w - nw_f_;
+        aphi_fn_ = phi_fn_w + nw_f_;
+
+        // Maximum flux magnitude used in deltaT calculations
+        max_a_ = max(mag(aphi_fp_), mag(aphi_fn_));
+    }
+
+    // ---------------------------------------------------------------------
+    // --- 5a) Face fluxes for conservative variables
+    // ---------------------------------------------------------------------
+    void calcConservativeFluxes()
+    {
+        // Mass flux (mixture)
+        phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
+
+        // Convective momentum flux (oriented after assembly)
+        surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
+        phiU.setOriented(true);
+
+        // Full momentum flux (convective + pressure)
+        phiUp_ =
+            phiU
+          + (alpha_*p_pos_ + minus_alpha_*p_neg_)*mesh_.Sf();
+        phiUp_.setOriented(true);
+
+        // Total energy flux
+        phiEp_ =
+            aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
+          + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
+          + nw_f_*(p_pos_ - p_neg_); // pressure jump stabilization term
+
+        // Make flux for pressure-work absolute (ALE correction)
+        if (mesh_.moving())
+        {
+            surfaceScalarField meshPhi(mesh_.phi());
+            meshPhi.setOriented(false);
+            phiEp_ += meshPhi*(alpha_*p_pos_ + minus_alpha_*p_neg_);
+        }
+    }
+    
+    // ---------------------------------------------------------------------
+    // --- 5b) Face fluxes for multispecies
+    // ---------------------------------------------------------------------
+    void calcSpeciesFluxes()
+    {
+        // Mass flux (mixture)
+        phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
+
+        // Convective momentum flux (oriented after assembly)
+        surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
+        phiU.setOriented(true);
+
+        // Full momentum flux (convective + pressure)
+        phiUp_ =
+            phiU
+        + (alpha_*p_pos_ + minus_alpha_*p_neg_)*mesh_.Sf();
+        phiUp_.setOriented(true);
+
+        // Total energy flux
+        phiEp_ =
+            aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
+        + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
+        + nw_f_*(p_pos_ - p_neg_);
+
+        // ALE correction for moving mesh
+        if (mesh_.moving())
+        {
+            surfaceScalarField meshPhi(mesh_.phi());
+            meshPhi.setOriented(false);
+            phiEp_ += meshPhi*(alpha_*p_pos_ + minus_alpha_*p_neg_);
+        }
+
+        // Compute per-species convective mass fluxes phiRhoYi
+        // phiRhoYi_i = aphi_fp_*(rho*Yi)_pos + aphi_fn_*(rho*Yi)_neg
+        // -----------------------------------------------------------------
+        if (!mixtureCheck_ || nSpecie_ == 0) return;
+
+        const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+
+        forAll(Y, i)
+        {
+            // Yi at faces from pos/neg side
+            surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
+            surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
+
+            // Enforce bounds at the face values
+            Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
+            Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
+
+            // Reconstruct rho*Yi at each side
+            const surfaceScalarField rhoYi_pos(rho_pos_*Yi_pos);
+            const surfaceScalarField rhoYi_neg(rho_neg_*Yi_neg);
+
+            // Species convective flux (kg/s)
+            phiRhoYi_[i] = aphi_fp_*rhoYi_pos + aphi_fn_*rhoYi_neg;
+
+            // Keep it consistent with face orientation conventions
+            phiRhoYi_[i].setOriented(false); // scalar mass flux across face
+        }
+    }
+
+    // ---------------------------------------------------------------------
+    // --- 6) Viscous work flux for energy equation
+    // ---------------------------------------------------------------------
+    void calcViscousWorkFlux(const volScalarField& muEff, const volTensorField& tauMC)
+    {
+        sigmaDotU_ =
+        (
+            (
+                fvc::interpolate(muEff)*mesh_.magSf()*fvc::snGrad(U_)
+              + fvc::dotInterpolate(mesh_.Sf(), tauMC)
+            )
+          & (alpha_*U_pos_ + minus_alpha_*U_neg_)
+        );
+    }
+
+
+
+public:
+    // Constructor: allocate workspace and output fields
+    kurganovFluxCalculator
     (
-        fvc::interpolate(muEff)*mesh.magSf()*fvc::snGrad(U)
-        + fvc::dotInterpolate(mesh.Sf(), tauMC)
+        const fvMesh& mesh,
+        ne2TReactionThermo& thermo2T,
+
+        const volScalarField& rho,
+        const volVectorField& rhoU,
+        const volVectorField& U,
+
+        const volScalarField& psi,
+        const volScalarField& hTR,
+        const volScalarField& TTR,
+
+        const surfaceScalarField& pos,
+        const surfaceScalarField& neg,
+
+        surfaceScalarField& phi,
+
+        const word& fluxScheme,
+        const dimensionedScalar& v_zero,
+
+        const bool mixtureCheck
     )
-    & (alpha*U_pos + minus_alpha*U_neg)
-);
-//////////////////////////////////////////////////////////////////////
+    :
+        mesh_(mesh),
+        thermo2T_(thermo2T),
+
+        rho_(rho),
+        rhoU_(rhoU),
+        U_(U),
+
+        psi_(psi),
+        hTR_(hTR),
+        TTR_(TTR),
+
+        pos_(pos),
+        neg_(neg),
+
+        phi_(phi),
+
+        fluxScheme_(fluxScheme),
+        v_zero_(v_zero),
+
+        mixtureCheck_(mixtureCheck),
+
+        // Workspace fields
+        rho_pos_
+        (
+            IOobject
+            (
+                "rho_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rho_neg_
+        (
+            IOobject
+            (
+                "rho_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rhoU_pos_
+        (
+            IOobject
+            (
+                "rhoU_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rhoU_neg_
+        (
+            IOobject
+            (
+                "rhoU_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rPsi_pos_
+        (
+            IOobject
+            (
+                "rPsi_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+        
+        rPsi_neg_
+        (
+            IOobject
+            (
+                "rPsi_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+
+        e_pos_
+        (
+            IOobject
+            (
+                "e_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+        
+        e_neg_
+        (
+            IOobject
+            (
+                "e_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+
+        U_pos_
+        (
+            IOobject
+            (
+                "U_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+        
+        U_neg_
+        (
+            IOobject
+            (
+                "U_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        p_pos_
+        (
+            IOobject
+            (
+                "p_pos", 
+                mesh_.time().timeName(), 
+                mesh_, IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+        
+        p_neg_
+        (
+            IOobject
+            (
+                "p_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+
+        phi_fp_
+        (
+            IOobject
+            (
+                "phi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        phi_fn_
+        (
+            IOobject
+            (
+                "phi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        cSf_pos_
+        (
+            IOobject
+            (
+                "cSf_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        cSf_neg_
+        (
+            IOobject
+            (
+                "cSf_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fp_
+        (
+            IOobject
+            (
+                "a_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fn_
+        (
+            IOobject
+            (
+                "a_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        alpha_
+        (
+            IOobject
+            (
+                "alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        minus_alpha_
+        (
+            IOobject
+            (
+                "minus_alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        nw_f_
+        (
+            IOobject
+            (
+                "nw_f", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fp_
+        (
+            IOobject
+            (
+                "aphi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fn_
+        (
+            IOobject
+            (
+                "aphi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        // Outputs
+        phiUp_
+        (
+            IOobject
+            (
+                "phiUp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions()*dimVolume/dimTime, 
+                vector::zero
+            )
+        ),
+
+        phiEp_
+        (
+            IOobject
+            (
+                "phiEp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        sigmaDotU_
+        (
+            IOobject
+            (
+                "sigmaDotU", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        max_a_
+        (
+            IOobject
+            (
+                "max_a", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        )
+    {
+        if (mixtureCheck_)
+        {
+            // Get number of species from thermo
+            // In reacting/mixture thermos, composition().Y() is the canonical list.
+            // This compiles for standard OpenFOAM thermos that expose composition().
+            const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+            nSpecie_ = Y.size();
+
+            phiRhoYi_.setSize(nSpecie_);
+
+            forAll(phiRhoYi_, i)
+            {
+                // Name like phiRhoY_N2, phiRhoY_O2, ...
+                const word fldName("phiRhoY_" + Y[i].name());
+
+                phiRhoYi_.set
+                (
+                    i,
+                    new surfaceScalarField
+                    (
+                        IOobject
+                        (
+                            fldName,
+                            mesh_.time().timeName(),
+                            mesh_,
+                            IOobject::NO_READ,
+                            IOobject::AUTO_WRITE  // or NO_WRITE if you don’t want files
+                        ),
+                        mesh_,
+                        dimensionedScalar(dimMass/dimTime, 0.0) // kg/s
+                    )
+                );
+            }
+        }
+        else
+        {
+            nSpecie_ = 0;
+            phiRhoYi_.clear();
+        }
+    }
+
+    // Main entry point: compute all fluxes (black-box)
+    void invoke(const volScalarField& muEff, const volTensorField& tauMC)
+    {
+        calcDirectedInterpolation();
+        calcSoundSpeed();
+        calcPropagationSpeedsAndWeights();
+        calcAphi();
+        
+        if (mixtureCheck_)
+        {
+            calcSpeciesFluxes();
+        }
+        else
+        {
+            calcConservativeFluxes();    
+        }
+        
+        calcViscousWorkFlux(muEff, tauMC);
+    }
+
+    // Accessors for solver usage
+    inline surfaceVectorField&          phiUp()          { return phiUp_; }
+    inline surfaceScalarField&          phiEp()          { return phiEp_; }
+    inline const  PtrList<surfaceScalarField>& phiRhoYi() const { return phiRhoYi_; }
+    inline surfaceScalarField&          sigmaDotU()      { return sigmaDotU_; }
+    inline surfaceScalarField&          maxA()           { return max_a_;  }
+    
+    // Optional: access alpha/nw_f for diagnostics
+    inline const surfaceScalarField& alpha() const { return alpha_; }
+    inline const surfaceScalarField& nw_f()  const { return nw_f_;  }
+};
+
+} // namespace Foam
+
+#endif

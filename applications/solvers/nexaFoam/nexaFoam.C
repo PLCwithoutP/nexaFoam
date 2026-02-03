@@ -43,6 +43,7 @@ Description
 #include "directionInterpolate.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
+#include "FluxCalculators/kurganov.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -74,6 +75,31 @@ int main(int argc, char *argv[])
 
     const dimensionedScalar v_zero(dimVolume/dimTime, Zero);
 
+    // Flux Calculator
+    Foam::kurganovFluxCalculator kurganovFlux
+    (
+        mesh,
+        thermo2T,
+        rho,
+        rhoU,
+        U,
+        psi,
+        hTR,
+        TTR,
+        pos,
+        neg,
+        phi,
+        fluxScheme,
+        v_zero,
+        mixtureCheck
+    );
+
+    // Bind outputs to the original variable names (keeps solver code unchanged)
+    surfaceVectorField& phiUp = kurganovFlux.phiUp();
+    surfaceScalarField& phiEp = kurganovFlux.phiEp();
+    surfaceScalarField& sigmaDotU = kurganovFlux.sigmaDotU();
+    surfaceScalarField& max_a = kurganovFlux.maxA();
+
     // Courant numbers used to adjust the time-step
     scalar CoNum = 0.0;
     scalar meanCoNum = 0.0;
@@ -88,14 +114,15 @@ int main(int argc, char *argv[])
         volScalarField muEff("muEff", turbulence->muEff());
         volTensorField tauMC("tauMC", muEff*dev2(Foam::T(fvc::grad(U))));
 
-        #include "FluxCalculators/kurganov.H"
+        kurganovFlux.invoke(muEff, tauMC);
 
         #include "decideDeltaT.H"
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        // --- Solve density
-        solve(fvm::ddt(rho) + fvc::div(phi));
+        #include "Equations/continuityEquation.H"
+
+        #include "Equations/yEquation.H"
 
         // --- Solve momentum
         solve(fvm::ddt(rhoU) + fvc::div(phiUp));

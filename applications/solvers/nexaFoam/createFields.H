@@ -1,5 +1,5 @@
 #include "createRDeltaT.H"
-#include "vibrationalFieldCheck.H"
+#include "thermochemistryCheck.H"
 #include "createMixture.H"
 
 PtrList<volScalarField>& Y_species = mix.Y();

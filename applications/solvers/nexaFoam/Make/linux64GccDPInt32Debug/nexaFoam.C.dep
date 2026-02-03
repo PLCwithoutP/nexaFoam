@@ -914,6 +914,7 @@ directionInterpolate.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvcSmooth.H \
+FluxCalculators/kurganov.H \
 logDebugCreate.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/postProcess.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addRegionOption.H \
@@ -928,12 +929,13 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/createTime.H \
 $(WM_PROJECT_DIR)/src/dynamicFvMesh/lnInclude/createDynamicFvMesh.H \
 createFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createRDeltaT.H \
-vibrationalFieldCheck.H \
+thermochemistryCheck.H \
 createMixture.H \
 createFieldRefs.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createTimeControls.H \
 readFluxScheme.H \
-FluxCalculators/kurganov.H \
 decideDeltaT.H \
+Equations/continuityEquation.H \
+Equations/yEquation.H \
 
 #END

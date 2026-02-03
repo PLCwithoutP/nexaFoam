@@ -1,3 +1,6 @@
+#ifndef DIRECTION_INTERPOLATE_H
+#define DIRECTION_INTERPOLATE_H
+
 namespace Foam
 {
 
@@ -30,3 +33,5 @@ tmp<GeometricField<Type, fvsPatchField, surfaceMesh>> interpolate
 }
 
 }
+
+#endif

@@ -51,6 +51,7 @@
         "incompressibleVars.C": "cpp",
         "GeometricField.C": "cpp",
         "fvmDdt.C": "cpp",
-        "dimensionedScalar.C": "cpp"
+        "dimensionedScalar.C": "cpp",
+        "nexaFoam_backup.C": "cpp"
     }
 }
