@@ -1,0 +1,64 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2412                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "0.0223997/uniform/functionObjects";
+    object      functionObjectProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+cdf7e925f5746741c316f5fbcf39ad0dfca90775
+{
+    xLineSample
+    {
+        scalar
+        {
+            average(xLine,p) 52380.16820945594;
+            min(xLine,p)    30535.46562049281;
+            max(xLine,p)    102960.2259911823;
+            average(p)      52380.16820945594;
+            min(p)          30535.46562049281;
+            max(p)          102960.2259911823;
+        }
+        label
+        {
+            size(xLine,p)   200;
+            size(p)         200;
+            size(xLine,U)   200;
+            size(U)         200;
+        }
+        vector
+        {
+            average(xLine,U) ( 147.581 0 0 );
+            min(xLine,U)    ( -10.3544 0 0 );
+            max(xLine,U)    ( 293.418 0 0 );
+            average(U)      ( 147.581 0 0 );
+            min(U)          ( -10.3544 0 0 );
+            max(U)          ( 293.418 0 0 );
+        }
+    }
+}
+
+xLineSample
+{
+    p
+    {
+        file            "<case>/postProcessing/xLineSample/0.0223997/xLine_p_U.csv";
+    }
+    U
+    {
+        file            "<case>/postProcessing/xLineSample/0.0223997/xLine_p_U.csv";
+    }
+}
+
+
+// ************************************************************************* //

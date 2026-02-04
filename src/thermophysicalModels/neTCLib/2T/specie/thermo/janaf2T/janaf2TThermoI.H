@@ -58,9 +58,9 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     {
         for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
         {
-            highCpCoeffs_[coefLabel] = highCpCoeffs[coefLabel]*this->R()*1e-3;
-            midCpCoeffs_[coefLabel] = midCpCoeffs[coefLabel]*this->R()*1e-3;
-            lowCpCoeffs_[coefLabel] = lowCpCoeffs[coefLabel]*this->R()*1e-3;
+            highCpCoeffs_[coefLabel] = highCpCoeffs[coefLabel];
+            midCpCoeffs_[coefLabel] = midCpCoeffs[coefLabel];
+            lowCpCoeffs_[coefLabel] = lowCpCoeffs[coefLabel];//*this->R()*1e-3;
         }
     }
     else

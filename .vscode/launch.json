@@ -8,7 +8,7 @@
             "program": "/home/t12022124597/OpenFOAM/t12022124597-v2412/platforms/linux64GccDPInt32Debug/bin/nexaFoam",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/obliqueShock_multicompMix",
+            "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/sodShockTube_twoComp",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

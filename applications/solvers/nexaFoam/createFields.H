@@ -163,3 +163,41 @@ autoPtr<compressible::turbulenceModel> turbulence
     )
 );
 
+// Mixture rho for sanity check purposes
+volScalarField rhoCont
+(
+    IOobject("rhoCont", runTime.timeName(), mesh,
+             IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
+    rho
+);
+
+// Mixture fluxes
+PtrList<volScalarField> rhoYi;
+
+if (mixtureCheck)
+{
+    PtrList<volScalarField>& Y = thermo2T.composition().Y();
+    rhoYi.setSize(Y.size());
+
+    forAll(Y, i)
+    {
+        const word name("rhoY_" + Y[i].name());
+
+        rhoYi.set
+        (
+            i,
+            new volScalarField
+            (
+                IOobject
+                (
+                    name,
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                rho*Y[i]
+            )
+        );
+    }
+}

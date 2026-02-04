@@ -181,11 +181,13 @@ Foam::species::thermo2T<Thermo2T, Type>::gamma(const scalar p, const scalar TTR)
 {
     #ifdef __clang__
     volatile const scalar CpTR = this->CpTR(p, TTR);
+    volatile const scalar R = this->CpMCv(p, TTR);
     #else
     const scalar CpTR = this->CpTR(p, TTR);
+    const scalar R = this->CpMCv(p, TTR);
     #endif
-
-    return CpTR/(CpTR - this->CpMCv(p, TTR));
+    //Info << "Gamma : " << CpTR/(CpTR - R) << nl << endl;
+    return CpTR/(CpTR - R);
 }
 
 

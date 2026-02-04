@@ -166,7 +166,7 @@ private:
         volScalarField c
         (
             "c",
-            sqrt(thermo2T_.CpTR()/thermo2T_.CvT()*rPsi)
+            sqrt(thermo2T_.gamma()*rPsi)
         );
 
         cSf_pos_ = interpolate(c, pos_, TTR_.name())*mesh_.magSf();
@@ -289,27 +289,35 @@ private:
         if (!mixtureCheck_ || nSpecie_ == 0) return;
 
         const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+        const label nSpec = Y.size();
+        const label last  = nSpec - 1;
 
-        forAll(Y, i)
+        surfaceScalarField sumPhiRhoYi
+        (
+            IOobject("sumPhiRhoYi", mesh_.time().timeName(), mesh_,
+                    IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
+            mesh_,
+            dimensionedScalar(dimMass/dimTime, 0.0)
+        );
+
+        for (label i = 0; i < last; ++i)
         {
-            // Yi at faces from pos/neg side
             surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
             surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
 
-            // Enforce bounds at the face values
             Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
             Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
 
-            // Reconstruct rho*Yi at each side
             const surfaceScalarField rhoYi_pos(rho_pos_*Yi_pos);
             const surfaceScalarField rhoYi_neg(rho_neg_*Yi_neg);
 
-            // Species convective flux (kg/s)
             phiRhoYi_[i] = aphi_fp_*rhoYi_pos + aphi_fn_*rhoYi_neg;
 
-            // Keep it consistent with face orientation conventions
-            phiRhoYi_[i].setOriented(false); // scalar mass flux across face
+            sumPhiRhoYi += phiRhoYi_[i];
         }
+
+        // last species flux is whatever is needed to make the sum exact
+        phiRhoYi_[last] = phi_ - sumPhiRhoYi;
     }
 
     // ---------------------------------------------------------------------

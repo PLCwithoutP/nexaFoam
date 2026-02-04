@@ -15,5 +15,8 @@ LIB_LIBS = \
     -lmeshTools \
     -lcompressibleTransportModels \
     -lneTCspecie_2T \
+    -lreactionThermophysicalModels \
     -lspecie \
-    -lthermophysicalProperties
+    -lthermophysicalProperties \
+    -lfluidThermophysicalModels \
+    -lOpenFOAM

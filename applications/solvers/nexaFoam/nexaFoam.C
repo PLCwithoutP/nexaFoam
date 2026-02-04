@@ -159,6 +159,7 @@ int main(int argc, char *argv[])
             eR.correctBoundaryConditions();
             eV.correctBoundaryConditions();
         }
+        
         thermo2T.correct();
         thermo2T.correctTEnergy();
         if (vibrationalCheck)
@@ -166,6 +167,18 @@ int main(int argc, char *argv[])
             thermo2T.correctREnergy();
             thermo2T.correctVibEnergy();
         }
+
+        {
+            Info<< "TTR min/max: " << gMin(TTR.primitiveField())
+                << " / " << gMax(TTR.primitiveField()) << nl << endl;
+            const scalarField& hTRIf = hTR.primitiveField();
+            label minCell = findMin(hTRIf);
+
+            Info<< "min eInt cell=" << minCell
+                << " eInt=" << hTRIf[minCell]
+                << " C=" << mesh.C()[minCell] << nl;
+        }
+
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
@@ -184,8 +197,8 @@ int main(int argc, char *argv[])
             {
                 thermo2T.correctREnergy();
                 thermo2T.correctVibEnergy();
-            }
-            rhoE = rho*(hTR + 0.5*magSqr(U));        
+            }    
+            rhoE = rho*(hTR + 0.5*magSqr(U));    
         }
         p.ref() =
             rho()

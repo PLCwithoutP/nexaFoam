@@ -52,6 +52,16 @@
         "GeometricField.C": "cpp",
         "fvmDdt.C": "cpp",
         "dimensionedScalar.C": "cpp",
-        "nexaFoam_backup.C": "cpp"
+        "nexaFoam_backup.C": "cpp",
+        "janaf2TThermo.C": "cpp",
+        "functional": "cpp",
+        "regIOobject.C": "cpp",
+        "IOobject.C": "cpp",
+        "objectRegistry.C": "cpp",
+        "GeometricScalarField.C": "cpp",
+        "sigFpe.C": "cpp",
+        "scalarField.C": "cpp",
+        "thermodynamicConstants.C": "cpp",
+        "basic2TThermoTemplates.C": "cpp"
     }
 }
