@@ -27,47 +27,6 @@ Description
 
 \*---------------------------------------------------------------------------*/
 
-// Mass Diffusion Flux at Cell-centers : only for post-processing
-tmp<volVectorField> fickFluxVol
-(
-    const volScalarField& rho,
-    const volScalarField& Deff,
-    const volScalarField& Ys
-)
-{
-    const fvMesh& mesh = Ys.mesh();
-
-    // ∇Ys (cell-centred gradient)
-    tmp<volVectorField> tGradYs = fvc::grad(Ys);
-    const volVectorField& gradYs = tGradYs();
-
-    // J_s = -rho * Deff * ∇Ys
-    tmp<volVectorField> tJs
-    (
-        new volVectorField
-        (
-            IOobject
-            (
-                "Js_" + Ys.name(),           // e.g. "Js_N2"
-                mesh.time().timeName(),
-                mesh,
-                IOobject::NO_READ,
-                IOobject::AUTO_WRITE
-            ),
-            - (rho*Deff)*gradYs             // element-wise product
-        )
-    );
-
-    return tJs;
-}
-
-// Flux check
-tmp<volVectorField> tJs = fickFluxVol(rho, Deff_s, Ys);
-const volVectorField& Js = tJs();
-
-Js.write();
-
-// -------------------------------------------------------------------------------------------------------- //
 
 // Mass Diffusion Flux at Face-centers : for equations
 tmp<surfaceScalarField> fickFluxFace
@@ -107,6 +66,5 @@ tmp<surfaceScalarField> fickFluxFace
     return tJs_n;
 }
 
-// Flux check
 tmp<surfaceScalarField> tJs_n = fickFluxFace(rho, Deff_s, Ys);
-tJs_n().write();
+surfaceScalarField phiJ = tJs_n()*mesh.magSf();
