@@ -225,6 +225,7 @@ private:
     {
         // Mass flux (mixture)
         phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
+        phi_.setOriented(true);
 
         // Convective momentum flux (oriented after assembly)
         surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
@@ -241,6 +242,7 @@ private:
             aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
           + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
           + nw_f_*(p_pos_ - p_neg_); // pressure jump stabilization term
+        phiEp_.setOriented(true);
 
         // Make flux for pressure-work absolute (ALE correction)
         if (mesh_.moving())
@@ -258,6 +260,7 @@ private:
     {
         // Mass flux (mixture)
         phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
+        phi_.setOriented(true);
 
         // Convective momentum flux (oriented after assembly)
         surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
@@ -274,6 +277,7 @@ private:
             aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
         + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
         + nw_f_*(p_pos_ - p_neg_);
+        phiEp_.setOriented(true);
 
         // ALE correction for moving mesh
         if (mesh_.moving())
@@ -292,14 +296,11 @@ private:
         const label nSpec = Y.size();
         const label last  = nSpec - 1;
 
-        surfaceScalarField sumPhiRhoYi
-        (
-            IOobject("sumPhiRhoYi", mesh_.time().timeName(), mesh_,
-                    IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
-            mesh_,
-            dimensionedScalar(dimMass/dimTime, 0.0)
-        );
+        surfaceScalarField sumPhiRhoYi(phi_);
+        sumPhiRhoYi.rename("sumPhiRhoYi");
+        sumPhiRhoYi = dimensionedScalar(sumPhiRhoYi.dimensions(), 0.0);
 
+        
         for (label i = 0; i < last; ++i)
         {
             surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
@@ -312,12 +313,14 @@ private:
             const surfaceScalarField rhoYi_neg(rho_neg_*Yi_neg);
 
             phiRhoYi_[i] = aphi_fp_*rhoYi_pos + aphi_fn_*rhoYi_neg;
+            phiRhoYi_[i].setOriented(true);
 
             sumPhiRhoYi += phiRhoYi_[i];
         }
 
         // last species flux is whatever is needed to make the sum exact
         phiRhoYi_[last] = phi_ - sumPhiRhoYi;
+        phiRhoYi_[last].setOriented(true);
     }
 
     // ---------------------------------------------------------------------
@@ -930,6 +933,7 @@ public:
                         dimensionedScalar(dimMass/dimTime, 0.0) // kg/s
                     )
                 );
+                phiRhoYi_[i].setOriented(true);
             }
         }
         else

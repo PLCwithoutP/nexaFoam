@@ -44,6 +44,7 @@ Description
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 #include "FluxCalculators/kurganov.H"
+#include "DiffusionModels/FickModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -64,7 +65,6 @@ int main(int argc, char *argv[])
     #include "createTime.H"
     #include "createDynamicFvMesh.H"
     #include "createFields.H"
-    #include "createFieldRefs.H"
     #include "createTimeControls.H"
 
     turbulence->validate();
@@ -109,10 +109,13 @@ int main(int argc, char *argv[])
     while (runTime.run())
     {
         //#include "runTimeLogging.H"
-        //Info << "Effective diffusion coefficient of mixture is : \n" << (thermo2T.fickDiffusionCoeff())().average().value() << endl;
 
         volScalarField muEff("muEff", turbulence->muEff());
         volTensorField tauMC("tauMC", muEff*dev2(Foam::T(fvc::grad(U))));
+
+        // Effective diffusion coefficient must be updated in every timestep
+        Deff = thermo2T.fickDiffusionCoeff();
+        Deff.correctBoundaryConditions();
 
         kurganovFlux.invoke(muEff, tauMC);
 
@@ -168,7 +171,7 @@ int main(int argc, char *argv[])
             thermo2T.correctVibEnergy();
         }
 
-        {
+/*         {
             Info<< "TTR min/max: " << gMin(TTR.primitiveField())
                 << " / " << gMax(TTR.primitiveField()) << nl << endl;
             const scalarField& hTRIf = hTR.primitiveField();
@@ -177,7 +180,7 @@ int main(int argc, char *argv[])
             Info<< "min eInt cell=" << minCell
                 << " eInt=" << hTRIf[minCell]
                 << " C=" << mesh.C()[minCell] << nl;
-        }
+        } */
 
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
@@ -200,6 +203,16 @@ int main(int argc, char *argv[])
             }    
             rhoE = rho*(hTR + 0.5*magSqr(U));    
         }
+        
+        // Sanity check
+        if (mixtureCheck)
+        {
+            volScalarField drho(rhoCont - rho);
+            const scalar maxErr = gMax(mag(drho)().primitiveField());
+            Info<< "Sanity check: max(|rhoCont - rhoFromSpecies|) = "
+                << maxErr << nl << endl;
+        }
+
         p.ref() =
             rho()
            /psi();

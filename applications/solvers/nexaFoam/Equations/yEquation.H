@@ -4,17 +4,67 @@ if (mixtureCheck)
     const PtrList<surfaceScalarField>& phiRhoYi = kurganovFlux.phiRhoYi();
 
     const label nSpec = Y.size();
+    const label last = nSpec - 1;
 
-    // --- 1) Solve partial densities rhoYi
+    // --- 1) Prepare Mass Diffusion Flux Term
+
+        // Allocate diffusive flux list
+    PtrList<surfaceScalarField> phiJYi(nSpec);
+
+    surfaceScalarField sumPhiJ
+    (
+        IOobject("sumPhiJ", runTime.timeName(), mesh,
+                 IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
+        mesh,
+        dimensionedScalar(dimMass/dimTime, 0.0)
+    );
+
+    sumPhiJ.setOriented(true);
+
+    // Build N-1 diffusive fluxes
+    for (label i = 0; i < last; ++i)
+    {
+        tmp<surfaceScalarField> tPhiJ =
+            Foam::FickModel::phiJ(rho, Deff, Y[i]);
+
+        phiJYi.set
+        (
+            i,
+            new surfaceScalarField
+            (
+                IOobject("phiJ_"+Y[i].name(), runTime.timeName(), mesh,
+                         IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
+                tPhiJ()
+            )
+        );
+
+        sumPhiJ += phiJYi[i];
+    }
+
+    // Close the sum exactly: phiJ_last = -sum(phiJ_0..N-2)
+    phiJYi.set
+    (
+        last,
+        new surfaceScalarField
+        (
+            IOobject("phiJ_"+Y[last].name(), runTime.timeName(), mesh,
+                     IOobject::NO_READ, IOobject::NO_WRITE, IOobject::NO_REGISTER),
+            -sumPhiJ
+        )
+    );
+
+
+   // --- 2) Solve partial densities rhoYi
     for (label i = 0; i < nSpec; ++i)
     {
         solve
         (
-            fvm::ddt(rhoYi[i]) + fvc::div(phiRhoYi[i])
+            fvm::ddt(rhoYi[i])
+        + fvc::div(phiRhoYi[i] + phiJYi[i])
         );
     }
 
-    // --- 2) Build mixture rho from species
+    // --- 3) Build mixture rho from species
     rho = dimensionedScalar("zeroRho", rho.dimensions(), 0.0);
 
     for (label i = 0; i < nSpec; ++i)
@@ -24,7 +74,7 @@ if (mixtureCheck)
     rho.max(SMALL);
     rho.correctBoundaryConditions();
 
-    // --- 3) Recover Yi = rhoYi / rho
+    // --- 4) Recover Yi = rhoYi / rho
     for (label i = 0; i < nSpec; ++i)
     {
         Y[i] = rhoYi[i]/rho;
@@ -35,7 +85,7 @@ if (mixtureCheck)
         Y[i].correctBoundaryConditions();
     }
 
-    // Optional renormalize (after bounding)
+    // Renormalize (after bounding)
     volScalarField sumY
     (
         IOobject("sumY", runTime.timeName(), mesh,
@@ -48,13 +98,4 @@ if (mixtureCheck)
     sumY.max(SMALL);
     for (label i = 0; i < nSpec; ++i) Y[i] /= sumY;
 
-}
-
-// Sanity check
-if (mixtureCheck)
-{
-    volScalarField drho(rhoCont - rho);
-    const scalar maxErr = gMax(mag(drho)().primitiveField());
-    Info<< "Sanity check: max(|rhoCont - rhoFromSpecies|) = "
-        << maxErr << nl << endl;
 }

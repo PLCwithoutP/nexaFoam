@@ -468,7 +468,8 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
             mesh.time().timeName(),
             mesh,
             IOobject::NO_READ,
-            IOobject::NO_WRITE
+            IOobject::NO_WRITE,
+            IOobject::NO_REGISTER
         ),
         mesh,
         dimensionedScalar("zero", dimArea/dimTime, 0.0)   // [m^2/s]
@@ -488,9 +489,6 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
             wilkeMix.kappaTRCell(celli, pCell, TTRCell);
         const scalar rhoCell = 
             this->calculateRhoMixture(pCell, TTRCell, celli);
-        Info << "CpTR cell is : " << CpTRCell << " in cell " << celli << nl;
-        Info << "kappaTR cell is : " << kappaTRCell << " in cell " << celli << nl;
-        Info << "rho cell is : " << rhoCell << " in cell " << celli << nl;
         Deff[celli] = fickDM.DeffCell
         (
             celli,
@@ -500,7 +498,6 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
             kappaTRCell,
             CpTRCell
         );
-        Info << "Deff is : " << Deff[celli] << " in cell " << celli << nl;
     }
 
     return Deff;

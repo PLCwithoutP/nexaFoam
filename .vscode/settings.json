@@ -62,6 +62,7 @@
         "sigFpe.C": "cpp",
         "scalarField.C": "cpp",
         "thermodynamicConstants.C": "cpp",
-        "basic2TThermoTemplates.C": "cpp"
+        "basic2TThermoTemplates.C": "cpp",
+        "incompressiblePrimalSolver.C": "cpp"
     }
 }

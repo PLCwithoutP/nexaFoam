@@ -915,6 +915,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvcSmooth.H \
 FluxCalculators/kurganov.H \
+DiffusionModels/FickModel.H \
 logDebugCreate.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/postProcess.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addRegionOption.H \
@@ -931,7 +932,6 @@ createFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createRDeltaT.H \
 thermochemistryCheck.H \
 createMixture.H \
-createFieldRefs.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/createTimeControls.H \
 readFluxScheme.H \
 decideDeltaT.H \
