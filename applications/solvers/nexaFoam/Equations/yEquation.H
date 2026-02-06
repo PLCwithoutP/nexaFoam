@@ -8,7 +8,7 @@ if (mixtureCheck)
 
     // --- 1) Prepare Mass Diffusion Flux Term
 
-        // Allocate diffusive flux list
+    // Allocate diffusive flux list
     PtrList<surfaceScalarField> phiJYi(nSpec);
 
     surfaceScalarField sumPhiJ
