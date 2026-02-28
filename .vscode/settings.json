@@ -63,6 +63,20 @@
         "scalarField.C": "cpp",
         "thermodynamicConstants.C": "cpp",
         "basic2TThermoTemplates.C": "cpp",
-        "incompressiblePrimalSolver.C": "cpp"
+        "incompressiblePrimalSolver.C": "cpp",
+        "StandardNeChemistryModel.C": "cpp",
+        "neReactingMixture.C": "cpp",
+        "makeNeReactions.C": "cpp",
+        "neReactionList.C": "cpp",
+        "neReaction.C": "cpp",
+        "neIrreversibleReaction.C": "cpp",
+        "ne2TReactionThermos.C": "cpp",
+        "neChemistryReader.C": "cpp",
+        "makeNeChemistryReaders.C": "cpp",
+        "foamChemistryReader.C": "cpp",
+        "foamNeChemistryReader.C": "cpp",
+        "basicNeChemistryModel.C": "cpp",
+        "basicNeChemistryModelTemplates.C": "cpp",
+        "BasicNeChemistryModels.C": "cpp"
     }
 }

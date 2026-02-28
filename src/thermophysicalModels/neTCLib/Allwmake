@@ -38,3 +38,8 @@ dash_line " Compiling reactionThermo/ "
 cd ./reactionThermo
 wclean
 wmake
+cd ..
+dash_line " Compiling chemistryModel/ "
+cd ./chemistryModel
+wclean
+wmake

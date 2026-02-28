@@ -177,7 +177,7 @@ public:
                 #endif
             }
 
-            //- Temperature from sensible internal energy
+            //- Temperature from sensible enthalpy
             //  given an initial temperature T0
             scalar TH_TR
             (
@@ -197,7 +197,7 @@ public:
                 #endif
             }
 
-            //- Temperature from sensible internal energy
+            //- Temperature from sensible enthalpy
             //  given an initial temperature T0
             scalar TE_Vib
             (

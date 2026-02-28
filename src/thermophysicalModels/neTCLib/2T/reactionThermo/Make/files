@@ -1,3 +1,5 @@
+neChemistryReaders/neChemistryReader/makeNeChemistryReaders.C
+
 mixtures/basicMultiComponent2TMixture/basicMultiComponent2TMixture.C
 mixtures/basicSpecie2TMixture/basicSpecie2TMixture.C
 
