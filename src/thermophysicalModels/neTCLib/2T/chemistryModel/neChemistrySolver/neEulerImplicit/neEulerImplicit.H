@@ -24,20 +24,20 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::EulerImplicit
+    Foam::neEulerImplicit
 
 Description
     An Euler implicit solver for chemistry
 
 SourceFiles
-    EulerImplicit.C
+    neEulerImplicit.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef EulerImplicit_H
-#define EulerImplicit_H
+#ifndef neEulerImplicit_H
+#define neEulerImplicit_H
 
-#include "chemistrySolver.H"
+#include "neChemistrySolver.H"
 #include "Switch.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -49,13 +49,13 @@ template <class Type>
 class simpleMatrix;
 
 /*---------------------------------------------------------------------------*\
-                       Class EulerImplicit Declaration
+                       Class neEulerImplicit Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ChemistryModel>
-class EulerImplicit
+class neEulerImplicit
 :
-    public chemistrySolver<ChemistryModel>
+    public neChemistrySolver<ChemistryModel>
 {
     // Private data
 
@@ -78,17 +78,17 @@ class EulerImplicit
 public:
 
     //- Runtime type information
-    TypeName("EulerImplicit");
+    TypeName("neEulerImplicit");
 
 
     // Constructors
 
         //- Construct from thermo
-        EulerImplicit(typename ChemistryModel::reactionThermo& thermo);
+        neEulerImplicit(typename ChemistryModel::reactionThermo& thermo);
 
 
     //- Destructor
-    virtual ~EulerImplicit();
+    virtual ~neEulerImplicit();
 
 
     // Member Functions
@@ -106,15 +106,15 @@ public:
         simpleMatrix<scalar>& RR
     ) const;
 
-        //- Update the concentrations and return the chemical time
-        virtual void solve
-        (
-            scalarField& c,
-            scalar& T,
-            scalar& p,
-            scalar& deltaT,
-            scalar& subDeltaT
-        ) const;
+    //- Update the concentrations and return the chemical time
+    virtual void solve
+    (
+        scalarField& c,
+        scalar& T,
+        scalar& p,
+        scalar& deltaT,
+        scalar& subDeltaT
+    ) const;
 };
 
 
@@ -125,7 +125,7 @@ public:
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "EulerImplicit.C"
+    #include "neEulerImplicit.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

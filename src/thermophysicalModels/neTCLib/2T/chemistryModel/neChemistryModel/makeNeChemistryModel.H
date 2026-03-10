@@ -41,7 +41,7 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#define makeChemistryModel(Comp)                                               \
+#define makeNeChemistryModel(Comp)                                               \
                                                                                \
     typedef BasicChemistryModel<Comp> BasicChemistryModel##Comp;               \
                                                                                \
@@ -59,7 +59,7 @@ namespace Foam
     );
 
 
-#define makeChemistryModelType(SS, Comp, Thermo)                               \
+#define makeNeChemistryModelType(SS, Comp, Thermo)                               \
                                                                                \
     typedef SS<Comp, Thermo> SS##Comp##Thermo;                                 \
                                                                                \

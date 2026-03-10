@@ -26,20 +26,20 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "EulerImplicit.H"
+#include "neEulerImplicit.H"
 #include "addToRunTimeSelectionTable.H"
 #include "simpleMatrix.H"
-#include "Reaction.H"
+#include "neReaction.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::EulerImplicit<ChemistryModel>::EulerImplicit
+Foam::neEulerImplicit<ChemistryModel>::neEulerImplicit
 (
     typename ChemistryModel::reactionThermo& thermo
 )
 :
-    chemistrySolver<ChemistryModel>(thermo),
+    neChemistrySolver<ChemistryModel>(thermo),
     coeffsDict_(this->subDict("EulerImplicitCoeffs")),
     cTauChem_(coeffsDict_.get<scalar>("cTauChem")),
     eqRateLimiter_(coeffsDict_.get<Switch>("equilibriumRateLimiter")),
@@ -50,14 +50,14 @@ Foam::EulerImplicit<ChemistryModel>::EulerImplicit
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::EulerImplicit<ChemistryModel>::~EulerImplicit()
+Foam::neEulerImplicit<ChemistryModel>::~neEulerImplicit()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-void Foam::EulerImplicit<ChemistryModel>::updateRRInReactionI
+void Foam::neEulerImplicit<ChemistryModel>::updateRRInReactionI
 (
     const label index,
     const scalar pr,
@@ -70,7 +70,7 @@ void Foam::EulerImplicit<ChemistryModel>::updateRRInReactionI
     simpleMatrix<scalar>& RR
 ) const
 {
-    const Reaction<typename ChemistryModel::thermoType>& R =
+    const neReaction<typename ChemistryModel::thermoType>& R =
         this->reactions_[index];
 
     forAll(R.lhs(), s)
@@ -92,7 +92,7 @@ void Foam::EulerImplicit<ChemistryModel>::updateRRInReactionI
 
 
 template<class ChemistryModel>
-void Foam::EulerImplicit<ChemistryModel>::solve
+void Foam::neEulerImplicit<ChemistryModel>::solve
 (
     scalarField& c,
     scalar& T,

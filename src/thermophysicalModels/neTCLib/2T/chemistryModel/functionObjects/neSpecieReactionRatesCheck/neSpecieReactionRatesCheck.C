@@ -26,14 +26,14 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "specieReactionRates.H"
+#include "neSpecieReactionRatesCheck.H"
 #include "volFields.H"
 #include "fvcVolumeIntegrate.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
 template<class ChemistryModelType>
-void Foam::functionObjects::specieReactionRates<ChemistryModelType>::
+void Foam::functionObjects::neSpecieReactionRates<ChemistryModelType>::
 writeFileHeader
 (
     Ostream& os
@@ -62,8 +62,8 @@ writeFileHeader
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class ChemistryModelType>
-Foam::functionObjects::specieReactionRates<ChemistryModelType>::
-specieReactionRates
+Foam::functionObjects::neSpecieReactionRates<ChemistryModelType>::
+neSpecieReactionRates
 (
     const word& name,
     const Time& runTime,
@@ -88,7 +88,7 @@ specieReactionRates
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class ChemistryModelType>
-bool Foam::functionObjects::specieReactionRates<ChemistryModelType>::read
+bool Foam::functionObjects::neSpecieReactionRates<ChemistryModelType>::read
 (
     const dictionary& dict
 )
@@ -100,14 +100,14 @@ bool Foam::functionObjects::specieReactionRates<ChemistryModelType>::read
 
 
 template<class ChemistryModelType>
-bool Foam::functionObjects::specieReactionRates<ChemistryModelType>::execute()
+bool Foam::functionObjects::neSpecieReactionRates<ChemistryModelType>::execute()
 {
     return true;
 }
 
 
 template<class ChemistryModelType>
-bool Foam::functionObjects::specieReactionRates<ChemistryModelType>::write()
+bool Foam::functionObjects::neSpecieReactionRates<ChemistryModelType>::write()
 {
     const label nSpecie = chemistryModel_.nSpecie();
     const label nReaction = chemistryModel_.nReaction();
@@ -159,60 +159,35 @@ bool Foam::functionObjects::specieReactionRates<ChemistryModelType>::write()
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 #include "addToRunTimeSelectionTable.H"
-#include "BasicChemistryModel.H"
-#include "psiReactionThermo.H"
-#include "rhoReactionThermo.H"
+#include "BasicNeChemistryModel.H"
+#include "ne2TReactionThermo.H"
 
 namespace Foam
 {
     typedef
-        functionObjects::specieReactionRates
+        functionObjects::neSpecieReactionRates
         <
-            BasicChemistryModel
+            BasicNeChemistryModel
             <
-                psiReactionThermo
+                ne2TReactionThermo
             >
         >
-        psiSpecieReactionRates;
+        ne2TSpecieReactionRates;
 
     defineTemplateTypeNameAndDebugWithName
     (
-        psiSpecieReactionRates,
-        "psiSpecieReactionRates",
+        ne2TSpecieReactionRates,
+        "ne2TSpecieReactionRates",
         0
     );
 
     addToRunTimeSelectionTable
     (
         functionObject,
-        psiSpecieReactionRates,
+        ne2TSpecieReactionRates,
         dictionary
     );
 
-
-    typedef
-        functionObjects::specieReactionRates
-        <
-            BasicChemistryModel
-            <
-                rhoReactionThermo
-            >
-        >
-        rhoSpecieReactionRates;
-
-    defineTemplateTypeNameAndDebugWithName
-    (
-        rhoSpecieReactionRates,
-        "rhoSpecieReactionRates",
-        0
-    );
-
-    addToRunTimeSelectionTable
-    (
-        functionObject,
-        rhoSpecieReactionRates,
-        dictionary
-    );
 }
 
 

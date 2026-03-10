@@ -25,109 +25,22 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "makeChemistrySolverTypes.H"
+#include "makeNeChemistrySolverTypes.H"
 
-#include "thermoPhysicsTypes.H"
-#include "psiReactionThermo.H"
-#include "rhoReactionThermo.H"
+#include "thermoPhysics2TTypes.H"
+#include "ne2TReactionThermo.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
     // Chemistry solvers based on sensibleEnthalpy
-    makeChemistrySolverTypes(psiReactionThermo, constGasHThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, gasHThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, PengRobinsonGasHThermoPhysics);
     makeChemistrySolverTypes
     (
-        psiReactionThermo,
-        constIncompressibleGasHThermoPhysics
+        ne2TReactionThermo, 
+        blottnerEucken2TGasCThermoPhysics
     );
-    makeChemistrySolverTypes
-    (
-        psiReactionThermo,
-        incompressibleGasHThermoPhysics
-    )
-    ;
-    makeChemistrySolverTypes(psiReactionThermo, icoPoly8HThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, constFluidHThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        psiReactionThermo,
-        constAdiabaticFluidHThermoPhysics
-    );
-    makeChemistrySolverTypes(psiReactionThermo, constHThermoPhysics);
 
-
-    makeChemistrySolverTypes(rhoReactionThermo, constGasHThermoPhysics);
-    makeChemistrySolverTypes(rhoReactionThermo, gasHThermoPhysics);
-    makeChemistrySolverTypes(rhoReactionThermo, PengRobinsonGasHThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        constIncompressibleGasHThermoPhysics
-    );
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        incompressibleGasHThermoPhysics
-    );
-    makeChemistrySolverTypes(rhoReactionThermo, icoPoly8HThermoPhysics);
-    makeChemistrySolverTypes(rhoReactionThermo, constFluidHThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        constAdiabaticFluidHThermoPhysics
-    );
-    makeChemistrySolverTypes(rhoReactionThermo, constHThermoPhysics);
-
-
-    // Chemistry solvers based on sensibleInternalEnergy
-    makeChemistrySolverTypes(psiReactionThermo, constGasEThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, gasEThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, PengRobinsonGasEThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        psiReactionThermo,
-        constIncompressibleGasEThermoPhysics
-    );
-    makeChemistrySolverTypes
-    (
-        psiReactionThermo,
-        incompressibleGasEThermoPhysics
-    );
-    makeChemistrySolverTypes(psiReactionThermo, icoPoly8EThermoPhysics);
-    makeChemistrySolverTypes(psiReactionThermo, constFluidEThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        psiReactionThermo,
-        constAdiabaticFluidEThermoPhysics
-    );
-    makeChemistrySolverTypes(psiReactionThermo, constEThermoPhysics);
-
-    makeChemistrySolverTypes(rhoReactionThermo, constGasEThermoPhysics);
-    makeChemistrySolverTypes(rhoReactionThermo, gasEThermoPhysics);
-    makeChemistrySolverTypes(rhoReactionThermo, PengRobinsonGasEThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        constIncompressibleGasEThermoPhysics
-    );
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        incompressibleGasEThermoPhysics
-    );
-    makeChemistrySolverTypes(rhoReactionThermo, icoPoly8EThermoPhysics);
-
-    makeChemistrySolverTypes(rhoReactionThermo, constFluidEThermoPhysics);
-    makeChemistrySolverTypes
-    (
-        rhoReactionThermo,
-        constAdiabaticFluidEThermoPhysics
-    );
-    makeChemistrySolverTypes(rhoReactionThermo, constEThermoPhysics);
 }
 
 

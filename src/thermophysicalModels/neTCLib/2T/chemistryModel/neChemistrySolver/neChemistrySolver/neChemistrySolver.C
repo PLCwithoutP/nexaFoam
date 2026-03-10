@@ -25,12 +25,12 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "chemistrySolver.H"
+#include "neChemistrySolver.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::chemistrySolver<ChemistryModel>::chemistrySolver
+Foam::neChemistrySolver<ChemistryModel>::neChemistrySolver
 (
     typename ChemistryModel::reactionThermo& thermo
 )
@@ -42,7 +42,7 @@ Foam::chemistrySolver<ChemistryModel>::chemistrySolver
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::chemistrySolver<ChemistryModel>::~chemistrySolver()
+Foam::neChemistrySolver<ChemistryModel>::~neChemistrySolver()
 {}
 
 

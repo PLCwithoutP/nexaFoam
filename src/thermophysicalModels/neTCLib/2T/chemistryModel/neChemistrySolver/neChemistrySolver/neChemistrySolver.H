@@ -24,18 +24,18 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::chemistrySolver
+    Foam::neChemistrySolver
 
 Description
     An abstract base class for solving chemistry
 
 SourceFiles
-    chemistrySolver.C
+    neChemistrySolver.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef chemistrySolver_H
-#define chemistrySolver_H
+#ifndef neChemistrySolver_H
+#define neChemistrySolver_H
 
 #include "IOdictionary.H"
 #include "scalarField.H"
@@ -46,11 +46,11 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                      Class chemistrySolver Declaration
+                      Class neChemistrySolver Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ChemistryModel>
-class chemistrySolver
+class neChemistrySolver
 :
     public ChemistryModel
 {
@@ -60,11 +60,11 @@ public:
     // Constructors
 
         //- Construct from thermo
-        chemistrySolver(typename ChemistryModel::reactionThermo& thermo);
+        neChemistrySolver(typename ChemistryModel::reactionThermo& thermo);
 
 
     //- Destructor
-    virtual ~chemistrySolver();
+    virtual ~neChemistrySolver();
 
 
     // Member Functions
@@ -88,7 +88,7 @@ public:
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "chemistrySolver.C"
+    #include "neChemistrySolver.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

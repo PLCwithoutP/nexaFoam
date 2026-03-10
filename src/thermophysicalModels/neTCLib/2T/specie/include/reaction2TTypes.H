@@ -36,14 +36,14 @@ Description
 #define reaction2TTypes_H
 
 #include "thermoPhysics2TTypes.H"
-#include "Reaction.H"
+#include "neReaction.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
     // sensible enthalpy based reactions
-    typedef Reaction<blottnerEucken2TGasCThermoPhysics> blottnerEucken2TGasCThermoPhysicsHReaction;
+    typedef neReaction<blottnerEucken2TGasCThermoPhysics> blottnerEucken2TGasCThermoPhysicsHReaction;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

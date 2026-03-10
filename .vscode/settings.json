@@ -77,6 +77,11 @@
         "foamNeChemistryReader.C": "cpp",
         "basicNeChemistryModel.C": "cpp",
         "basicNeChemistryModelTemplates.C": "cpp",
-        "BasicNeChemistryModels.C": "cpp"
+        "BasicNeChemistryModels.C": "cpp",
+        "makeNeChemistrySolvers.C": "cpp",
+        "neChemistrySolver.C": "cpp",
+        "neEulerImplicit.C": "cpp",
+        "noNeChemistrySolver.C": "cpp",
+        "neSpecieReactionRatesCheck.C": "cpp"
     }
 }

@@ -24,7 +24,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::StandardChemistryModel
+    Foam::StandardNeChemistyModel
 
 Description
     Extends base chemistry model by adding a thermo package, and ODE functions.
@@ -32,16 +32,16 @@ Description
     terms.
 
 SourceFiles
-    StandardChemistryModelI.H
-    StandardChemistryModel.C
+    StandardNeChemistryModelI.H
+    StandardNeChemistyModel.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef StandardChemistryModel_H
-#define StandardChemistryModel_H
+#ifndef StandardNeChemistryModel_H
+#define StandardNeChemistryModel_H
 
-#include "BasicChemistryModel.H"
-#include "Reaction.H"
+#include "BasicNeChemistryModel.H"
+#include "neReaction.H"
 #include "ODESystem.H"
 #include "volFields.H"
 #include "simpleMatrix.H"
@@ -55,13 +55,13 @@ namespace Foam
 class fvMesh;
 
 /*---------------------------------------------------------------------------*\
-                      Class StandardChemistryModel Declaration
+                      Class StandardNeChemistyModel Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ReactionThermo, class ThermoType>
-class StandardChemistryModel
+class StandardNeChemistyModel
 :
-    public BasicChemistryModel<ReactionThermo>,
+    public BasicNeChemistryModel<ReactionThermo>,
     public ODESystem
 {
     // Private Member Functions
@@ -72,15 +72,15 @@ class StandardChemistryModel
         scalar solve(const DeltaTType& deltaT);
 
         //- No copy construct
-        StandardChemistryModel
+        StandardNeChemistyModel
         (
-            const StandardChemistryModel<ReactionThermo, ThermoType>&
+            const StandardNeChemistyModel<ReactionThermo, ThermoType>&
         ) = delete;
 
         //- No copy assignment
         void operator=
         (
-            const StandardChemistryModel<ReactionThermo, ThermoType>&
+            const StandardNeChemistyModel<ReactionThermo, ThermoType>&
         ) = delete;
 
 
@@ -95,7 +95,7 @@ protected:
         PtrList<volScalarField>& Y_;
 
         //- Reactions
-        const PtrList<Reaction<ThermoType>>& reactions_;
+        const PtrList<neReaction<ThermoType>>& reactions_;
 
         //- Thermodynamic data of the species
         const PtrList<ThermoType>& specieThermo_;
@@ -135,17 +135,17 @@ public:
     // Constructors
 
         //- Construct from thermo
-        StandardChemistryModel(ReactionThermo& thermo);
+        StandardNeChemistyModel(ReactionThermo& thermo);
 
 
     //- Destructor
-    virtual ~StandardChemistryModel();
+    virtual ~StandardNeChemistyModel();
 
 
     // Member Functions
 
         //- The reactions
-        inline const PtrList<Reaction<ThermoType>>& reactions() const;
+        inline const PtrList<neReaction<ThermoType>>& reactions() const;
 
         //- Thermodynamic data of the species
         inline const PtrList<ThermoType>& specieThermo() const;
@@ -175,7 +175,7 @@ public:
         //  species and characteristic times
         virtual scalar omega
         (
-            const Reaction<ThermoType>& r,
+            const neReaction<ThermoType>& r,
             const scalarField& c,
             const scalar T,
             const scalar p,
@@ -282,12 +282,12 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "StandardChemistryModelI.H"
+#include "StandardNeChemistryModelI.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "StandardChemistryModel.C"
+    #include "StandardNeChemistyModel.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

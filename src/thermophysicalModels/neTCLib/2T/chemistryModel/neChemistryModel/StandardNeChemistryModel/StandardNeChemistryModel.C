@@ -27,7 +27,7 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "StandardNeChemistryModel.H"
-#include "reactingMixture.H"
+#include "neReactingMixture.H"
 #include "UniformField.H"
 #include "extrapolatedCalculatedFvPatchFields.H"
 
@@ -39,16 +39,16 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::StandardNeChemistryM
     ReactionThermo& thermo
 )
 :
-    BasicChemistryModel<ReactionThermo>(thermo),
+    BasicNeChemistryModel<ReactionThermo>(thermo),
     ODESystem(),
     Y_(this->thermo().composition().Y()),
     reactions_
     (
-        dynamic_cast<const reactingMixture<ThermoType>&>(this->thermo())
+        dynamic_cast<const neReactingMixture<ThermoType>&>(this->thermo())
     ),
     specieThermo_
     (
-        dynamic_cast<const reactingMixture<ThermoType>&>
+        dynamic_cast<const neReactingMixture<ThermoType>&>
             (this->thermo()).speciesData()
     ),
 
@@ -56,7 +56,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::StandardNeChemistryM
     nReaction_(reactions_.size()),
     Treact_
     (
-        BasicChemistryModel<ReactionThermo>::template getOrDefault<scalar>
+        BasicNeChemistryModel<ReactionThermo>::template getOrDefault<scalar>
         (
             "Treact",
             0.0
@@ -662,7 +662,7 @@ Foam::scalar Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::solve
     const DeltaTType& deltaT
 )
 {
-    BasicChemistryModel<ReactionThermo>::correct();
+    BasicNeChemistryModel<ReactionThermo>::correct();
 
     scalar deltaTMin = GREAT;
 

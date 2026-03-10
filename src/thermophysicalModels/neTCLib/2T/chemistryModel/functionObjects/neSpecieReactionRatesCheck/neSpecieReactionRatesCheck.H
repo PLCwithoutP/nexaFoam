@@ -25,14 +25,14 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::functionObjects::specieReactionRates
+    Foam::functionObjects::neSpecieReactionRates
 
 Group
     grpFieldFunctionObjects
 
 Description
     Writes the domain averaged reaction rates for each specie for each reaction
-    into the file \<timeDir\>/specieReactionRates.dat
+    into the file \<timeDir\>/neSpecieReactionRates.dat
 
 See also
     Foam::functionObjects::fvMeshFunctionObject
@@ -40,12 +40,12 @@ See also
     Foam::functionObjects::writeFile
 
 SourceFiles
-    specieReactionRates.C
+    neSpecieReactionRates.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef functionObjects_specieReactionRates_H
-#define functionObjects_specieReactionRates_H
+#ifndef functionObjects_neSpecieReactionRates_H
+#define functionObjects_neSpecieReactionRates_H
 
 #include "fvMeshFunctionObject.H"
 #include "volRegion.H"
@@ -59,11 +59,11 @@ namespace functionObjects
 {
 
 /*---------------------------------------------------------------------------*\
-                     Class specieReactionRates Declaration
+                     Class neSpecieReactionRates Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ChemistryModelType>
-class specieReactionRates
+class neSpecieReactionRates
 :
     public fvMeshFunctionObject,
     public volRegion,
@@ -80,22 +80,22 @@ class specieReactionRates
         virtual void writeFileHeader(Ostream& os) const;
 
         //- No copy construct
-        specieReactionRates(const specieReactionRates&) = delete;
+        neSpecieReactionRates(const neSpecieReactionRates&) = delete;
 
         //- No copy assignment
-        void operator=(const specieReactionRates&) = delete;
+        void operator=(const neSpecieReactionRates&) = delete;
 
 
 public:
 
     //- Runtime type information
-    TypeName("specieReactionRates");
+    TypeName("neSpecieReactionRates");
 
 
     // Constructors
 
         //- Construct from Time and dictionary
-        specieReactionRates
+        neSpecieReactionRates
         (
             const word& name,
             const Time& runTime,
@@ -104,12 +104,12 @@ public:
 
 
     //- Destructor
-    virtual ~specieReactionRates() = default;
+    virtual ~neSpecieReactionRates() = default;
 
 
     // Member Functions
 
-        //- Read the specieReactionRates data
+        //- Read the neSpecieReactionRates data
         virtual bool read(const dictionary& dict);
 
         //- Do nothing

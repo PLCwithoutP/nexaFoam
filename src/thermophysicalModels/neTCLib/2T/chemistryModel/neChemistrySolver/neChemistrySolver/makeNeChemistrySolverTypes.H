@@ -25,75 +25,51 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef makeChemistrySolverTypes_H
-#define makeChemistrySolverTypes_H
+#ifndef makeNeChemistrySolverTypes_H
+#define makeNeChemistrySolverTypes_H
 
-#include "chemistrySolver.H"
+#include "neChemistrySolver.H"
 
-#include "StandardChemistryModel.H"
-#include "TDACChemistryModel.H"
+#include "StandardNeChemistryModel.H"
 
-#include "noChemistrySolver.H"
-#include "EulerImplicit.H"
-#include "ode.H"
+#include "noNeChemistrySolver.H"
+#include "neEulerImplicit.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#define makeChemistrySolverType(SS, Comp, Thermo)                              \
+#define makeNeChemistrySolverType(SS, Comp, Thermo)                              \
                                                                                \
-    typedef SS<StandardChemistryModel<Comp, Thermo>> SS##Comp##Thermo;         \
+    typedef SS<StandardNeChemistryModel<Comp, Thermo>> SS##Comp##Thermo;         \
                                                                                \
     defineTemplateTypeNameAndDebugWithName                                     \
     (                                                                          \
         SS##Comp##Thermo,                                                      \
-        (#SS"<" + word(StandardChemistryModel<Comp, Thermo>::typeName_()) + "<"\
+        (#SS"<" + word(StandardNeChemistryModel<Comp, Thermo>::typeName_()) + "<"\
         + word(Comp::typeName_()) + "," + Thermo::typeName() + ">>").c_str(),  \
         0                                                                      \
     );                                                                         \
                                                                                \
-    BasicChemistryModel<Comp>::                                                \
+    BasicNeChemistryModel<Comp>::                                                \
         add##thermo##ConstructorToTable<SS##Comp##Thermo>                      \
-        add##SS##Comp##Thermo##thermo##ConstructorTo##BasicChemistryModel##Comp\
-##Table_; \
-                                                                               \
-    typedef SS<TDACChemistryModel<Comp, Thermo>> TDAC##SS##Comp##Thermo;       \
-                                                                               \
-    defineTemplateTypeNameAndDebugWithName                                     \
-    (                                                                          \
-        TDAC##SS##Comp##Thermo,                                                \
-        (#SS"<" + word(TDACChemistryModel<Comp, Thermo>::typeName_()) + "<"    \
-        + word(Comp::typeName_()) + "," + Thermo::typeName() + ">>").c_str(),  \
-        0                                                                      \
-    );                                                                         \
-                                                                               \
-    BasicChemistryModel<Comp>::                                                \
-        add##thermo##ConstructorToTable<TDAC##SS##Comp##Thermo>                \
-        add##TDAC##SS##Comp##Thermo##thermo##ConstructorTo##BasicChemistryModel\
-##Comp##Table_;
+        add##SS##Comp##Thermo##thermo##ConstructorTo##BasicNeChemistryModel##Comp\
+##Table_; 
 
 
-#define makeChemistrySolverTypes(Comp, Thermo)                                 \
+#define makeNeChemistrySolverTypes(Comp, Thermo)                                 \
                                                                                \
-    makeChemistrySolverType                                                    \
+    makeNeChemistrySolverType                                                    \
     (                                                                          \
-        noChemistrySolver,                                                     \
+        noNeChemistrySolver,                                                     \
         Comp,                                                                  \
         Thermo                                                                 \
     );                                                                         \
                                                                                \
-    makeChemistrySolverType                                                    \
+    makeNeChemistrySolverType                                                    \
     (                                                                          \
-        EulerImplicit,                                                         \
+        neEulerImplicit,                                                         \
         Comp,                                                                  \
         Thermo                                                                 \
-    );                                                                         \
-                                                                               \
-    makeChemistrySolverType                                                    \
-    (                                                                          \
-        ode,                                                                   \
-        Comp,                                                                  \
-        Thermo                                                                 \
-    );                                                                         \
+    );
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

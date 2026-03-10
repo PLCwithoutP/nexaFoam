@@ -25,32 +25,32 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "noChemistrySolver.H"
+#include "noNeChemistrySolver.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::noChemistrySolver<ChemistryModel>::noChemistrySolver
+Foam::noNeChemistrySolver<ChemistryModel>::noNeChemistrySolver
 (
     typename ChemistryModel::reactionThermo& thermo
 )
 :
-    chemistrySolver<ChemistryModel>(thermo)
+    neChemistrySolver<ChemistryModel>(thermo)
 {}
 
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-Foam::noChemistrySolver<ChemistryModel>::~noChemistrySolver()
+Foam::noNeChemistrySolver<ChemistryModel>::~noNeChemistrySolver()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 template<class ChemistryModel>
-void Foam::noChemistrySolver<ChemistryModel>::solve
+void Foam::noNeChemistrySolver<ChemistryModel>::solve
 (
     scalarField&,
     scalar&,

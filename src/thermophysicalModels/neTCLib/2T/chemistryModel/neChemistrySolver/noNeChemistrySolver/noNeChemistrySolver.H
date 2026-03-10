@@ -24,21 +24,21 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::noChemistrySolver
+    Foam::noNeChemistrySolver
 
 Description
     Dummy chemistry solver for 'none' option
 
 SourceFiles
-    noChemistrySolver.H
-    noChemistrySolver.C
+    noNeChemistrySolver.H
+    noNeChemistrySolver.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef noChemistrySolver_H
-#define noChemistrySolver_H
+#ifndef noNeChemistrySolver_H
+#define noNeChemistrySolver_H
 
-#include "chemistrySolver.H"
+#include "neChemistrySolver.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -46,13 +46,13 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                     Class noChemistrySolver Declaration
+                     Class noNeChemistrySolver Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ChemistryModel>
-class noChemistrySolver
+class noNeChemistrySolver
 :
-    public chemistrySolver<ChemistryModel>
+    public neChemistrySolver<ChemistryModel>
 {
 
 public:
@@ -64,11 +64,11 @@ public:
     // Constructors
 
         //- Construct from thermo
-        noChemistrySolver(typename ChemistryModel::reactionThermo& thermo);
+        noNeChemistrySolver(typename ChemistryModel::reactionThermo& thermo);
 
 
     //- Destructor
-    virtual ~noChemistrySolver();
+    virtual ~noNeChemistrySolver();
 
 
     // Member Functions
@@ -92,7 +92,7 @@ public:
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "noChemistrySolver.C"
+    #include "noNeChemistrySolver.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
