@@ -194,7 +194,7 @@ void Foam::neEulerImplicit<ChemistryModel>::solve
     {
         mixture += (this->specieThermo_[i].W()*c[i])*this->specieThermo_[i];
     }
-    T = mixture.THa(ha, p, T);
+    T = mixture.THa_TR(ha, p, T);
 }
 
 

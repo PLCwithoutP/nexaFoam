@@ -185,6 +185,9 @@ lnInclude/blottnerEucken2TTransport.H \
 lnInclude/blottnerEucken2TTransportI.H \
 lnInclude/blottnerEucken2TTransport.C \
 lnInclude/neReaction.H \
+$(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/speciesTable.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordList.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/HashPtrTable.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/HashPtrTableI.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/HashPtrTable.C \

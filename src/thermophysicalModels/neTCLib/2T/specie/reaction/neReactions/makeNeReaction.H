@@ -55,9 +55,9 @@ namespace Foam
 
 #define makeReaction(Thermo, ReactionType, ReactionRate)                       \
                                                                                \
-    typedef Reaction<Thermo> Reaction##Thermo;                                 \
+    typedef neReaction<Thermo> neReaction##Thermo;                                 \
                                                                                \
-    typedef ReactionType<Reaction, Thermo, ReactionRate>                       \
+    typedef ReactionType<neReaction, Thermo, ReactionRate>                       \
         ReactionType##Thermo##ReactionRate;                                    \
                                                                                \
     template<>                                                                 \
@@ -65,19 +65,19 @@ namespace Foam
     (                                                                          \
         ReactionType::typeName_()                                              \
       + ReactionRate::type()                                                   \
-      + Reaction##Thermo::typeName_()                                          \
+      + neReaction##Thermo::typeName_()                                          \
     );                                                                         \
                                                                                \
     addToRunTimeSelectionTable                                                 \
     (                                                                          \
-        Reaction##Thermo,                                                      \
+        neReaction##Thermo,                                                      \
         ReactionType##Thermo##ReactionRate,                                    \
         dictionary                                                             \
     );
 
 #define makeIRReactions(Thermo, ReactionRate)                                  \
                                                                                \
-    makeReaction(Thermo, IrreversibleReaction, ReactionRate)                   \
+    makeReaction(Thermo, neIrreversibleReaction, ReactionRate)                   \
                                                                                
 
 

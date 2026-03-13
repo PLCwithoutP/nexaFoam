@@ -48,7 +48,7 @@ makeChemistryReader
 
 makeChemistryReaderType
 (
-    foamChemistryReader, 
+    foamNeChemistryReader, 
     blottnerEucken2TGasCThermoPhysics
 );
 

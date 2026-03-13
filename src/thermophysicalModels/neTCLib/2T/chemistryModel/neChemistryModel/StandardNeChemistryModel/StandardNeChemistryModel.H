@@ -24,7 +24,7 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Class
-    Foam::StandardNeChemistyModel
+    Foam::StandardNeChemistryModel
 
 Description
     Extends base chemistry model by adding a thermo package, and ODE functions.
@@ -33,7 +33,7 @@ Description
 
 SourceFiles
     StandardNeChemistryModelI.H
-    StandardNeChemistyModel.C
+    StandardNeChemistryModel.C
 
 \*---------------------------------------------------------------------------*/
 
@@ -55,11 +55,11 @@ namespace Foam
 class fvMesh;
 
 /*---------------------------------------------------------------------------*\
-                      Class StandardNeChemistyModel Declaration
+                      Class StandardNeChemistryModel Declaration
 \*---------------------------------------------------------------------------*/
 
 template<class ReactionThermo, class ThermoType>
-class StandardNeChemistyModel
+class StandardNeChemistryModel
 :
     public BasicNeChemistryModel<ReactionThermo>,
     public ODESystem
@@ -72,15 +72,15 @@ class StandardNeChemistyModel
         scalar solve(const DeltaTType& deltaT);
 
         //- No copy construct
-        StandardNeChemistyModel
+        StandardNeChemistryModel
         (
-            const StandardNeChemistyModel<ReactionThermo, ThermoType>&
+            const StandardNeChemistryModel<ReactionThermo, ThermoType>&
         ) = delete;
 
         //- No copy assignment
         void operator=
         (
-            const StandardNeChemistyModel<ReactionThermo, ThermoType>&
+            const StandardNeChemistryModel<ReactionThermo, ThermoType>&
         ) = delete;
 
 
@@ -135,11 +135,11 @@ public:
     // Constructors
 
         //- Construct from thermo
-        StandardNeChemistyModel(ReactionThermo& thermo);
+        StandardNeChemistryModel(ReactionThermo& thermo);
 
 
     //- Destructor
-    virtual ~StandardNeChemistyModel();
+    virtual ~StandardNeChemistryModel();
 
 
     // Member Functions
@@ -287,7 +287,7 @@ public:
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #ifdef NoRepository
-    #include "StandardNeChemistyModel.C"
+    #include "StandardNeChemistryModel.C"
 #endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

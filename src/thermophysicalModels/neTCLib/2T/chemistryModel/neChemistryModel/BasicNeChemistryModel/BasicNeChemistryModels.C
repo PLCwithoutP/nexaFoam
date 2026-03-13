@@ -48,7 +48,7 @@ namespace Foam
     // Chemistry moldels based on sensibleEnthalpy
     makeNeChemistryModelType
     (
-        StandardChemistryModel,
+        StandardNeChemistryModel,
         ne2TReactionThermo,
         blottnerEucken2TGasCThermoPhysics
     );

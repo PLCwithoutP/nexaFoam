@@ -43,18 +43,18 @@ namespace Foam
 
 #define makeNeChemistryModel(Comp)                                               \
                                                                                \
-    typedef BasicChemistryModel<Comp> BasicChemistryModel##Comp;               \
+    typedef BasicNeChemistryModel<Comp> BasicNeChemistryModel##Comp;               \
                                                                                \
     defineTemplateTypeNameAndDebugWithName                                     \
     (                                                                          \
-        BasicChemistryModel##Comp,                                             \
-        "BasicChemistryModel<"#Comp">",                                        \
+        BasicNeChemistryModel##Comp,                                             \
+        "BasicNeChemistryModel<"#Comp">",                                        \
         0                                                                      \
     );                                                                         \
                                                                                \
     defineTemplateRunTimeSelectionTable                                        \
     (                                                                          \
-        BasicChemistryModel##Comp,                                             \
+        BasicNeChemistryModel##Comp,                                             \
         thermo                                                                 \
     );
 

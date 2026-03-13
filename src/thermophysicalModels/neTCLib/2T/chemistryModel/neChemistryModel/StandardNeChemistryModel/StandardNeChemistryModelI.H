@@ -48,7 +48,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::RR()
 
 
 template<class ReactionThermo, class ThermoType>
-inline const Foam::PtrList<Foam::Reaction<ThermoType>>&
+inline const Foam::PtrList<Foam::neReaction<ThermoType>>&
 Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::reactions() const
 {
     return reactions_;

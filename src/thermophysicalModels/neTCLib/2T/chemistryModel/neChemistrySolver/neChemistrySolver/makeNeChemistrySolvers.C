@@ -35,7 +35,7 @@ License
 namespace Foam
 {
     // Chemistry solvers based on sensibleEnthalpy
-    makeChemistrySolverTypes
+    makeNeChemistrySolverTypes
     (
         ne2TReactionThermo, 
         blottnerEucken2TGasCThermoPhysics

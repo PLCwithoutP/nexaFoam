@@ -119,7 +119,7 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     const fileName& thermoFileName
 )
 :
-    chemistryReader<ThermoType>(),
+    neChemistryReader<ThermoType>(),
     chemDict_
     (
         IFstream
@@ -149,7 +149,7 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     speciesTable& species
 )
 :
-    chemistryReader<ThermoType>(),
+    neChemistryReader<ThermoType>(),
     chemDict_
     (
         IFstream
