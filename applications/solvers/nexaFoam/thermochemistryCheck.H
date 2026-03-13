@@ -11,7 +11,47 @@ IOdictionary thermoDict_
     )
 );
 
-const bool vibrationalCheck = true;
+// --- Two-temperature check
+bool vibrationalCheck = false;
+
+if (thermoDict_.found("twoTemperature"))
+{
+    const word twoTemperatureValue(thermoDict_.lookup("twoTemperature"));
+
+    if (twoTemperatureValue == "true")
+    {
+        vibrationalCheck = true;
+
+        Info<< "twoTemperature = true. Vibrational mode is enabled."
+            << nl << endl;
+    }
+    else if (twoTemperatureValue == "false")
+    {
+        vibrationalCheck = false;
+
+        Info<< "twoTemperature = false. Vibrational mode is disabled."
+            << nl << endl;
+    }
+    else
+    {
+        FatalErrorInFunction
+            << "Invalid value for 'twoTemperature' in thermophysicalProperties: "
+            << twoTemperatureValue << nl
+            << "Expected 'true' or 'false'."
+            << exit(FatalError);
+    }
+}
+else
+{
+    FatalErrorInFunction
+        << "Missing required entry 'twoTemperature' in thermophysicalProperties."
+        << nl
+        << "Add either:" << nl
+        << "    twoTemperature true;" << nl
+        << "or" << nl
+        << "    twoTemperature false;"
+        << exit(FatalError);
+}
 
 // --- Mixture-type check (multiComponent2TMixture vs pureMixture)
 bool mixtureCheck = false;

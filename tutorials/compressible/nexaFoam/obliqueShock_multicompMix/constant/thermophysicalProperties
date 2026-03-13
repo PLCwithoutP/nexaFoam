@@ -25,6 +25,8 @@ thermoType
     energy          sensibleCalculation2T;
 }
 
+twoTemperature  true;
+
 species
 (
     N2

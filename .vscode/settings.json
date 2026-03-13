@@ -82,6 +82,8 @@
         "neChemistrySolver.C": "cpp",
         "neEulerImplicit.C": "cpp",
         "noNeChemistrySolver.C": "cpp",
-        "neSpecieReactionRatesCheck.C": "cpp"
+        "neSpecieReactionRatesCheck.C": "cpp",
+        "dimensionSets.C": "cpp",
+        "dimensionSet.C": "cpp"
     }
 }
