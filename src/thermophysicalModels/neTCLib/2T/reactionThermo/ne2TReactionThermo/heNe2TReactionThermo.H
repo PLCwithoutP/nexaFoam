@@ -146,7 +146,11 @@ public:
 
 
     // Member functions
-
+    
+        virtual bool chemistryCapable() const noexcept override
+        {
+            return true;
+        }
         //- Update properties
         virtual void correct();
         virtual void correctTEnergy();

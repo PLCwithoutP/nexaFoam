@@ -66,13 +66,21 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
         );
     }
 
+    const bool use2T = this->twoTemperature();
     // Mixing Rule definition for mixture
     using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
     mixingMixtureType& mix = this->composition();
-    WilkeMR<mixingMixtureType> wilkeMix(mix);
 
-    PtrList<volScalarField>& Y_species = mix.Y();
-    const speciesTable& spec  = mix.species();
+    const bool multiSpecies = mix.Y().size() > 0;
+    autoPtr<WilkeMR<mixingMixtureType>> wilkeMixPtr(nullptr);
+
+    if (multiSpecies)
+    {
+        wilkeMixPtr.reset(new WilkeMR<mixingMixtureType>(mix));
+    }
+
+    //PtrList<volScalarField>& Y_species = mix.Y();
+    //const speciesTable& spec  = mix.species();
 
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
     const scalarField& hCells = h.primitiveField();
@@ -110,9 +118,26 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
                 TVibCells[celli]
             );
         }
+
+        else if (!use2T)
+        {
+            TVibCells[celli] = TTRCells[celli];
+        }
+
         psiCells[celli] = cellMixture_.psi(pCells[celli], TTRCells[celli]);
-        muCells[celli] = wilkeMix.muCell(celli, pCells[celli], TTRCells[celli]);
-        alphaTRCells[celli] = wilkeMix.alphaTRCell(celli, pCells[celli], TTRCells[celli]);
+        if (multiSpecies)
+        {
+            muCells[celli] =
+                wilkeMixPtr().muCell(celli, pCells[celli], TTRCells[celli]);
+
+            alphaTRCells[celli] =
+                wilkeMixPtr().alphaTRCell(celli, pCells[celli], TTRCells[celli]);
+        }
+        else
+        {
+            muCells[celli] = cellMixture_.mu(TTRCells[celli]);
+            alphaTRCells[celli] = cellMixture_.alphah(pCells[celli], TTRCells[celli]);
+        }
     }
 
     const volScalarField::Boundary& pBf = p.boundaryField();
@@ -152,11 +177,36 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
                 ph[facei] = cellMixture_.H(pp[facei], pTTR[facei]);
                 pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
                 pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
-                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+                
+                if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
+                }
+
+                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
+
+                pesVib[facei] = cellMixture_.EV
+                (
+                    pp[facei],
+                    pTTR[facei],
+                    TVibUse,
+                    thetaVib_
+                );
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
-                pmu[facei] = wilkeMix.muCell(celli, pp[facei], pTTR[facei]);
-                palphaTR[facei] = wilkeMix.alphaTRCell(celli, pp[facei], pTTR[facei]);
+                if (multiSpecies)
+                {
+                    pmu[facei] =
+                        wilkeMixPtr().muCell(celli, pp[facei], pTTR[facei]);
+
+                    palphaTR[facei] =
+                        wilkeMixPtr().alphaTRCell(celli, pp[facei], pTTR[facei]);
+                }
+                else
+                {
+                    pmu[facei] = cellMixture_.mu(pTTR[facei]);
+                    palphaTR[facei] = cellMixture_.alphah(pp[facei], pTTR[facei]);
+                }
             }
         }
         else
@@ -169,17 +219,43 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
 
                 if (this->updateTTR())
                 {
-                    pTTR[facei] = cellMixture_.TH_TR(ph[facei], pp[facei], pTTR[facei]);
+                    pTTR[facei] = cellMixture_.TH_TR
+                    (
+                        ph[facei], 
+                        pp[facei], 
+                        pTTR[facei]
+                    );
                 }
 
-                if (this->updateTVib())
+               if (this->updateTVib())
                 {
-                    pTVib[facei] = cellMixture_.TE_Vib(pesVib[facei], pp[facei], pTTR[facei], pTVib[facei]);
+                    pTVib[facei] = cellMixture_.TE_Vib
+                    (
+                        pesVib[facei],
+                        pp[facei],
+                        pTTR[facei],
+                        pTVib[facei]
+                    );
+                }
+                else if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
                 }
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
-                pmu[facei] = wilkeMix.muCell(celli, pp[facei], pTTR[facei]);
-                palphaTR[facei] = wilkeMix.alphaTRCell(celli, pp[facei], pTTR[facei]);
+                if (multiSpecies)
+                {
+                    pmu[facei] =
+                        wilkeMixPtr().muCell(celli, pp[facei], pTTR[facei]);
+
+                    palphaTR[facei] =
+                        wilkeMixPtr().alphaTRCell(celli, pp[facei], pTTR[facei]);
+                }
+                else
+                {
+                    pmu[facei] = cellMixture_.mu(pTTR[facei]);
+                    palphaTR[facei] = cellMixture_.alphah(pp[facei], pTTR[facei]);
+                }
             }
         }
     }
@@ -295,6 +371,7 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
     volScalarField& eVib
 )
 {
+    const bool use2T = this->twoTemperature();
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
 
     scalarField& eVibCells = eVib.primitiveFieldRef();
@@ -308,11 +385,13 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
         const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);
 
+        const scalar TVibUse = use2T ? TVibCells[celli] : TTRCells[celli];
+
         eVibCells[celli] = cellMixture_.EV
         (
             pCells[celli],
             TTRCells[celli],
-            TVibCells[celli],
+            TVibUse,
             thetaVib_
         );
     }
@@ -336,7 +415,15 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculateVibEnerg
                 const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
+
+                pesVib[facei] = cellMixture_.EV
+                (
+                    pp[facei],
+                    pTTR[facei],
+                    TVibUse,
+                    thetaVib_
+                );
 
             }
         }
@@ -348,10 +435,10 @@ Foam::scalar
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
 () const
 {
-    // Mixing Rule definition for mixture
     using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
     mixingMixtureType& mix = this->composition();
-    WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+    const bool pureMixture = (mix.Y().size() == 0);
 
     const scalarField& TTRCells = this->TTR_.primitiveField();
     const scalarField& pCells = this->p_.primitiveField();
@@ -362,12 +449,30 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeKappaAverage
 
     scalar sumKappaV = 0.0;
 
-    forAll(TTRCells, celli)
+    if (pureMixture)
     {
-        const scalar kappaCell =
-            wilkeMix.kappaTRCell(celli, pCells[celli], TTRCells[celli]);
+        forAll(TTRCells, celli)
+        {
+            const typename MixtureType::thermoType& cellMixture_ =
+                this->cellMixture(celli);
 
-        sumKappaV += kappaCell * V[celli];
+            const scalar kappaCell =
+                cellMixture_.kappaTR(pCells[celli], TTRCells[celli]);
+
+            sumKappaV += kappaCell * V[celli];
+        }
+    }
+    else
+    {
+        WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+        forAll(TTRCells, celli)
+        {
+            const scalar kappaCell =
+                wilkeMix.kappaTRCell(celli, pCells[celli], TTRCells[celli]);
+
+            sumKappaV += kappaCell * V[celli];
+        }
     }
 
     return sumKappaV / Vtot;
@@ -378,10 +483,10 @@ Foam::scalar
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
 () const
 {
-    // Mixing Rule definition for mixture
     using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
     mixingMixtureType& mix = this->composition();
-    WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+    const bool pureMixture = (mix.Y().size() == 0);
 
     const scalarField& TTRCells = this->TTR_.primitiveField();
     const scalarField& pCells = this->p_.primitiveField();
@@ -392,13 +497,28 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::wilkeMuAverage
 
     scalar sumMuV = 0.0;
 
-    forAll(TTRCells, celli)
+    if (pureMixture)
     {
-        
-        const scalar muCell =
-            wilkeMix.muCell(celli, pCells[celli], TTRCells[celli]);
+        forAll(TTRCells, celli)
+        {
+            const typename MixtureType::thermoType& cellMixture_ =
+                this->cellMixture(celli);
 
-        sumMuV += muCell * V[celli];
+            const scalar muCell = cellMixture_.mu(TTRCells[celli]);
+            sumMuV += muCell * V[celli];
+        }
+    }
+    else
+    {
+        WilkeMR<mixingMixtureType> wilkeMix(mix);
+
+        forAll(TTRCells, celli)
+        {
+            const scalar muCell =
+                wilkeMix.muCell(celli, pCells[celli], TTRCells[celli]);
+
+            sumMuV += muCell * V[celli];
+        }
     }
 
     return sumMuV / Vtot;
@@ -456,7 +576,6 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
 {
     using mixingMixtureType = const typename MixtureType::basicSpecie2TMixture;
     mixingMixtureType& mixingComp = this->composition();
-    WilkeMR<mixingMixtureType> wilkeMix(mixingComp);
 
     const fvMesh& mesh = this->TTR_.mesh();
 
@@ -472,23 +591,32 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
             IOobject::NO_REGISTER
         ),
         mesh,
-        dimensionedScalar("zero", dimArea/dimTime, 0.0)   // [m^2/s]
+        dimensionedScalar("zero", dimArea/dimTime, 0.0)
     );
 
+    // Pure mixture: no Fick diffusion
+    if (mixingComp.Y().size() == 0)
+    {
+        return Deff;
+    }
+
+    WilkeMR<mixingMixtureType> wilkeMix(mixingComp);
     FickDM<mixingMixtureType> fickDM(mixingComp);
 
     forAll(Deff, celli)
     {
-        const typename MixtureType::thermoType& cellMixture_ =
-            this->cellMixture(celli);
-        const scalar pCell      = this->p_[celli];
-        const scalar TTRCell    = this->TTR_[celli];
+        const scalar pCell   = this->p_[celli];
+        const scalar TTRCell = this->TTR_[celli];
+
         const scalar CpTRCell =
             this->calculateCpTRMixture(pCell, TTRCell, celli);
+
         const scalar kappaTRCell =
             wilkeMix.kappaTRCell(celli, pCell, TTRCell);
-        const scalar rhoCell = 
+
+        const scalar rhoCell =
             this->calculateRhoMixture(pCell, TTRCell, celli);
+
         Deff[celli] = fickDM.DeffCell
         (
             celli,
@@ -502,7 +630,6 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff() c
 
     return Deff;
 }
-
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
@@ -643,6 +770,13 @@ template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>&
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibSource()
 {
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList; // no vibrational energy mode
+    }
+
     DebugInFunction << endl;
 
     using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
@@ -665,6 +799,13 @@ template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>&
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource()
 {
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList; // no vibrational energy mode
+    }
+
     DebugInFunction << endl;
 
     using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
@@ -687,6 +828,13 @@ template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>&
 Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTime()
 {
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList; // no vibrational energy mode
+    }
+
     DebugInFunction << endl;
 
     using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;

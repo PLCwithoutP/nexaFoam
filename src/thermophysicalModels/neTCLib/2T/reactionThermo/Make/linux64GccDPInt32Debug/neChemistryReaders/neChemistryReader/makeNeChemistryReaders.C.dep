@@ -637,5 +637,10 @@ $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/atomicWeights.H \
 lnInclude/foamNeChemistryReader.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IFstream.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fstreamPointer.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOps.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubStrings.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsSort.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsEvaluate.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsTemplates.C \
 
 #END

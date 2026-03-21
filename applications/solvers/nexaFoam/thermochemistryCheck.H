@@ -11,48 +11,6 @@ IOdictionary thermoDict_
     )
 );
 
-// --- Two-temperature check
-bool vibrationalCheck = false;
-
-if (thermoDict_.found("twoTemperature"))
-{
-    const word twoTemperatureValue(thermoDict_.lookup("twoTemperature"));
-
-    if (twoTemperatureValue == "true")
-    {
-        vibrationalCheck = true;
-
-        Info<< "twoTemperature = true. Vibrational mode is enabled."
-            << nl << endl;
-    }
-    else if (twoTemperatureValue == "false")
-    {
-        vibrationalCheck = false;
-
-        Info<< "twoTemperature = false. Vibrational mode is disabled."
-            << nl << endl;
-    }
-    else
-    {
-        FatalErrorInFunction
-            << "Invalid value for 'twoTemperature' in thermophysicalProperties: "
-            << twoTemperatureValue << nl
-            << "Expected 'true' or 'false'."
-            << exit(FatalError);
-    }
-}
-else
-{
-    FatalErrorInFunction
-        << "Missing required entry 'twoTemperature' in thermophysicalProperties."
-        << nl
-        << "Add either:" << nl
-        << "    twoTemperature true;" << nl
-        << "or" << nl
-        << "    twoTemperature false;"
-        << exit(FatalError);
-}
-
 // --- Mixture-type check (multiComponent2TMixture vs pureMixture)
 bool mixtureCheck = false;
 
@@ -70,7 +28,7 @@ if (thermoDict_.found("thermoType"))
             Info << "Multiple species are found in mixture." << nl
                  << endl;
         }
-        else if (mixtureType == "pureMixture")
+        else if (mixtureType == "pure2TMixture")
         {
             mixtureCheck = false;
             Info << "Pure mixture is detected." << nl
@@ -80,7 +38,7 @@ if (thermoDict_.found("thermoType"))
         {
             WarningInFunction
                 << "Unknown thermoType.mixture = " << mixtureType
-                << ". Expected 'multiComponent2TMixture' or 'pureMixture'. "
+                << ". Expected 'multiComponent2TMixture' or 'pure2TMixture'. "
                 << "Defaulting mixtureCheck=false." << nl << endl;
 
             mixtureCheck = false;

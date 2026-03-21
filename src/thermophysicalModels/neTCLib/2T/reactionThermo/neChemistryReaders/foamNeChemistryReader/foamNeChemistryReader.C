@@ -28,9 +28,21 @@ License
 
 #include "foamNeChemistryReader.H"
 #include "IFstream.H"
+#include "stringOps.H"
 #include "addToRunTimeSelectionTable.H"
+#include "IOdictionary.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
+
+namespace
+{
+    Foam::fileName expandFileName(const Foam::fileName& raw)
+    {
+        Foam::fileName f(raw);
+        f.expand();
+        return f;
+    }
+}
 
 template<class ThermoType>
 Foam::speciesTable& Foam::foamNeChemistryReader<ThermoType>::setSpecies
@@ -56,8 +68,8 @@ void Foam::foamNeChemistryReader<ThermoType>::readSpeciesComposition()
         return;
     }
 
-    DynamicList<word> elementNames_;
-    HashTable<label> elementIndices_;
+    elementNames_.clear();
+    elementIndices_.clear();
 
     for (const word& elemName : elems)
     {
@@ -72,7 +84,6 @@ void Foam::foamNeChemistryReader<ThermoType>::readSpeciesComposition()
         }
     }
 
-    // Loop through all species in thermoDict to retrieve species composition
     for (const word& specieName : speciesTable_)
     {
         const dictionary* elemsDict =
@@ -92,17 +103,10 @@ void Foam::foamNeChemistryReader<ThermoType>::readSpeciesComposition()
         forAll(elemNames, eni)
         {
             currentComposition[eni].name() = elemNames[eni];
-
             currentComposition[eni].nAtoms() =
-                elemsDict->getOrDefault<label>
-                (
-                    elemNames[eni],
-                    0
-                );
+                elemsDict->getOrDefault<label>(elemNames[eni], 0);
         }
 
-        // Add current specie composition to the hash table
-        // - overwrite existing
         speciesComposition_.erase(specieName);
         speciesComposition_.set(specieName, currentComposition);
     }
@@ -124,14 +128,14 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     (
         IFstream
         (
-            fileName(reactionsFileName).expand()
+            expandFileName(reactionsFileName)
         )()
     ),
     thermoDict_
     (
         IFstream
         (
-            fileName(thermoFileName).expand()
+            expandFileName(thermoFileName)
         )()
     ),
     speciesTable_(setSpecies(chemDict_, species)),
@@ -140,7 +144,6 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
 {
     readSpeciesComposition();
 }
-
 
 template<class ThermoType>
 Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
@@ -154,14 +157,14 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     (
         IFstream
         (
-            thermoDict.get<fileName>("foamChemistryFile").expand()
+            expandFileName(thermoDict.get<fileName>("reactionsList"))
         )()
     ),
     thermoDict_
     (
         IFstream
         (
-            thermoDict.get<fileName>("foamChemistryThermoFile").expand()
+            expandFileName(thermoDict.get<fileName>("speciesList"))
         )()
     ),
     speciesTable_(setSpecies(chemDict_, species)),

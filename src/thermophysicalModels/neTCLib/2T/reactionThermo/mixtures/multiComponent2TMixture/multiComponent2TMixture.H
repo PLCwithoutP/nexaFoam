@@ -60,6 +60,9 @@ class multiComponent2TMixture
 {
     // Private Data
 
+        //- Mesh reference for external dictionary resolution
+        const fvMesh& mesh_;
+        
         //- Species data
         PtrList<ThermoType> speciesData_;
 
@@ -73,6 +76,21 @@ class multiComponent2TMixture
 
     // Private Member Functions
 
+        //- Resolve external dictionary file names like "<constant>/speciesDict"
+        static fileName resolveFile
+        (
+            const dictionary& thermoDict,
+            const fvMesh& mesh,
+            const word& key
+        );
+
+        //- Read species names according to chemistry switch
+        static wordList readSpeciesNames
+        (
+            const dictionary& thermoDict,
+            const fvMesh& mesh
+        );
+        
         //- Construct the species data from the given dictionary and return the
         //  data for the first specie to initialise the mixture thermo data
         const ThermoType& constructSpeciesData(const dictionary& thermoDict);

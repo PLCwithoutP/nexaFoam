@@ -16,12 +16,12 @@ FoamFile
 
 solvers
 {
-    "Y_.*"
+    "rhoY_.*"
     {
         solver          diagonal;
     }
     
-    "(rho|rhoU|rhoE)"
+    "(rhoCont|rhoU|rhoE)"
     {
         solver          diagonal;
     }

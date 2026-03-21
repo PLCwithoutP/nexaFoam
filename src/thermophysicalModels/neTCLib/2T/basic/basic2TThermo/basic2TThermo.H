@@ -133,7 +133,20 @@ protected:
         //- Include dpdt term in the enthalpy equation?
         bool dpdt_;
 
+        //- True if separate vibrational temperature is physically enabled
+        bool twoTemperature_;
 
+        //- Chemistry enabled?
+        bool chemistry_;
+
+        //- Chemistry reader type name
+        word chemistryReader_;
+
+        //- External species dictionary file
+        fileName speciesListFile_;
+
+        //- External reactions dictionary file
+        fileName reactionsListFile_;
     // Fields
 
         //- Pressure [Pa]
@@ -162,7 +175,17 @@ protected:
         //- No copy construct
         basic2TThermo(const basic2TThermo&) = delete;
 
+        //- Read and validate twoTemperature and chemistry entries
+        static bool readTwoTemperatureEntry(const dictionary& dict);
+        static bool readChemistryEntry(const dictionary& dict);
 
+        static bool readBoolEntry(const dictionary& dict, const word& key);
+
+        static word readRequiredWordEntry(const dictionary& dict, const word& key);
+
+        static fileName readRequiredFileEntry(const dictionary& dict, const word& key);
+
+        static fileName resolveCaseFile(const fileName& raw, const fvMesh& mesh);
 public:
 
     //- Runtime type information
@@ -395,6 +418,49 @@ public:
             return TOwnerVib_;
         }
 
+        //- True if two-temperature physics is enabled
+        bool twoTemperature() const noexcept
+        {
+            return twoTemperature_;
+        }
+
+        //- Just alias, same functionality as twoTemperature
+        bool vibrationalCheck() const noexcept
+        {
+            return twoTemperature_;
+        }
+
+        //- True only when vibrational temperature is both enabled
+        //- physically and owned/updated by this thermo object
+        bool solveTVib() const noexcept
+        {
+            return twoTemperature_ && TOwnerVib_;
+        }
+
+        bool chemistry() const noexcept
+        {
+            return chemistry_;
+        }
+
+        virtual bool chemistryCapable() const noexcept
+        {
+            return false;
+        }
+        
+        const word& chemistryReader() const noexcept
+        {
+            return chemistryReader_;
+        }
+
+        const fileName& speciesListFile() const noexcept
+        {
+            return speciesListFile_;
+        }
+
+        const fileName& reactionsListFile() const noexcept
+        {
+            return reactionsListFile_;
+        }
 
         // Access to thermodynamic state variables
 

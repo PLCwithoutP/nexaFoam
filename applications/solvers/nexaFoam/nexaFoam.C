@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
         hTR = rhoE/rho - 0.5*magSqr(U);
         hTR.correctBoundaryConditions();
         eT.correctBoundaryConditions();
-        if (vibrationalCheck)
+        if (use2T)
         {
             eR.correctBoundaryConditions();
             eV.correctBoundaryConditions();
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
         
         thermo2T.correct();
         thermo2T.correctTEnergy();
-        if (vibrationalCheck)
+        if (use2T)
         {
             thermo2T.correctREnergy();
             thermo2T.correctVibEnergy();
@@ -196,7 +196,7 @@ int main(int argc, char *argv[])
             );
             thermo2T.correct();
             thermo2T.correctTEnergy();
-            if (vibrationalCheck)
+            if (use2T)
             {
                 thermo2T.correctREnergy();
                 thermo2T.correctVibEnergy();

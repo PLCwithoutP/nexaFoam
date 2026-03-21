@@ -232,6 +232,76 @@ Foam::wordList Foam::basic2TThermo::hBoundaryTypes()
     return hbt;
 }
 
+bool Foam::basic2TThermo::readBoolEntry
+(
+    const dictionary& dict,
+    const word& key
+)
+{
+    if (!dict.found(key))
+    {
+        FatalIOErrorInFunction(dict)
+            << "Missing required entry '" << key << "' in "
+            << dict.name() << nl
+            << "Expected either true or false."
+            << exit(FatalIOError);
+    }
+
+    return dict.get<bool>(key);
+}
+
+Foam::word Foam::basic2TThermo::readRequiredWordEntry
+(
+    const dictionary& dict,
+    const word& key
+)
+{
+    if (!dict.found(key))
+    {
+        FatalIOErrorInFunction(dict)
+            << "Missing required entry '" << key << "' in "
+            << dict.name()
+            << exit(FatalIOError);
+    }
+
+    return dict.get<word>(key);
+}
+
+Foam::fileName Foam::basic2TThermo::readRequiredFileEntry
+(
+    const dictionary& dict,
+    const word& key
+)
+{
+    if (!dict.found(key))
+    {
+        FatalIOErrorInFunction(dict)
+            << "Missing required entry '" << key << "' in "
+            << dict.name()
+            << exit(FatalIOError);
+    }
+
+    return dict.get<fileName>(key);
+}
+
+Foam::fileName Foam::basic2TThermo::resolveCaseFile
+(
+    const fileName& raw,
+    const fvMesh& mesh
+)
+{
+    const string s(raw);
+    const string constantPrefix("<constant>/");
+
+    if (s.substr(0, constantPrefix.size()) == constantPrefix)
+    {
+        return mesh.time().constant()/fileName(s.substr(constantPrefix.size()));
+    }
+
+    fileName expanded(raw);
+    expanded.expand();
+    return expanded;
+}
 
 // * * * * * * * * * * * * * Static Member Functions * * * * * * * * * * * * //
 
@@ -269,6 +339,43 @@ Foam::volScalarField& Foam::basic2TThermo::lookupOrConstruct
     return *ptr;
 }
 
+bool Foam::basic2TThermo::readTwoTemperatureEntry
+(
+    const dictionary& dict
+)
+{
+    if (!dict.found("twoTemperature"))
+    {
+        FatalIOErrorInFunction(dict)
+            << "Missing required entry 'twoTemperature' in thermophysicalProperties."
+            << nl
+            << "Add either:" << nl
+            << "    twoTemperature true;" << nl
+            << "or" << nl
+            << "    twoTemperature false;"
+            << exit(FatalIOError);
+    }
+
+    // This already throws a fatal IO error if the value is not a valid bool
+    return dict.get<bool>("twoTemperature");
+}
+
+bool Foam::basic2TThermo::readChemistryEntry(const dictionary& dict)
+{
+    if (!dict.found("chemistry"))
+    {
+        FatalIOErrorInFunction(dict)
+            << "Missing required entry 'chemistry' in thermophysicalProperties."
+            << nl
+            << "Add either:" << nl
+            << "    chemistry true;" << nl
+            << "or" << nl
+            << "    chemistry false;"
+            << exit(FatalIOError);
+    }
+
+    return dict.get<bool>("chemistry");
+}
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -297,7 +404,11 @@ Foam::basic2TThermo::basic2TThermo
     TOwnerTR_(false),
     TOwnerVib_(false),
     dpdt_(getOrDefault<bool>("dpdt", true)),
-
+    twoTemperature_(false),
+    chemistry_(false),
+    chemistryReader_(word::null),
+    speciesListFile_(fileName::null),
+    reactionsListFile_(fileName::null),
     p_(lookupOrConstruct(mesh, "p", pOwner_)),
     TTR_(lookupOrConstruct(mesh, phasePropertyName("TTR"), TOwnerTR_)),
     TVib_(lookupOrConstruct(mesh, phasePropertyName("TVib"), TOwnerVib_)),
@@ -317,8 +428,28 @@ Foam::basic2TThermo::basic2TThermo
         dimensionedScalar(dimensionSet(1, -1, -1, 0, 0), Zero)
     )
 {
-    this->readIfPresent("updateTTR", TOwnerTR_);  // Manual override
-    this->readIfPresent("updateTVib", TOwnerVib_);  // Manual override
+    this->readIfPresent("updateTTR", TOwnerTR_);   // Manual override
+    this->readIfPresent("updateTVib", TOwnerVib_); // Manual override
+
+    twoTemperature_ = readTwoTemperatureEntry(*this);
+    chemistry_ = readChemistryEntry(*this);
+    
+    speciesListFile_ =
+        resolveCaseFile(readRequiredFileEntry(*this, "speciesList"), mesh);
+
+    if (chemistry_)
+    {
+        chemistryReader_ =
+            readRequiredWordEntry(*this, "chemistryReader");
+
+        reactionsListFile_ =
+            resolveCaseFile(readRequiredFileEntry(*this, "reactionsList"), mesh);
+    }
+    else
+    {
+        chemistryReader_ = word::null;
+        reactionsListFile_ = fileName::null;
+    }
 }
 
 
@@ -349,7 +480,11 @@ Foam::basic2TThermo::basic2TThermo
     TOwnerTR_(false),
     TOwnerVib_(false),
     dpdt_(getOrDefault<bool>("dpdt", true)),
-
+    twoTemperature_(false),
+    chemistry_(false),
+    chemistryReader_(word::null),
+    speciesListFile_(fileName::null),
+    reactionsListFile_(fileName::null),
     p_(lookupOrConstruct(mesh, "p", pOwner_)),
     TTR_(lookupOrConstruct(mesh, phasePropertyName("TTR"), TOwnerTR_)),
     TVib_(lookupOrConstruct(mesh, phasePropertyName("TVib"), TOwnerVib_)),
@@ -371,6 +506,26 @@ Foam::basic2TThermo::basic2TThermo
 {
     this->readIfPresent("updateTTR", TOwnerTR_);  // Manual override
     this->readIfPresent("updateTVib", TOwnerVib_);  // Manual override
+
+    twoTemperature_ = readTwoTemperatureEntry(*this);
+    chemistry_ = readChemistryEntry(*this);
+
+    speciesListFile_ =
+        resolveCaseFile(readRequiredFileEntry(*this, "speciesList"), mesh);
+
+    if (chemistry_)
+    {
+        chemistryReader_ =
+            readRequiredWordEntry(*this, "chemistryReader");
+
+        reactionsListFile_ =
+            resolveCaseFile(readRequiredFileEntry(*this, "reactionsList"), mesh);
+    }
+    else
+    {
+        chemistryReader_ = word::null;
+        reactionsListFile_ = fileName::null;
+    }
 }
 
 
@@ -400,7 +555,11 @@ Foam::basic2TThermo::basic2TThermo
     TOwnerTR_(false),
     TOwnerVib_(false),
     dpdt_(getOrDefault<bool>("dpdt", true)),
-
+    twoTemperature_(false),
+    chemistry_(false),
+    chemistryReader_(word::null),
+    speciesListFile_(fileName::null),
+    reactionsListFile_(fileName::null),
     p_(lookupOrConstruct(mesh, "p", pOwner_)),
     TTR_(lookupOrConstruct(mesh, "TTR", TOwnerTR_)),
     TVib_(lookupOrConstruct(mesh, "TVib", TOwnerVib_)),
@@ -423,6 +582,26 @@ Foam::basic2TThermo::basic2TThermo
     this->readIfPresent("updateTTR", TOwnerTR_);  // Manual override
     this->readIfPresent("updateTVib", TOwnerVib_);  // Manual override
 
+    twoTemperature_ = readTwoTemperatureEntry(*this);
+    chemistry_ = readChemistryEntry(*this);
+
+    speciesListFile_ =
+        resolveCaseFile(readRequiredFileEntry(*this, "speciesList"), mesh);
+
+    if (chemistry_)
+    {
+        chemistryReader_ =
+            readRequiredWordEntry(*this, "chemistryReader");
+
+        reactionsListFile_ =
+            resolveCaseFile(readRequiredFileEntry(*this, "reactionsList"), mesh);
+    }
+    else
+    {
+        chemistryReader_ = word::null;
+        reactionsListFile_ = fileName::null;
+    }
+    
     if (debug)
     {
         Pout<< "Constructed shared thermo : mesh:" << mesh.name()

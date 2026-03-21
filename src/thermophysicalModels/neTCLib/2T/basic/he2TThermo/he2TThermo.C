@@ -66,6 +66,7 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     volScalarField& eVib
 )
 {
+    const bool use2T = this->twoTemperature();
     const scalar theta = this->cellMixture(0).ThetaVib();  // getter on Thermo2T
 
     scalarField& hCells = h.primitiveFieldRef();
@@ -78,6 +79,8 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
 
     forAll(hCells, celli)
     {
+        const scalar TVibUse = use2T ? TVibCells[celli] : TTRCells[celli];
+
         hCells[celli] =
             this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
         eTCells[celli] =
@@ -85,7 +88,13 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
         eRCells[celli] =
             this->cellMixture(celli).ER(pCells[celli], TTRCells[celli]);
         eVibCells[celli] =
-            this->cellMixture(celli).EV(pCells[celli], TTRCells[celli], TVibCells[celli], theta);
+            this->cellMixture(celli).EV
+            (
+                pCells[celli],
+                TTRCells[celli],
+                TVibUse,
+                theta
+            );
     }
 
     volScalarField::Boundary& hBf = h.boundaryFieldRef();
@@ -95,6 +104,8 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
 
     forAll(hBf, patchi)
     {
+        const Foam::fvPatchField<double> TVibBfUse = use2T ? TVib.boundaryField()[patchi] : TTR.boundaryField()[patchi];
+
         hBf[patchi] == this->h
         (
             p.boundaryField()[patchi],
@@ -126,7 +137,7 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
         (
             p.boundaryField()[patchi],
             TTR.boundaryField()[patchi],
-            TVib.boundaryField()[patchi],
+            TVibBfUse,
             theta,
             patchi
         );
@@ -692,6 +703,7 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eV
     const scalar ThetaVib
 ) const
 {
+    const bool use2T = this->twoTemperature();
     const fvMesh& mesh = this->TTR_.mesh();
 
     auto tesvib = volScalarField::New
@@ -710,8 +722,16 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eV
 
     forAll(eVibCells, celli)
     {
+        const scalar TVibUse = use2T ? TVibCells[celli] : TTRCells[celli];
+
         eVibCells[celli] =
-            this->cellMixture(celli).EV(pCells[celli], TTRCells[celli], TVibCells[celli], ThetaVib);
+            this->cellMixture(celli).EV
+            (
+                pCells[celli],
+                TTRCells[celli],
+                TVibUse,
+                ThetaVib
+            );
     }
 
     volScalarField::Boundary& eVibBf = eVib.boundaryFieldRef();
@@ -725,8 +745,16 @@ Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eV
 
         forAll(esVibp, facei)
         {
+            const scalar TVibUse = use2T ? TVibp[facei] : TTRp[facei];
+
             esVibp[facei] =
-                this->patchFaceMixture(patchi, facei).EV(pp[facei], TTRp[facei], TVibp[facei], ThetaVib);
+                this->patchFaceMixture(patchi, facei).EV
+                (
+                    pp[facei],
+                    TTRp[facei],
+                    TVibUse,
+                    ThetaVib
+                );
         }
     }
 
@@ -744,12 +772,22 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eVib
     const labelList& cells
 ) const
 {
+    const bool use2T = this->twoTemperature();
     auto tesvib = tmp<scalarField>::New(TTR.size());
     auto& eVib = tesvib.ref();
 
     forAll(TTR, celli)
     {
-        eVib[celli] = this->cellMixture(cells[celli]).EV(p[celli], TTR[celli], TVib[celli], ThetaVib);
+        const scalar TVibUse = use2T ? TVib[celli] : TTR[celli];
+
+        eVib[celli] =
+            this->cellMixture(cells[celli]).EV
+            (
+                p[celli],
+                TTR[celli],
+                TVibUse,
+                ThetaVib
+            );
     }
 
     return tesvib;
@@ -766,13 +804,23 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eVib
     const label patchi
 ) const
 {
+    const bool use2T = this->twoTemperature();
     auto tesvib = tmp<scalarField>::New(TTR.size());
     auto& eVib = tesvib.ref();
 
+
     forAll(TTR, facei)
     {
+        const scalar TVibUse = use2T ? TVib[facei] : TTR[facei];
+
         eVib[facei] =
-            this->patchFaceMixture(patchi, facei).EV(p[facei], TTR[facei], TVib[facei], ThetaVib);
+            this->patchFaceMixture(patchi, facei).EV
+            (
+                p[facei],
+                TTR[facei],
+                TVibUse,
+                ThetaVib
+            );
     }
 
     return tesvib;

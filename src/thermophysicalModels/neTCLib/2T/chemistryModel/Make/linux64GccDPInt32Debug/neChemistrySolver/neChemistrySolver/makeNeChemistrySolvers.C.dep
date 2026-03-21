@@ -633,6 +633,13 @@ $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/Reaction.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/ReactionI.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/Reaction.C \
 ../reactionThermo/lnInclude/multiComponent2TMixture.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/IFstream.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/fstreamPointer.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOps.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/SubStrings.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsSort.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsEvaluate.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsTemplates.C \
 ../reactionThermo/lnInclude/neReactingMixture.C \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UniformField.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/UniformList.H \

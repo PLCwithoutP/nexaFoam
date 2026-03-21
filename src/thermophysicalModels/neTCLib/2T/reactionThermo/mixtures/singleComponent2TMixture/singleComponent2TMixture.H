@@ -55,9 +55,31 @@ class singleComponent2TMixture
 {
     // Private data
 
+        //- Mesh reference for external dictionary resolution
+        const fvMesh& mesh_;
+        
         //- Thermo model
         ThermoType thermo_;
 
+        // Private Member Functions
+
+        static fileName resolveFile
+        (
+            const dictionary& thermoDict,
+            const fvMesh& mesh,
+            const word& key
+        );
+
+        static word readSingleSpeciesName
+        (
+            const dictionary& thermoDict,
+            const fvMesh& mesh
+        );
+
+        ThermoType constructThermo
+        (
+            const dictionary& thermoDict
+        ) const;
 
 public:
 

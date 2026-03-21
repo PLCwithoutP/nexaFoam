@@ -99,6 +99,7 @@ class heNe2TThermo
             const volScalarField& TVib,
             volScalarField& esVib
         );
+
         //- Construct as copy (not implemented)
         heNe2TThermo(const heNe2TThermo<ne2TThermoType, MixtureType>&);
 
@@ -131,6 +132,11 @@ public:
 
 
     // Member functions
+
+        virtual bool chemistryCapable() const noexcept override
+        {
+            return false;
+        }
 
         //- Update properties
         virtual void correct();

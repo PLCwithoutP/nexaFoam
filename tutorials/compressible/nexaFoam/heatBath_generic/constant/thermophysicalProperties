@@ -25,10 +25,12 @@ thermoType
     energy          sensibleCalculation2T;
 }
 
-chemistryReader     foamChemistryReader;
+twoTemperature      true;
+chemistry           true;
 
-foamChemistryFile   "<constant>/reactions";
+chemistryReader     foamNeChemistryReader;
 
-foamChemistryThermoFile "<constant>/speciesDict";
+reactionsList   "<constant>/reactionsDict";
+speciesList "<constant>/speciesDict";
 
 // ************************************************************************* //

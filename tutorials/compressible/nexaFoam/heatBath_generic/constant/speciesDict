@@ -17,10 +17,15 @@ FoamFile
 
 N2
 {
+    elements
+    {
+        N 2;
+    }
+
     specie
     {
         molWeight       28.01348; // g.m^(-3)
-        type            atomic;
+        type            molecular;
     }
     thermodynamics
     {
@@ -79,10 +84,15 @@ N2
 
 O2
 {
+    elements
+    {
+        O 2;
+    }
+
     specie
     {
         molWeight       31.9988; // g.m^(-3)
-        type            atomic;
+        type            molecular;
     }
     // B. J. McBride, M. J. Zehe, and S. Gordon, "NASA Glenn Coefficients for Calculating Thermodynamic Properties of Individual Species", NASA/TP-2002-211556, 2002.
     thermodynamics
@@ -143,6 +153,11 @@ O2
 // N
 mixture
 {
+    elements
+    {
+        N 1;
+    }
+
     specie
     {
         molWeight       14.0067; // g.m^(-3)
@@ -206,6 +221,11 @@ mixture
 // O
 mixture
 {
+    elements
+    {
+        O 1;
+    }
+
     specie
     {
         molWeight       15.9994; // g.m^(-3)
@@ -269,6 +289,11 @@ mixture
 // NO
 mixture
 {
+    elements
+    {
+        N 1;
+        O 1;
+    }
     specie
     {
         molWeight       30.0061; // g.m^(-3)

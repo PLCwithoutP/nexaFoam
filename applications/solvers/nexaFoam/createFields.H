@@ -53,34 +53,22 @@ autoPtr<volScalarField> eVPtr
     )
 );
 volScalarField& eV = eVPtr();
-/* 
-autoPtr<volScalarField> Q_VTPtr
-(
-    new volScalarField 
-    (
-        IOobject
-        (
-            "eV",
-            runTime.timeName(), 
-            mesh, 
-            IOobject::NO_READ, 
-            IOobject::NO_WRITE
-        ),
-        mesh,
-        dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
-    )
-);
-volScalarField& Q_VT = Q_VTPtr();
- */
-if (vibrationalCheck)
+
+if (use2T)
 {
     eR = thermo2T.eR();
     eR.correctBoundaryConditions();
 
     eV = thermo2T.eVib();
     eV.correctBoundaryConditions();
+}
+else
+{
+    eR = dimensionedScalar("zero", dimEnergy/dimMass, 0.0);
+    eV = dimensionedScalar("zero", dimEnergy/dimMass, 0.0);
 
-    //thermo2T.correctVibSource(Q_VT);
+    eR.correctBoundaryConditions();
+    eV.correctBoundaryConditions();
 }
 
 Info<< "Reading field U\n" << endl;

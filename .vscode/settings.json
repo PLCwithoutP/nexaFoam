@@ -84,6 +84,7 @@
         "noNeChemistrySolver.C": "cpp",
         "neSpecieReactionRatesCheck.C": "cpp",
         "dimensionSets.C": "cpp",
-        "dimensionSet.C": "cpp"
+        "dimensionSet.C": "cpp",
+        "singleComponent2TMixture.C": "cpp"
     }
 }

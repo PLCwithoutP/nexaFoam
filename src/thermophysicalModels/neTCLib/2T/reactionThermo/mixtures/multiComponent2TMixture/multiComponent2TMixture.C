@@ -27,27 +27,137 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "multiComponent2TMixture.H"
+#include "IFstream.H"
+#include "stringOps.H"
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
+template<class ThermoType>
+Foam::fileName Foam::multiComponent2TMixture<ThermoType>::resolveFile
+(
+    const dictionary& thermoDict,
+    const fvMesh& mesh,
+    const word& key
+)
+{
+    if (!thermoDict.found(key))
+    {
+        FatalIOErrorInFunction(thermoDict)
+            << "Missing required entry '" << key << "' in "
+            << thermoDict.name()
+            << Foam::exit(Foam::FatalIOError);
+    }
+
+    const fileName raw(thermoDict.get<fileName>(key));
+    const string rawStr(raw);
+    const string constantPrefix("<constant>/");
+
+    if
+    (
+        rawStr.size() >= constantPrefix.size()
+     && rawStr.substr(0, constantPrefix.size()) == constantPrefix
+    )
+    {
+        return mesh.time().constant()/fileName(rawStr.substr(constantPrefix.size()));
+    }
+
+    fileName expanded(raw);
+    expanded.expand();
+    return expanded;
+}
+
+template<class ThermoType>
+Foam::wordList Foam::multiComponent2TMixture<ThermoType>::readSpeciesNames
+(
+    const dictionary& thermoDict,
+    const fvMesh& mesh
+)
+{
+    // Legacy fallback: old style species list directly in thermophysicalProperties
+    if (thermoDict.found("species"))
+    {
+        return thermoDict.get<wordList>("species");
+    }
+
+    const bool chemistry = thermoDict.get<bool>("chemistry");
+
+    const fileName listFile =
+        chemistry
+      ? resolveFile(thermoDict, mesh, "reactionsList")
+      : resolveFile(thermoDict, mesh, "speciesList");
+
+    IFstream listStream(listFile);
+
+    if (!listStream.good())
+    {
+        FatalIOErrorInFunction(listStream)
+            << "Cannot open dictionary file " << listFile
+            << Foam::exit(Foam::FatalIOError);
+    }
+
+    const dictionary listDict(listStream);
+
+    if (!listDict.found("species"))
+    {
+        FatalIOErrorInFunction(listDict)
+            << "Entry 'species' not found in dictionary " << listFile
+            << exit(FatalIOError);
+    }
+
+    return listDict.get<wordList>("species");
+}
 template<class ThermoType>
 const ThermoType& Foam::multiComponent2TMixture<ThermoType>::constructSpeciesData
 (
     const dictionary& thermoDict
 )
 {
+    // Legacy fallback: old style inline species definitions
+    if (!thermoDict.found("speciesList"))
+    {
+        forAll(species_, i)
+        {
+            speciesData_.set
+            (
+                i,
+                new ThermoType(thermoDict.subDict(species_[i]))
+            );
+        }
+
+        return speciesData_[0];
+    }
+
+    const fileName speciesFile = resolveFile(thermoDict, mesh_, "speciesList");
+    IFstream speciesStream(speciesFile);
+
+    if (!speciesStream.good())
+    {
+        FatalIOErrorInFunction(speciesStream)
+            << "Cannot open dictionary file " << speciesFile
+            << Foam::exit(Foam::FatalIOError);
+    }
+
+    const dictionary speciesDict(speciesStream);
+
     forAll(species_, i)
     {
+        if (!speciesDict.found(species_[i]))
+        {
+            FatalIOErrorInFunction(speciesDict)
+                << "Species '" << species_[i]
+                << "' not found in species dictionary " << speciesFile
+                << exit(FatalIOError);
+        }
+
         speciesData_.set
         (
             i,
-            new ThermoType(thermoDict.subDict(species_[i]))
+            new ThermoType(speciesDict.subDict(species_[i]))
         );
     }
 
     return speciesData_[0];
 }
-
 
 template<class ThermoType>
 void Foam::multiComponent2TMixture<ThermoType>::correctMassFractions()
@@ -131,10 +241,11 @@ Foam::multiComponent2TMixture<ThermoType>::multiComponent2TMixture
     basicSpecie2TMixture
     (
         thermoDict,
-        thermoDict.lookup("species"),
+        readSpeciesNames(thermoDict, mesh),
         mesh,
         phaseName
     ),
+    mesh_(mesh),
     speciesData_(species_.size()),
     mixture_("mixture", constructSpeciesData(thermoDict)),
     mixtureVol_("volMixture", speciesData_[0])
@@ -244,9 +355,62 @@ void Foam::multiComponent2TMixture<ThermoType>::read
     const dictionary& thermoDict
 )
 {
+    const wordList newSpecies = readSpeciesNames(thermoDict, mesh_);
+
+    if (newSpecies.size() != species_.size())
+    {
+        FatalIOErrorInFunction(thermoDict)
+            << "Species count changed during read(). "
+            << "Old species list: " << species_ << nl
+            << "New species list: " << newSpecies
+            << exit(FatalIOError);
+    }
+
     forAll(species_, i)
     {
-        speciesData_[i] = ThermoType(thermoDict.subDict(species_[i]));
+        if (species_[i] != newSpecies[i])
+        {
+            FatalIOErrorInFunction(thermoDict)
+                << "Species ordering changed during read(). "
+                << "Old species list: " << species_ << nl
+                << "New species list: " << newSpecies
+                << exit(FatalIOError);
+        }
+    }
+
+    if (!thermoDict.found("speciesList"))
+    {
+        forAll(species_, i)
+        {
+            speciesData_[i] = ThermoType(thermoDict.subDict(species_[i]));
+        }
+
+        return;
+    }
+
+    const fileName speciesFile = resolveFile(thermoDict, mesh_, "speciesList");
+    IFstream speciesStream(speciesFile);
+
+    if (!speciesStream.good())
+    {
+        FatalIOErrorInFunction(speciesStream)
+            << "Cannot open dictionary file " << speciesFile
+            << Foam::exit(Foam::FatalIOError);
+    }
+
+    const dictionary speciesDict(speciesStream);
+
+    forAll(species_, i)
+    {
+        if (!speciesDict.found(species_[i]))
+        {
+            FatalIOErrorInFunction(speciesDict)
+                << "Species '" << species_[i]
+                << "' not found in species dictionary " << speciesFile
+                << exit(FatalIOError);
+        }
+
+        speciesData_[i] = ThermoType(speciesDict.subDict(species_[i]));
     }
 }
 

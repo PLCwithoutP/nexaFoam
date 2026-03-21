@@ -6,7 +6,8 @@
         "${workspaceFolder}/**",
         "/home/t12022124597/OF2412/OpenFOAM-v2412/src/**",
         "/home/t12022124597/Desktop/codeProjects/masterThesisCode/**",
-        "/home/furkant/OpenFOAM/OpenFOAM-v2412/src/**"
+        "/home/furkant/OpenFOAM/OpenFOAM-v2412/src/**",
+        "/home/furkant/OpenFOAM/OpenFOAM-v2412/**"
       ],
       "defines": [
         "WM_DP",                      

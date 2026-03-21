@@ -66,6 +66,8 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
         );
     }
 
+    const bool use2T = this->twoTemperature();
+    
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
     const scalarField& hCells = h.primitiveField();
     const scalarField& eVibCells = eVib.primitiveField();
@@ -101,6 +103,10 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 TTRCells[celli],
                 TVibCells[celli]
             );
+        }
+        else if (!use2T)
+        {
+            TVibCells[celli] = TTRCells[celli];
         }
         psiCells[celli] = cellMixture_.psi(pCells[celli], TTRCells[celli]);
         muCells[celli] = cellMixture_.mu(TTRCells[celli]);
@@ -141,7 +147,21 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 ph[facei] = cellMixture_.H(pp[facei], pTTR[facei]);
                 pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
                 pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
-                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+
+                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
+
+                if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
+                }
+
+                pesVib[facei] = cellMixture_.EV
+                (
+                    pp[facei],
+                    pTTR[facei],
+                    TVibUse,
+                    thetaVib_
+                );
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
                 pmu[facei] = cellMixture_.mu(pTTR[facei]);
@@ -157,12 +177,27 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 
                 if (this->updateTTR())
                 {
-                    pTTR[facei] = cellMixture_.TH_TR(ph[facei], pp[facei], pTTR[facei]);
+                    pTTR[facei] = cellMixture_.TH_TR
+                    (
+                        ph[facei], 
+                        pp[facei], 
+                        pTTR[facei]
+                    );
                 }
 
-                if (this->updateTVib())
+               if (this->updateTVib())
                 {
-                    pTVib[facei] = cellMixture_.TE_Vib(pesVib[facei], pp[facei], pTTR[facei], pTVib[facei]);
+                    pTVib[facei] = cellMixture_.TE_Vib
+                    (
+                        pesVib[facei],
+                        pp[facei],
+                        pTTR[facei],
+                        pTVib[facei]
+                    );
+                }
+                else if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
                 }
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
@@ -283,6 +318,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
     volScalarField& eVib
 )
 {
+    const bool use2T = this->twoTemperature();
     const scalar thetaVib_ = this->cellMixture(0).ThetaVib(); 
 
     scalarField& eVibCells = eVib.primitiveFieldRef();
@@ -296,11 +332,13 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
         const typename MixtureType::thermoType& cellMixture_ =
             this->cellMixture(celli);
 
+        const scalar TVibUse = use2T ? TVibCells[celli] : TTRCells[celli];
+
         eVibCells[celli] = cellMixture_.EV
         (
             pCells[celli],
             TTRCells[celli],
-            TVibCells[celli],
+            TVibUse,
             thetaVib_
         );
     }
@@ -324,7 +362,15 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
                 const typename MixtureType::thermoType& cellMixture_ =
                     this->patchFaceMixture(patchi, facei);
 
-                pesVib[facei] = cellMixture_.EV(pp[facei], pTTR[facei], pTVib[facei], thetaVib_);
+                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
+
+                pesVib[facei] = cellMixture_.EV
+                (
+                    pp[facei],
+                    pTTR[facei],
+                    TVibUse,
+                    thetaVib_
+                );
 
             }
         }
@@ -487,6 +533,12 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
 {
     static Foam::PtrList<Foam::volScalarField> emptyList;
 
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    // Non-reacting thermo: no VT source implementation here yet
     return emptyList;
 }
 
@@ -496,6 +548,12 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
 {
     static Foam::PtrList<Foam::volScalarField> emptyList;
 
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    // Non-reacting thermo: no VV source implementation here yet
     return emptyList;
 }
 
@@ -505,6 +563,12 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
 {
     static Foam::PtrList<Foam::volScalarField> emptyList;
 
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    // Non-reacting thermo: no VT source implementation here yet
     return emptyList;
 }
 
