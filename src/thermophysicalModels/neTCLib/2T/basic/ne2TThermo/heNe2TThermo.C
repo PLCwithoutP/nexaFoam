@@ -94,7 +94,11 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
             );
         }
 
-        if (this->updateTVib())
+        if (!use2T)
+        {
+            TVibCells[celli] = TTRCells[celli];
+        }
+        else if (this->updateTVib())
         {
             TVibCells[celli] = cellMixture_.TE_Vib
             (
@@ -104,10 +108,7 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 TVibCells[celli]
             );
         }
-        else if (!use2T)
-        {
-            TVibCells[celli] = TTRCells[celli];
-        }
+
         psiCells[celli] = cellMixture_.psi(pCells[celli], TTRCells[celli]);
         muCells[celli] = cellMixture_.mu(TTRCells[celli]);
         alphaCells[celli] = cellMixture_.alphah(pCells[celli], TTRCells[celli]);
@@ -148,12 +149,12 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                 pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
                 pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
 
-                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
-
                 if (!use2T)
                 {
                     pTVib[facei] = pTTR[facei];
                 }
+
+                const scalar TVibUse = use2T ? pTVib[facei] : pTTR[facei];
 
                 pesVib[facei] = cellMixture_.EV
                 (
@@ -185,7 +186,11 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                     );
                 }
 
-               if (this->updateTVib())
+                if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
+                }
+                else if (this->updateTVib())
                 {
                     pTVib[facei] = cellMixture_.TE_Vib
                     (
@@ -194,10 +199,6 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
                         pTTR[facei],
                         pTVib[facei]
                     );
-                }
-                else if (!use2T)
-                {
-                    pTVib[facei] = pTTR[facei];
                 }
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);

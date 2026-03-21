@@ -412,10 +412,11 @@ public:
             return TOwnerTR_;
         }
 
-        //- True if T_vib should be updated
+        //- True only when vibrational temperature is both enabled
+        //- physically and owned/updated by this thermo object
         bool updateTVib() const noexcept
         {
-            return TOwnerVib_;
+            return TOwnerVib_ && twoTemperature_;;
         }
 
         //- True if two-temperature physics is enabled
@@ -428,13 +429,6 @@ public:
         bool vibrationalCheck() const noexcept
         {
             return twoTemperature_;
-        }
-
-        //- True only when vibrational temperature is both enabled
-        //- physically and owned/updated by this thermo object
-        bool solveTVib() const noexcept
-        {
-            return twoTemperature_ && TOwnerVib_;
         }
 
         bool chemistry() const noexcept

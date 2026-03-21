@@ -108,7 +108,11 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
             );
         }
 
-        if (this->updateTVib())
+        if (!use2T)
+        {
+            TVibCells[celli] = TTRCells[celli];
+        }
+        else if (this->updateTVib())
         {
             TVibCells[celli] = cellMixture_.TE_Vib
             (
@@ -119,10 +123,6 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
             );
         }
 
-        else if (!use2T)
-        {
-            TVibCells[celli] = TTRCells[celli];
-        }
 
         psiCells[celli] = cellMixture_.psi(pCells[celli], TTRCells[celli]);
         if (multiSpecies)
@@ -227,7 +227,11 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
                     );
                 }
 
-               if (this->updateTVib())
+               if (!use2T)
+                {
+                    pTVib[facei] = pTTR[facei];
+                }
+                else if (this->updateTVib())
                 {
                     pTVib[facei] = cellMixture_.TE_Vib
                     (
@@ -236,10 +240,6 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
                         pTTR[facei],
                         pTVib[facei]
                     );
-                }
-                else if (!use2T)
-                {
-                    pTVib[facei] = pTTR[facei];
                 }
 
                 ppsi[facei] = cellMixture_.psi(pp[facei], pTTR[facei]);
