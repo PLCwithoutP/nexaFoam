@@ -12,7 +12,7 @@ Key capabilities:
 ---
 
 - **Physics**
-  - Two-temperature formulation without electronic energy and without charged species
+  - One- and Two-temperature formulation without electronic energy and without charged species
   - Vibrational–translational energy coupling via relaxation source terms
   - Temperature-dependent properties (cp(T), h(T), μ(T), κ(T), etc.) provided by **neTCLib**
 - **Numerics**
@@ -40,7 +40,7 @@ nexaFoam/
 ├─ README.md
 ```
 
-> The exact layout can vary; the above is a recommended structure.
+> The exact layout can vary branch to branch.
 
 ---
 
@@ -48,7 +48,7 @@ nexaFoam/
 
 - **OpenFOAM-v2412** (the solver relies on headers/ABIs of this release)
 - **C++17** toolchain compatible with v2412
-- Linux environment
+- Linux/WSL environment
 
 ---
 
@@ -64,6 +64,5 @@ nexaFoam/
 ## Acknowledgements
 
 - Built on **OpenFOAM-v2412**’s `rhoCentralFoam`.
-- neTCLib: in-house non-equilibrium thermochemical library for molecular gases.
-- README.md is prepared by ChatGPT.
+- neTCLib: modular non-equilibrium thermochemical library for molecular gases. Can be employed for other solvers as well.
 
