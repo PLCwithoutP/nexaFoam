@@ -65,8 +65,9 @@ class neIrreversibleReaction
 {
     // Private Data
 
-        ReactionRate k_;
-
+        ReactionRate    k_;
+        scalar          alphaPark_;
+        bool            twoTemperature_;
 
     // Private Member Functions
 
@@ -169,9 +170,18 @@ public:
                 const scalarField& c
             ) const;
 
-
         //- Write
         virtual void write(Ostream&) const;
+
+        virtual scalar alphaPark() const
+        {
+            return alphaPark_;
+        }
+
+        virtual bool twoTemperature() const
+        {
+            return twoTemperature_;
+        }
 };
 
 

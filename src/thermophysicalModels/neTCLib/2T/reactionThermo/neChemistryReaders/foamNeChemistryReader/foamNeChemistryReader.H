@@ -85,6 +85,8 @@ class foamNeChemistryReader
         //- List of the reactions
         neReactionList<ThermoType> reactions_;
 
+        //- Global two-temperature flag read from thermophysicalProperties
+        bool twoTemperature_;
 
     // Private Member Functions
 
@@ -99,7 +101,6 @@ class foamNeChemistryReader
 
         //- No copy assignment
         void operator=(const foamNeChemistryReader&) = delete;
-
 
 public:
 
@@ -166,6 +167,11 @@ public:
         const neReactionList<ThermoType>& reactions() const
         {
             return reactions_;
+        }
+
+        bool twoTemperature() const noexcept
+        {
+            return twoTemperature_;
         }
 };
 

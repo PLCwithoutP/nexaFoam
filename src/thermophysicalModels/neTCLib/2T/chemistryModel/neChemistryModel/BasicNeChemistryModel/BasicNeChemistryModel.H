@@ -86,7 +86,7 @@ public:
 
 
     //- Thermo type
-    typedef ReactionThermo reactionThermo;
+    typedef ReactionThermo ne2TReactionThermo;
 
 
     //- Declare run-time constructor selection tables

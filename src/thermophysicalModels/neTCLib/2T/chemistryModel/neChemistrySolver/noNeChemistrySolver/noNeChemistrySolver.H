@@ -64,7 +64,7 @@ public:
     // Constructors
 
         //- Construct from thermo
-        noNeChemistrySolver(typename ChemistryModel::reactionThermo& thermo);
+        noNeChemistrySolver(typename ChemistryModel::ne2TReactionThermo& thermo);
 
 
     //- Destructor

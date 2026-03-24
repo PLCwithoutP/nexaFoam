@@ -30,6 +30,15 @@ species
 
 reactions
 {
+    reaction1
+    {
+        type     irreversibleArrheniusReaction;
+        reaction "O2 + N = 2O + N";
+        A        1e22;
+        beta     -1.50;
+        Ta       59500;
+        alphaPark  0.7;
+    }
     /*methaneReaction
     {
         type     irreversibleArrheniusReaction;

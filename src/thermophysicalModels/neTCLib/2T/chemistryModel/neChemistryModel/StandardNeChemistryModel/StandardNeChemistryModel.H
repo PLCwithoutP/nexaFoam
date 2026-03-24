@@ -118,6 +118,8 @@ protected:
         //- Temporary rate-of-change of concentration field
         mutable scalarField dcdt_;
 
+        //- Frozen vibrational temperature for the current chemistry call
+        mutable scalar TVibCell_;
 
     // Protected Member Functions
 
@@ -125,7 +127,12 @@ protected:
         //  (e.g. for multi-chemistry model)
         inline PtrList<volScalarField::Internal>& RR();
 
-
+        scalar controllingTemperature
+        (
+            const neReaction<ThermoType>& R,
+            const scalar TTR
+        ) const;
+        
 public:
 
     //- Runtime type information

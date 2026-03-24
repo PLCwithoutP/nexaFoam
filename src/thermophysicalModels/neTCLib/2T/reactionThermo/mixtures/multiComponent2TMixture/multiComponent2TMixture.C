@@ -213,6 +213,7 @@ Foam::multiComponent2TMixture<ThermoType>::multiComponent2TMixture
 )
 :
     basicSpecie2TMixture(thermoDict, specieNames, mesh, phaseName),
+    mesh_(mesh),
     speciesData_(species_.size()),
     mixture_("mixture", *thermoData[specieNames[0]]),
     mixtureVol_("volMixture", *thermoData[specieNames[0]])

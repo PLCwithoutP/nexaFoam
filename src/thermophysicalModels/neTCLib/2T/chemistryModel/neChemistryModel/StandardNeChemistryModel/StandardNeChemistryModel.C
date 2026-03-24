@@ -44,14 +44,18 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::StandardNeChemistryM
     Y_(this->thermo().composition().Y()),
     reactions_
     (
-        dynamic_cast<const neReactingMixture<ThermoType>&>(this->thermo())
+        dynamic_cast<const neReactingMixture<ThermoType>&>
+        (
+            this->thermo().composition()
+        )
     ),
     specieThermo_
     (
         dynamic_cast<const neReactingMixture<ThermoType>&>
-            (this->thermo()).speciesData()
+        (
+            this->thermo().composition()
+        ).speciesData()
     ),
-
     nSpecie_(Y_.size()),
     nReaction_(reactions_.size()),
     Treact_
@@ -64,7 +68,8 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::StandardNeChemistryM
     ),
     RR_(nSpecie_),
     c_(nSpecie_),
-    dcdt_(nSpecie_)
+    dcdt_(nSpecie_),
+    TVibCell_(SMALL)
 {
     // Create the fields for the chemistry sources
     forAll(RR_, fieldi)
@@ -102,6 +107,38 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+template<class ReactionThermo, class ThermoType>
+Foam::scalar
+Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::
+controllingTemperature
+(
+    const neReaction<ThermoType>& R,
+    const scalar TTR
+) const
+{
+    const scalar TtrEff = max(TTR, SMALL);
+
+    if (!R.twoTemperature())
+    {
+        return TtrEff;
+    }
+
+    const scalar alpha = R.alphaPark();
+
+    if (alpha < 0.0 || alpha > 1.0)
+    {
+        FatalErrorInFunction
+            << "Invalid alphaPark = " << alpha
+            << " for reaction " << R.name() << nl
+            << "alphaPark must be between 0 and 1."
+            << exit(FatalError);
+    }
+
+    const scalar TvEff = max(TVibCell_, SMALL);
+
+    return pow(TtrEff, alpha)*pow(TvEff, 1.0 - alpha);
+}
 
 template<class ReactionThermo, class ThermoType>
 void Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::omega
@@ -179,8 +216,10 @@ Foam::scalar Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::omega
     label& rRef
 ) const
 {
-    const scalar kf = R.kf(p, TTR, c);
-    const scalar kr = R.kr(kf, p, TTR, c);
+    const scalar Tctrl = controllingTemperature(R, TTR);
+
+    const scalar kf = R.kf(p, Tctrl, c);
+    const scalar kr = R.kr(kf, p, Tctrl, c);
 
     pf = 1.0;
     pr = 1.0;
@@ -350,8 +389,9 @@ void Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::jacobian
     {
         const neReaction<ThermoType>& R = reactions_[ri];
 
-        const scalar kf0 = R.kf(p, TTR, c_);
-        const scalar kr0 = R.kr(kf0, p, TTR, c_);
+        const scalar Tctrl = controllingTemperature(R, TTR);
+        const scalar kf0 = R.kf(p, Tctrl, c_);
+        const scalar kr0 = R.kr(kf0, p, Tctrl, c_);
 
         forAll(R.lhs(), j)
         {
@@ -484,6 +524,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::tc() const
     const scalarField& rho = trho();
 
     const scalarField& TTR = this->thermo().TTR();
+    const scalarField& TVib = this->thermo().TVib();
     const scalarField& p = this->thermo().p();
 
     const label nReaction = reactions_.size();
@@ -498,6 +539,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::tc() const
             const scalar rhoi = rho[celli];
             const scalar Ti = TTR[celli];
             const scalar pi = p[celli];
+            TVibCell_ = TVib[celli];
 
             scalar cSum = 0.0;
 
@@ -584,6 +626,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::calculateRR
     const scalarField& rho = trho();
 
     const scalarField& TTR = this->thermo().TTR();
+    const scalarField& TVib = this->thermo().TVib();
     const scalarField& p = this->thermo().p();
 
     forAll(rho, celli)
@@ -591,6 +634,7 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::calculateRR
         const scalar rhoi = rho[celli];
         const scalar Ti = TTR[celli];
         const scalar pi = p[celli];
+        TVibCell_ = TVib[celli];
 
         for (label i=0; i<nSpecie_; i++)
         {
@@ -631,6 +675,7 @@ void Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::calculate()
     const scalarField& rho = trho();
 
     const scalarField& TTR = this->thermo().TTR();
+    const scalarField& TVib = this->thermo().TVib();
     const scalarField& p = this->thermo().p();
 
     forAll(rho, celli)
@@ -638,6 +683,7 @@ void Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::calculate()
         const scalar rhoi = rho[celli];
         const scalar Ti = TTR[celli];
         const scalar pi = p[celli];
+        TVibCell_ = TVib[celli];
 
         for (label i=0; i<nSpecie_; i++)
         {
@@ -675,6 +721,7 @@ Foam::scalar Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::solve
     const scalarField& rho = trho();
 
     const scalarField& TTR = this->thermo().TTR();
+    const scalarField& TVib = this->thermo().TVib();
     const scalarField& p = this->thermo().p();
 
     scalarField c0(nSpecie_);
@@ -687,7 +734,8 @@ Foam::scalar Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::solve
         {
             const scalar rhoi = rho[celli];
             scalar pi = p[celli];
-
+            TVibCell_ = TVib[celli];
+            
             for (label i=0; i<nSpecie_; i++)
             {
                 c_[i] = rhoi*Y_[i][celli]/specieThermo_[i].W();

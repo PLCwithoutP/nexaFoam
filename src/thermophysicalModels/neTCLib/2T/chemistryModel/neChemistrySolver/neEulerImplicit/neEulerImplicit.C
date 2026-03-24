@@ -36,7 +36,7 @@ License
 template<class ChemistryModel>
 Foam::neEulerImplicit<ChemistryModel>::neEulerImplicit
 (
-    typename ChemistryModel::reactionThermo& thermo
+    typename ChemistryModel::ne2TReactionThermo& thermo
 )
 :
     neChemistrySolver<ChemistryModel>(thermo),

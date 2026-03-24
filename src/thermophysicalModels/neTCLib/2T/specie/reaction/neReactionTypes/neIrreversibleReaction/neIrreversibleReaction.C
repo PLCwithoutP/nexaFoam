@@ -44,7 +44,9 @@ neIrreversibleReaction
 )
 :
     ReactionType<ReactionThermo>(reaction),
-    k_(k)
+    k_(k),
+    alphaPark_(-1.0),
+    twoTemperature_(false)
 {}
 
 
@@ -63,7 +65,9 @@ neIrreversibleReaction
 )
 :
     ReactionType<ReactionThermo>(species, thermoDatabase, dict),
-    k_(species, dict)
+    k_(species, dict),
+    alphaPark_(dict.getOrDefault<scalar>("alphaPark", -1.0)),
+    twoTemperature_(dict.getOrDefault<bool>("twoTemperature", false))
 {}
 
 
@@ -81,7 +85,9 @@ neIrreversibleReaction
 )
 :
     ReactionType<ReactionThermo>(irr, species),
-    k_(irr.k_)
+    k_(irr.k_),
+    alphaPark_(irr.alphaPark_),
+    twoTemperature_(irr.twoTemperature_)
 {}
 
 

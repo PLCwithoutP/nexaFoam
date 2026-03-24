@@ -45,6 +45,7 @@ Description
 #include "fvcSmooth.H"
 #include "FluxCalculators/kurganov.H"
 #include "DiffusionModels/FickModel.H"
+#include "BasicNeChemistryModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -171,17 +172,6 @@ int main(int argc, char *argv[])
             thermo2T.correctVibEnergy();
         }
 
-/*         {
-            Info<< "TTR min/max: " << gMin(TTR.primitiveField())
-                << " / " << gMax(TTR.primitiveField()) << nl << endl;
-            const scalarField& hTRIf = hTR.primitiveField();
-            label minCell = findMin(hTRIf);
-
-            Info<< "min eInt cell=" << minCell
-                << " eInt=" << hTRIf[minCell]
-                << " C=" << mesh.C()[minCell] << nl;
-        } */
-
         rhoE.boundaryFieldRef() ==
             rho.boundaryField()*
             (
@@ -218,6 +208,8 @@ int main(int argc, char *argv[])
            /psi();
         p.correctBoundaryConditions();
         rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();
+
+        #include "Equations/applyChemistry.H"
 
         turbulence->correct();
 

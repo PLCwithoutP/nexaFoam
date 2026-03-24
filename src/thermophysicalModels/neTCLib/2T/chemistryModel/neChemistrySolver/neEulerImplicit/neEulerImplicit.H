@@ -84,7 +84,7 @@ public:
     // Constructors
 
         //- Construct from thermo
-        neEulerImplicit(typename ChemistryModel::reactionThermo& thermo);
+        neEulerImplicit(typename ChemistryModel::ne2TReactionThermo& thermo);
 
 
     //- Destructor

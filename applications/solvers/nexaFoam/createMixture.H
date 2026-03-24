@@ -37,3 +37,12 @@ if (useChemistry && !chemistryCapable)
         << "Choose a reaction-capable thermo or set chemistry=false."
         << exit(FatalError);
 }
+
+autoPtr<BasicNeChemistryModel<ne2TReactionThermo>> chemistryPtr;
+
+if (useChemistry)
+{
+    chemistryPtr = BasicNeChemistryModel<ne2TReactionThermo>::New(thermo2T);
+
+    Info<< "Chemistry model created." << nl << endl;
+}

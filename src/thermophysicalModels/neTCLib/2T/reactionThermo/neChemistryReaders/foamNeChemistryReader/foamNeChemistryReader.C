@@ -42,6 +42,43 @@ namespace
         f.expand();
         return f;
     }
+
+    Foam::dictionary readChemistryDictWithTwoTemperature
+    (
+        const Foam::fileName& reactionsFileName,
+        const bool twoTemperature
+    )
+    {
+        Foam::dictionary chemDict
+        (
+            Foam::IFstream
+            (
+                expandFileName(reactionsFileName)
+            )()
+        );
+
+        if (!chemDict.found("reactions"))
+        {
+            return chemDict;
+        }
+
+        Foam::dictionary& reactionsDict = chemDict.subDict("reactions");
+
+        forAllIter(Foam::dictionary, reactionsDict, iter)
+        {
+            if (!iter().isDict())
+            {
+                continue;
+            }
+
+            Foam::dictionary& reactionDict =
+                reactionsDict.subDict(iter().keyword());
+
+            reactionDict.add("twoTemperature", twoTemperature, true);
+        }
+
+        return chemDict;
+    }
 }
 
 template<class ThermoType>
@@ -126,10 +163,11 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     neChemistryReader<ThermoType>(),
     chemDict_
     (
-        IFstream
+        readChemistryDictWithTwoTemperature
         (
-            expandFileName(reactionsFileName)
-        )()
+            reactionsFileName, 
+            false
+        )
     ),
     thermoDict_
     (
@@ -138,6 +176,7 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
             expandFileName(thermoFileName)
         )()
     ),
+    twoTemperature_(false),
     speciesTable_(setSpecies(chemDict_, species)),
     speciesThermo_(thermoDict_),
     reactions_(speciesTable_, speciesThermo_, chemDict_)
@@ -155,10 +194,11 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
     neChemistryReader<ThermoType>(),
     chemDict_
     (
-        IFstream
+        readChemistryDictWithTwoTemperature
         (
-            expandFileName(thermoDict.get<fileName>("reactionsList"))
-        )()
+            thermoDict.get<fileName>("reactionsList"),
+            thermoDict.getOrDefault<bool>("twoTemperature", false)
+        )
     ),
     thermoDict_
     (
@@ -167,6 +207,7 @@ Foam::foamNeChemistryReader<ThermoType>::foamNeChemistryReader
             expandFileName(thermoDict.get<fileName>("speciesList"))
         )()
     ),
+    twoTemperature_(thermoDict.getOrDefault<bool>("twoTemperature", false)),
     speciesTable_(setSpecies(chemDict_, species)),
     speciesThermo_(thermoDict_),
     reactions_(speciesTable_, speciesThermo_, chemDict_)

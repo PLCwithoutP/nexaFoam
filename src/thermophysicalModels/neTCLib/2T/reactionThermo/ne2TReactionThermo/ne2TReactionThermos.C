@@ -39,6 +39,7 @@ License
 
 #include "multiComponent2TMixture.H"
 #include "singleComponent2TMixture.H"
+#include "neReactingMixture.H"
 
 #include "thermoPhysics2TTypes.H"
 
@@ -68,6 +69,17 @@ make2TThermoPhysicsReactionThermo
     ne2TReactionThermo,
     heNe2TReactionThermo,
     singleComponent2TMixture,
+    blottnerEucken2TGasCThermoPhysics
+);
+
+// Reacting thermo for sensible calculation
+
+make2TThermoPhysicsReactionThermos
+(
+    ne2TThermo,
+    ne2TReactionThermo,
+    heNe2TReactionThermo,
+    neReactingMixture,
     blottnerEucken2TGasCThermoPhysics
 );
 

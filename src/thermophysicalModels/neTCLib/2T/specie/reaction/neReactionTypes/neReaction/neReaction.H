@@ -326,6 +326,15 @@ public:
                 const scalarField& c
             ) const;
 
+            virtual scalar alphaPark() const
+            {
+                return -1.0;
+            }
+
+            virtual bool twoTemperature() const
+            {
+                return false;
+            }
 
         //- Write
         virtual void write(Ostream& os) const;

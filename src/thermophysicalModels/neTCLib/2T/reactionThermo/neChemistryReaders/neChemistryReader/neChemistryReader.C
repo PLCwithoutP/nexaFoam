@@ -41,7 +41,7 @@ Foam::neChemistryReader<ThermoType>::New
     // Use specified reader or default to CHEMKIN for backward compatibility
     const word readerName
     (
-        thermoDict.getOrDefault<word>("neChemistryReader", "chemkinReader")
+        thermoDict.getOrDefault<word>("chemistryReader", "foamNeChemistryReader")
     );
 
     Info<< "Selecting neChemistryReader " << readerName << endl;

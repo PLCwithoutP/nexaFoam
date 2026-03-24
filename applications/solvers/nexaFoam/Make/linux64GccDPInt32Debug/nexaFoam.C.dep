@@ -916,6 +916,12 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvcSmooth.H \
 FluxCalculators/kurganov.H \
 DiffusionModels/FickModel.H \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/BasicNeChemistryModel.H \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/basicNeChemistryModel.H \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/basicNeChemistryModelI.H \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/basicNeChemistryModelTemplates.C \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/BasicNeChemistryModel.C \
+../../../src/thermophysicalModels/neTCLib/2T/chemistryModel/lnInclude/BasicNeChemistryModelI.H \
 logDebugCreate.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/postProcess.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addRegionOption.H \
@@ -937,5 +943,6 @@ readFluxScheme.H \
 decideDeltaT.H \
 Equations/continuityEquation.H \
 Equations/yEquation.H \
+Equations/applyChemistry.H \
 
 #END

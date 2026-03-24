@@ -33,7 +33,7 @@ License
 template<class ChemistryModel>
 Foam::noNeChemistrySolver<ChemistryModel>::noNeChemistrySolver
 (
-    typename ChemistryModel::reactionThermo& thermo
+    typename ChemistryModel::ne2TReactionThermo& thermo
 )
 :
     neChemistrySolver<ChemistryModel>(thermo)

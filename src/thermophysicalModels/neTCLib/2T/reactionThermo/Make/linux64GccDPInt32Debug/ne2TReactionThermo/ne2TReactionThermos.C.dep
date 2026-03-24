@@ -665,6 +665,15 @@ $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsEvaluate.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/stringOpsTemplates.C \
 lnInclude/singleComponent2TMixture.H \
 lnInclude/singleComponent2TMixture.C \
+lnInclude/neReactingMixture.H \
+lnInclude/neChemistryReader.H \
+../specie/lnInclude/neReaction.H \
+../specie/lnInclude/neReactionI.H \
+../specie/lnInclude/neReaction.C \
+../specie/lnInclude/neReactionList.H \
+../specie/lnInclude/neReactionList.C \
+lnInclude/neChemistryReader.C \
+lnInclude/neReactingMixture.C \
 ../specie/lnInclude/thermoPhysics2TTypes.H \
 ../specie/lnInclude/sensibleCalculation2T.H \
 ../specie/lnInclude/blottnerEucken2TTransport.H \

@@ -28,6 +28,12 @@ if (thermoDict_.found("thermoType"))
             Info << "Multiple species are found in mixture." << nl
                  << endl;
         }
+        else if (mixtureType == "neReactingMixture")
+        {
+            mixtureCheck = true;
+            Info << "Reacting multi-specie mixture is detected." << nl
+                 << endl;
+        }
         else if (mixtureType == "pure2TMixture")
         {
             mixtureCheck = false;
@@ -38,7 +44,7 @@ if (thermoDict_.found("thermoType"))
         {
             WarningInFunction
                 << "Unknown thermoType.mixture = " << mixtureType
-                << ". Expected 'multiComponent2TMixture' or 'pure2TMixture'. "
+                << ". Expected 'multiComponent2TMixture', 'neReactingMixture' or 'pure2TMixture'. "
                 << "Defaulting mixtureCheck=false." << nl << endl;
 
             mixtureCheck = false;
