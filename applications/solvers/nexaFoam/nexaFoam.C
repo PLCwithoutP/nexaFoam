@@ -38,7 +38,6 @@ Description
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
 #include "ne2TReactionThermo.H"
-#include "turbulentFluidTThermoModel.H"
 #include "fixed2TRhoFvPatchScalarField.H"
 #include "directionInterpolate.H"
 #include "localEulerDdtScheme.H"
@@ -68,7 +67,6 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "createTimeControls.H"
 
-    turbulence->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -111,14 +109,14 @@ int main(int argc, char *argv[])
     {
         //#include "runTimeLogging.H"
 
-        volScalarField muEff("muEff", turbulence->muEff());
-        volTensorField tauMC("tauMC", muEff*dev2(Foam::T(fvc::grad(U))));
+        volScalarField muLam("muLam", thermo2T.mu());
+        volTensorField tauMC("tauMC", muLam*dev2(Foam::T(fvc::grad(U))));
 
         // Effective diffusion coefficient must be updated in every timestep
         Deff = thermo2T.fickDiffusionCoeff();
         Deff.correctBoundaryConditions();
 
-        kurganovFlux.invoke(muEff, tauMC);
+        kurganovFlux.invoke(muLam, tauMC);
 
         #include "decideDeltaT.H"
 
@@ -142,7 +140,7 @@ int main(int argc, char *argv[])
             solve
             (
                 fvm::ddt(rho, U) - fvc::ddt(rho, U)
-              - fvm::laplacian(muEff, U)
+              - fvm::laplacian(muLam, U)
               - fvc::div(tauMC)
             );
             rhoU = rho*U;
@@ -179,10 +177,12 @@ int main(int argc, char *argv[])
             );
         if (!inviscid)
         {
+            volScalarField alphaLam("alphaLam", thermo2T.alpha());
+
             solve
             (
                 fvm::ddt(rho, hTR) - fvc::ddt(rho, hTR)
-              - fvm::laplacian(turbulence->alphaEff(), hTR)
+                - fvm::laplacian(alphaLam, hTR)
             );
             thermo2T.correct();
             thermo2T.correctTEnergy();
@@ -210,8 +210,6 @@ int main(int argc, char *argv[])
         rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();
 
         #include "Equations/applyChemistry.H"
-
-        turbulence->correct();
 
         runTime.write();
 

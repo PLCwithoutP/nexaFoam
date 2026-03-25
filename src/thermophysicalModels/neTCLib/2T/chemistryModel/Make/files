@@ -4,5 +4,6 @@ neChemistryModel/BasicNeChemistryModel/BasicNeChemistryModels.C
 neChemistrySolver/neChemistrySolver/makeNeChemistrySolvers.C
 
 functionObjects/neSpecieReactionRatesCheck/neSpecieReactionRatesCheck.C
+functionObjects/neReactionTracker/neReactionTracker.C
 
 LIB = $(FOAM_LIBBIN)/libneChemistryModel

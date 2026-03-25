@@ -185,6 +185,18 @@ public:
 
                 //- Return the heat release rate [kg/m/s3]
                 virtual tmp<volScalarField> Qdot() const = 0;
+
+                //- Return reaction dictionary name, e.g. N2dissociation
+                virtual word reactionName(const label reactionI) const = 0;
+
+                //- Return reaction equation string, e.g. N2 + N2 = 2N + N2
+                virtual string reactionEquation(const label reactionI) const = 0;
+
+                //- Return reaction progress rate field for reactionI
+                virtual tmp<volScalarField::Internal> calculateReactionOmega
+                (
+                    const label reactionI
+                ) const = 0;
 };
 
 

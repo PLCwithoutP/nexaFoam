@@ -132,7 +132,12 @@ protected:
             const neReaction<ThermoType>& R,
             const scalar TTR
         ) const;
-        
+
+        string reactionEquationString
+        (
+            const neReaction<ThermoType>& R
+        ) const;
+
 public:
 
     //- Runtime type information
@@ -251,6 +256,14 @@ public:
             //- Return the heat release rate [kg/m/s3]
             virtual tmp<volScalarField> Qdot() const;
 
+            virtual word reactionName(const label reactionI) const;
+
+            virtual string reactionEquation(const label reactionI) const;
+
+            virtual tmp<volScalarField::Internal> calculateReactionOmega
+            (
+                const label reactionI
+            ) const;
 
         // ODE functions (overriding abstract functions in ODE.H)
 

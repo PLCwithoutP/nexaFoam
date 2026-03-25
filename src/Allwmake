@@ -31,9 +31,6 @@ dash_line " neTC2TLib "
 printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 cd ./thermophysicalModels/neTCLib
 ./Allwmake
-cd ../..
-cd ./TurbulenceModels/compressible
-./Allwmake
 printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 dash_line " Compilation is completed "
 echo " "

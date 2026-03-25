@@ -85,6 +85,10 @@
         "neSpecieReactionRatesCheck.C": "cpp",
         "dimensionSets.C": "cpp",
         "dimensionSet.C": "cpp",
-        "singleComponent2TMixture.C": "cpp"
+        "singleComponent2TMixture.C": "cpp",
+        "neReactionTracker.C": "cpp",
+        "TEddyDiffusivity.C": "cpp",
+        "TThermalDiffusivity.C": "cpp",
+        "turbulentFluidTThermoModels.C": "cpp"
     }
 }

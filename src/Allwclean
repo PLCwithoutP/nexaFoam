@@ -31,9 +31,6 @@ dash_line " Cleaning neTC2TLib "
 printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 cd ./thermophysicalModels/neTCLib
 ./Allwclean
-cd ../..
-cd ./TurbulenceModels/compressible
-./Allwclean
 printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 dash_line " Cleaning is completed "
 echo " "

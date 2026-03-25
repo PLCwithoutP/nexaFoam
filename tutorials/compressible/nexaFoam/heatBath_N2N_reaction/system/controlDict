@@ -99,6 +99,17 @@ functions
 
         // optional: restrict to a cellZone / region later if wanted
     }
+    reactionTracker
+    {
+        type              ne2TReactionTracker;
+        libs              ("libneChemistryModel.so");
+
+        writeControl      timeStep;
+        writeInterval     1;
+
+        activityTolerance 1e-20;
+        writeToLog        true;
+    }
 }
 
 

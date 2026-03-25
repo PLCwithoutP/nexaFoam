@@ -801,5 +801,120 @@ Foam::scalar Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::solve
     return this->solve<scalarField>(deltaT);
 }
 
+template<class ReactionThermo, class ThermoType>
+Foam::word Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::reactionName
+(
+    const label reactionI
+) const
+{
+    return reactions_[reactionI].name();
+}
 
+template<class ReactionThermo, class ThermoType>
+Foam::string
+Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::reactionEquationString
+(
+    const neReaction<ThermoType>& R
+) const
+{
+    OStringStream os;
+    const speciesTable& species = R.species();
+
+    forAll(R.lhs(), i)
+    {
+        if (i) os << " + ";
+
+        const auto& sc = R.lhs()[i];
+
+        if (mag(sc.stoichCoeff - 1.0) > SMALL)
+        {
+            os << sc.stoichCoeff;
+        }
+
+        os << species[sc.index];
+    }
+
+    os << " = ";
+
+    forAll(R.rhs(), i)
+    {
+        if (i) os << " + ";
+
+        const auto& sc = R.rhs()[i];
+
+        if (mag(sc.stoichCoeff - 1.0) > SMALL)
+        {
+            os << sc.stoichCoeff;
+        }
+
+        os << species[sc.index];
+    }
+
+    return os.str();
+}
+
+template<class ReactionThermo, class ThermoType>
+Foam::string Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::reactionEquation
+(
+    const label reactionI
+) const
+{
+    return reactionEquationString(reactions_[reactionI]);
+}
+
+template<class ReactionThermo, class ThermoType>
+Foam::tmp<Foam::volScalarField::Internal>
+Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::calculateReactionOmega
+(
+    const label reactionI
+) const
+{
+    scalar pf, cf, pr, cr;
+    label lRef, rRef;
+
+    auto tOmega = volScalarField::Internal::New
+    (
+        "reactionOmega",
+        IOobject::NO_REGISTER,
+        this->mesh(),
+        dimensionedScalar(dimMoles/dimVolume/dimTime, Zero)
+    );
+
+    auto& omegaField = tOmega.ref();
+
+    tmp<volScalarField> trho(this->thermo().rho());
+    const scalarField& rho = trho();
+
+    const scalarField& TTR = this->thermo().TTR();
+    const scalarField& p   = this->thermo().p();
+
+    forAll(rho, celli)
+    {
+        const scalar rhoi = rho[celli];
+        const scalar Ti   = TTR[celli];
+        const scalar pi   = p[celli];
+
+        for (label i=0; i<nSpecie_; ++i)
+        {
+            const scalar Yi = Y_[i][celli];
+            c_[i] = rhoi*Yi/specieThermo_[i].W();
+        }
+
+        omegaField[celli] = omegaI
+        (
+            reactionI,
+            c_,
+            Ti,
+            pi,
+            pf,
+            cf,
+            lRef,
+            pr,
+            cr,
+            rRef
+        );
+    }
+
+    return tOmega;
+}
 // ************************************************************************* //

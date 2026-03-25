@@ -150,17 +150,8 @@ surfaceScalarField neg
 
 surfaceScalarField phi("phi", fvc::flux(rhoU));
 
-Info<< "Creating turbulence model\n" << endl;
-autoPtr<compressible::turbulenceModel> turbulence
-(
-    compressible::turbulenceModel::New
-    (
-        rho,
-        U,
-        phi,
-        thermo2T
-    )
-);
+Info<< "Turbulence model: Laminar\n" << endl;
+
 
 // Mixture rho for sanity check purposes
 volScalarField rhoCont
