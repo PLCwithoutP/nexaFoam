@@ -89,6 +89,7 @@
         "neReactionTracker.C": "cpp",
         "TEddyDiffusivity.C": "cpp",
         "TThermalDiffusivity.C": "cpp",
-        "turbulentFluidTThermoModels.C": "cpp"
+        "turbulentFluidTThermoModels.C": "cpp",
+        "fluid2TThermo.C": "cpp"
     }
 }

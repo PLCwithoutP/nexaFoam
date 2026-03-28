@@ -146,53 +146,7 @@ int main(int argc, char *argv[])
             rhoU = rho*U;
         }
 
-        solve
-        (
-            fvm::ddt(rhoE)
-          + fvc::div(phiEp)
-          - fvc::div(sigmaDotU)
-        );
-
-        hTR = rhoE/rho - 0.5*magSqr(U);
-        hTR.correctBoundaryConditions();
-        eT.correctBoundaryConditions();
-        if (use2T)
-        {
-            eR.correctBoundaryConditions();
-            eV.correctBoundaryConditions();
-        }
-        
-        thermo2T.correct();
-        thermo2T.correctTEnergy();
-        if (use2T)
-        {
-            thermo2T.correctREnergy();
-            thermo2T.correctVibEnergy();
-        }
-
-        rhoE.boundaryFieldRef() ==
-            rho.boundaryField()*
-            (
-                hTR.boundaryField() + 0.5*magSqr(U.boundaryField())
-            );
-        if (!inviscid)
-        {
-            volScalarField alphaLam("alphaLam", thermo2T.alpha());
-
-            solve
-            (
-                fvm::ddt(rho, hTR) - fvc::ddt(rho, hTR)
-                - fvm::laplacian(alphaLam, hTR)
-            );
-            thermo2T.correct();
-            thermo2T.correctTEnergy();
-            if (use2T)
-            {
-                thermo2T.correctREnergy();
-                thermo2T.correctVibEnergy();
-            }    
-            rhoE = rho*(hTR + 0.5*magSqr(U));    
-        }
+        #include "Equations/trEnergyEquation.H"
         
         // Sanity check
         if (mixtureCheck)

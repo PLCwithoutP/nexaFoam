@@ -204,5 +204,69 @@ volScalarField Deff
         IOobject::NO_WRITE     
     ),
     mesh,
-    dimensionedScalar("zero", dimArea/dimTime, 0.0)
+    dimensionedScalar
+    (
+        "zero", 
+        dimArea/dimTime, 
+        0.0
+    )
 );
+
+// --- Fourier conductive heat flux for Eq. (7): Translational-Rotational Energy Equation
+surfaceScalarField qFourierPhi
+(
+    IOobject
+    (
+        "qFourierPhi",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE,
+        IOobject::NO_REGISTER
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "zero",
+        dimEnergy/dimTime,
+        0.0
+    )
+);
+
+PtrList<surfaceScalarField> phiJYi;
+
+if (mixtureCheck)
+{
+    const PtrList<volScalarField>& Y = thermo2T.composition().Y();
+
+    phiJYi.setSize(Y.size());
+
+    forAll(Y, i)
+    {
+        phiJYi.set
+        (
+            i,
+            new surfaceScalarField
+            (
+                IOobject
+                (
+                    "phiJYi_" + Y[i].name(),
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::NO_WRITE,
+                    IOobject::NO_REGISTER
+                ),
+                mesh,
+                dimensionedScalar
+                (
+                    "zero",
+                    dimMass/dimTime,
+                    0.0
+                )
+            )
+        );
+
+        phiJYi[i].setOriented(true);
+    }
+}
