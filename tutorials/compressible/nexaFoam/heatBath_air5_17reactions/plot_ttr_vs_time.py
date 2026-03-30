@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
 """
-Plot TTR vs time from OpenFOAM timestep folders.
+Plot TTR vs time from OpenFOAM timestep folders and export CSV.
 
 Supports:
 - normal field files like 1e-6/TTR, 2e-6/TTR, ...
 - special initial value from 0/initialConditions using TTRValue
+
+CSV output format:
+    Time (s),Temperature_tr
 
 Example:
     python3 plot_ttr_vs_time.py \
         --case "nexaFoam" . \
         --field TTR \
         --title "Air-5 Reacting Flow" \
-        --output air5_ttr.png
+        --output air5_ttr.png \
+        --export-csv
 """
 
 from __future__ import annotations
@@ -110,7 +114,6 @@ def read_case_series(
         time_value = float(tdir.name)
         field_path = tdir / field_name
 
-        # Standard case: time folder contains TTR file
         if field_path.exists():
             try:
                 field_value = parse_foam_scalar_field(field_path)
@@ -118,10 +121,8 @@ def read_case_series(
                 values.append(field_value)
                 continue
             except ValueError:
-                # fall through to special 0/initialConditions logic if time == 0
                 pass
 
-        # Special case: initial time read from 0/initialConditions
         if abs(time_value) < 1e-30:
             initial_path = tdir / initial_dict_name
             if initial_path.exists():
@@ -136,6 +137,9 @@ def read_case_series(
             f"and no '{initial_dict_name}' with key '{initial_key}' was usable at time 0."
         )
 
+    paired = sorted(zip(times, values), key=lambda x: x[0])
+    times = [t for t, _ in paired]
+    values = [v for _, v in paired]
     return times, values
 
 
@@ -179,9 +183,24 @@ def positive_only(times: Iterable[float], values: Iterable[float]) -> tuple[list
     return t_out, v_out
 
 
+def sanitize_label(label: str) -> str:
+    s = re.sub(r"\s+", "_", label.strip())
+    s = re.sub(r"[^A-Za-z0-9_.-]", "_", s)
+    return s or "case"
+
+
+def write_case_csv(csv_path: Path, times: list[float], values: list[float]) -> None:
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with csv_path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Time (s)", "Temperature_tr"])
+        for t, v in zip(times, values):
+            writer.writerow([t, v])
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Plot TTR vs time from OpenFOAM timestep folders."
+        description="Plot TTR vs time from OpenFOAM timestep folders and export CSV."
     )
 
     parser.add_argument(
@@ -245,6 +264,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument(
+        "--export-csv",
+        action="store_true",
+        help="Export one CSV per case.",
+    )
+
+    parser.add_argument(
+        "--csv-out-dir",
+        default=".",
+        help="Directory for exported case CSV files. Default: current directory",
+    )
+
+    parser.add_argument(
         "--show",
         action="store_true",
         help="Show plot window in addition to saving.",
@@ -261,6 +292,8 @@ def main() -> None:
 
     plt.figure(figsize=(10, 6))
 
+    csv_out_dir = Path(args.csv_out_dir)
+
     for label, case_dir_str in args.case:
         case_dir = Path(case_dir_str)
         times, values = read_case_series(
@@ -269,14 +302,21 @@ def main() -> None:
             initial_dict_name=args.initial_dict,
             initial_key=args.initial_key,
         )
-        times, values = positive_only(times, values)
-        plt.plot(times, values, label=label, linewidth=2)
+
+        if args.export_csv:
+            csv_name = f"{sanitize_label(label)}.csv"
+            csv_path = csv_out_dir / csv_name
+            write_case_csv(csv_path, times, values)
+            print(f"Saved CSV to: {csv_path}")
+
+        plot_times, plot_values = positive_only(times, values)
+        plt.plot(plot_times, plot_values, label=label, linewidth=2)
 
     for label, csv_path_str in args.csv:
         csv_path = Path(csv_path_str)
         times, values = read_csv_series(csv_path)
-        times, values = positive_only(times, values)
-        plt.plot(times, values, label=label)
+        plot_times, plot_values = positive_only(times, values)
+        plt.plot(plot_times, plot_values, label=label)
 
     plt.xscale("log")
     plt.xlabel(args.xlabel)
