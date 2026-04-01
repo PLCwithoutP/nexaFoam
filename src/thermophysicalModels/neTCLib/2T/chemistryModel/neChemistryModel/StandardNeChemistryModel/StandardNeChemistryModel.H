@@ -122,14 +122,6 @@ protected:
         mutable scalar TVibCell_;
 
     // Protected Member Functions
-
-        //- Write access to chemical source terms
-        //  (e.g. for multi-chemistry model)
-        inline PtrList<volScalarField::Internal>& RR();
-        
-        //- Return const access to all chemical source terms [kg/m3/s]
-        inline const PtrList<volScalarField::Internal>& RR() const;
-
         scalar controllingTemperature
         (
             const neReaction<ThermoType>& R,
@@ -156,7 +148,8 @@ public:
     //- Destructor
     virtual ~StandardNeChemistryModel();
 
-
+    using BasicNeChemistryModel<ReactionThermo>::RR;
+    
     // Member Functions
 
         //- The reactions
@@ -176,6 +169,13 @@ public:
 
         //- Temperature below which the reaction rates are assumed 0
         inline scalar& Treact();
+
+        //- Write access to chemical source terms
+        //  (e.g. for multi-chemistry model)
+        inline PtrList<volScalarField::Internal>& RR();
+        
+        //- Return const access to all chemical source terms [kg/m3/s]
+        inline const PtrList<volScalarField::Internal>& RR() const;
 
         //- dc/dt = omega, rate of change in concentration, for each species
         virtual void omega
@@ -225,7 +225,6 @@ public:
 
         // Chemistry model functions (overriding abstract functions in
         // basicChemistryModel.H)
-
             //- Return const access to the chemical source terms for specie, i
             inline const volScalarField::Internal& RR
             (

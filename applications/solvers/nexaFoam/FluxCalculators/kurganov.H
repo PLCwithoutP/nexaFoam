@@ -104,14 +104,24 @@ class kurganovFluxCalculator
 
     bool mixtureCheck_; // controls whether single specie or multi specie flux will be employed
     // --- Multispecies storage (only used when mixtureCheck_ == true)
+    bool use2T_;
+
     label nSpecie_;
     PtrList<surfaceScalarField> phiRhoYi_;   // face convective fluxes of rho*Yi
+
+    // Optional vibrational inputs
+    const volScalarField* eVPtr_;                    // pure-mixture 2T
+    const PtrList<volScalarField>* eVibSpeciesPtr_;  // multi-species 2T
 
     // --- Outputs (owned by this class)
     surfaceVectorField phiUp_;      // full momentum flux
     surfaceScalarField phiEp_;      // total energy flux
     surfaceScalarField sigmaDotU_;  // viscous work flux
     surfaceScalarField max_a_;      // max propagation speed (used in deltaT)
+
+    // Vibrational outputs
+    surfaceScalarField phiEv_;                 // convective flux of rho*eV
+    PtrList<surfaceScalarField> phiRhoEvibYi_; // convective fluxes of rho*Yi*eVib_i
 
 private:
     // ---------------------------------------------------------------------
@@ -323,6 +333,68 @@ private:
         phiRhoYi_[last].setOriented(true);
     }
 
+    void calcPureMixtureVibFlux()
+    {
+        if (!use2T_ || mixtureCheck_ || !eVPtr_)
+        {
+            return;
+        }
+
+        const volScalarField& eV = *eVPtr_;
+
+        surfaceScalarField eV_pos(interpolate(eV, pos_, TTR_.name()));
+        surfaceScalarField eV_neg(interpolate(eV, neg_, TTR_.name()));
+
+        phiEv_ =
+            aphi_fp_*(rho_pos_*eV_pos)
+        + aphi_fn_*(rho_neg_*eV_neg);
+
+        phiEv_.setOriented(true);
+    }
+
+    void calcSpeciesVibFluxes()
+    {
+        if (!use2T_ || !mixtureCheck_ || !eVibSpeciesPtr_ || nSpecie_ == 0)
+        {
+            return;
+        }
+
+        const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+        const PtrList<volScalarField>& eVibSpecies = *eVibSpeciesPtr_;
+
+        forAll(Y, i)
+        {
+            if (!thermo2T_.composition().isSpecieMolecular(i))
+            {
+                phiRhoEvibYi_[i] =
+                    dimensionedScalar("zero", dimEnergy/dimTime, 0.0);
+                phiRhoEvibYi_[i].setOriented(true);
+                continue;
+            }
+
+            surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
+            surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
+
+            Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
+            Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
+
+            surfaceScalarField eV_pos
+            (
+                interpolate(eVibSpecies[i], pos_, TTR_.name())
+            );
+
+            surfaceScalarField eV_neg
+            (
+                interpolate(eVibSpecies[i], neg_, TTR_.name())
+            );
+
+            phiRhoEvibYi_[i] =
+                aphi_fp_*(rho_pos_*Yi_pos*eV_pos)
+            + aphi_fn_*(rho_neg_*Yi_neg*eV_neg);
+
+            phiRhoEvibYi_[i].setOriented(true);
+        }
+    }
     // ---------------------------------------------------------------------
     // --- 6) Viscous work flux for energy equation
     // ---------------------------------------------------------------------
@@ -341,29 +413,25 @@ private:
 
 
 public:
-    // Constructor: allocate workspace and output fields
+    /***************************** Constructors ***************************/
+    // Existing/base path: 1T or "no vibrational flux requested"
     kurganovFluxCalculator
     (
         const fvMesh& mesh,
         ne2TReactionThermo& thermo2T,
-
         const volScalarField& rho,
         const volVectorField& rhoU,
         const volVectorField& U,
-
         const volScalarField& psi,
         const volScalarField& hTR,
         const volScalarField& TTR,
-
         const surfaceScalarField& pos,
         const surfaceScalarField& neg,
-
         surfaceScalarField& phi,
-
         const word& fluxScheme,
         const dimensionedScalar& v_zero,
-
-        const bool mixtureCheck
+        const bool mixtureCheck,
+        const bool use2T
     )
     :
         mesh_(mesh),
@@ -386,6 +454,10 @@ public:
         v_zero_(v_zero),
 
         mixtureCheck_(mixtureCheck),
+        use2T_(use2T),
+        
+        eVPtr_(nullptr),
+        eVibSpeciesPtr_(nullptr),
 
         // Workspace fields
         rho_pos_
@@ -899,6 +971,20 @@ public:
                 dimVolume/dimTime, 
                 0.0
             )
+        ),
+
+        phiEv_
+        (
+            IOobject
+            (
+                "phiEv",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("zero", dimEnergy/dimTime, 0.0)
         )
     {
         if (mixtureCheck_)
@@ -940,6 +1026,1263 @@ public:
         {
             nSpecie_ = 0;
             phiRhoYi_.clear();
+            phiRhoEvibYi_.clear();
+        }
+    }
+
+    // 2T pure-mixture path: convective flux of rho*eV
+    kurganovFluxCalculator
+    (
+        const fvMesh& mesh,
+        ne2TReactionThermo& thermo2T,
+        const volScalarField& rho,
+        const volVectorField& rhoU,
+        const volVectorField& U,
+        const volScalarField& psi,
+        const volScalarField& hTR,
+        const volScalarField& TTR,
+        const volScalarField& eV,
+        const surfaceScalarField& pos,
+        const surfaceScalarField& neg,
+        surfaceScalarField& phi,
+        const word& fluxScheme,
+        const dimensionedScalar& v_zero,
+        const bool mixtureCheck,
+        const bool use2T
+    )
+    :
+        mesh_(mesh),
+        thermo2T_(thermo2T),
+
+        rho_(rho),
+        rhoU_(rhoU),
+        U_(U),
+
+        psi_(psi),
+        hTR_(hTR),
+        TTR_(TTR),
+
+        pos_(pos),
+        neg_(neg),
+
+        phi_(phi),
+
+        fluxScheme_(fluxScheme),
+        v_zero_(v_zero),
+
+        mixtureCheck_(mixtureCheck),
+        use2T_(use2T),
+        
+        eVPtr_(nullptr),
+        eVibSpeciesPtr_(nullptr),
+
+        // Workspace fields
+        rho_pos_
+        (
+            IOobject
+            (
+                "rho_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rho_neg_
+        (
+            IOobject
+            (
+                "rho_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rhoU_pos_
+        (
+            IOobject
+            (
+                "rhoU_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rhoU_neg_
+        (
+            IOobject
+            (
+                "rhoU_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rPsi_pos_
+        (
+            IOobject
+            (
+                "rPsi_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+        
+        rPsi_neg_
+        (
+            IOobject
+            (
+                "rPsi_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+
+        e_pos_
+        (
+            IOobject
+            (
+                "e_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+        
+        e_neg_
+        (
+            IOobject
+            (
+                "e_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+
+        U_pos_
+        (
+            IOobject
+            (
+                "U_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+        
+        U_neg_
+        (
+            IOobject
+            (
+                "U_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        p_pos_
+        (
+            IOobject
+            (
+                "p_pos", 
+                mesh_.time().timeName(), 
+                mesh_, IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+        
+        p_neg_
+        (
+            IOobject
+            (
+                "p_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+
+        phi_fp_
+        (
+            IOobject
+            (
+                "phi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        phi_fn_
+        (
+            IOobject
+            (
+                "phi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        cSf_pos_
+        (
+            IOobject
+            (
+                "cSf_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        cSf_neg_
+        (
+            IOobject
+            (
+                "cSf_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fp_
+        (
+            IOobject
+            (
+                "a_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fn_
+        (
+            IOobject
+            (
+                "a_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        alpha_
+        (
+            IOobject
+            (
+                "alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        minus_alpha_
+        (
+            IOobject
+            (
+                "minus_alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        nw_f_
+        (
+            IOobject
+            (
+                "nw_f", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fp_
+        (
+            IOobject
+            (
+                "aphi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fn_
+        (
+            IOobject
+            (
+                "aphi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        // Outputs
+        phiUp_
+        (
+            IOobject
+            (
+                "phiUp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions()*dimVolume/dimTime, 
+                vector::zero
+            )
+        ),
+
+        phiEp_
+        (
+            IOobject
+            (
+                "phiEp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        sigmaDotU_
+        (
+            IOobject
+            (
+                "sigmaDotU", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        max_a_
+        (
+            IOobject
+            (
+                "max_a", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        phiEv_
+        (
+            IOobject
+            (
+                "phiEv",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("zero", dimEnergy/dimTime, 0.0)
+        )
+    {
+        eVPtr_ = &eV;
+        phiEv_.setOriented(true);
+        if (mixtureCheck_)
+        {
+            // Get number of species from thermo
+            // In reacting/mixture thermos, composition().Y() is the canonical list.
+            // This compiles for standard OpenFOAM thermos that expose composition().
+            const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+            nSpecie_ = Y.size();
+
+            phiRhoYi_.setSize(nSpecie_);
+
+            forAll(phiRhoYi_, i)
+            {
+                // Name like phiRhoY_N2, phiRhoY_O2, ...
+                const word fldName("phiRhoY_" + Y[i].name());
+
+                phiRhoYi_.set
+                (
+                    i,
+                    new surfaceScalarField
+                    (
+                        IOobject
+                        (
+                            fldName,
+                            mesh_.time().timeName(),
+                            mesh_,
+                            IOobject::NO_READ,
+                            IOobject::AUTO_WRITE  // or NO_WRITE if you don’t want files
+                        ),
+                        mesh_,
+                        dimensionedScalar(dimMass/dimTime, 0.0) // kg/s
+                    )
+                );
+                phiRhoYi_[i].setOriented(true);
+            }
+        }
+        else
+        {
+            nSpecie_ = 0;
+            phiRhoYi_.clear();
+            phiRhoEvibYi_.clear();
+        }
+    }
+
+    // 2T multi-species path: convective fluxes of rho*Yi*eVib_i
+    kurganovFluxCalculator
+    (
+        const fvMesh& mesh,
+        ne2TReactionThermo& thermo2T,
+        const volScalarField& rho,
+        const volVectorField& rhoU,
+        const volVectorField& U,
+        const volScalarField& psi,
+        const volScalarField& hTR,
+        const volScalarField& TTR,
+        const PtrList<volScalarField>& eVibSpecies,
+        const surfaceScalarField& pos,
+        const surfaceScalarField& neg,
+        surfaceScalarField& phi,
+        const word& fluxScheme,
+        const dimensionedScalar& v_zero,
+        const bool mixtureCheck,
+        const bool use2T
+    )
+    :
+        mesh_(mesh),
+        thermo2T_(thermo2T),
+
+        rho_(rho),
+        rhoU_(rhoU),
+        U_(U),
+
+        psi_(psi),
+        hTR_(hTR),
+        TTR_(TTR),
+
+        pos_(pos),
+        neg_(neg),
+
+        phi_(phi),
+
+        fluxScheme_(fluxScheme),
+        v_zero_(v_zero),
+
+        mixtureCheck_(mixtureCheck),
+        use2T_(use2T),
+        
+        eVPtr_(nullptr),
+        eVibSpeciesPtr_(nullptr),
+
+        // Workspace fields
+        rho_pos_
+        (
+            IOobject
+            (
+                "rho_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rho_neg_
+        (
+            IOobject
+            (
+                "rho_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions(), 
+                0.0
+            )
+        ),
+
+        rhoU_pos_
+        (
+            IOobject
+            (
+                "rhoU_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rhoU_neg_
+        (
+            IOobject
+            (
+                "rhoU_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        rPsi_pos_
+        (
+            IOobject
+            (
+                "rPsi_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+        
+        rPsi_neg_
+        (
+            IOobject
+            (
+                "rPsi_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure/dimDensity, 
+                0.0
+            )
+        ),
+
+        e_pos_
+        (
+            IOobject
+            (
+                "e_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+        
+        e_neg_
+        (
+            IOobject
+            (
+                "e_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                hTR_.dimensions(), 
+                0.0
+            )
+        ),
+
+        U_pos_
+        (
+            IOobject
+            (
+                "U_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+        
+        U_neg_
+        (
+            IOobject
+            (
+                "U_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                U_.dimensions(), 
+                vector::zero
+            )
+        ),
+
+        p_pos_
+        (
+            IOobject
+            (
+                "p_pos", 
+                mesh_.time().timeName(), 
+                mesh_, IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+        
+        p_neg_
+        (
+            IOobject
+            (
+                "p_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimPressure, 
+                0.0
+            )
+        ),
+
+        phi_fp_
+        (
+            IOobject
+            (
+                "phi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        phi_fn_
+        (
+            IOobject
+            (
+                "phi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        cSf_pos_
+        (
+            IOobject
+            (
+                "cSf_pos", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        cSf_neg_
+        (
+            IOobject
+            (
+                "cSf_neg", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fp_
+        (
+            IOobject
+            (
+                "a_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        a_fn_
+        (
+            IOobject
+            (
+                "a_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        alpha_
+        (
+            IOobject
+            (
+                "alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        minus_alpha_
+        (
+            IOobject
+            (
+                "minus_alpha", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimless, 
+                0.0
+            )
+        ),
+
+        nw_f_
+        (
+            IOobject
+            (
+                "nw_f", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fp_
+        (
+            IOobject
+            (
+                "aphi_fp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        aphi_fn_
+        (
+            IOobject
+            (
+                "aphi_fn", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        // Outputs
+        phiUp_
+        (
+            IOobject
+            (
+                "phiUp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedVector
+            (
+                "zero", 
+                rhoU_.dimensions()*dimVolume/dimTime, 
+                vector::zero
+            )
+        ),
+
+        phiEp_
+        (
+            IOobject
+            (
+                "phiEp", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        sigmaDotU_
+        (
+            IOobject
+            (
+                "sigmaDotU", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                0.0
+            )
+        ),
+        
+        max_a_
+        (
+            IOobject
+            (
+                "max_a", 
+                mesh_.time().timeName(), 
+                mesh_, 
+                IOobject::NO_READ, 
+                IOobject::NO_WRITE
+            ), 
+            mesh_, 
+            dimensionedScalar
+            (
+                "zero", 
+                dimVolume/dimTime, 
+                0.0
+            )
+        ),
+
+        phiEv_
+        (
+            IOobject
+            (
+                "phiEv",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("zero", dimEnergy/dimTime, 0.0)
+        )
+        {
+        eVibSpeciesPtr_ = &eVibSpecies;
+        phiEv_.setOriented(true);
+
+        if (mixtureCheck_)
+        {
+            const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+            nSpecie_ = Y.size();
+
+            phiRhoYi_.setSize(nSpecie_);
+            phiRhoEvibYi_.setSize(nSpecie_);
+
+            forAll(Y, i)
+            {
+                const word fldNameMass("phiRhoY_" + Y[i].name());
+                const word fldNameVib("phiRhoEvib_" + Y[i].name());
+
+                phiRhoYi_.set
+                (
+                    i,
+                    new surfaceScalarField
+                    (
+                        IOobject
+                        (
+                            fldNameMass,
+                            mesh_.time().timeName(),
+                            mesh_,
+                            IOobject::NO_READ,
+                            IOobject::AUTO_WRITE
+                        ),
+                        mesh_,
+                        dimensionedScalar(dimMass/dimTime, 0.0)
+                    )
+                );
+                phiRhoYi_[i].setOriented(true);
+
+                phiRhoEvibYi_.set
+                (
+                    i,
+                    new surfaceScalarField
+                    (
+                        IOobject
+                        (
+                            fldNameVib,
+                            mesh_.time().timeName(),
+                            mesh_,
+                            IOobject::NO_READ,
+                            IOobject::NO_WRITE
+                        ),
+                        mesh_,
+                        dimensionedScalar(dimEnergy/dimTime, 0.0)
+                    )
+                );
+                phiRhoEvibYi_[i].setOriented(true);
+            }
+        }
+        else
+        {
+            nSpecie_ = 0;
+            phiRhoYi_.clear();
+            phiRhoEvibYi_.clear();
         }
     }
 
@@ -950,16 +2293,28 @@ public:
         calcSoundSpeed();
         calcPropagationSpeedsAndWeights();
         calcAphi();
-        
+
         if (mixtureCheck_)
         {
             calcSpeciesFluxes();
         }
         else
         {
-            calcConservativeFluxes();    
+            calcConservativeFluxes();
         }
-        
+
+        if (use2T_)
+        {
+            if (mixtureCheck_)
+            {
+                calcSpeciesVibFluxes();
+            }
+            else
+            {
+                calcPureMixtureVibFlux();
+            }
+        }
+
         calcViscousWorkFlux(muEff, tauMC);
     }
 
@@ -969,6 +2324,11 @@ public:
     inline const  PtrList<surfaceScalarField>& phiRhoYi() const { return phiRhoYi_; }
     inline surfaceScalarField&          sigmaDotU()      { return sigmaDotU_; }
     inline surfaceScalarField&          maxA()           { return max_a_;  }
+    inline surfaceScalarField& phiEv() { return phiEv_; }
+    inline const PtrList<surfaceScalarField>& phiRhoEvibYi() const
+    {
+        return phiRhoEvibYi_;
+    }
     
     // Optional: access alpha/nw_f for diagnostics
     inline const surfaceScalarField& alpha() const { return alpha_; }

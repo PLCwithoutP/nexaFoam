@@ -104,7 +104,6 @@ thermo2T.correctTEnergy();
 if (use2T)
 {
     thermo2T.correctREnergy();
-    thermo2T.correctVibEnergy();
 }
 
 rhoE.boundaryFieldRef() ==

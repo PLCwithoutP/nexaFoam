@@ -121,5 +121,4 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::RR
     return RR_[i];
 }
 
-
 // ************************************************************************* //

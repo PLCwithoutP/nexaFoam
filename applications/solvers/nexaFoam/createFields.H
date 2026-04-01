@@ -8,12 +8,28 @@ const volScalarField& TVib = thermo2T.TVib();
 const volScalarField& psi = thermo2T.psi();
 
 bool inviscid(true);
+
 if (max(thermo2T.mu().cref().primitiveField()) > 0.0)
 {
     inviscid = false;
+    Info<< "Viscous analysis detected.\n" << endl;
+}
+else
+{
+    Info<< "Inviscid analysis detected.\n" << endl;
 }
 
 PtrList<volScalarField>& Y_species = mix.Y();
+
+const bool solveSpeciesVib = mixtureCheck && use2T;
+
+List<bool> vibSpecieActive(Y_species.size(), false);
+
+forAll(Y_species, speciei)
+{
+    vibSpecieActive[speciei] =
+        solveSpeciesVib && mix.isSpecieMolecular(speciei);
+}
 
 volScalarField& hTR = thermo2T.h();
 volScalarField& eT = thermo2T.eT();
@@ -42,7 +58,7 @@ autoPtr<volScalarField> eVPtr
     (
         IOobject
         (
-            "eV",
+            "eV_mixture",
             runTime.timeName(), 
             mesh, 
             IOobject::NO_READ, 
@@ -71,6 +87,203 @@ else
     eV.correctBoundaryConditions();
 }
 
+volScalarField rho
+(
+    IOobject
+    (
+        "rho",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::AUTO_WRITE
+    ),
+    thermo2T.rho()
+);
+
+PtrList<volScalarField> TVibSpecies;
+PtrList<volScalarField> eVibSpecies;
+PtrList<volScalarField> rhoYEvibSpecies;
+
+autoPtr<volScalarField> rhoEvPtr
+(
+    new volScalarField
+    (
+        IOobject
+        (
+            "rhoEv",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("zero", dimEnergy/dimVolume, 0.0)
+    )
+);
+volScalarField& rhoEv = rhoEvPtr();
+
+if (use2T)
+{
+    rhoEv = rho*eV;
+}
+else
+{
+    rhoEv = dimensionedScalar("zero", dimEnergy/dimVolume, 0.0);
+}
+rhoEv.correctBoundaryConditions();
+
+if (solveSpeciesVib)
+{
+    TVibSpecies.setSize(Y_species.size());
+    eVibSpecies.setSize(Y_species.size());
+    rhoYEvibSpecies.setSize(Y_species.size());
+
+    forAll(Y_species, speciei)
+    {
+        const word sName = Y_species[speciei].name();
+
+        TVibSpecies.set
+        (
+            speciei,
+            new volScalarField
+            (
+                IOobject
+                (
+                    "TVib_" + sName,
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                TVib
+            )
+        );
+
+        eVibSpecies.set
+        (
+            speciei,
+            new volScalarField
+            (
+                IOobject
+                (
+                    "eVib_" + sName,
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                eV
+            )
+        );
+
+        rhoYEvibSpecies.set
+        (
+            speciei,
+            new volScalarField
+            (
+                IOobject
+                (
+                    "rhoYEvib_" + sName,
+                    runTime.timeName(),
+                    mesh,
+                    IOobject::NO_READ,
+                    IOobject::AUTO_WRITE
+                ),
+                mesh,
+                dimensionedScalar("zero", dimEnergy/dimVolume, 0.0)
+            )
+        );
+    }
+
+    const scalarField& pCells       = p.primitiveField();
+    const scalarField& TTRCells     = TTR.primitiveField();
+    const scalarField& TVibMixCells = TVib.primitiveField();
+
+    const volScalarField::Boundary& pBf       = p.boundaryField();
+    const volScalarField::Boundary& TTRBf     = TTR.boundaryField();
+    const volScalarField::Boundary& TVibMixBf = TVib.boundaryField();
+    
+    const scalarField& rhoCells = rho.primitiveField();
+    const volScalarField::Boundary& rhoBf = rho.boundaryField();
+
+    forAll(Y_species, speciei)
+    {
+        volScalarField& TVs  = TVibSpecies[speciei];
+        volScalarField& eVs  = eVibSpecies[speciei];
+        volScalarField& rYeV = rhoYEvibSpecies[speciei];
+
+        if (!vibSpecieActive[speciei])
+        {
+            TVs  = dimensionedScalar("zero", dimTemperature, 0.0);
+            eVs  = dimensionedScalar("zero", dimEnergy/dimMass, 0.0);
+            rYeV = dimensionedScalar("zero", dimEnergy/dimVolume, 0.0);
+
+            TVs.correctBoundaryConditions();
+            eVs.correctBoundaryConditions();
+            rYeV.correctBoundaryConditions();
+            continue;
+        }
+
+        const scalar thetaVib_i = mix.thetaVib(speciei);
+
+        TVs = TVib;
+
+        scalarField& eVsCells  = eVs.primitiveFieldRef();
+        scalarField& rYeVCells = rYeV.primitiveFieldRef();
+        const scalarField& YiCells = Y_species[speciei].primitiveField();
+
+        forAll(eVsCells, celli)
+        {
+            eVsCells[celli] =
+                mix.EsVib
+                (
+                    speciei,
+                    pCells[celli],
+                    TTRCells[celli],
+                    TVibMixCells[celli],
+                    thetaVib_i
+                );
+
+            rYeVCells[celli] = rhoCells[celli]*YiCells[celli]*eVsCells[celli];
+        }
+
+        volScalarField::Boundary& eVsBf  = eVs.boundaryFieldRef();
+        volScalarField::Boundary& rYeVBf = rYeV.boundaryFieldRef();
+        const volScalarField::Boundary& YiBf = Y_species[speciei].boundaryField();
+
+        forAll(pBf, patchi)
+        {
+            const fvPatchScalarField& pp    = pBf[patchi];
+            const fvPatchScalarField& pTTR  = TTRBf[patchi];
+            const fvPatchScalarField& pTVib = TVibMixBf[patchi];
+            const fvPatchScalarField& prho  = rhoBf[patchi];
+            const fvPatchScalarField& pYi   = YiBf[patchi];
+
+            fvPatchScalarField& peVib = eVsBf[patchi];
+            fvPatchScalarField& prYeV = rYeVBf[patchi];
+
+            forAll(pp, facei)
+            {
+                peVib[facei] =
+                    mix.EsVib
+                    (
+                        speciei,
+                        pp[facei],
+                        pTTR[facei],
+                        pTVib[facei],
+                        thetaVib_i
+                    );
+
+                prYeV[facei] = prho[facei]*pYi[facei]*peVib[facei];
+            }
+        }
+
+        TVs.correctBoundaryConditions();
+        eVs.correctBoundaryConditions();
+        rYeV.correctBoundaryConditions();
+    }
+}
+
 Info<< "Reading field U\n" << endl;
 volVectorField U
 (
@@ -83,19 +296,6 @@ volVectorField U
         IOobject::AUTO_WRITE
     ),
     mesh
-);
-
-volScalarField rho
-(
-    IOobject
-    (
-        "rho",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::AUTO_WRITE
-    ),
-    thermo2T.rho()
 );
 
 volVectorField rhoU
@@ -270,3 +470,25 @@ if (mixtureCheck)
         phiJYi[i].setOriented(true);
     }
 }
+
+surfaceScalarField qVibPhi
+(
+    IOobject
+    (
+        "qVibPhi",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE,
+        IOobject::NO_REGISTER
+    ),
+    mesh,
+    dimensionedScalar
+    (
+        "zero",
+        dimEnergy/dimTime,
+        0.0
+    )
+);
+
+qVibPhi.setOriented(true);

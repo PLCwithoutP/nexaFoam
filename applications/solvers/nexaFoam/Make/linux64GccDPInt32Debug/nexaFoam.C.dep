@@ -920,6 +920,7 @@ decideDeltaT.H \
 Equations/continuityEquation.H \
 Equations/yEquation.H \
 Equations/trEnergyEquation.H \
+Equations/vibEnergyEquation.H \
 Equations/applyChemistry.H \
 
 #END

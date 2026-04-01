@@ -124,7 +124,6 @@ public:
     //- Destructor
     virtual ~basicNeChemistryModel();
 
-
     // Member Functions
 
         //- Return const access to the mesh database
@@ -158,6 +157,8 @@ public:
                 (
                     const label i
                 ) = 0;
+
+                virtual const PtrList<volScalarField::Internal>& RR() const = 0;
 
                 //- Return reaction rate of the speciei in reactioni
                 virtual tmp<volScalarField::Internal> calculateRR

@@ -116,7 +116,9 @@ public:
     //- Destructor
     virtual ~BasicNeChemistryModel();
 
-
+    // Bring inherited RR(label) overloads into scope
+    using basicNeChemistryModel::RR;
+    
     // Member Functions
 
         //- Return access to the thermo package
@@ -124,6 +126,8 @@ public:
 
         //- Return const access to the thermo package
         inline const ReactionThermo& thermo() const;
+
+        virtual const PtrList<volScalarField::Internal>& RR() const = 0;
 };
 
 

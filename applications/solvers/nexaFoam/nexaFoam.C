@@ -75,29 +75,91 @@ int main(int argc, char *argv[])
     const dimensionedScalar v_zero(dimVolume/dimTime, Zero);
 
     // Flux Calculator
-    Foam::kurganovFluxCalculator kurganovFlux
-    (
-        mesh,
-        thermo2T,
-        rho,
-        rhoU,
-        U,
-        psi,
-        hTR,
-        TTR,
-        pos,
-        neg,
-        phi,
-        fluxScheme,
-        v_zero,
-        mixtureCheck
-    );
+    autoPtr<Foam::kurganovFluxCalculator> kurganovFluxPtr(nullptr);
 
-    // Bind outputs to the original variable names (keeps solver code unchanged)
+    if (!use2T)
+    {
+        kurganovFluxPtr.reset
+        (
+            new Foam::kurganovFluxCalculator
+            (
+                mesh,
+                thermo2T,
+                rho,
+                rhoU,
+                U,
+                psi,
+                hTR,
+                TTR,
+                pos,
+                neg,
+                phi,
+                fluxScheme,
+                v_zero,
+                mixtureCheck,
+                use2T
+            )
+        );
+    }
+    else if (use2T && !mixtureCheck)
+    {
+        kurganovFluxPtr.reset
+        (
+            new Foam::kurganovFluxCalculator
+            (
+                mesh,
+                thermo2T,
+                rho,
+                rhoU,
+                U,
+                psi,
+                hTR,
+                TTR,
+                eV,
+                pos,
+                neg,
+                phi,
+                fluxScheme,
+                v_zero,
+                mixtureCheck,
+                use2T
+            )
+        );
+    }
+    else
+    {
+        kurganovFluxPtr.reset
+        (
+            new Foam::kurganovFluxCalculator
+            (
+                mesh,
+                thermo2T,
+                rho,
+                rhoU,
+                U,
+                psi,
+                hTR,
+                TTR,
+                eVibSpecies,
+                pos,
+                neg,
+                phi,
+                fluxScheme,
+                v_zero,
+                mixtureCheck,
+                use2T
+            )
+        );
+    }
+
+    Foam::kurganovFluxCalculator& kurganovFlux = kurganovFluxPtr();
+
     surfaceVectorField& phiUp = kurganovFlux.phiUp();
     surfaceScalarField& phiEp = kurganovFlux.phiEp();
     surfaceScalarField& sigmaDotU = kurganovFlux.sigmaDotU();
     surfaceScalarField& max_a = kurganovFlux.maxA();
+    surfaceScalarField& phiEv = kurganovFlux.phiEv();
+    const PtrList<surfaceScalarField>& phiRhoEvibYi = kurganovFlux.phiRhoEvibYi();
 
     // Courant numbers used to adjust the time-step
     scalar CoNum = 0.0;
@@ -148,6 +210,7 @@ int main(int argc, char *argv[])
 
         #include "Equations/trEnergyEquation.H"
         
+        #include "Equations/vibEnergyEquation.H"
         // Sanity check
         if (mixtureCheck)
         {
