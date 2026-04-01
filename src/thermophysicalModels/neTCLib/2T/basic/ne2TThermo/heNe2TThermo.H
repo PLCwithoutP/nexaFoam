@@ -147,7 +147,10 @@ public:
         virtual PtrList<volScalarField>& correctVibSource();
         virtual PtrList<volScalarField>& correctVibVibSource();
         virtual PtrList<volScalarField>& correctVTRelaxationTime();
-
+        virtual PtrList<volScalarField>& correctCVSource
+        (
+            const PtrList<volScalarField::Internal>& RR
+        );
         virtual scalar wilkeKappaAverage() const;
         virtual scalar wilkeMuAverage() const;
         virtual volScalarField fickDiffusionCoeff() const;

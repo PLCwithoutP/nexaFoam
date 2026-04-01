@@ -539,7 +539,6 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
         return emptyList;
     }
 
-    // Non-reacting thermo: no VT source implementation here yet
     return emptyList;
 }
 
@@ -554,7 +553,24 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
         return emptyList;
     }
 
-    // Non-reacting thermo: no VV source implementation here yet
+    return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>&
+Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctCVSource
+(
+    const PtrList<volScalarField::Internal>& RR
+)
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    // Non-reacting thermo: no C-V chemical source
     return emptyList;
 }
 
@@ -569,7 +585,6 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
         return emptyList;
     }
 
-    // Non-reacting thermo: no VT source implementation here yet
     return emptyList;
 }
 
@@ -577,7 +592,7 @@ template<class BasicNe2TThermo, class MixtureType>
 Foam::volScalarField Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::fickDiffusionCoeff
 () const
 {
-    const fvMesh& mesh = this->TTR_.mesh();  // or whatever field you have
+    const fvMesh& mesh = this->TTR_.mesh();  
 
     return volScalarField
     (

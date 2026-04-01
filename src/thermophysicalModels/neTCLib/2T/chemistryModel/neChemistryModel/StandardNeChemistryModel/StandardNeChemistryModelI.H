@@ -46,6 +46,12 @@ Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::RR()
     return RR_;
 }
 
+template<class ReactionThermo, class ThermoType>
+inline const Foam::PtrList<Foam::volScalarField::Internal>&
+Foam::StandardNeChemistryModel<ReactionThermo, ThermoType>::RR() const
+{
+    return RR_;
+}
 
 template<class ReactionThermo, class ThermoType>
 inline const Foam::PtrList<Foam::neReaction<ThermoType>>&

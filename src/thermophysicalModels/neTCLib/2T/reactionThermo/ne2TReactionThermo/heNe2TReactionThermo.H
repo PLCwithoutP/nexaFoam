@@ -43,6 +43,7 @@ SourceFiles
 #include "WilkeMR.H"
 #include "VTEnergySource.H"
 #include "VVEnergySource.H"
+#include "CVEnergySource.H"
 #include "FickDM.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -160,6 +161,11 @@ public:
         PtrList<volScalarField>& correctVibSource();
         PtrList<volScalarField>& correctVibVibSource();
         PtrList<volScalarField>& correctVTRelaxationTime();
+        
+        PtrList<volScalarField>& correctCVSource
+        (
+            const PtrList<volScalarField::Internal>& RR
+        );
         
         virtual scalar wilkeKappaAverage() const override;
         virtual scalar wilkeMuAverage() const;

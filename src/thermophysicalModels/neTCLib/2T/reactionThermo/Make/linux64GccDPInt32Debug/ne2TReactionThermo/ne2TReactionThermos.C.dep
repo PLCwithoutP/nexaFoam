@@ -632,6 +632,8 @@ lnInclude/WilkeMR.C \
 ../specie/lnInclude/VTEnergySource.C \
 ../specie/lnInclude/VVEnergySource.H \
 ../specie/lnInclude/VVEnergySource.C \
+../specie/lnInclude/CVEnergySource.H \
+../specie/lnInclude/CVEnergySource.C \
 lnInclude/FickDM.H \
 lnInclude/baseDM.H \
 lnInclude/FickDM.C \

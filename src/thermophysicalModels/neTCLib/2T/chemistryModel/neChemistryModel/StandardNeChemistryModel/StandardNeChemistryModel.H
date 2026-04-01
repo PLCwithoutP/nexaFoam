@@ -126,6 +126,9 @@ protected:
         //- Write access to chemical source terms
         //  (e.g. for multi-chemistry model)
         inline PtrList<volScalarField::Internal>& RR();
+        
+        //- Return const access to all chemical source terms [kg/m3/s]
+        inline const PtrList<volScalarField::Internal>& RR() const;
 
         scalar controllingTemperature
         (
