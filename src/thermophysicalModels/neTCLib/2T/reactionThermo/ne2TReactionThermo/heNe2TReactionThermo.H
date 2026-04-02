@@ -78,22 +78,6 @@ class heNe2TReactionThermo
             const bool doOldTimes
         );
 
-        //- Update the translational internal energy
-        void calculateTEnergy
-        (
-            const volScalarField& p,
-            const volScalarField& TTR,
-            volScalarField& esT
-        );
-
-        //- Update the rotational internal energy
-        void calculateREnergy
-        (
-            const volScalarField& p,
-            const volScalarField& TTR,
-            volScalarField& esR
-        );
-
         //- Update the vibrational internal energy
         void calculateVibEnergy
         (
@@ -157,6 +141,7 @@ public:
         virtual void correctTEnergy();
         virtual void correctREnergy();
         virtual void correctVibEnergy();
+        virtual void correctTVib();
         
         PtrList<volScalarField>& correctVibSource();
         PtrList<volScalarField>& correctVibVibSource();

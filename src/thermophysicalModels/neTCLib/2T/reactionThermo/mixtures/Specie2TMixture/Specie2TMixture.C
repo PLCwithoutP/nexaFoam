@@ -268,5 +268,23 @@ bool Foam::Specie2TMixture<Mixture2TType>::isSpecieMolecular
     return this->getLocalThermo(speciei).isMolecular();
 }
 
+template<class Mixture2TType>
+Foam::scalar Foam::Specie2TMixture<Mixture2TType>::TEVib
+(
+    const label speciei,
+    const scalar esVib,
+    const scalar p,
+    const scalar TTR,
+    const scalar TVib0
+) const
+{
+    return this->getLocalThermo(speciei).TE_Vib
+    (
+        esVib,
+        p,
+        TTR,
+        TVib0
+    );
+}
 
 // ************************************************************************* //

@@ -381,6 +381,7 @@ public:
         //- Update properties
         virtual void correctVibEnergy() = 0;
 
+        virtual void correctTVib() = 0;
         virtual PtrList<volScalarField>& correctVibSource() = 0;
         virtual PtrList<volScalarField>& correctVibVibSource() = 0;
         virtual PtrList<volScalarField>& correctVTRelaxationTime() = 0;

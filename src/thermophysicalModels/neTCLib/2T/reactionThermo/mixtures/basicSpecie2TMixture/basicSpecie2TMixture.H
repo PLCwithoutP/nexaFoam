@@ -236,6 +236,15 @@ public:
                 const label speciei
             ) = 0;
 
+            virtual scalar TEVib
+            (
+                const label speciei,
+                const scalar esVib,
+                const scalar p,
+                const scalar TTR,
+                const scalar TVib0
+            ) const = 0;
+            
             //- Species composition
             virtual autoPtr<speciesCompositionTable> specieComposition() const
             {

@@ -248,10 +248,56 @@ private:
         phiUp_.setOriented(true);
 
         // Total energy flux
+        surfaceScalarField eVmix_pos
+        (
+            IOobject("eVmix_pos", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            mesh_,
+            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+        );
+
+        surfaceScalarField eVmix_neg
+        (
+            IOobject("eVmix_neg", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            mesh_,
+            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+        );
+
+        if (use2T_)
+        {
+            if (!mixtureCheck_ && eVPtr_)
+            {
+                eVmix_pos = interpolate(*eVPtr_, pos_, TTR_.name());
+                eVmix_neg = interpolate(*eVPtr_, neg_, TTR_.name());
+            }
+            else if (mixtureCheck_ && eVibSpeciesPtr_)
+            {
+                const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+                const PtrList<volScalarField>& eVibSpecies = *eVibSpeciesPtr_;
+
+                forAll(Y, i)
+                {
+                    if (!thermo2T_.composition().isSpecieMolecular(i))
+                    {
+                        continue;
+                    }
+
+                    surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
+                    surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
+
+                    Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
+                    Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
+
+                    eVmix_pos += Yi_pos*interpolate(eVibSpecies[i], pos_, TTR_.name());
+                    eVmix_neg += Yi_neg*interpolate(eVibSpecies[i], neg_, TTR_.name());
+                }
+            }
+        }
+
         phiEp_ =
-            aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
-          + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
-          + nw_f_*(p_pos_ - p_neg_); // pressure jump stabilization term
+            aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
+        + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
+        + nw_f_*(p_pos_ - p_neg_);
+
         phiEp_.setOriented(true);
 
         // Make flux for pressure-work absolute (ALE correction)
@@ -283,10 +329,56 @@ private:
         phiUp_.setOriented(true);
 
         // Total energy flux
+        surfaceScalarField eVmix_pos
+        (
+            IOobject("eVmix_pos", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            mesh_,
+            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+        );
+
+        surfaceScalarField eVmix_neg
+        (
+            IOobject("eVmix_neg", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            mesh_,
+            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+        );
+
+        if (use2T_)
+        {
+            if (!mixtureCheck_ && eVPtr_)
+            {
+                eVmix_pos = interpolate(*eVPtr_, pos_, TTR_.name());
+                eVmix_neg = interpolate(*eVPtr_, neg_, TTR_.name());
+            }
+            else if (mixtureCheck_ && eVibSpeciesPtr_)
+            {
+                const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
+                const PtrList<volScalarField>& eVibSpecies = *eVibSpeciesPtr_;
+
+                forAll(Y, i)
+                {
+                    if (!thermo2T_.composition().isSpecieMolecular(i))
+                    {
+                        continue;
+                    }
+
+                    surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
+                    surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
+
+                    Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
+                    Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
+
+                    eVmix_pos += Yi_pos*interpolate(eVibSpecies[i], pos_, TTR_.name());
+                    eVmix_neg += Yi_neg*interpolate(eVibSpecies[i], neg_, TTR_.name());
+                }
+            }
+        }
+
         phiEp_ =
-            aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
-        + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
+            aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
+        + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
         + nw_f_*(p_pos_ - p_neg_);
+
         phiEp_.setOriented(true);
 
         // ALE correction for moving mesh

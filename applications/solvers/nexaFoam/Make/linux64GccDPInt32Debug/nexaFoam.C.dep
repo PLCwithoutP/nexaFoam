@@ -919,8 +919,10 @@ readFluxScheme.H \
 decideDeltaT.H \
 Equations/continuityEquation.H \
 Equations/yEquation.H \
-Equations/trEnergyEquation.H \
+Equations/totalEnergyEquation.H \
 Equations/vibEnergyEquation.H \
+Updates/updateTTRTemperature.H \
+Updates/updateVibTemperature.H \
 Equations/applyChemistry.H \
 
 #END

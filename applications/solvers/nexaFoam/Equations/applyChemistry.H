@@ -97,11 +97,9 @@ if (useChemistry)
 
     // 8) Re-correct thermo from the chemistry-updated state
     thermo2T.correct();
-    thermo2T.correctTEnergy();
 
     if (use2T)
     {
-        thermo2T.correctREnergy();
         thermo2T.correctVibEnergy();
     }
 

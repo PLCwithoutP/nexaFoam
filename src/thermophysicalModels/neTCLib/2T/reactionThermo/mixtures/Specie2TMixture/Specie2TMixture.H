@@ -230,6 +230,15 @@ public:
                 const label speciei
             );
 
+            virtual scalar TEVib
+            (
+                const label speciei,
+                const scalar esVib,
+                const scalar p,
+                const scalar TTR,
+                const scalar TVib0
+            ) const;
+
         // Field properties abstract functions
         // provided here to avoid issues with inheritance of virtual functions
         // in heThermo

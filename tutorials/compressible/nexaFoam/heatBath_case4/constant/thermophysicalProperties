@@ -1,0 +1,39 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2412                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+thermoType
+{
+    type            heNe2TReactionThermo;
+    mixture         neReactingMixture;
+    transport       blottnerEucken2T;
+    thermo          janaf2T;
+    equationOfState perfect2TGas;
+    specie          specie2T;
+    energy          sensibleCalculation2T;
+}
+
+twoTemperature      false;
+chemistry           true;
+
+chemistryReader     foamNeChemistryReader;
+
+CVTreatment         preferential; //non-preferential;
+alphaDissociation   0.3;
+
+reactionsList           "<constant>/reactionsDict";
+speciesList             "<constant>/speciesDict";
+
+// ************************************************************************* //

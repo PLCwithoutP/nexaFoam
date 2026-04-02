@@ -208,9 +208,12 @@ int main(int argc, char *argv[])
             rhoU = rho*U;
         }
 
-        #include "Equations/trEnergyEquation.H"
+        #include "Equations/totalEnergyEquation.H"
         
         #include "Equations/vibEnergyEquation.H"
+
+        #include "Updates/updateTTRTemperature.H"
+
         // Sanity check
         if (mixtureCheck)
         {
@@ -220,11 +223,7 @@ int main(int argc, char *argv[])
                 << maxErr << nl << endl;
         }
 
-        p.ref() =
-            rho()
-           /psi();
-        p.correctBoundaryConditions();
-        rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();
+        #include "Updates/updateVibTemperature.H"
 
         #include "Equations/applyChemistry.H"
 

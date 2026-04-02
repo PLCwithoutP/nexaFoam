@@ -30,7 +30,7 @@ N2
     thermodynamics
     {
     TAbsLow            200; // K
-    TAbsHigh           20000; // K
+    TAbsHigh           30000; // K
     TFirstInt          1000; // K
     TSecondInt         6000; // K
     ThetaVibrational   3371; // K
@@ -100,7 +100,7 @@ N2
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           20000; // K
+        TAbsHigh           30000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   2256; // K
@@ -171,7 +171,7 @@ N
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           20000; // K
+        TAbsHigh           30000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   0; // K
@@ -239,7 +239,7 @@ mixture
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           20000; // K
+        TAbsHigh           30000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   0; // K
@@ -307,7 +307,7 @@ mixture
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           20000; // K
+        TAbsHigh           30000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   2719; // K

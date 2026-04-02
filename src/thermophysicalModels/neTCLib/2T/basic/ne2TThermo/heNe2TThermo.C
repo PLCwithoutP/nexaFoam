@@ -169,107 +169,6 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculate
 }
 
 template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateTEnergy
-(
-    const volScalarField& p,
-    const volScalarField& TTR,
-    volScalarField& eT
-)
-{
-
-    scalarField& eTCells = eT.primitiveFieldRef();
-
-    const scalarField& pCells = p.primitiveField();
-    const scalarField& TTRCells = TTR.primitiveField();
-
-    forAll(TTRCells, celli)
-    {
-        const typename MixtureType::thermoType& cellMixture_ =
-            this->cellMixture(celli);
-        
-        eTCells[celli] = cellMixture_.ET
-        (
-            pCells[celli],
-            TTRCells[celli]
-        );
-
-    }
-
-    const volScalarField::Boundary& pBf = p.boundaryField();
-    const volScalarField::Boundary& TTRBf = TTR.boundaryField();
-    volScalarField::Boundary& eTBf = eT.boundaryFieldRef();
-
-    forAll(pBf, patchi)
-    {
-        const fvPatchScalarField& pp = pBf[patchi];
-        const fvPatchScalarField& pTTR = TTRBf[patchi];
-        fvPatchScalarField& pesT = eTBf[patchi];
-
-        if (pTTR.fixesValue())
-        {
-            forAll(pTTR, facei)
-            {
-                const typename MixtureType::thermoType& cellMixture_ =
-                    this->patchFaceMixture(patchi, facei);
-
-                pesT[facei] = cellMixture_.ET(pp[facei], pTTR[facei]);
-
-            }
-        }
-    }
-}
-
-template<class BasicNe2TThermo, class MixtureType>
-void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateREnergy
-(
-    const volScalarField& p,
-    const volScalarField& TTR,
-    volScalarField& eR
-)
-{
-
-    scalarField& eRCells = eR.primitiveFieldRef();
-
-    const scalarField& pCells = p.primitiveField();
-    const scalarField& TTRCells = TTR.primitiveField();
-
-    forAll(TTRCells, celli)
-    {
-        const typename MixtureType::thermoType& cellMixture_ =
-            this->cellMixture(celli);
-
-        eRCells[celli] = cellMixture_.ER
-        (
-            pCells[celli],
-            TTRCells[celli]
-        );
-    }
-
-    const volScalarField::Boundary& pBf = p.boundaryField();
-    const volScalarField::Boundary& TTRBf = TTR.boundaryField();
-    volScalarField::Boundary& eRBf = eR.boundaryFieldRef();
-
-    forAll(pBf, patchi)
-    {
-        const fvPatchScalarField& pp = pBf[patchi];
-        const fvPatchScalarField& pTTR = TTRBf[patchi];
-        fvPatchScalarField& pesR = eRBf[patchi];
-
-        if (pTTR.fixesValue())
-        {
-            forAll(pTTR, facei)
-            {
-                const typename MixtureType::thermoType& cellMixture_ =
-                    this->patchFaceMixture(patchi, facei);
-
-                pesR[facei] = cellMixture_.ER(pp[facei], pTTR[facei]);
-
-            }
-        }
-    }
-}
-
-template<class BasicNe2TThermo, class MixtureType>
 void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::calculateVibEnergy
 (
     const volScalarField& p,
@@ -363,9 +262,6 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
         true
     );
 
-    calculateTEnergy(this->p_, this->TTR_, this->eT_);
-    calculateREnergy(this->p_, this->TTR_, this->eR_);
-
     if (this->twoTemperature())
     {
         // Mixture eVib from the current mixture TVib.
@@ -409,9 +305,6 @@ Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::heNe2TThermo
         this->alpha_,
         true
     );
-
-    calculateTEnergy(this->p_, this->TTR_, this->eT_);
-    calculateREnergy(this->p_, this->TTR_, this->eR_);
 
     if (this->twoTemperature())
     {
@@ -468,31 +361,20 @@ void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correct()
 template<class BasicNe2TThermo, class MixtureType>
 void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctTEnergy()
 {
-    DebugInFunction << endl;
-
-    calculateTEnergy
-    (
-        this->p_,
-        this->TTR_,
-        this->eT_
-    );
-
-    DebugInFunction << "Finished" << endl;
+    // No-op.
+    // This thermo package is enthalpy-based:
+    // h_ is the transported/reconstructed TR thermodynamic variable,
+    // and TTR is recovered from h_ through TH_TR().
+    // Separate eT_ is not used by the solver update path.
 }
 
 template<class BasicNe2TThermo, class MixtureType>
 void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctREnergy()
 {
-    DebugInFunction << endl;
-
-    calculateREnergy
-    (
-        this->p_,
-        this->TTR_,
-        this->eR_
-    );
-
-    DebugInFunction << "Finished" << endl;
+    // No-op.
+    // In the 2T model used here, TTR represents the combined
+    // translational-rotational heavy-mode temperature.
+    // Rotational energy is therefore already embedded in h_ / TTR.
 }
 
 template<class BasicNe2TThermo, class MixtureType>
@@ -553,6 +435,63 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
     }
 
     return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+void Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctTVib()
+{
+    if (!this->twoTemperature())
+    {
+        return;
+    }
+
+    const scalarField& pCells    = this->p_.primitiveField();
+    const scalarField& TTRCells  = this->TTR_.primitiveField();
+    const scalarField& eVCells   = this->eVib_.primitiveField();
+    scalarField& TVibCells       = this->TVib_.primitiveFieldRef();
+
+    forAll(TVibCells, celli)
+    {
+        const typename MixtureType::thermoType& cellMixture_ =
+            this->cellMixture(celli);
+
+        TVibCells[celli] = cellMixture_.TE_Vib
+        (
+            eVCells[celli],
+            pCells[celli],
+            TTRCells[celli],
+            TVibCells[celli]
+        );
+    }
+
+    const volScalarField::Boundary& pBf   = this->p_.boundaryField();
+    const volScalarField::Boundary& TTRBf = this->TTR_.boundaryField();
+    const volScalarField::Boundary& eVBf  = this->eVib_.boundaryField();
+    volScalarField::Boundary& TVBf        = this->TVib_.boundaryFieldRef();
+
+    forAll(pBf, patchi)
+    {
+        const fvPatchScalarField& pp   = pBf[patchi];
+        const fvPatchScalarField& pTTR = TTRBf[patchi];
+        const fvPatchScalarField& peV  = eVBf[patchi];
+        fvPatchScalarField& pTV        = TVBf[patchi];
+
+        forAll(pp, facei)
+        {
+            const typename MixtureType::thermoType& cellMixture_ =
+                this->patchFaceMixture(patchi, facei);
+
+            pTV[facei] = cellMixture_.TE_Vib
+            (
+                peV[facei],
+                pp[facei],
+                pTTR[facei],
+                pTV[facei]
+            );
+        }
+    }
+
+    this->TVib_.correctBoundaryConditions();
 }
 
 template<class BasicNe2TThermo, class MixtureType>

@@ -3,8 +3,8 @@
 #include "createMixture.H"
 
 volScalarField& p = thermo2T.p();
+volScalarField& TVib = thermo2T.TVib();
 const volScalarField& TTR = thermo2T.TTR();
-const volScalarField& TVib = thermo2T.TVib();
 const volScalarField& psi = thermo2T.psi();
 
 bool inviscid(true);
@@ -32,58 +32,16 @@ forAll(Y_species, speciei)
 }
 
 volScalarField& hTR = thermo2T.h();
-volScalarField& eT = thermo2T.eT();
-
-autoPtr<volScalarField> eRPtr
-(
-    new volScalarField 
-    (
-        IOobject
-        (
-            "eR",
-            runTime.timeName(), 
-            mesh, 
-            IOobject::NO_READ, 
-            IOobject::NO_WRITE
-        ),
-        mesh,
-        dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
-    )
-);
-volScalarField& eR = eRPtr();
-
-autoPtr<volScalarField> eVPtr
-(
-    new volScalarField 
-    (
-        IOobject
-        (
-            "eV_mixture",
-            runTime.timeName(), 
-            mesh, 
-            IOobject::NO_READ, 
-            IOobject::NO_WRITE
-        ),
-        mesh,
-        dimensionedScalar("zero", dimEnergy/dimMass, 0.0)
-    )
-);
-volScalarField& eV = eVPtr();
+volScalarField& eV = thermo2T.eVib();
 
 if (use2T)
 {
-    eR = thermo2T.eR();
-    eR.correctBoundaryConditions();
-
-    eV = thermo2T.eVib();
     eV.correctBoundaryConditions();
 }
 else
 {
-    eR = dimensionedScalar("zero", dimEnergy/dimMass, 0.0);
     eV = dimensionedScalar("zero", dimEnergy/dimMass, 0.0);
 
-    eR.correctBoundaryConditions();
     eV.correctBoundaryConditions();
 }
 
@@ -321,7 +279,7 @@ volScalarField rhoE
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    rho*(hTR + 0.5*magSqr(U))
+    rho*(hTR + eV + 0.5*magSqr(U)) - p
 );
 
 surfaceScalarField pos
