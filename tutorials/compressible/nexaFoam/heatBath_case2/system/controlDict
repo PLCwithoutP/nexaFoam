@@ -27,13 +27,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.056;
+endTime         1e-05;
 
-deltaT          1e-06;
+deltaT          1e-09;
 
 writeControl    timeStep;
 
-writeInterval   1;
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -51,7 +51,7 @@ graphFormat     raw;
 
 runTimeModifiable true;
 
-adjustTimeStep  yes;
+adjustTimeStep  no;
 
 maxCo           0.2;
 
@@ -59,57 +59,7 @@ maxDeltaT       1e-02;
 
 functions
 {
-    xLineSample
-    {
-        type            sets;
-        libs            ("libsampling.so");   // sampling library
-        enabled         true;
-
-        // when postProcess runs, it will write once at the selected time(s)
-        writeControl    writeTime;
-
-        setFormat       csv;
-        interpolationScheme cellPoint;
-
-        sets
-        (
-            xLine
-            {
-                type    uniform;
-                axis    x;
-
-                // choose line endpoints in your domain
-                start   (-5 0 0);
-                end     (5 0 0);
-
-                // match paper resolution, or increase for smoother curves
-                nPoints 200;
-            }
-        );
-
-        fields (p U);
-    }
-    neReactionRates
-    {
-        type            ne2TSpecieReactionRates;
-        libs            ("libneChemistryModel.so");
-
-        writeControl    timeStep;
-        writeInterval   1;
-
-        // optional: restrict to a cellZone / region later if wanted
-    }
-    reactionTracker
-    {
-        type              ne2TReactionTracker;
-        libs              ("libneChemistryModel.so");
-
-        writeControl      timeStep;
-        writeInterval     1;
-
-        activityTolerance 1e-20;
-        writeToLog        true;
-    }
+    
 }
 
 

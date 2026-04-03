@@ -301,7 +301,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_s
     
     for (label r = 0; r < nSpec; ++r)
     {
-        if (!(mix_.isSpecieMolecular(r))) continue;
+        //if (!(mix_.isSpecieMolecular(r))) continue;
  
         volScalarField& XrField = mr_.computeXiFromYi(r);
         const scalar Xr = XrField[celli];

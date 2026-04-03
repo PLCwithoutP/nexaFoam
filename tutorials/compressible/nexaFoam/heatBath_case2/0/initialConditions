@@ -18,11 +18,11 @@ FoamFile
 TTRValue  30000;
 TVibValue 1000;
 
-pressureValue  41419.4;
+pressureValue  41441.925;
 
 velocityValue  (0 0 0);
 
-N2_mol_fraction 0.5;
-N_mol_fraction 0.5;
+N2_mass_fraction 0.666666666667;
+N_mass_fraction  0.333333333333;
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

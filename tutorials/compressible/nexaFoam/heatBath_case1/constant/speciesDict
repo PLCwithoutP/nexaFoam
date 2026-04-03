@@ -64,15 +64,15 @@ N2
     );
     lowCpCoeffs
     (
-        2.210371497e+04
-        -3.818461820e+02
-        6.082738360e+00
-        -8.530914410e-03
-        1.384646189e-05
-        -9.625793620e-09
-        2.519705809e-12
-        7.108460860e+02
-        -1.076003744e+01
+        0.0
+        0.0
+        3.5
+        0.0
+        0.0
+        0.0
+        0.0
+        -1.04352e+03
+        0.0
     );
     }
     // M. Lalande, N. Dellinger, Y. Prevereaud, N. Bartoli, and J-M. Lamet, "Blottner’s Coefficients and Prandtl Number for Charring Materials Atmospheric Entry Simulations", AIAA Journal, 63(8), 2025.

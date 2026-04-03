@@ -16,25 +16,15 @@ FoamFile
 
 elements
 (
-    N
+    
 );
-
 
 species
 (
-    N2
-    N
+
 );
 
 reactions
 {
-    N2dissociation
-    {
-        type     irreversibleneArrheniusneReaction;
-        reaction "N2 + N2 = 2N + N2";
-        A        7e21;
-        beta     -1.60;
-        Ta       113200;
-        alphaPark  0.7;
-    }
+
 }
