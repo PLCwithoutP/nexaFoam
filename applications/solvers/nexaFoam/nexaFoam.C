@@ -216,10 +216,7 @@ int main(int argc, char *argv[])
 
         Info << "After TTR update: " << nl;
         Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
-        myFile << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
-
-        Info << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
-        myFile << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
+        Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
 
         // Sanity check
         if (mixtureCheck)

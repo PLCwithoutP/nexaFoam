@@ -235,9 +235,9 @@ Foam::VTEnergySource<MixtureType, MixingRule>::A_sr
     const label r
 )
 {
-    scalar val = 1.16 * pow(10.0, -4.5);
+    scalar val = 1.16e-3;
     //Info << "A for specie " << s << " against specie " << r << "is : " << val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.5) * pow(thetai(s), 4.0/3.0) << nl;
-    return val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.5) * pow(thetai(s), 4.0/3.0);
+    return val * pow((Wi(s)*Wi(r))/(Wi(s) + Wi(r)) , 0.5) * pow(thetai(s), 4.0/3.0);
 }
 
 template<class MixtureType, class MixingRule>
@@ -248,9 +248,9 @@ Foam::VTEnergySource<MixtureType, MixingRule>::B_sr
     const label r
 )
 {
-    scalar val = 0.015 * pow(10.0, -3.0/4.0);
+    scalar val = 0.015;
     //Info << "B for specie " << s  << " against specie " << r << "is : " << val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.25) << nl;
-    return val * pow((Wi(s)*1e-3*Wi(r)*1e-3)/(Wi(s)*1e-3 + Wi(r)*1e-3) , 0.25);
+    return val * pow((Wi(s)*Wi(r))/(Wi(s) + Wi(r)) , 0.25);
 }
 
 template<class MixtureType, class MixingRule>
@@ -266,7 +266,8 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_MW_sr
     scalar A = A_sr(s,r);
     scalar B = B_sr(s,r);
     //Info << "Tau Millikan-White: " << (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42) << nl; 
-    return (1/p)*exp(A * (pow(TTR, -1/3) - B) - 18.42);
+    const scalar p_atm = p / 101325.0;
+    return (1/p_atm)*exp(A * (pow(TTR, -1.0/3.0) - B) - 18.42);
 }
 
 template<class MixtureType, class MixingRule>

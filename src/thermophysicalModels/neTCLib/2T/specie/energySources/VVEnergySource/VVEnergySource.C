@@ -119,7 +119,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::c_bar_s
 )
 {
     //Info << "Most Probable Speed: " << pow((8*mix_.R(s)*TTR)/(constant::mathematical::pi), 0.5) << nl; 
-    return pow((8*mix_.R(s)*TTR)/(constant::mathematical::pi) , 0.5);
+    return pow((8.0*mix_.R(s)*TTR)/(constant::mathematical::pi) , 0.5);
 }
 
 template<class MixtureType, class MixingRule>
@@ -214,7 +214,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
     const scalar ev_s_Tvm =
         mix_.EsVib(s, p_m, TTR, TVib, thetai(s));        
 
-    const scalar Mm = Wi(s)*1e-3;                             
+    const scalar Mm = Wi(s);                             
     const scalar cbar_m = c_bar_s(TTR, s);               
     //Info << "Most probable speed is : " << cbar_m << nl;
     
@@ -223,7 +223,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         if (r == s) continue;                            // r ≠ s
         if (!mix_.isSpecieMolecular(r)) continue;
 
-        const scalar Ml = Wi(r)*1e-3;                         
+        const scalar Ml = Wi(r);                         
 
         const scalar p_r   = p_s(p, TTR, r, celli);      
         const scalar rho_l = mix_.rho(r, p_r, TTR);      
