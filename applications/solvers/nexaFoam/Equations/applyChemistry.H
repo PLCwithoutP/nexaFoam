@@ -88,7 +88,10 @@ if (useChemistry)
     rhoE.correctBoundaryConditions();
 
     // 7) Rebuild sensible enthalpy/internal-energy variable used by thermo
-    hTR = rhoE/rho - 0.5*magSqr(U);
+    hTR =
+        (rhoE + p)/rho
+        - 0.5*magSqr(U)
+        - eV;
     hTR.correctBoundaryConditions();
 
     // Keep momentum consistent with unchanged velocity

@@ -13,8 +13,8 @@ Example:
     python3 plot_ttr_vs_time.py \
         --case "nexaFoam" . \
         --field TTR \
-        --title "Air-5 Reacting Flow" \
-        --output air5_ttr.png \
+        --title "N2 V-T Relaxation" \
+        --output n2_vt_ttr.png \
         --export-csv
 """
 

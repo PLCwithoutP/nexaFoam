@@ -12,6 +12,21 @@ qVibPhi =
         0.0
     );
 
+
+if (!inviscid && use2T)
+{
+    volScalarField kappaVibField("kappaVibField", thermo2T.kappaVib());
+
+    qVibPhi =
+    (
+        - fvc::interpolate(kappaVibField)
+          * mesh.magSf()
+          * fvc::snGrad(TVib)
+    );
+
+    qVibPhi.setOriented(true);
+}
+
 if (use2T)
 {
     volScalarField QVzero

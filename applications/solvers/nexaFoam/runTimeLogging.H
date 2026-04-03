@@ -80,15 +80,6 @@ if (vibrationalCheck)
 Info << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
 myFile << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
 
-Info << "Average translational internal energy is: " << eT.average().value() << nl;
-myFile << "Average translational internal energy is: " << eT.average().value() << nl;
-
-if (vibrationalCheck)
-{
-    Info << "Average rotational internal energy is: " << eR.average().value() << nl;
-    myFile << "Average rotational internal energy is: " << eR.average().value() << nl;
-}
-
 if (vibrationalCheck)
 {
     Info << "Average vibrational internal energy is: " << eV.average().value() << nl;

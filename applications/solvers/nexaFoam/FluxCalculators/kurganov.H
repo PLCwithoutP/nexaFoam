@@ -295,8 +295,8 @@ private:
 
         phiEp_ =
             aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
-        + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
-        + nw_f_*(p_pos_ - p_neg_);
+          + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
+          + nw_f_*(p_pos_ - p_neg_);
 
         phiEp_.setOriented(true);
 
@@ -376,8 +376,8 @@ private:
 
         phiEp_ =
             aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
-        + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
-        + nw_f_*(p_pos_ - p_neg_);
+          + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
+          + nw_f_*(p_pos_ - p_neg_);
 
         phiEp_.setOriented(true);
 

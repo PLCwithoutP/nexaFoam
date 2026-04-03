@@ -70,8 +70,6 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     const scalar theta = this->cellMixture(0).ThetaVib();  // getter on Thermo2T
 
     scalarField& hCells = h.primitiveFieldRef();
-    scalarField& eTCells = eT.primitiveFieldRef();
-    scalarField& eRCells = eR.primitiveFieldRef();
     scalarField& eVibCells = eVib.primitiveFieldRef();
     const scalarField& pCells = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
@@ -83,10 +81,6 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
 
         hCells[celli] =
             this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
-        eTCells[celli] =
-            this->cellMixture(celli).ET(pCells[celli], TTRCells[celli]);
-        eRCells[celli] =
-            this->cellMixture(celli).ER(pCells[celli], TTRCells[celli]);
         eVibCells[celli] =
             this->cellMixture(celli).EV
             (
@@ -98,8 +92,6 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     }
 
     volScalarField::Boundary& hBf = h.boundaryFieldRef();
-    volScalarField::Boundary& eTBf = eT.boundaryFieldRef();
-    volScalarField::Boundary& eRBf = eR.boundaryFieldRef();
     volScalarField::Boundary& eVibBf = eVib.boundaryFieldRef();
 
     forAll(hBf, patchi)
@@ -115,24 +107,6 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
 
         hBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
 
-        eTBf[patchi] == this->eT
-        (
-            p.boundaryField()[patchi],
-            TTR.boundaryField()[patchi],
-            patchi
-        );
-
-        eTBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
-
-        eRBf[patchi] == this->eR
-        (
-            p.boundaryField()[patchi],
-            TTR.boundaryField()[patchi],
-            patchi
-        );
-
-        eRBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
-
         eVibBf[patchi] == this->eVib
         (
             p.boundaryField()[patchi],
@@ -146,8 +120,6 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     }
 
     this->hBoundaryCorrection(h);
-    this->hBoundaryCorrection(eT);
-    this->hBoundaryCorrection(eR);
     this->hBoundaryCorrection(eVib);
 
     // Note: TTR does not have oldTime

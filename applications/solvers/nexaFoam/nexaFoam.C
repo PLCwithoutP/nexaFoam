@@ -208,11 +208,18 @@ int main(int argc, char *argv[])
             rhoU = rho*U;
         }
 
+
         #include "Equations/totalEnergyEquation.H"
-        
         #include "Equations/vibEnergyEquation.H"
 
         #include "Updates/updateTTRTemperature.H"
+
+        Info << "After TTR update: " << nl;
+        Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
+        myFile << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
+
+        Info << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
+        myFile << "Average translational-rotational enthalpy is: " << hTR.average().value() << nl;
 
         // Sanity check
         if (mixtureCheck)
@@ -226,6 +233,7 @@ int main(int argc, char *argv[])
         #include "Updates/updateVibTemperature.H"
 
         #include "Equations/applyChemistry.H"
+
 
         runTime.write();
 
