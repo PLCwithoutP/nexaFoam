@@ -30,7 +30,7 @@ N2
     thermodynamics
     {
     TAbsLow            200; // K
-    TAbsHigh           30000; // K
+    TAbsHigh           20000; // K
     TFirstInt          1000; // K
     TSecondInt         6000; // K
     ThetaVibrational   3371; // K
@@ -79,12 +79,10 @@ N2
         CB              -1.0805e+01;
         //Pr            0.7020; // Valid 200-10000 K
     }
-
-    dissociationPotential   3.36e7;
 }
 
 
-/*O2
+O2
 {
     elements
     {
@@ -100,7 +98,7 @@ N2
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           30000; // K
+        TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   2256; // K
@@ -149,9 +147,7 @@ N2
         CB              -1.0711e+01;
         //Pr            0.7051; // Valid 200-10000 K
     }
-
-    dissociationPotential   1.54e7;
-}*/
+}
 
 
 // N
@@ -171,7 +167,7 @@ N
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           30000; // K
+        TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   0; // K
@@ -221,9 +217,9 @@ N
         //Pr            0.8133; // Valid 200-10000 K
     }
 }
-/*
+
 // O
-mixture
+O
 {
     elements
     {
@@ -239,7 +235,7 @@ mixture
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           30000; // K
+        TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   0; // K
@@ -288,10 +284,10 @@ mixture
         CB              -1.0383e+01;
         //Pr            0.7053; // Valid 200-10000 K
     }
-}*/
-/*
+}
+
 // NO
-mixture
+NO
 {
     elements
     {
@@ -307,7 +303,7 @@ mixture
     thermodynamics
     {
         TAbsLow            200; // K
-        TAbsHigh           30000; // K
+        TAbsHigh           20000; // K
         TFirstInt          1000; // K
         TSecondInt         6000; // K
         ThetaVibrational   2719; // K
@@ -356,8 +352,6 @@ mixture
         CB              -1.0776e+01;
         //Pr            0.7132; // Valid 200-10000 K
     }
-
-    dissociationPotential   2.09e7;
-}*/
+}
 
 // ************************************************************************* //

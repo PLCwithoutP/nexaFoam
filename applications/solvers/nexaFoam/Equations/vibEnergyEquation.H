@@ -70,8 +70,8 @@ if (use2T)
     // ================================================================
     else
     {
-        PtrList<volScalarField>& QVT = thermo2T.correctVibSource();
-        PtrList<volScalarField>& QVV = thermo2T.correctVibVibSource();
+        PtrList<volScalarField>& QVT = thermo2T.correctVibSource(TVibSpecies);
+        PtrList<volScalarField>& QVV = thermo2T.correctVibVibSource(TVibSpecies);
 
         PtrList<volScalarField> QCVempty;
         PtrList<volScalarField>* QCVptr = &QCVempty;

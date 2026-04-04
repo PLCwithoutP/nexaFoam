@@ -12,39 +12,22 @@ FoamFile
     class       dictionary;
     object      reactionsDict;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-elements
-(
-O
-N
-);
-
 
 species
 (
-    O2
     N2
-    NO
+    N
 );
 
 reactions
 {
-    reaction1
+    N2dissociation_N2
     {
-        type     irreversibleArrheniusReaction;
-        reaction "O2 + N = 2O + N";
-        A        1e22;
-        beta     -1.50;
-        Ta       59500;
-        alphaPark  0.7;
+        type        irreversibleneArrheniusneReaction;
+        reaction    "N2 + N2 = 2N + N2";
+        A           7.0e18;
+        beta        -1.6;
+        Ta          113200;
+        alphaPark   0.7;
     }
-    /*methaneReaction
-    {
-        type     irreversibleArrheniusReaction;
-        reaction "CH4 + 2O2 = CO2 + 2H2O";
-        A        5.2e16;
-        beta     0;
-        Ta       14906;
-    }*/
 }

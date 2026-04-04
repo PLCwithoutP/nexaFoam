@@ -182,7 +182,7 @@ public:
         (
             const scalar p,
             const scalar TTR,
-            const scalar TVib,
+            const PtrList<volScalarField>& TVibSpecies,
             const label s,
             const label celli
         );
@@ -191,7 +191,7 @@ public:
         (
             const volScalarField& p,
             const volScalarField& TTR,
-            const volScalarField& TVib
+            const PtrList<volScalarField>& TVibSpecies
         );
         
         PtrList<volScalarField>& fields()

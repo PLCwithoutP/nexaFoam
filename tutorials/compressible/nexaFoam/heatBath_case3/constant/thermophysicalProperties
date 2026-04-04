@@ -17,7 +17,7 @@ FoamFile
 thermoType
 {
     type            heNe2TReactionThermo;
-    mixture         neReactingMixture;
+    mixture         multiComponent2TMixture;
     transport       blottnerEucken2T;
     thermo          janaf2T;
     equationOfState perfect2TGas;
@@ -26,7 +26,7 @@ thermoType
 }
 
 twoTemperature      true;
-chemistry           true;
+chemistry           false;
 
 chemistryReader     foamNeChemistryReader;
 

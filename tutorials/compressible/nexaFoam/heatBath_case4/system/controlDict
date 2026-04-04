@@ -27,13 +27,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1e-03;
+endTime         1e-04;
 
 deltaT          1e-09;
 
 writeControl    timeStep;
 
-writeInterval   1000;
+writeInterval   10;
 
 purgeWrite      0;
 
@@ -59,38 +59,6 @@ maxDeltaT       1e-02;
 
 functions
 {
-/*
-    xLineSample
-    {
-        type            sets;
-        libs            ("libsampling.so");   // sampling library
-        enabled         true;
-
-        // when postProcess runs, it will write once at the selected time(s)
-        writeControl    writeTime;
-
-        setFormat       csv;
-        interpolationScheme cellPoint;
-
-        sets
-        (
-            xLine
-            {
-                type    uniform;
-                axis    x;
-
-                // choose line endpoints in your domain
-                start   (-5 0 0);
-                end     (5 0 0);
-
-                // match paper resolution, or increase for smoother curves
-                nPoints 200;
-            }
-        );
-
-        fields (p U);
-    }*/
-    
     neReactionRates
     {
         type            ne2TSpecieReactionRates;

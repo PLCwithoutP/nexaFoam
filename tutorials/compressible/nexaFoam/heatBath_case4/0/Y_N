@@ -18,7 +18,7 @@ FoamFile
 
 dimensions      [0 0 0 0 0 0 0];
 
-internalField   uniform $N_mol_fraction;
+internalField   uniform $N_mass_fraction;
 
 boundaryField
 {

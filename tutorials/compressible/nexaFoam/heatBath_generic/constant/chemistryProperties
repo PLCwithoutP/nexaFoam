@@ -14,9 +14,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+chemistry           true;
+
 chemistryType
 {
-    solver          EulerImplicit;
+    solver          neEulerImplicit;
 }
 
 initialChemicalTimeStep 1e-07;
@@ -27,12 +29,12 @@ EulerImplicitCoeffs
     equilibriumRateLimiter off;
 }
 
-odeCoeffs
+/*odeCoeffs
 {
     solver          Rosenbrock34;
     absTol          1e-12;
     relTol          0.01;
-}
+}*/
 
 
 // ************************************************************************* //

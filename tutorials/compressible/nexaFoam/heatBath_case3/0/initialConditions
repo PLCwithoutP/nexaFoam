@@ -15,14 +15,14 @@ FoamFile
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-TTRValue  30000;
-TVibValue 1000;
+TTRValue  5000;
+TVibValue 30000;
 
-pressureValue  41419.4;
+pressureValue  101325;
 
 velocityValue  (0 0 0);
 
-N2_mol_fraction 0.5;
-N_mol_fraction 0.5;
+N2_mass_fraction 0.5;
+O2_mass_fraction 0.5;
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

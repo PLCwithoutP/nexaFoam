@@ -101,7 +101,20 @@ if (useChemistry)
     // 8) Re-correct thermo from the chemistry-updated state
     thermo2T.correct();
 
-    if (use2T)
+    if (use2T && mixtureCheck)
+    {
+        // Rebuild eV from per-species fields — consistent with vibEnergyEquation
+        eV = dimensionedScalar("zero", eV.dimensions(), 0.0);
+        forAll(Y_species, speciei)
+        {
+            if (!vibSpecieActive[speciei]) continue;
+            eV += rhoYEvibSpecies[speciei]/rho;
+        }
+        eV.correctBoundaryConditions();
+        rhoEv = rho*eV;
+        rhoEv.correctBoundaryConditions();
+    }
+    else if (use2T)
     {
         thermo2T.correctVibEnergy();
     }

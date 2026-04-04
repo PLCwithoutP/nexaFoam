@@ -339,28 +339,25 @@ Foam::VTEnergySource<MixtureType, MixingRule>::Q_VT_s
     - mix_.EsVib(s,p,TTR,TVib,thetai(s)))/(T_s(p, TTR, s, celli));
 }
 
-// For all species, invoke Q_VT_s() function
-template<class MixtureType, class MixingRuleType>
+template<class MixtureType, class MixingRule>
 Foam::PtrList<Foam::volScalarField>&
-Foam::VTEnergySource<MixtureType, MixingRuleType>::correctVibSource
+Foam::VTEnergySource<MixtureType, MixingRule>::correctVibSource
 (
     const volScalarField& p,
     const volScalarField& TTR,
-    const volScalarField& TVib
+    const PtrList<volScalarField>& TVibSpecies
 )
 {
-    // Ensure fields exist
     makeQVibSourceFields(TTR.mesh());
 
-    const scalarField& pCells    = p.primitiveField();
-    const scalarField& TTRCells  = TTR.primitiveField();
-    const scalarField& TVibCells = TVib.primitiveField();
-
+    const scalarField& pCells   = p.primitiveField();
+    const scalarField& TTRCells = TTR.primitiveField();
     const PtrList<volScalarField>& Y_species = mix_.Y();
 
     forAll(Y_species, speciei)
     {
         scalarField& Q_VT_Cells = Q_VTList_[speciei].primitiveFieldRef();
+        const scalarField& TVibCells = TVibSpecies[speciei].primitiveField();
 
         forAll(TTRCells, celli)
         {
@@ -368,7 +365,7 @@ Foam::VTEnergySource<MixtureType, MixingRuleType>::correctVibSource
             (
                 pCells[celli],
                 TTRCells[celli],
-                TVibCells[celli],
+                TVibCells[celli],    // species-own Tv
                 speciei,
                 celli
             );

@@ -197,7 +197,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
 (
     const scalar p,      
     const scalar TTR,
-    const scalar TVib,
+    const PtrList<volScalarField>& TVibSpecies,
     const label  s,      
     const label  celli
 )
@@ -212,10 +212,10 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
     const scalar ev_s_Ttr =
         mix_.EsVib(s, p_m, TTR, TTR, thetai(s));         
     const scalar ev_s_Tvm =
-        mix_.EsVib(s, p_m, TTR, TVib, thetai(s));        
+        mix_.EsVib(s, p_m, TTR, TVibSpecies[s][celli], thetai(s));        
 
     const scalar Mm = Wi(s);                             
-    const scalar cbar_m = c_bar_s(TTR, s);               
+             
     //Info << "Most probable speed is : " << cbar_m << nl;
     
     for (label r = 0; r < nSpec; ++r)
@@ -228,9 +228,20 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         const scalar p_r   = p_s(p, TTR, r, celli);      
         const scalar rho_l = mix_.rho(r, p_r, TTR);      
 
+        // Reduced molar mass [kg/kmol]
+        const scalar Msr = (Mm * Ml) / (Mm + Ml);
 
-        const scalar velFactor =
-            cbar_m * Foam::sqrt(rho_l/Ml);
+        // Relative mean speed using reduced mass
+        const scalar c_rel = Foam::sqrt
+        (
+            8.0 * mix_.R(s) * (Mm/Msr) * TTR
+            / Foam::constant::mathematical::pi
+        );
+
+        // Molar concentration of species l [kmol/m³] — linear, NOT sqrt
+        const scalar n_l = rho_l / Ml;
+
+        const scalar velFactor = c_rel * n_l;
 
         //Info << "Vel factor is : " << velFactor << nl;
 
@@ -241,7 +252,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         const scalar ev_r_Ttr =
             mix_.EsVib(r, p_r, TTR, TTR, thetai(r));     
         const scalar ev_r_Tvl =
-            mix_.EsVib(r, p_r, TTR, TVib, thetai(r));    
+            mix_.EsVib(r, p_r, TTR, TVibSpecies[r][celli], thetai(r));  
         const scalar energyBracket =
             ev_s_Ttr*(ev_r_Tvl/ev_r_Ttr) - ev_s_Tvm;
 
@@ -259,21 +270,19 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
     return Qm;   
 }
 
-
 template<class MixtureType, class MixingRule>
 Foam::PtrList<Foam::volScalarField>&
 Foam::VVEnergySource<MixtureType, MixingRule>::correctVibVibSource
 (
     const volScalarField& p,
     const volScalarField& TTR,
-    const volScalarField& TVib
+    const PtrList<volScalarField>& TVibSpecies
 )
 {
     makeQVibSourceFields(TTR.mesh());
 
     const scalarField& pCells    = p.primitiveField();
     const scalarField& TTRCells  = TTR.primitiveField();
-    const scalarField& TVibCells = TVib.primitiveField();
 
     const PtrList<volScalarField>& Y_species = mix_.Y();
 
@@ -285,13 +294,12 @@ Foam::VVEnergySource<MixtureType, MixingRule>::correctVibVibSource
         {
             const scalar pCell    = pCells[celli];
             const scalar TTRCell  = TTRCells[celli];
-            const scalar TVibCell = TVibCells[celli];
 
             Q_VV_Cells[celli] = Q_VV_s
             (
-                pCell,      
+                pCell,
                 TTRCell,
-                TVibCell,
+                TVibSpecies,
                 m,
                 celli
             );

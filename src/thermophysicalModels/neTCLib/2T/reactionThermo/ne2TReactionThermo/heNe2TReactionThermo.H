@@ -144,7 +144,15 @@ public:
         virtual void correctTVib();
         
         PtrList<volScalarField>& correctVibSource();
+        PtrList<volScalarField>& correctVibSource
+        (
+            const PtrList<volScalarField>& TVibSpecies
+        );
         PtrList<volScalarField>& correctVibVibSource();
+        PtrList<volScalarField>& correctVibVibSource
+        (
+            const PtrList<volScalarField>& TVibSpecies
+        );
         PtrList<volScalarField>& correctVTRelaxationTime();
         
         PtrList<volScalarField>& correctCVSource

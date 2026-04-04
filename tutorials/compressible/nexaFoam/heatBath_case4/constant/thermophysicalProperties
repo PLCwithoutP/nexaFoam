@@ -25,7 +25,7 @@ thermoType
     energy          sensibleCalculation2T;
 }
 
-twoTemperature      false;
+twoTemperature      true;
 chemistry           true;
 
 chemistryReader     foamNeChemistryReader;

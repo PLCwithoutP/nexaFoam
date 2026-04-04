@@ -424,8 +424,40 @@ Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, Mixture
 }
 
 template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibSource
+(
+    const PtrList<volScalarField>& TVibSpecies
+)
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
 Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource
 ()
+{
+    static Foam::PtrList<Foam::volScalarField> emptyList;
+
+    if (!this->twoTemperature())
+    {
+        return emptyList;
+    }
+
+    return emptyList;
+}
+
+template<class BasicNe2TThermo, class MixtureType>
+Foam::PtrList<Foam::volScalarField>& Foam::heNe2TThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource
+(
+    const PtrList<volScalarField>& TVibSpecies
+)
 {
     static Foam::PtrList<Foam::volScalarField> emptyList;
 

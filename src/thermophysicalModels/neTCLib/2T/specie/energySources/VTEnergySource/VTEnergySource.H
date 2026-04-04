@@ -242,7 +242,7 @@ public:
         (
             const volScalarField& p,
             const volScalarField& TTR,
-            const volScalarField& TVib
+            const PtrList<volScalarField>& TVibSpecies
         );
 
         PtrList<volScalarField>& correctVTRelaxationTime

@@ -17,7 +17,7 @@ FoamFile
 thermoType
 {
     type            heNe2TReactionThermo;
-    mixture         multiComponent2TMixture;
+    mixture         neReactingMixture;
     transport       blottnerEucken2T;
     thermo          janaf2T;
     equationOfState perfect2TGas;
@@ -25,10 +25,13 @@ thermoType
     energy          sensibleCalculation2T;
 }
 
-twoTemperature      false;
+twoTemperature      true;
 chemistry           true;
 
 chemistryReader     foamNeChemistryReader;
+
+CVTreatment         preferential; //non-preferential;
+alphaDissociation   0.3;
 
 reactionsList           "<constant>/reactionsDict";
 speciesList             "<constant>/speciesDict";
