@@ -63,3 +63,18 @@ else
         << "'thermoType' dictionary missing in thermophysicalProperties. "
         << "Defaulting mixtureCheck=false." << nl << endl;
 }
+
+bool useVibVibRelaxation = false;
+
+if (thermoDict_.found("VVrelaxation"))
+{
+    useVibVibRelaxation = thermoDict_.get<bool>("VVrelaxation");
+    Info << "VVrelaxation = "
+         << (useVibVibRelaxation ? "true" : "false") << nl << endl;
+}
+else
+{
+    WarningInFunction
+        << "'VVrelaxation' not found in thermophysicalProperties. "
+        << "Defaulting to false." << nl << endl;
+}

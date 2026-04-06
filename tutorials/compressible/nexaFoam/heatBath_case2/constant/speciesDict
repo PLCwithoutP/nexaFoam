@@ -365,4 +365,32 @@ mixture
     dissociationPotential   2.09e7;
 }*/
 
+KnabVVCoefficients
+{
+    // Fallback for any pair not explicitly listed
+    default
+    {
+        sigma12     1.5e-18;   // m²
+        P21         0.01;
+    }
+
+    // Species-pair specific overrides (name1_name2 or name2_name1, both checked)
+    N2_O2
+    {
+        sigma12     2.667e-19;
+        P21         0.01;
+    }
+
+    N2_NO
+    {
+        sigma12     2.751e-19;
+        P21         0.01;
+    }
+
+    O2_NO
+    {
+        sigma12     2.686e-19;
+        P21         0.01;
+    }
+}
 // ************************************************************************* //

@@ -26,6 +26,7 @@ thermoType
 }
 
 twoTemperature      true;
+VVrelaxation        false;
 chemistry           true;
 
 chemistryReader     foamNeChemistryReader;

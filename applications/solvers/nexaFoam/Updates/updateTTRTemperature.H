@@ -35,3 +35,4 @@ rhoE.boundaryFieldRef() ==
       + 0.5*magSqr(U.boundaryField())
     )
   - p.boundaryField();
+  

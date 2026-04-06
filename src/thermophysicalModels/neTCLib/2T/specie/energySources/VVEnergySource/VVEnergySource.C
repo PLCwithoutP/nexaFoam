@@ -41,10 +41,11 @@ Foam::VVEnergySource<MixtureType, MixingRule>::VVEnergySource
     mix_(mixture),
     mr_(MR),
     names_(mixture.species()),
-    sigma_prime_ (3e-21), // N2, O2, NO
     boltzmann_const_ (1.380649e-23),
     avagadro_const_ (6.022e23),
-    Pml_const_ (1e-2),
+    sigma_(0),
+    P_(0),
+    knabCoeffsLoaded_(false),
     Q_VVList_()
 {
      
@@ -97,17 +98,6 @@ void Foam::VVEnergySource<MixtureType, MixingRuleType>::makeQVibSourceFields
             )
         );
     }
-}
-
-template<class MixtureType, class MixingRule>
-Foam::scalar 
-Foam::VVEnergySource<MixtureType, MixingRule>::sigmai
-(
-    const scalar TTR 
-)
-{
-    //Info << "Cross Section: " << sigma_prime_*(50000.0/TTR)*(50000.0/TTR) << nl; 
-    return sigma_prime_*(50000.0/TTR)*(50000.0/TTR);
 }
 
 template<class MixtureType, class MixingRule>
@@ -239,15 +229,15 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
         );
 
         // Molar concentration of species l [kmol/m³] — linear, NOT sqrt
-        const scalar n_l = rho_l / Ml;
+        const scalar n_l = rho_l / Ml * 1000;
 
         const scalar velFactor = c_rel * n_l;
 
         //Info << "Vel factor is : " << velFactor << nl;
 
         //const scalar sigma_ml = sigmai(TTR);
-        const scalar sigma_ml = sigma_prime_;            
-        const scalar P_ml     = Pml_const_;              
+        const scalar sigma_ml = sigma_[s][r];
+        const scalar P_ml     = P_[s][r];           
 
         const scalar ev_r_Ttr =
             mix_.EsVib(r, p_r, TTR, TTR, thetai(r));     
@@ -271,6 +261,102 @@ Foam::VVEnergySource<MixtureType, MixingRule>::Q_VV_s
 }
 
 template<class MixtureType, class MixingRule>
+void Foam::VVEnergySource<MixtureType, MixingRule>::loadKnabCoeffs
+(
+    const fvMesh& mesh
+)
+{
+    if (knabCoeffsLoaded_) return;
+
+    const label nSpec = mix_.Y().size();
+    sigma_ = scalarSquareMatrix(nSpec);
+    sigma_ = 1.5e-18;
+
+    P_ = scalarSquareMatrix(nSpec);
+    P_ = 0.01;
+
+    IOdictionary speciesDict
+    (
+        IOobject
+        (
+            "speciesDict",
+            mesh.time().constant(),
+            mesh,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE,
+            false
+        )
+    );
+
+    if (!speciesDict.found("KnabVVCoefficients"))
+    {
+        WarningInFunction
+            << "'KnabVVCoefficients' not found in speciesDict. "
+            << "Using defaults: sigma=1.5e-18, P=0.01 for all pairs." << nl;
+        knabCoeffsLoaded_ = true;
+        return;
+    }
+
+    const dictionary& knabDict = speciesDict.subDict("KnabVVCoefficients");
+
+    // Read defaults first
+    scalar defaultSigma = 1.5e-18;
+    scalar defaultP     = 0.01;
+
+    if (knabDict.found("default"))
+    {
+        const dictionary& defDict = knabDict.subDict("default");
+        defDict.readIfPresent("sigma12", defaultSigma);
+        defDict.readIfPresent("P21",     defaultP);
+    }
+
+    // Fill all pairs with defaults
+    for (label s = 0; s < nSpec; s++)
+    {
+        for (label r = 0; r < nSpec; r++)
+        {
+            sigma_[s][r] = defaultSigma;
+            P_[s][r]     = defaultP;
+        }
+    }
+
+    // Override with species-pair specific values
+    for (label s = 0; s < nSpec; s++)
+    {
+        for (label r = 0; r < nSpec; r++)
+        {
+            if (r == s) continue;
+
+            const word keyFwd = names_[s] + "_" + names_[r];
+            const word keyRev = names_[r] + "_" + names_[s];
+
+            const dictionary* pairDict = nullptr;
+
+            if (knabDict.found(keyFwd))
+            {
+                pairDict = &knabDict.subDict(keyFwd);
+            }
+            else if (knabDict.found(keyRev))
+            {
+                pairDict = &knabDict.subDict(keyRev);
+            }
+
+            if (pairDict)
+            {
+                pairDict->readIfPresent("sigma12", sigma_[s][r]);
+                pairDict->readIfPresent("P21",     P_[s][r]);
+
+                Info << "KnabVV: " << names_[s] << "-" << names_[r]
+                     << " sigma=" << sigma_[s][r]
+                     << " P=" << P_[s][r] << nl;
+            }
+        }
+    }
+
+    knabCoeffsLoaded_ = true;
+}
+
+template<class MixtureType, class MixingRule>
 Foam::PtrList<Foam::volScalarField>&
 Foam::VVEnergySource<MixtureType, MixingRule>::correctVibVibSource
 (
@@ -279,6 +365,7 @@ Foam::VVEnergySource<MixtureType, MixingRule>::correctVibVibSource
     const PtrList<volScalarField>& TVibSpecies
 )
 {
+    loadKnabCoeffs(TTR.mesh());
     makeQVibSourceFields(TTR.mesh());
 
     const scalarField& pCells    = p.primitiveField();

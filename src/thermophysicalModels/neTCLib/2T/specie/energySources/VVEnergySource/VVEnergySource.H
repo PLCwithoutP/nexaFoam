@@ -72,10 +72,15 @@ private:
     const speciesTable& names_;
     PtrList<volScalarField> Q_VVList_;
 
-    const scalar sigma_prime_; // Effective cross section
     const scalar boltzmann_const_; // Boltzmann constant
     const scalar avagadro_const_; // Avagadro constant
-    const scalar Pml_const_; // Value of assessed exchange probability
+    // Per species-pair Knab coefficients [nSpec x nSpec]
+    scalarSquareMatrix sigma_;   // VV cross section [m²]
+    scalarSquareMatrix P_;       // Exchange probability [-]
+    bool knabCoeffsLoaded_;
+
+    void loadKnabCoeffs(const fvMesh& mesh);
+
 public:
 
     // Constructors
@@ -138,12 +143,6 @@ public:
         {
             return mix_.thetaVib(i);
         }
-
-        // Park cross-section coefficient
-        scalar sigmai
-        (
-            const scalar TTR 
-        );
 
         // Most Probable Speed
         scalar c_bar_s
