@@ -275,11 +275,11 @@ void Foam::VVEnergySource<MixtureType, MixingRule>::loadKnabCoeffs
     P_ = scalarSquareMatrix(nSpec);
     P_ = 0.01;
 
-    IOdictionary speciesDict
+    IOdictionary thermophysicalProperties
     (
         IOobject
         (
-            "speciesDict",
+            "thermophysicalProperties",
             mesh.time().constant(),
             mesh,
             IOobject::MUST_READ,
@@ -288,16 +288,16 @@ void Foam::VVEnergySource<MixtureType, MixingRule>::loadKnabCoeffs
         )
     );
 
-    if (!speciesDict.found("KnabVVCoefficients"))
+    if (!thermophysicalProperties.found("KnabVVCoefficients"))
     {
         WarningInFunction
-            << "'KnabVVCoefficients' not found in speciesDict. "
+            << "'KnabVVCoefficients' not found in thermophysicalProperties. "
             << "Using defaults: sigma=1.5e-18, P=0.01 for all pairs." << nl;
         knabCoeffsLoaded_ = true;
         return;
     }
 
-    const dictionary& knabDict = speciesDict.subDict("KnabVVCoefficients");
+    const dictionary& knabDict = thermophysicalProperties.subDict("KnabVVCoefficients");
 
     // Read defaults first
     scalar defaultSigma = 1.5e-18;

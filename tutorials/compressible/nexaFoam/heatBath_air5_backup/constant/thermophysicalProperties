@@ -26,9 +26,13 @@ thermoType
 }
 
 twoTemperature      false;
+VVrelaxation        false;
 chemistry           true;
 
 chemistryReader     foamNeChemistryReader;
+
+CVTreatment         preferential; //non-preferential;
+alphaDissociation   0.3;
 
 reactionsList           "<constant>/reactionsDict";
 speciesList             "<constant>/speciesDict";
