@@ -599,8 +599,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/volFieldsI.H \
 lnInclude/basic2TThermo.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/wordIOList.H \
-lnInclude/basic2TThermoTemplates.C \
-$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvMatrix.H \
+../../../TCLibraryBase/tcLibraryInterface/tcLibraryInterface.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/surfaceFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/surfaceMesh.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFields.H \
@@ -612,6 +611,12 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvsPatchField.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldMacros.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldsFwd.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvsPatchFields.H \
+../../../TCLibraryBase/compositionInterface/compositionInterface.H \
+$(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/speciesTable.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordList.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \
+lnInclude/basic2TThermoTemplates.C \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvMatrix.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/lduMatrix.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/profilingTrigger.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/lduMatrixTemplates.C \

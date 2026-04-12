@@ -136,10 +136,10 @@ public:
     // Member functions
 
         //- Return the composition of the multi-component mixture
-        virtual basicSpecie2TMixture& composition() = 0;
+        virtual compositionInterface& composition() = 0;
 
         //- Return the composition of the multi-component mixture
-        virtual const basicSpecie2TMixture& composition() const = 0;
+        virtual const compositionInterface& composition() const = 0;
 
         //- Table of species composition
         autoPtr<speciesCompositionTable> specieComposition() const
@@ -147,7 +147,10 @@ public:
             return
                 autoPtr<speciesCompositionTable>
                 (
-                    composition().specieComposition()
+                    static_cast<const basicSpecie2TMixture&>
+                    (
+                        composition()
+                    ).specieComposition()
                 );
         }
 };

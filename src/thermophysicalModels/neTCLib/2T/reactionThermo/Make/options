@@ -4,6 +4,8 @@ EXE_INC = \
     -I$(LIB_SRC)/transportModels/compressible/lnInclude \
     -I../basic/lnInclude \
     -I../specie/lnInclude \
+    -I../../../TCLibraryBase/tcLibraryInterface \
+    -I../../../TCLibraryBase/compositionInterface \
     -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \

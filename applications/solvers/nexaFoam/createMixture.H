@@ -1,11 +1,11 @@
-autoPtr<ne2TReactionThermo> thermoSelector
+autoPtr<tcLibraryInterface> thermoSelector
 (
-    ne2TReactionThermo::New(mesh)
+    tcLibraryInterface::New(mesh)
 );
 
-ne2TReactionThermo& thermo2T = thermoSelector();
+tcLibraryInterface& thermo2T = thermoSelector();
 
-auto& mix = thermo2T.composition();
+compositionInterface& mix = thermo2T.composition();
 const speciesTable& spec = mix.species();
 
 const bool use2T = thermo2T.twoTemperature();
@@ -38,11 +38,10 @@ if (useChemistry && !chemistryCapable)
         << exit(FatalError);
 }
 
-autoPtr<BasicNeChemistryModel<ne2TReactionThermo>> chemistryPtr;
+autoPtr<chemistryInterface> chemistryPtr;
 
 if (useChemistry)
 {
-    chemistryPtr = BasicNeChemistryModel<ne2TReactionThermo>::New(thermo2T);
-
+    chemistryPtr = chemistryInterface::New(thermo2T);
     Info<< "Chemistry model created." << nl << endl;
 }

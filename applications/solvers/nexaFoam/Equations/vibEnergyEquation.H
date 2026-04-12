@@ -87,7 +87,7 @@ if (use2T)
 
         if (useChemistry)
         {
-            const PtrList<volScalarField::Internal>& RRchem = chemistryPtr().RR();
+            const PtrList<volScalarField::Internal>& RRchem = chemistryPtr->RR();
             QCVptr = &thermo2T.correctCVSource(RRchem);
         }
 

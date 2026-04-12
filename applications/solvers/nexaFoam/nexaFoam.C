@@ -37,14 +37,14 @@ Description
 
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
-#include "ne2TReactionThermo.H"
 #include "fixed2TRhoFvPatchScalarField.H"
 #include "directionInterpolate.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
 #include "FluxCalculators/kurganov.H"
 #include "DiffusionModels/FickModel.H"
-#include "BasicNeChemistryModel.H"
+#include "tcLibraryInterface.H"
+#include "chemistryInterface.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -85,13 +85,13 @@ public:
         // Per specie properties
 
             //- Molecular weight of the given specie [kg/kmol]
-            virtual scalar W(const label speciei) const;
+            virtual scalar W(const label speciei) const override;
 
             //- Specific gas constant of the given specie [kg/kmol]
-            virtual scalar R(const label speciei) const;
+            virtual scalar R(const label speciei) const override;
 
             //- Chemical enthalpy [J/kg]
-            virtual scalar Hc(const label speciei) const;
+            virtual scalar Hc(const label speciei) const override;
 
 
         // Per specie thermo properties
@@ -102,7 +102,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Heat capacity at constant volume [J/(kg K)]
             virtual scalar CvT
@@ -110,7 +110,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Enthalpy/Internal energy [J/kg]
             virtual scalar H
@@ -118,7 +118,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Absolute enthalpy [J/kg]
             virtual scalar Ha
@@ -126,7 +126,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Sensible enthalpy [J/kg]
             virtual scalar Hs
@@ -134,7 +134,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
 
             //- Entropy [J/(kg K)]
@@ -143,7 +143,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Sensible translational internal energy [J/kg]
             virtual scalar EsT
@@ -151,7 +151,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Sensible rotational internal energy [J/kg]
             virtual scalar EsR
@@ -159,7 +159,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Sensible vibrational internal energy [J/kg]
             virtual scalar EsVib
@@ -169,7 +169,7 @@ public:
                 const scalar TTR,
                 const scalar TVib,
                 const scalar ThetaVib
-            ) const;
+            ) const override;
 
             //- Gibbs free energy [J/kg]
             virtual scalar G
@@ -177,7 +177,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
         // Per specie transport properties
 
@@ -186,7 +186,7 @@ public:
             (
                 const label speciei,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Translational-Rotational thermal conductivity [W/m/K]
             virtual scalar kappaTR
@@ -194,14 +194,14 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
             
             //- Vibrational thermal conductivity [W/m/K]
             virtual scalar kappaVib
             (
                 const label speciei,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Thermal diffusivity of enthalpy [kg/m/s]
             virtual scalar alphah
@@ -209,7 +209,7 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Density [kg/m3]
             virtual scalar rho
@@ -217,18 +217,18 @@ public:
                 const label speciei,
                 const scalar p,
                 const scalar TTR
-            ) const;
+            ) const override;
 
             //- Vibrational theta constant
             virtual scalar thetaVib
             (
                 const label speciei
-            );
+            ) const override;
 
             virtual bool isSpecieMolecular
             (
                 const label speciei
-            );
+            ) const override;
 
             virtual scalar TEVib
             (
@@ -237,7 +237,7 @@ public:
                 const scalar p,
                 const scalar TTR,
                 const scalar TVib0
-            ) const;
+            ) const override;
 
         // Field properties abstract functions
         // provided here to avoid issues with inheritance of virtual functions

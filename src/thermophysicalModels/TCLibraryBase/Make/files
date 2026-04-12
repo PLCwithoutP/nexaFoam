@@ -1,0 +1,4 @@
+tcLibraryInterface/tcLibraryInterface.C
+chemistryInterface/chemistryInterface.C
+
+LIB = $(FOAM_USER_LIBBIN)/libTCLibraryBase

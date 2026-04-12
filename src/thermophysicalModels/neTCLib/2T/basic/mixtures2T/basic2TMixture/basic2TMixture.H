@@ -37,6 +37,11 @@ SourceFiles
 #ifndef basic2TMixture_H
 #define basic2TMixture_H
 
+#include "compositionInterface.H"
+#include "PtrList.H"
+#include "volFields.H"
+#include "speciesTable.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -50,6 +55,8 @@ class dictionary;
 \*---------------------------------------------------------------------------*/
 
 class basic2TMixture
+:
+    public compositionInterface
 {
 
 public:
@@ -57,7 +64,200 @@ public:
     //- The base class of the mixture
     typedef basic2TMixture basic2TMixtureType;
 
+ PtrList<volScalarField>& Y() override
+    {
+        FatalErrorInFunction
+            << "Y() called on pure mixture — mixtureCheck must be false"
+            << exit(FatalError);
+        static PtrList<volScalarField> dummy;
+        return dummy;
+    }
 
+    const PtrList<volScalarField>& Y() const override
+    {
+        FatalErrorInFunction
+            << "Y() const called on pure mixture"
+            << exit(FatalError);
+        static PtrList<volScalarField> dummy;
+        return dummy;
+    }
+
+    const speciesTable& species() const override
+    {
+        FatalErrorInFunction
+            << "species() called on pure mixture"
+            << exit(FatalError);
+        static speciesTable dummy;
+        return dummy;
+    }
+
+    bool isSpecieMolecular(label) const override
+    {
+        FatalErrorInFunction
+            << "isSpecieMolecular() called on pure mixture"
+            << exit(FatalError);
+        return false;
+    }
+
+    scalar thetaVib(label) const override
+    {
+        FatalErrorInFunction
+            << "thetaVib() called on pure mixture"
+            << exit(FatalError);
+        return 0;
+    }
+
+    scalar EsVib(label, scalar, scalar, scalar, scalar) const override
+    {
+        FatalErrorInFunction
+            << "EsVib() called on pure mixture"
+            << exit(FatalError);
+        return 0;
+    }
+
+    scalar Hs(label, scalar, scalar) const override
+    {
+        FatalErrorInFunction
+            << "Hs() called on pure mixture"
+            << exit(FatalError);
+        return 0;
+    }
+
+    scalar TEVib(label, scalar, scalar, scalar, scalar) const override
+    {
+        FatalErrorInFunction
+            << "TEVib() called on pure mixture"
+            << exit(FatalError);
+        return 0;
+    }
+
+    scalar W(label) const override
+    { 
+        FatalErrorInFunction 
+            << "W() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar R(label) const override
+    { 
+        FatalErrorInFunction 
+            << "R() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar Hc(label) const override
+    { 
+        FatalErrorInFunction 
+            << "Hc() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar CpTR(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "CpTR() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar CvT(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "CvT() called on pure mixture" 
+            << exit(FatalError); 
+            return 0; 
+    }
+
+    scalar H(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "H() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar Ha(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "Ha() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar S(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "S() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar EsT(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "EsT() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar EsR(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "EsR() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar G(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "G() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar mu(label, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "mu() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar kappaTR(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "kappaTR() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar kappaVib(label, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "kappaVib() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar alphah(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "alphah() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
+
+    scalar rho(label, scalar, scalar) const override
+    { 
+        FatalErrorInFunction 
+            << "rho() called on pure mixture" 
+            << exit(FatalError); 
+        return 0; 
+    }
     // Constructors
 
         //- Construct from dictionary, mesh and phase name

@@ -254,7 +254,7 @@ template<class Mixture2TType>
 Foam::scalar Foam::Specie2TMixture<Mixture2TType>::thetaVib
 (
     const label speciei
-)
+) const
 {
     return this->getLocalThermo(speciei).ThetaVib();
 }
@@ -263,7 +263,7 @@ template<class Mixture2TType>
 bool Foam::Specie2TMixture<Mixture2TType>::isSpecieMolecular
 (
     const label speciei
-)
+) const
 {
     return this->getLocalThermo(speciei).isMolecular();
 }

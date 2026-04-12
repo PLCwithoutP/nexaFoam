@@ -595,6 +595,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvPatchFieldMacros.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/volFieldsI.H \
 ../basic/lnInclude/basic2TMixture.H \
+../../../TCLibraryBase/compositionInterface/compositionInterface.H \
 $(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/speciesTable.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordList.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \

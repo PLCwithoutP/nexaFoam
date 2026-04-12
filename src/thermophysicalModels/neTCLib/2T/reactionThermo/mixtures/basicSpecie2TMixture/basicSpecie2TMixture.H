@@ -229,12 +229,12 @@ public:
             virtual scalar thetaVib
             (
                 const label speciei
-            ) = 0;
+            ) const override = 0;
             
             virtual bool isSpecieMolecular
             (
                 const label speciei
-            ) = 0;
+            ) const override = 0;
 
             virtual scalar TEVib
             (
@@ -243,12 +243,25 @@ public:
                 const scalar p,
                 const scalar TTR,
                 const scalar TVib0
-            ) const = 0;
+            ) const override = 0;
             
             //- Species composition
             virtual autoPtr<speciesCompositionTable> specieComposition() const
             {
                 return autoPtr<speciesCompositionTable>::New();
+            }
+
+            const speciesTable& species() const override
+            {
+                return basicMultiComponent2TMixture::species();
+            }
+            PtrList<volScalarField>& Y() override
+            {
+                return basicMultiComponent2TMixture::Y();
+            }
+            const PtrList<volScalarField>& Y() const override
+            {
+                return basicMultiComponent2TMixture::Y();
             }
 };
 

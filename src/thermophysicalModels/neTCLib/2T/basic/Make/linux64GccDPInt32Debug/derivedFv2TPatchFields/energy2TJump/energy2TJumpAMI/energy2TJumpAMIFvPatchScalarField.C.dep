@@ -751,6 +751,11 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedJumpAMIFvPatchField.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fixedJumpAMIFvPatchFields.H \
 lnInclude/basic2TThermo.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/wordIOList.H \
+../../../TCLibraryBase/tcLibraryInterface/tcLibraryInterface.H \
+../../../TCLibraryBase/compositionInterface/compositionInterface.H \
+$(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/speciesTable.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordList.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \
 lnInclude/basic2TThermoTemplates.C \
 
 #END

@@ -38,7 +38,7 @@ Notes
 
 #include "fvCFD.H"
 #include "directionInterpolate.H"
-#include "ne2TReactionThermo.H"
+#include "tcLibraryInterface.H"
 #include "PtrList.H"
 
 namespace Foam
@@ -48,7 +48,7 @@ class kurganovFluxCalculator
 {
     // --- Required references (inputs)
     const fvMesh& mesh_;
-    ne2TReactionThermo& thermo2T_;
+    tcLibraryInterface& thermo2T_;
 
     const volScalarField& rho_;
     const volVectorField& rhoU_;
@@ -510,7 +510,7 @@ public:
     kurganovFluxCalculator
     (
         const fvMesh& mesh,
-        ne2TReactionThermo& thermo2T,
+        tcLibraryInterface& thermo2T,
         const volScalarField& rho,
         const volVectorField& rhoU,
         const volVectorField& U,
@@ -1126,7 +1126,7 @@ public:
     kurganovFluxCalculator
     (
         const fvMesh& mesh,
-        ne2TReactionThermo& thermo2T,
+        tcLibraryInterface& thermo2T,
         const volScalarField& rho,
         const volVectorField& rhoU,
         const volVectorField& U,
@@ -1745,7 +1745,7 @@ public:
     kurganovFluxCalculator
     (
         const fvMesh& mesh,
-        ne2TReactionThermo& thermo2T,
+        tcLibraryInterface& thermo2T,
         const volScalarField& rho,
         const volVectorField& rhoU,
         const volVectorField& U,

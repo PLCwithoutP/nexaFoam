@@ -32,6 +32,10 @@ printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 cd ./thermophysicalModels/neTCLib
 ./Allwmake
 printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
+cd ../TCLibraryBase
+dash_line " Thermochemical Library Interface "
+./Allwmake
+printf '%*s\n' "$(tput cols)" '' | tr ' ' '#'
 dash_line " Compilation is completed "
 echo " "
 echo " "

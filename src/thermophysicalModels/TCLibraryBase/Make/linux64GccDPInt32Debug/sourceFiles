@@ -1,0 +1,5 @@
+SOURCE = \
+tcLibraryInterface/tcLibraryInterface.C \
+chemistryInterface/chemistryInterface.C \
+
+# sources

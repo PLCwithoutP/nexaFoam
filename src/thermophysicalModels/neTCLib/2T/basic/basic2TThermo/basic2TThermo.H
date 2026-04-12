@@ -51,6 +51,7 @@ SourceFiles
 #include "IOdictionary.H"
 #include "autoPtr.H"
 #include "wordIOList.H"
+#include "tcLibraryInterface.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -63,7 +64,8 @@ namespace Foam
 
 class basic2TThermo
 :
-    public IOdictionary
+    public IOdictionary,
+    public tcLibraryInterface
 {
     // Private Data
 
@@ -435,7 +437,7 @@ public:
         }
 
         //- True if two-temperature physics is enabled
-        bool twoTemperature() const noexcept
+        virtual bool twoTemperature() const noexcept
         {
             return twoTemperature_;
         }
@@ -446,7 +448,7 @@ public:
             return twoTemperature_;
         }
 
-        bool chemistry() const noexcept
+        virtual bool chemistry() const noexcept
         {
             return chemistry_;
         }
@@ -456,17 +458,17 @@ public:
             return false;
         }
         
-        const word& chemistryReader() const noexcept
+        virtual const word& chemistryReader() const noexcept
         {
             return chemistryReader_;
         }
 
-        const fileName& speciesListFile() const noexcept
+        virtual const fileName& speciesListFile() const noexcept
         {
             return speciesListFile_;
         }
 
-        const fileName& reactionsListFile() const noexcept
+        virtual const fileName& reactionsListFile() const noexcept
         {
             return reactionsListFile_;
         }
