@@ -307,6 +307,11 @@ public:
         scalar  Tv,
         scalar  hTR_target
     );
+
+    // Forward initialisation: TTR_, TVib_ → h_, eVib_, transport fields.
+    // Called ONCE from constructor. correct() is for solver calls only.
+    void initForward_();
+    
     // ── Accessors for mppEulerImplicit and mppChemistryAdapter ──────────────
 
     const fvMesh&        mesh()    const { return mesh_;    }

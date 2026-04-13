@@ -227,7 +227,7 @@ mutationppWrapper::mutationppWrapper(const fvMesh& mesh)
     initSourceTerms_();
 
     // Run initial correct() to fill all fields from initial conditions
-    correct();
+    initForward_();
 
     Info<< "mutationppWrapper: initialised with "
         << adapter_.nSpecies() << " species, "
@@ -326,6 +326,58 @@ void mutationppWrapper::initSourceTerms_()
 // ─────────────────────────────────────────────────────────────────────────────
 //  correct  — main update loop
 // ─────────────────────────────────────────────────────────────────────────────
+void mutationppWrapper::initForward_()
+{
+    const int ns = adapter_.nSpecies();
+    std::vector<double> Yi(ns);
+
+    const scalarField& TtrCells  = TTR_.internalField();
+    const scalarField& TVibCells = TVib_.internalField();
+    const scalarField& pCells    = p_.internalField();
+
+    scalarField& hCells         = h_.primitiveFieldRef();
+    scalarField& eVibCells      = eVib_.primitiveFieldRef();
+    scalarField& psiCells       = psi_.primitiveFieldRef();
+    scalarField& rhoCells       = rho_.primitiveFieldRef();
+    scalarField& muCells        = mu_.primitiveFieldRef();
+    scalarField& kappaTRCells   = kappaTR_.primitiveFieldRef();
+    scalarField& kappaVibCells  = kappaVib_.primitiveFieldRef();
+    scalarField& gammaCells     = gamma_.primitiveFieldRef();
+    scalarField& fickCells      = fickCoeff_.primitiveFieldRef();
+
+    forAll(TtrCells, cellI)
+    {
+        for (int i = 0; i < ns; i++) Yi[i] = Y_[i][cellI];
+
+        double R_mix = 0.0;
+        for (int i = 0; i < ns; i++) R_mix += Yi[i] * adapter_.R(i);
+        const double rho0 = pCells[cellI]
+                          / max(R_mix * TtrCells[cellI], 1.0e-20);
+
+        // Forward: state is known → compute all properties
+        adapter_.setState(Yi.data(), rho0, TtrCells[cellI], TVibCells[cellI]);
+
+        hCells[cellI]        = adapter_.hTR();   // h FROM T (not inverted)
+        eVibCells[cellI]     = adapter_.eVib();
+        rhoCells[cellI]      = adapter_.rho();
+        psiCells[cellI]      = adapter_.psi();
+        muCells[cellI]       = adapter_.mu();
+        kappaTRCells[cellI]  = adapter_.kappaTR();
+        kappaVibCells[cellI] = adapter_.kappaVib();
+        gammaCells[cellI]    = adapter_.gamma();
+        fickCells[cellI]     = (ns > 1) ? averageDi_(cellI) : 0.0;
+    }
+
+    h_.correctBoundaryConditions();
+    eVib_.correctBoundaryConditions();
+    rho_.correctBoundaryConditions();
+    psi_.correctBoundaryConditions();
+    mu_.correctBoundaryConditions();
+    kappaTR_.correctBoundaryConditions();
+    kappaVib_.correctBoundaryConditions();
+    gamma_.correctBoundaryConditions();
+    fickCoeff_.correctBoundaryConditions();
+}
 
 void mutationppWrapper::correct()
 {
