@@ -1,7 +1,6 @@
 #!/bin/bash
 
-clear
-source $HOME/OF2412/OpenFOAM-v2412/etc/bashrc
+source ~/.bashrc
 
 dash_line() {
   msg="$*"
@@ -24,6 +23,33 @@ dash_line() {
   [ $(( ${#msg} + 2*pad )) -lt "$cols" ] && printf -- '-'
   printf '\n'
 }
+
+# ---------------------------------------------------------------
+# Mutation++ opt-in block — NEW
+# User sets in .bashrc before running:
+#   export WITH_MUTATION_PP=1
+#   export MPP_DIRECTORY=/path/to/Mutationpp
+# Without these, builds exactly as before.
+# ---------------------------------------------------------------
+if [ -n "$WITH_MUTATION_PP" ]; then
+    dash_line " Mutation++ support enabled "
+
+    # Validate — all three must be set in .bashrc before running Allwmake
+    for var in MPP_DIRECTORY MPP_INCLUDE MPP_LIB EIGEN_INCLUDE; do
+        if [ -z "${!var}" ]; then
+            echo "ERROR: $var is not set."
+            echo "       Add it to .bashrc and run: source ~/.bashrc"
+            exit 1
+        fi
+    done
+
+    echo "  MPP_INCLUDE    = $MPP_INCLUDE"
+    echo "  MPP_LIB        = $MPP_LIB"
+    echo "  EIGEN_INCLUDE  = $EIGEN_INCLUDE"
+else
+    dash_line " Building without Mutation++ (default) "
+fi
+# ---------------------------------------------------------------
 
 echo " "
 echo " "

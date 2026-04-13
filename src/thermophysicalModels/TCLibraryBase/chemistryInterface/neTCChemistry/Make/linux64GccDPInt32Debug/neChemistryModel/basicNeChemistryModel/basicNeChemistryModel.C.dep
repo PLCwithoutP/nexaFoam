@@ -593,6 +593,25 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/zeroGradientFvPatchField.C \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvPatchFieldMacros.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvPatchFields.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/volFieldsI.H \
+../../../neTCLib/2T/basic/lnInclude/basic2TThermo.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/wordIOList.H \
+../../tcLibraryInterface/tcLibraryInterface.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/surfaceFields.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/surfaceMesh.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFields.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchField.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchField.C \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldNew.C \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvsPatchField.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvsPatchField.C \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldMacros.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvsPatchFieldsFwd.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/calculatedFvsPatchFields.H \
+../../compositionInterface/compositionInterface.H \
+$(WM_PROJECT_DIR)/src/thermophysicalModels/specie/lnInclude/speciesTable.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordList.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/hashedWordListI.H \
+../../../neTCLib/2T/basic/lnInclude/basic2TThermoTemplates.C \
 neChemistryModel/basicNeChemistryModel/basicNeChemistryModelI.H \
 neChemistryModel/basicNeChemistryModel/basicNeChemistryModelTemplates.C \
 

@@ -6,7 +6,8 @@
     Reads 'library' keyword from constant/thermophysicalProperties:
       library  neTCLib;     -> constructs ne2TReactionThermo
       library  default;     -> constructs ne2TReactionThermo (alias)
-      library  mutationpp;  -> FatalError (not yet implemented)
+      library  mutationpp;  -> constructs mutationppWrapper
+                               (requires WITH_MUTATION_PP compile flag)
       (keyword absent)      -> constructs ne2TReactionThermo (safe default)
 \*---------------------------------------------------------------------------*/
 
@@ -14,6 +15,11 @@
 #include "ne2TReactionThermo.H"
 #include "IOdictionary.H"
 #include "Time.H"
+
+// Mutation++ wrapper — included only when compiled with support
+#ifdef WITH_MUTATION_PP
+#include "mutationppWrapper.H"
+#endif
 
 namespace Foam
 {
@@ -40,13 +46,25 @@ autoPtr<tcLibraryInterface> tcLibraryInterface::New(const fvMesh& mesh)
 
     if (libName == "mutationpp")
     {
+#ifdef WITH_MUTATION_PP
+        // Mutation++ path: mutationppWrapper satisfies both
+        // tcLibraryInterface and compositionInterface.
+        return autoPtr<tcLibraryInterface>
+        (
+            new mutationppWrapper(mesh)
+        );
+#else
         FatalErrorInFunction
-            << "library 'mutationpp' selected but Mutation++ backend "
-            << "is not yet implemented." << nl
-            << "Set 'library' to 'neTCLib' or 'default'."
+            << "library 'mutationpp' selected but nexaFoam was compiled "
+            << "without Mutation++ support." << nl
+            << "Recompile with:" << nl
+            << "    export WITH_MUTATION_PP=1" << nl
+            << "    ./Allwmake" << nl
+            << "Or set 'library' to 'neTCLib' or 'default'."
             << exit(FatalError);
 
         return autoPtr<tcLibraryInterface>(nullptr);  // unreachable
+#endif
     }
     else if
     (
@@ -54,9 +72,6 @@ autoPtr<tcLibraryInterface> tcLibraryInterface::New(const fvMesh& mesh)
      || libName == "default"
     )
     {
-        // ne2TReactionThermo inherits tcLibraryInterface.
-        // Releasing the raw pointer into autoPtr<tcLibraryInterface> is
-        // safe because the base destructor is virtual.
         autoPtr<ne2TReactionThermo> native =
             ne2TReactionThermo::New(mesh);
 

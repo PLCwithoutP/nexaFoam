@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/OF2412/OpenFOAM-v2412/etc/bashrc
+source ~/.bashrc
 
 dash_line() {
   msg="$*"

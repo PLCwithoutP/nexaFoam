@@ -38,11 +38,22 @@
 
 # 8 "<command-line>" 2
 # 1 "Make/options"
-EXE_INC = -I$(LIB_SRC)/finiteVolume/lnInclude -I$(LIB_SRC)/meshTools/lnInclude -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude -I$(LIB_SRC)/transportModels/compressible/lnInclude -I../neTCLib/2T/basic/lnInclude -I../neTCLib/2T/specie/lnInclude -I../neTCLib/2T/reactionThermo/lnInclude -IchemistryInterface -IchemistryInterface/neTCChemistry/lnInclude
-# 15 "Make/options"
 
-LIB_LIBS = -L$(FOAM_USER_LIBBIN) -lneTCLib_2T -lneTCspecie_2T -lneReactionThermophysicalModels -lfiniteVolume -lmeshTools -lfluidThermophysicalModels -lreactionThermophysicalModels -lspecie -lthermophysicalProperties -lneChemistryModel
-# 28 "Make/options"
- 
+ifdef WITH_MUTATION_PP
+ MPP_INC = -I$(MPP_INCLUDE)
+ EIGEN_INC = -I$(EIGEN_INCLUDE)
+ MPP_LINK = -L$(MPP_LIB) -lmutation++ -Wl,-rpath,$(MPP_LIB)
+ MPP_DEFINE = -DWITH_MUTATION_PP
+else
+ MPP_INC =
+ EIGEN_INC =
+ MPP_LINK =
+ MPP_DEFINE =
+endif
+
+EXE_INC = $(MPP_DEFINE) $(MPP_INC) $(EIGEN_INC) -I$(LIB_SRC)/finiteVolume/lnInclude -I$(LIB_SRC)/meshTools/lnInclude -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude -I$(LIB_SRC)/transportModels/compressible/lnInclude -I../neTCLib/2T/basic/lnInclude -I../neTCLib/2T/specie/lnInclude -I../neTCLib/2T/reactionThermo/lnInclude -IchemistryInterface -IchemistryInterface/neTCChemistry/lnInclude
+# 31 "Make/options"
+
+LIB_LIBS = $(MPP_LINK) -L$(FOAM_USER_LIBBIN) -lneTCLib_2T -lneTCspecie_2T -lmutationppInterface -lneTCChemistryModel -lneReactionThermophysicalModels -lfiniteVolume -lmeshTools -lfluidThermophysicalModels -lreactionThermophysicalModels -lspecie -lthermophysicalProperties -lneChemistryModel
 
 # options

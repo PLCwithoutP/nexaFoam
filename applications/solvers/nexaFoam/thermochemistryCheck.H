@@ -1,3 +1,28 @@
+/*---------------------------------------------------------------------------*\
+    thermochemistryCheck.H
+
+    Reads thermophysicalProperties to establish two solver-wide booleans:
+
+      mixtureCheck         — true if mixture is multi-component (per-species
+                             property access required in composition interface)
+      useVibVibRelaxation  — true if Knab VV relaxation source terms are active
+
+    Selection logic branches on the 'library' keyword:
+
+      library neTCLib (or default):
+        mixtureCheck       ← thermoType.mixture keyword
+                             ("multiComponent2TMixture" or "neReactingMixture"
+                              → true; "pure2TMixture" → false)
+        useVibVibRelaxation ← VVrelaxation keyword (default false)
+
+      library mutationpp:
+        mixtureCheck       ← explicit 'mixtureCheck' boolean in
+                             thermophysicalProperties (default true).
+                             Cannot be derived from nSpecies() here because
+                             the adapter has not been constructed yet.
+        useVibVibRelaxation ← always false (Knab VV not in Mutation++ API)
+\*---------------------------------------------------------------------------*/
+
 IOdictionary thermoDict_
 (
     IOobject
@@ -11,70 +36,112 @@ IOdictionary thermoDict_
     )
 );
 
-// --- Mixture-type check (multiComponent2TMixture vs pureMixture)
-bool mixtureCheck = false;
+// ── Read library keyword ──────────────────────────────────────────────────────
 
-if (thermoDict_.found("thermoType"))
+const word libName_ =
+    thermoDict_.lookupOrDefault<word>("library", "neTCLib");
+
+bool mixtureCheck        = false;
+bool useVibVibRelaxation = false;
+
+
+// ── Branch on backend ─────────────────────────────────────────────────────────
+
+if (libName_ == "mutationpp")
 {
-    const dictionary& thermoTypeDict = thermoDict_.subDict("thermoType");
+    // ── Mutation++ path ───────────────────────────────────────────────────────
+    //
+    // thermoType is not present (or irrelevant) on this path.
+    // mixtureCheck is provided explicitly by the user because the adapter
+    // is not yet constructed and nSpecies() is unavailable.
+    //
+    // Rule of thumb for the user:
+    //   mixtureCheck true  → mixture has more than one species
+    //   mixtureCheck false → single-species (pure) mixture
 
-    if (thermoTypeDict.found("mixture"))
+    mixtureCheck = thermoDict_.lookupOrDefault<bool>("mixtureCheck", true);
+
+    // VV relaxation (Knab model) is not in Mutation++'s public API.
+    // Always false until OmegaVV is confirmed.
+    useVibVibRelaxation = false;
+
+    Info<< "Mutation++ backend detected." << nl
+        << "  mixtureCheck       = "
+        << (mixtureCheck ? "true" : "false") << nl
+        << "  useVibVibRelaxation = false (VV not in Mutation++ API)" << nl
+        << endl;
+}
+else
+{
+    // ── neTCLib path (default) ────────────────────────────────────────────────
+    //
+    // mixtureCheck is derived from thermoType.mixture keyword.
+    // useVibVibRelaxation is read from VVrelaxation keyword.
+
+    if (thermoDict_.found("thermoType"))
     {
-        const word mixtureType(thermoTypeDict.lookup("mixture"));
+        const dictionary& thermoTypeDict = thermoDict_.subDict("thermoType");
 
-        if (mixtureType == "multiComponent2TMixture")
+        if (thermoTypeDict.found("mixture"))
         {
-            mixtureCheck = true;
-            Info << "Multiple species are found in mixture." << nl
-                 << endl;
-        }
-        else if (mixtureType == "neReactingMixture")
-        {
-            mixtureCheck = true;
-            Info << "Reacting multi-specie mixture is detected." << nl
-                 << endl;
-        }
-        else if (mixtureType == "pure2TMixture")
-        {
-            mixtureCheck = false;
-            Info << "Pure mixture is detected." << nl
-                 << endl;
+            const word mixtureType(thermoTypeDict.lookup("mixture"));
+
+            if (mixtureType == "multiComponent2TMixture")
+            {
+                mixtureCheck = true;
+                Info<< "Multiple species are found in mixture." << nl
+                    << endl;
+            }
+            else if (mixtureType == "neReactingMixture")
+            {
+                mixtureCheck = true;
+                Info<< "Reacting multi-specie mixture is detected." << nl
+                    << endl;
+            }
+            else if (mixtureType == "pure2TMixture")
+            {
+                mixtureCheck = false;
+                Info<< "Pure mixture is detected." << nl
+                    << endl;
+            }
+            else
+            {
+                WarningInFunction
+                    << "Unknown thermoType.mixture = " << mixtureType
+                    << ". Expected 'multiComponent2TMixture', "
+                    << "'neReactingMixture' or 'pure2TMixture'. "
+                    << "Defaulting mixtureCheck=false." << nl << endl;
+
+                mixtureCheck = false;
+            }
         }
         else
         {
             WarningInFunction
-                << "Unknown thermoType.mixture = " << mixtureType
-                << ". Expected 'multiComponent2TMixture', 'neReactingMixture' or 'pure2TMixture'. "
+                << "thermoType dictionary found, but 'mixture' entry missing. "
                 << "Defaulting mixtureCheck=false." << nl << endl;
-
-            mixtureCheck = false;
         }
     }
     else
     {
         WarningInFunction
-            << "thermoType dictionary found, but 'mixture' entry missing. "
+            << "'thermoType' dictionary missing in thermophysicalProperties. "
             << "Defaulting mixtureCheck=false." << nl << endl;
     }
-}
-else
-{
-    WarningInFunction
-        << "'thermoType' dictionary missing in thermophysicalProperties. "
-        << "Defaulting mixtureCheck=false." << nl << endl;
+
+    // VV relaxation flag
+    if (thermoDict_.found("VVrelaxation"))
+    {
+        useVibVibRelaxation = thermoDict_.get<bool>("VVrelaxation");
+        Info<< "VVrelaxation = "
+            << (useVibVibRelaxation ? "true" : "false") << nl << endl;
+    }
+    else
+    {
+        WarningInFunction
+            << "'VVrelaxation' not found in thermophysicalProperties. "
+            << "Defaulting to false." << nl << endl;
+    }
 }
 
-bool useVibVibRelaxation = false;
-
-if (thermoDict_.found("VVrelaxation"))
-{
-    useVibVibRelaxation = thermoDict_.get<bool>("VVrelaxation");
-    Info << "VVrelaxation = "
-         << (useVibVibRelaxation ? "true" : "false") << nl << endl;
-}
-else
-{
-    WarningInFunction
-        << "'VVrelaxation' not found in thermophysicalProperties. "
-        << "Defaulting to false." << nl << endl;
-}
+// ── End of thermochemistryCheck.H ────────────────────────────────────────────

@@ -91,6 +91,11 @@
         "TThermalDiffusivity.C": "cpp",
         "turbulentFluidTThermoModels.C": "cpp",
         "fluid2TThermo.C": "cpp",
-        "CVEnergySource.C": "cpp"
+        "CVEnergySource.C": "cpp",
+        "tcLibraryInterface.C": "cpp",
+        "chemistryInterface.C": "cpp",
+        "mutationppAdapter.C": "cpp",
+        "mutationppWrapper.C": "cpp",
+        "mppEulerImplicit.C": "cpp"
     }
 }

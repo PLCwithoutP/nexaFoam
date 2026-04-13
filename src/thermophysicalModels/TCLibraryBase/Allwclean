@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HOME/OF2412/OpenFOAM-v2412/etc/bashrc
+source ~/.bashrc
 
 dash_line() {
   msg="$*"
@@ -18,6 +18,11 @@ dash_line() {
 
 dash_line " Cleaning TCLibraryBase/ "
 wclean
+
+dash_line " Cleaning mutationppInterface/ "
+cd mutationppInterface
+wclean
+cd ..
 
 dash_line " Cleaning chemistryInterface/neTCChemistry/ "
 cd ./chemistryInterface/neTCChemistry

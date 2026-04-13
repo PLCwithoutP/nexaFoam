@@ -1,4 +1,14 @@
+
+ifdef WITH_MUTATION_PP
+    MPP_LINK   = -L$(MPP_LIB) -lmutation++ -Wl,-rpath,$(MPP_LIB)
+    MPP_DEFINE = -DWITH_MUTATION_PP
+else
+    MPP_LINK   =
+    MPP_DEFINE =
+endif
+
 EXE_INC = \
+    $(MPP_DEFINE) \
     -IBCs/lnInclude \
     -I../../../src/TurbulenceModels/turbulenceModels/lnInclude \
     -I../../../src/TurbulenceModels/compressible/lnInclude \
@@ -16,6 +26,8 @@ EXE_INC = \
     -I$(LIB_SRC)/dynamicFvMesh/lnInclude
 
 EXE_LIBS = \
+    $(MPP_LINK) \
+    -lmutationppInterface \
     -L$(FOAM_USER_LIBBIN) \
     -lneTCLib_2T \
     -lneTCspecie_2T \
