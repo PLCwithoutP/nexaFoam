@@ -49,25 +49,26 @@ bool useVibVibRelaxation = false;
 
 if (libName_ == "mutationpp")
 {
-    // ── Mutation++ path ───────────────────────────────────────────────────────
-    //
-    // thermoType is not present (or irrelevant) on this path.
-    // mixtureCheck is provided explicitly by the user because the adapter
-    // is not yet constructed and nSpecies() is unavailable.
-    //
-    // Rule of thumb for the user:
-    //   mixtureCheck true  → mixture has more than one species
-    //   mixtureCheck false → single-species (pure) mixture
+    // On the Mutation++ path, mixtureCheck controls which vibrational
+    // energy equation branch is taken (vibEnergyEquation.H).
+    // The !mixtureCheck branch uses QVzero — no VT source ever.
+    // The mixtureCheck branch applies QVT per species.
+    // Therefore: twoTemperature → mixtureCheck must always be true.
+    // Single-species thermal nonequilibrium still uses the per-species
+    // path (Y.N2 = 1 everywhere, one equation, VT source applied).
 
-    mixtureCheck = thermoDict_.lookupOrDefault<bool>("mixtureCheck", true);
+    const bool use2T =
+        thermoDict_.lookupOrDefault<bool>("twoTemperature", false);
 
-    // VV relaxation (Knab model) is not in Mutation++'s public API.
-    // Always false until OmegaVV is confirmed.
+    mixtureCheck = use2T ? true
+                         : thermoDict_.lookupOrDefault<bool>("mixtureCheck", false);
+
     useVibVibRelaxation = false;
 
     Info<< "Mutation++ backend detected." << nl
-        << "  mixtureCheck       = "
-        << (mixtureCheck ? "true" : "false") << nl
+        << "  mixtureCheck        = "
+        << (mixtureCheck ? "true" : "false")
+        << (use2T ? " (forced true: twoTemperature active)" : "") << nl
         << "  useVibVibRelaxation = false (VV not in Mutation++ API)" << nl
         << endl;
 }

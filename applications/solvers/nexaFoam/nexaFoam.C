@@ -213,7 +213,8 @@ int main(int argc, char *argv[])
         #include "Equations/vibEnergyEquation.H"
 
         #include "Updates/updateTTRTemperature.H"
-
+        #include "Updates/updateVibTemperature.H"
+        
         Info << "After TTR update: " << nl;
         Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
         // Fetch N2 and O2 average vibrational temperatures if multispecies 2T is active
@@ -223,7 +224,15 @@ int main(int argc, char *argv[])
             {
                 const word& sName = Y_species[speciei].name();
                 
-                if ((sName == "Y_N2" || sName == "Y_O2" || sName == "Y_NO") && vibSpecieActive[speciei])
+                if (
+                    (
+                        sName == "Y_N2" || 
+                        sName == "Y.N2" || 
+                        sName == "Y_O2" ||
+                        sName == "Y.O2" || 
+                        sName == "Y_NO" ||
+                        sName == "Y.NO" 
+                    ) && vibSpecieActive[speciei])
                 {
                     Info << "Average " << sName << " vibrational temperature is: "
                          << TVibSpecies[speciei].average().value() << nl;
@@ -245,7 +254,7 @@ int main(int argc, char *argv[])
                 << maxErr << nl << endl;
         }
 
-        #include "Updates/updateVibTemperature.H"
+        
 
         #include "Equations/applyChemistry.H"
 

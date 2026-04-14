@@ -599,7 +599,7 @@ double mutationppAdapter::TEVib
         const double denom = expX - 1.0;
 
         const double f  = coef * thetaV / denom - esVib_target;
-        const double df = -coef * thetaV * x * expX
+        const double df = coef * thetaV * x * expX
                           / (Tv * denom * denom);
 
         const double dTv = -f / df;
@@ -628,8 +628,8 @@ void mutationppAdapter::ensureOmega_() const
 double mutationppAdapter::vibEnergySource() const
 {
     ensureOmega_();
-    // omega_[1] = vibrational mode source = OmegaVT + OmegaCV [J/m3-s]
-    return (nT_ > 1) ? omega_[1] : 0.0;
+    // omega_[0] = vibrational mode source = OmegaVT + OmegaCV [J/m3-s]
+    return (nT_ > 1) ? omega_[0] : 0.0;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

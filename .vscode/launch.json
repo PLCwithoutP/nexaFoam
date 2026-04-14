@@ -8,7 +8,7 @@
             "program": "/home/t12022124597/OpenFOAM/t12022124597-v2412/platforms/linux64GccDPInt32Debug/bin/nexaFoam",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/sodShockTube_twoComp",
+            "cwd": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/mutation++/heatBath_case1",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

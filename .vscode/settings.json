@@ -1,6 +1,21 @@
 {
     "files.associations": {
         "mppEulerImplicit.C": "cpp",
-        "mutationppWrapper.C": "cpp"
+        "mutationppWrapper.C": "cpp",
+        "mutationppAdapter.C": "cpp",
+        "nexaFoam.C": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "format": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp",
+        "regex": "cpp",
+        "thermo2T.C": "cpp"
     }
 }

@@ -600,6 +600,27 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
     forAll(species_, i)
         QVibSource_[i].correctBoundaryConditions();
 
+    // TEMPORARY DIAGNOSTIC — remove after confirming
+    {
+        std::vector<double> Yi_debug(adapter_.nSpecies());
+        for (int i = 0; i < adapter_.nSpecies(); i++)
+            Yi_debug[i] = Y_[i][0];   // cell 0
+
+        adapter_.setState
+        (
+            Yi_debug.data(),
+            rho_[0],
+            TTR_.internalField()[0],
+            TVib_.internalField()[0]
+        );
+
+        const double Qvt = adapter_.vibEnergySource();
+
+        Info<< "DEBUG vibEnergySource at cell 0: "
+            << "T_tr=" << TTR_.internalField()[0]
+            << " T_v=" << TVib_.internalField()[0]
+            << " Q_VT=" << Qvt << " J/m3-s" << nl;
+    }
     return QVibSource_;
 }
 

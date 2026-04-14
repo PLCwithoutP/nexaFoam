@@ -1,3 +1,7 @@
+thermo2T.eVib().primitiveFieldRef() =
+    rhoEv.primitiveField() / rho.primitiveField();
+thermo2T.eVib().correctBoundaryConditions();
+
 // First pass using current p
 hTR =
     (rhoE + p)/rho
