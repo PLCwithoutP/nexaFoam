@@ -274,6 +274,22 @@ public:
     //  Call after setState(). Returns 0 for 1T mixtures.
     double vibEnergySource() const;
 
+    //- Electron pressure [Pa]
+    //  p_e = n_e * k_B * T_ve = rho_e * R_e * T_ve
+    //  Needed for p_e * div(U) work term in vibEnergyEquation.H
+    double electronPressure() const;
+
+    bool hasElectrons() const;
+
+    //- Per-species vibrational-electronic energy [J/kg] at current state.
+    //  Molecules: e_vib(i, T_ve) + e_el(i, T_ve)
+    //  Atoms:     e_el(i, T_ve) only  (thetaVib_[i] = 0)
+    double eVibSpecies(int i) const;
+
+    //- Per-species Ve energy [J/kg] at a specified T_ve (does not modify adapter state).
+    //  Used to diagnostically compute atomic electronic energy from known T_ve.
+    double eVibAtTve(int i, double T_ve) const;
+    
     // -------------------------------------------------------------------------
     // Chemistry
     // -------------------------------------------------------------------------

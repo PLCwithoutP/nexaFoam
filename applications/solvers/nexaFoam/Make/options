@@ -15,6 +15,11 @@ EXE_INC = \
     -I../../../src/thermophysicalModels/neTCLib/2T/basic/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/2T/specie/lnInclude \
     -I../../../src/thermophysicalModels/neTCLib/2T/reactionThermo/lnInclude \
+    -Wno-ignored-qualifiers                             \
+    -Wno-sign-compare                                   \
+    -Wno-unused-variable                                \
+    -Wno-unused-but-set-variable                        \
+    -Wno-reorder                                        \
     -I../../../src/thermophysicalModels/TCLibraryBase/lnInclude \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \

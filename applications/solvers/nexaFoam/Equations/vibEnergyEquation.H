@@ -12,7 +12,6 @@ qVibPhi =
         0.0
     );
 
-
 if (!inviscid && use2T)
 {
     volScalarField kappaVibField("kappaVibField", thermo2T.kappaVib());
@@ -44,6 +43,23 @@ if (use2T)
         dimensionedScalar("zero", dimEnergy/dimVolume/dimTime, 0.0)
     );
 
+    // Electron pressure work term: -p_e * div(U)
+    // Non-zero only when free electrons are present (ionized mixtures).
+    // For neutral mixtures pe() returns zero → no effect.
+    volScalarField pe_divU
+    (
+        IOobject
+        (
+            "pe_divU", 
+            runTime.timeName(), 
+            mesh,
+            IOobject::NO_READ, 
+            IOobject::NO_WRITE, 
+            IOobject::NO_REGISTER
+        ),
+        thermo2T.pe()() * fvc::div(U)
+    );
+
     // ================================================================
     // A) Pure-mixture 2T case
     // ================================================================
@@ -51,7 +67,9 @@ if (use2T)
     {
         // No species-based VT/VV/CV source evaluation here
         // unless you later implement a dedicated pure-mixture source model.
-
+        // pe_divU is only applied in the mixtureCheck branch below.
+        // For !mixtureCheck: neTCLib has pe()=0 (no electrons) → term vanishes.
+        // Mutation++ always uses mixtureCheck=true → this branch never reached on Mpp path.
         solve
         (
             fvm::ddt(rhoEv)
@@ -192,5 +210,9 @@ if (use2T)
         eV.correctBoundaryConditions();
         rhoEv = rho*eV;
         rhoEv.correctBoundaryConditions();
+        rhoEv -= runTime.deltaT() * pe_divU;
+        rhoEv.correctBoundaryConditions();
+        eV = rhoEv / rho;
+        eV.correctBoundaryConditions();
     }
 }

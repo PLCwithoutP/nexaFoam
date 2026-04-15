@@ -128,6 +128,20 @@ mutationppWrapper::mutationppWrapper(const fvMesh& mesh)
         dimensionedScalar("eVib", dimEnergy/dimMass, 0.0)
     ),
 
+    pe_
+    (
+        IOobject
+        (
+            "pe",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("pe", dimPressure, 0.0)
+    ),
+    
     // ── Transport fields ──────────────────────────────────────────────────
     // All constructed NO_READ — filled by correct()
 
@@ -432,6 +446,7 @@ void mutationppWrapper::correct()
         psiCells[cellI]      = adapter_.psi();
         // h_ is the target — do not overwrite it
         eVibCells[cellI]     = adapter_.eVib();
+        pe_[cellI]           = adapter_.electronPressure();
         muCells[cellI]       = adapter_.mu();
         kappaTRCells[cellI]  = adapter_.kappaTR();
         kappaVibCells[cellI] = adapter_.kappaVib();
@@ -462,18 +477,22 @@ void mutationppWrapper::correct()
 
 void mutationppWrapper::correctVibEnergy()
 {
-    // Recompute eVib_ from current TVib_ using harmonic oscillator formula.
-    // This is called after TVib_ has been updated by the solver.
+    // On Mutation++ path: eVib_ stores e_ve = e_vib + e_elec
+    // Recompute from current TVib_ after it has been updated.
+    // This is only called from initForward_() and applyChemistry.H.
+    // During the time loop, eVib_ is updated from rhoEv/rho directly.
 
     const int ns = adapter_.nSpecies();
+    std::vector<double> Yi(ns);
 
     forAll(TVib_.internalField(), cellI)
     {
-        double ev = 0.0;
-        for (int i = 0; i < ns; i++)
-            ev += Y_[i][cellI] * esVibHO_(i, TVib_[cellI]);
+        for (int i = 0; i < ns; i++) Yi[i] = Y_[i][cellI];
 
-        eVib_[cellI] = ev;
+        const double rho0 = rho_[cellI];
+        adapter_.setState(Yi.data(), rho0, TTR_[cellI], TVib_[cellI]);
+
+        eVib_[cellI] = adapter_.eVib();   // now returns e_ve
     }
 
     eVib_.correctBoundaryConditions();
@@ -486,46 +505,22 @@ void mutationppWrapper::correctVibEnergy()
 
 void mutationppWrapper::correctTVib()
 {
-    // Invert eVib_ per species to recover TVib_.
-    // For a mixture with multiple molecular species, TVib_ is a single
-    // mixture-level field.  We use N2 as the reference species (index 0
-    // among molecular species) following the neTCLib convention.
-    // TEVib uses Newton iteration on the harmonic oscillator.
-
     const int ns = adapter_.nSpecies();
 
     forAll(eVib_.internalField(), cellI)
     {
-        // Find first molecular species to use as reference
         int iMol = -1;
         for (int i = 0; i < ns; i++)
         {
-            if (adapter_.isSpecieMolecular(i))
-            {
-                iMol = i;
-                break;
-            }
+            if (adapter_.isSpecieMolecular(i)) { iMol = i; break; }
         }
 
-        if (iMol < 0)
-        {
-            // No molecular species — Tv = Ttr
-            TVib_[cellI] = TTR_[cellI];
-            continue;
-        }
+        if (iMol < 0) { TVib_[cellI] = TTR_[cellI]; continue; }
 
-        // Compute species-specific eVib for reference species
         const double Yi_mol = Y_[iMol][cellI];
-        double esVib_i = (Yi_mol > SMALL)
-                       ? eVib_[cellI] / Yi_mol
-                       : 0.0;
+        double esVe_i = (Yi_mol > SMALL) ? eVib_[cellI] / Yi_mol : 0.0;
 
-        TVib_[cellI] = adapter_.TEVib
-        (
-            iMol,
-            esVib_i,
-            TVib_[cellI]   // previous value as initial guess
-        );
+        TVib_[cellI] = adapter_.TEVib(iMol, esVe_i, TVib_[cellI]);
     }
 
     TVib_.correctBoundaryConditions();
@@ -533,7 +528,7 @@ void mutationppWrapper::correctTVib()
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  correctVibSource  — TBD_ENERGY_EXCHANGE
+//  correctVibSource 
 // ─────────────────────────────────────────────────────────────────────────────
 
 PtrList<volScalarField>& mutationppWrapper::correctVibSource
@@ -541,15 +536,14 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
     const PtrList<volScalarField>& TVibSpecies
 )
 {
-    // OmegaVT + OmegaCV are summed in vibEnergySource().
-    // TVibSpecies argument is ignored — Mutation++ uses the state
-    // already set by correct() which carries the current Tv per cell.
-    //
-    // Distribute the mixture-level source across molecular species
-    // weighted by their partial mass density fraction.
-    // Atomic species receive zero (no vibrational mode).
+    // OmegaVT is a purely molecular vibrational source.
+    // Distribute over molecular species only, weighted by mass fraction.
+    // Atomic species receive zero — their electronic energy is handled
+    // diagnostically in updateVibTemperature.H as a passive function of T_ve.
 
     const int ns = adapter_.nSpecies();
+    std::vector<double> Yi(ns);
+
     const scalarField& TtrCells  = TTR_.internalField();
     const scalarField& TVibCells = TVib_.internalField();
 
@@ -564,34 +558,19 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
 
     if (molIdx.empty()) return QVibSource_;
 
-    std::vector<double> Yi(ns);
-
     forAll(TtrCells, cellI)
     {
-        // Extract current mass fractions
-        for (int i = 0; i < ns; i++)
-            Yi[i] = Y_[i][cellI];
+        for (int i = 0; i < ns; i++) Yi[i] = Y_[i][cellI];
 
-        // setState so adapter returns correct omega for this cell
-        adapter_.setState
-        (
-            Yi.data(),
-            rho_[cellI],
-            TtrCells[cellI],
-            TVibCells[cellI]
-        );
+        adapter_.setState(Yi.data(), rho_[cellI], TtrCells[cellI], TVibCells[cellI]);
 
         const double Q_vib = adapter_.vibEnergySource();  // [J/m3-s]
 
-        // Weight by molecular species mass fractions
+        // Weight by molecular mass fractions only
         double rhoMol = 0.0;
         for (int i : molIdx) rhoMol += Yi[i];
 
-        if (rhoMol < SMALL)
-        {
-            // No molecular species present — no VT exchange
-            continue;
-        }
+        if (rhoMol < SMALL) continue;
 
         for (int i : molIdx)
             QVibSource_[i][cellI] = Q_vib * Yi[i] / rhoMol;
@@ -600,11 +579,11 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
     forAll(species_, i)
         QVibSource_[i].correctBoundaryConditions();
 
-    // TEMPORARY DIAGNOSTIC — remove after confirming
+    // TEMPORARY DIAGNOSTIC — remove after confirming Q_VT is non-zero
     {
-        std::vector<double> Yi_debug(adapter_.nSpecies());
-        for (int i = 0; i < adapter_.nSpecies(); i++)
-            Yi_debug[i] = Y_[i][0];   // cell 0
+        std::vector<double> Yi_debug(ns);
+        for (int i = 0; i < ns; i++)
+            Yi_debug[i] = Y_[i][0];
 
         adapter_.setState
         (
@@ -614,16 +593,14 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
             TVib_.internalField()[0]
         );
 
-        const double Qvt = adapter_.vibEnergySource();
-
         Info<< "DEBUG vibEnergySource at cell 0: "
             << "T_tr=" << TTR_.internalField()[0]
             << " T_v=" << TVib_.internalField()[0]
-            << " Q_VT=" << Qvt << " J/m3-s" << nl;
+            << " Q_VT=" << adapter_.vibEnergySource() << " J/m3-s" << nl;
     }
+
     return QVibSource_;
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  correctVibVibSource  — TBD_ENERGY_EXCHANGE
@@ -796,14 +773,16 @@ scalar mutationppWrapper::EsR(label i, scalar /*p*/, scalar TTR) const
 
 scalar mutationppWrapper::EsVib
 (
-    label  i,
-    scalar /*p*/,
-    scalar /*TTR*/,
-    scalar TVib,
-    scalar thetaVib
+    label i, 
+    scalar /*p*/, 
+    scalar /*TTR*/, 
+    scalar TVib, 
+    scalar /*thetaVib*/
 ) const
 {
-    return esVibHO_(i, TVib);
+    // Use TVib argument explicitly so createFields.H and updateVibTemperature.H
+    // get the correct energy at the specified second temperature.
+    return adapter_.eVibAtTve(i, TVib);
 }
 
 scalar mutationppWrapper::G(label i, scalar /*p*/, scalar /*TTR*/) const

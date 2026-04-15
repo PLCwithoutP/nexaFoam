@@ -363,6 +363,13 @@ int mutationppAdapter::speciesIndex(const std::string& name) const
 //  tcLibraryInterface mapping — mixture-level
 // ─────────────────────────────────────────────────────────────────────────────
 
+bool mutationppAdapter::hasElectrons() const
+{
+    for (int i = 0; i < ns_; i++)
+        if (mix_->speciesName(i) == "e-") return true;
+    return false;
+}
+
 double mutationppAdapter::P() const
 {
     return mix_->P();
@@ -386,21 +393,30 @@ double mutationppAdapter::psi() const
 
 double mutationppAdapter::eVib() const
 {
-    // Vibrational energy of the mixture [J/kg]
-    // = SUM_i Y_i * esVib_i(Tv)
-    // Atoms contribute 0 since thetaVib_[i] = 0.
-    const double Tv_ = (nT_ > 1) ? T_[1] : T_[0];
-    const double* Y  = mix_->Y();
-    double ev = 0.0;
+    // On Mutation++ path: eVib is actually eVe = e_vib + e_elec
+    // In 2T model, T_vib = T_elec = T_ve (shared second temperature)
+    // Both modes governed by T_[1]
+    ensureH_();
+    const double* Y = mix_->Y();
+    double eVe = 0.0;
     for (int i = 0; i < ns_; i++)
-        ev += Y[i] * esVibHO_(i, Tv_);
-    return ev;
+    {
+        // hv_[i] = H_vib,i / (R_u * T_tr) → e_vib,i [J/kg]
+        // hel_[i] = H_el,i / (R_u * T_tr) → e_el,i [J/kg]
+        const double eVib_i =
+            hv_[i]  * R_UNIV_ * T_[0] / mix_->speciesMw(i);
+        const double eEl_i =
+            hel_[i] * R_UNIV_ * T_[0] / mix_->speciesMw(i);
+        eVe += Y[i] * (eVib_i + eEl_i);
+    }
+    return eVe;
 }
 
 double mutationppAdapter::hTR() const
 {
-    // TR enthalpy = total mixture enthalpy - vibrational energy
-    // mix_->mixtureHMass() includes eVib in 2T formulation
+    // mixtureHMass() = h_tr + h_rot + h_vib + h_elec
+    // eVib()         = e_vib + e_elec  (new definition)
+    // hTR            = h_tr + h_rot    (correct for nexaFoam)
     return mix_->mixtureHMass() - eVib();
 }
 
@@ -567,42 +583,61 @@ double mutationppAdapter::rho_i(int i) const
 double mutationppAdapter::TEVib
 (
     int    i,
-    double esVib_target,
+    double esVib_target, // target = e_vib + e_elec for species i
     double Tv0
 ) const
 {
-    // Newton inversion of harmonic oscillator:
-    //
-    //   f(Tv) = (R_u/Mw_i) * thetaV / (exp(thetaV/Tv) - 1) - esVib_target
-    //
-    //   f'(Tv) = (R_u/Mw_i) * thetaV^2 * exp(thetaV/Tv)
-    //            / (Tv^2 * (exp(thetaV/Tv) - 1)^2)
+    // For atoms: only electronic contributes to Ve mode.
+    // If target is negligible (T_ve ≈ 0), keep current estimate.
+    if (thetaVib_[i] <= 0.0 && esVib_target < 1.0)
+        return Tv0;
+    // Otherwise fall through to Newton — hv_trial[i]=0, hel_trial[i]≠0
+    // → converges to T_ve where H_el(i, T_ve) = esVib_target * Mw
+    if (esVib_target <= 0.0)  return TEV_MIN_;
 
-    const double thetaV = thetaVib_[i];
+    const double Mw = mix_->speciesMw(i);
 
-    // Atom: no vibrational mode — return translational temperature
-    if (thetaV <= 0.0) return T_[0];
-
-    // Non-positive target energy: return lower bound
-    if (esVib_target <= 0.0) return TEV_MIN_;
-
-    const double Mw   = mix_->speciesMw(i);
-    const double coef = R_UNIV_ / Mw;
-
-    // Clamp initial guess to physical bounds
     double Tv = std::max(TEV_MIN_, std::min(Tv0, TEV_MAX_));
 
     for (int iter = 0; iter < TEV_ITER; iter++)
     {
-        const double x     = thetaV / Tv;
-        const double expX  = std::exp(x);
-        const double denom = expX - 1.0;
+        // Temporarily set Ve temperature to trial Tv to evaluate e_ve and Cv_ve
+        // Save current T_tr
+        double Ttr_save = T_[0];
 
-        const double f  = coef * thetaV / denom - esVib_target;
-        const double df = coef * thetaV * x * expX
-                          / (Tv * denom * denom);
+        // Use 5-temperature speciesCvOverR(Th, Te, Tr, Tv, Tel, ...)
+        // with Tve = Tv for both vibrational and electronic modes
+        std::vector<double> cv_dummy(ns_), cvt_d(ns_), cvr_d(ns_),
+                            cvv_trial(ns_), cvel_trial(ns_);
 
-        const double dTv = -f / df;
+        mix_->speciesCvOverR
+        (
+            Ttr_save, Ttr_save, Ttr_save, Tv, Tv,
+            cv_dummy.data(), cvt_d.data(), cvr_d.data(),
+            cvv_trial.data(), cvel_trial.data()
+        );
+
+        // e_ve_i(Tv) from speciesHOverRT at Tv for vib+elec modes
+        std::vector<double> h_d(ns_), ht_d(ns_), hr_d(ns_),
+                            hv_trial(ns_), hel_trial(ns_), hf_d(ns_);
+
+        mix_->speciesHOverRT
+        (
+            Ttr_save, Ttr_save, Ttr_save, Tv, Tv,
+            h_d.data(), ht_d.data(), hr_d.data(),
+            hv_trial.data(), hel_trial.data(), hf_d.data()
+        );
+
+        const double eVe_current =
+            hv_trial[i]  * R_UNIV_ * Ttr_save / Mw
+          + hel_trial[i] * R_UNIV_ * Ttr_save / Mw;
+
+        const double Cv_ve =
+            (cvv_trial[i] + cvel_trial[i]) * R_UNIV_ / Mw;
+
+        if (Cv_ve < 1.0e-30) break;
+
+        const double dTv = (esVib_target - eVe_current) / Cv_ve;
         Tv += dTv;
         Tv  = std::max(TEV_MIN_, std::min(Tv, TEV_MAX_));
 
@@ -610,6 +645,46 @@ double mutationppAdapter::TEVib
     }
 
     return Tv;
+}
+
+double mutationppAdapter::electronPressure() const
+{
+    if (nT_ < 2) return 0.0;
+
+    // Find electron species index
+    for (int i = 0; i < ns_; i++)
+    {
+        if (mix_->speciesName(i) == "e-")
+        {
+            // p_e = rho_e * R_e * T_ve
+            // R_e = R_UNIV / M_e
+            const double rho_e = mix_->density() * mix_->Y()[i];
+            return rho_e * (R_UNIV_ / mix_->speciesMw(i)) * T_[1];
+        }
+    }
+    return 0.0;   // no electrons in mixture
+}
+
+double mutationppAdapter::eVibSpecies(int i) const
+{
+    ensureH_();
+    // hv_[i] = H_vib_i(T_ve) / (R_u * T_tr)  → zero for atoms
+    // hel_[i] = H_el_i(T_ve)  / (R_u * T_tr)  → non-zero for N, O etc.
+    return (hv_[i] + hel_[i]) * R_UNIV_ * T_[0] / mix_->speciesMw(i);
+}
+
+double mutationppAdapter::eVibAtTve(int i, double T_ve) const
+{
+    // Compute e_vib+e_el for species i at T_ve without changing adapter state.
+    std::vector<double> h_d(ns_), ht_d(ns_), hr_d(ns_),
+                        hv_t(ns_), hel_t(ns_), hf_d(ns_);
+    mix_->speciesHOverRT
+    (
+        T_[0], T_[0], T_[0], T_ve, T_ve,
+        h_d.data(), ht_d.data(), hr_d.data(),
+        hv_t.data(), hel_t.data(), hf_d.data()
+    );
+    return (hv_t[i] + hel_t[i]) * R_UNIV_ * T_[0] / mix_->speciesMw(i);
 }
 
 void mutationppAdapter::ensureOmega_() const

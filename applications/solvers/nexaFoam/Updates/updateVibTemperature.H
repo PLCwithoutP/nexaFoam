@@ -123,8 +123,43 @@ if (use2T && mixtureCheck)
 
     TVib.correctBoundaryConditions();
 
-    // Keep mixture eV and rhoEv consistent with the species solution
-    eV.correctBoundaryConditions();
-    rhoEv = rho*eV;
-    rhoEv.correctBoundaryConditions();
+    // ── Mutation++ path: add atomic electronic energy diagnostically ────────────
+    // Atoms have no VT source in the FVM equation (vibSpecieActive=false).
+    // Their electronic energy is passively determined by T_ve, not independently evolved.
+    // Update eVibSpecies[atom] = e_el(atom, TVib) and correct rhoEv to include it.
+    if (use2T && mixtureCheck && thermo2T.hasElectronicVibCoupling())
+    {
+        forAll(Y_species, speciei)
+        {
+            if (mix.isSpecieMolecular(speciei)) continue;
+
+            scalarField& eVsAtom  = eVibSpecies[speciei].primitiveFieldRef();
+            scalarField& rYeVAtom = rhoYEvibSpecies[speciei].primitiveFieldRef();
+            const scalarField& TVibCells = TVib.primitiveField();
+
+            forAll(TVibCells, celli)
+            {
+                eVsAtom[celli] = mix.EsVib
+                (
+                    speciei, p[celli], TTR[celli], TVibCells[celli], 0.0
+                );
+                rYeVAtom[celli] = rhoYi[speciei][celli] * eVsAtom[celli];
+            }
+            eVibSpecies[speciei].correctBoundaryConditions();
+            rhoYEvibSpecies[speciei].correctBoundaryConditions();
+        }
+
+        // Recompute total eV including atomic electronic contribution
+        eV = dimensionedScalar("zero", eV.dimensions(), 0.0);
+        forAll(Y_species, speciei)
+        {
+            if (vibSpecieActive[speciei] || !mix.isSpecieMolecular(speciei))
+            {
+                eV += rhoYEvibSpecies[speciei] / rho;
+            }
+        }
+        eV.correctBoundaryConditions();
+        rhoEv = rho * eV;
+        rhoEv.correctBoundaryConditions();
+    }
 }

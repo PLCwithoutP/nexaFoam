@@ -210,13 +210,68 @@ int main(int argc, char *argv[])
 
 
         #include "Equations/totalEnergyEquation.H"
-        #include "Equations/vibEnergyEquation.H"
-
         #include "Updates/updateTTRTemperature.H"
-        #include "Updates/updateVibTemperature.H"
-        
+
         Info << "After TTR update: " << nl;
         Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
+
+        #include "Equations/vibEnergyEquation.H"
+
+        #include "Updates/updateVibTemperature.H"
+
+        // ── Energy decomposition diagnostic ──────────────────────────────────────────
+        {
+            const scalar rhoAvg  = rho.average().value();
+            const scalar pAvg    = p.average().value();
+            const scalar hTRAvg  = hTR.average().value();
+            const scalar eVAvg   = eV.average().value();
+            const scalar rhoEAvg = rhoE.average().value();
+            const scalar rhoEvAvg = rhoEv.average().value();
+            const scalar TTRAvg  = TTR.average().value();
+            const scalar TVibAvg = TVib.average().value();
+            const volScalarField halfUsq("halfUsq", 0.5*magSqr(U));
+            const scalar UmagAvg = halfUsq.average().value();
+
+            const volScalarField rhoE_recon("rhoE_recon", rho*(hTR + eV + halfUsq) - p);
+            const scalar rhoE_reconAvg = rhoE_recon.average().value();
+
+            Info<< "──── Energy diagnostic ────────────────────────────────────────" << nl
+                << "  TTR               = " << TTRAvg        << " K"       << nl
+                << "  TVib              = " << TVibAvg        << " K"       << nl
+                << "  rho               = " << rhoAvg         << " kg/m3"   << nl
+                << "  p                 = " << pAvg           << " Pa"      << nl
+                << "  hTR               = " << hTRAvg         << " J/kg"    << nl
+                << "  eV                = " << eVAvg          << " J/kg"    << nl
+                << "  0.5*|U|^2         = " << UmagAvg        << " J/kg"    << nl
+                << "  rho*hTR           = " << rhoAvg*hTRAvg  << " J/m3"    << nl
+                << "  rho*eV            = " << rhoAvg*eVAvg   << " J/m3"    << nl
+                << "  rhoEv (from PDE)  = " << rhoEvAvg       << " J/m3"    << nl
+                << "  rhoE  (from PDE)  = " << rhoEAvg        << " J/m3"    << nl
+                << "  rhoE  (recon)     = " << rhoE_reconAvg  << " J/m3"    << nl
+                << "  rhoE drift        = " << rhoE_reconAvg - rhoEAvg << " J/m3" << nl;
+
+            if (solveSpeciesVib)
+            {
+                scalar rhoEvSum = 0.0;
+                forAll(Y_species, speciei)
+                {
+                    if (!vibSpecieActive[speciei]) continue;
+                    const scalar rhoYEvAvg = rhoYEvibSpecies[speciei].average().value();
+                    const scalar eVsAvg    = eVibSpecies[speciei].average().value();
+                    Info<< "  rhoYEvib[" << Y_species[speciei].name() << "]"
+                        << " = " << rhoYEvAvg << " J/m3"
+                        << "   eVib[" << Y_species[speciei].name() << "]"
+                        << " = " << eVsAvg    << " J/kg" << nl;
+                    rhoEvSum += rhoYEvAvg;
+                }
+                Info<< "  sum(rhoYEvib)     = " << rhoEvSum  << " J/m3"    << nl
+                    << "  rhoEv drift       = " << rhoEvSum - rhoEvAvg << " J/m3" << nl;
+            }
+
+            Info<< "───────────────────────────────────────────────────────────────" << nl;
+        }
+
+        
         // Fetch N2 and O2 average vibrational temperatures if multispecies 2T is active
         if (solveSpeciesVib)
         {

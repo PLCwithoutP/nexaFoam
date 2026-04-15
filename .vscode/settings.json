@@ -16,6 +16,12 @@
         "initializer_list": "cpp",
         "span": "cpp",
         "regex": "cpp",
-        "thermo2T.C": "cpp"
+        "thermo2T.C": "cpp",
+        "ne2TReactionThermo.C": "cpp",
+        "heNe2TReactionThermo.C": "cpp",
+        "ne2TThermo.C": "cpp",
+        "tcLibraryInterface.C": "cpp",
+        "chemistryInterface.C": "cpp",
+        "ne2TReactionThermos.C": "cpp"
     }
 }

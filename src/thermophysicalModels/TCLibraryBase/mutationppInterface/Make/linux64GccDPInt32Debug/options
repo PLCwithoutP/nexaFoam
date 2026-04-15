@@ -51,13 +51,8 @@ else
  MPP_DEFINE =
 endif
 
-EXE_INC = $(MPP_INC) $(EIGEN_INC) $(MPP_DEFINE) -I$(FOAM_SRC)/finiteVolume/lnInclude -I../chemistryInterface/neTCChemistry/lnInclude -I../../neTCLib/lnInclude 
-
-
-
-
-
-
+EXE_INC = $(MPP_INC) $(EIGEN_INC) $(MPP_DEFINE) -Wno-ignored-qualifiers -Wno-sign-compare -Wno-unused-variable -Wno-unused-function -Wno-old-style-cast -I$(FOAM_SRC)/finiteVolume/lnInclude -I../chemistryInterface/neTCChemistry/lnInclude -I../../neTCLib/lnInclude 
+# 26 "Make/options"
 
 LIB_LIBS = $(MPP_LINK) -L$(FOAM_USER_LIBBIN) -lneTCChemistryModel -lfiniteVolume 
 

@@ -904,8 +904,8 @@ decideDeltaT.H \
 Equations/continuityEquation.H \
 Equations/yEquation.H \
 Equations/totalEnergyEquation.H \
-Equations/vibEnergyEquation.H \
 Updates/updateTTRTemperature.H \
+Equations/vibEnergyEquation.H \
 Updates/updateVibTemperature.H \
 Equations/applyChemistry.H \
 

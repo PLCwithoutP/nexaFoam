@@ -22,9 +22,13 @@ else
 PtrList<volScalarField>& Y_species = mix.Y();
 
 const bool solveSpeciesVib = mixtureCheck && use2T;
+const bool includeAtomicVe = thermo2T.hasElectronicVibCoupling();
 
 List<bool> vibSpecieActive(Y_species.size(), false);
 
+// No change from original — vibSpecieActive[N] = false
+// vibEnergyEquation.H skips FVM solve for atoms
+// updateVibTemperature.H handles atomic electronic diagnostically
 forAll(Y_species, speciei)
 {
     vibSpecieActive[speciei] =

@@ -110,6 +110,13 @@ public:
     //- Vibrational energy [J/kg]
     virtual volScalarField& eVib()    override { return eVib_; }
 
+    //- Electron pressure field [Pa]
+    //  Zero for non-ionized mixtures (no e- species).
+    virtual tmp<volScalarField> pe() const override
+    {
+        return tmp<volScalarField>(pe_);
+    }
+
     //- Mixture density [kg/m3]
     virtual tmp<volScalarField> rho() const override;
 
@@ -353,7 +360,7 @@ private:
     volScalarField psi_;    // compressibility [s2/m2]
     volScalarField h_;      // TR enthalpy [J/kg]
     volScalarField eVib_;   // vibrational energy [J/kg]
-
+    volScalarField pe_;    // electron pressure [Pa]  — zero for non-ionized mixtures
 
     // -------------------------------------------------------------------------
     // Transport fields (updated in correct(), returned as tmp)

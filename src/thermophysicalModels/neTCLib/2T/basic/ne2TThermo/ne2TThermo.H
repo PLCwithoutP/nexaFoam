@@ -179,6 +179,30 @@ public:
 
             //- Dynamic viscosity of mixture for patch [kg/m/s]
             virtual tmp<scalarField> mu(const label patchi) const;
+
+            //- Electron pressure [Pa]
+            //  neTCLib does not model free electrons.
+            //  Returns a zero field. Mutation++ path overrides in mutationppWrapper.
+            virtual tmp<volScalarField> pe() const
+            {
+                return tmp<volScalarField>
+                (
+                    new volScalarField
+                    (
+                        IOobject
+                        (
+                            "pe",
+                            this->TTR_.time().timeName(),
+                            this->TTR_.mesh(),
+                            IOobject::NO_READ,
+                            IOobject::NO_WRITE,
+                            IOobject::NO_REGISTER
+                        ),
+                        this->TTR_.mesh(),
+                        dimensionedScalar("pe", dimPressure, 0.0)
+                    )
+                );
+            }
 };
 
 

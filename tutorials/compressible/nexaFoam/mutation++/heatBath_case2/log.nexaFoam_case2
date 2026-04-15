@@ -1,0 +1,257 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2412                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : 0bb0c1db74-20250528 OPENFOAM=2412 version=v2412
+Arch   : "LSB;label=32;scalar=64"
+Exec   : nexaFoam
+Date   : Apr 15 2026
+Time   : 16:43:37
+Host   : FurkanLinux
+PID    : 890436
+I/O    : uncollated
+Case   : /home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/tutorials/compressible/nexaFoam/mutation++/heatBath_case2
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Mutation++ backend detected.
+  mixtureCheck        = true (forced true: twoTemperature active)
+  useVibVibRelaxation = false (VV not in Mutation++ API)
+
+  energyMode = vibrational-electronic (Ve) — Mutation++ RRHO includes electronic states
+tcLibraryInterface::New : library = mutationpp
+
+  thetaVib[N2] = 3395 K
+mutationppAdapter: loaded mixture '"N2" "N"'
+  nSpecies    = 2
+  nReactions  = 0
+  nTempEqns   = 2
+
+mutationppWrapper: initialised with 2 species, 0 reactions, 2T state model.
+
+twoTemperature = true
+chemistry     = false
+speciesList   = 
+
+Viscous analysis detected.
+
+Reading field U
+
+Turbulence model: Laminar
+
+fluxScheme: Kurganov
+
+Starting time loop
+
+Mean and max Courant Numbers = 0 0
+Time = 1e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=30000 T_v=1000 Q_VT=3.45258e+10 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=32972.8 rhoEv=115.098 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=30000 T_v=1000 Q_VT=3.45258e+10 J/m3-s
+3.45258e+10 J/m3-s
+POST-vibTemp: eV=32972.8 rhoEv=115.098 TVib=1111.73
+After TTR update: 
+Average translational-rotational temperature is: 6086.93
+Average Y.N2 vibrational temperature is: 1111.73
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.02 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 2e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=6086.93 T_v=1111.73 Q_VT=1.25706e+10 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=36574 rhoEv=127.669 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=6086.93 T_v=1111.73 Q_VT=1.25706e+10 J/m3-s
+1.25706e+10 J/m3-s
+POST-vibTemp: eV=36574 rhoEv=127.669 TVib=1148.66
+After TTR update: 
+Average translational-rotational temperature is: 34890.9
+Average Y.N2 vibrational temperature is: 1148.66
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.03 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 3e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=34890.9 T_v=1148.66 Q_VT=1.74599e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=86592.4 rhoEv=302.268 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=34890.9 T_v=1148.66 Q_VT=1.74599e+11 J/m3-s
+1.74599e+11 J/m3-s
+POST-vibTemp: eV=86592.4 rhoEv=302.268 TVib=1568.23
+After TTR update: 
+Average translational-rotational temperature is: 39621
+Average Y.N2 vibrational temperature is: 1568.23
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.03 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 4e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=39621 T_v=1568.23 Q_VT=1.45584e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=128299 rhoEv=447.851 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=39621 T_v=1568.23 Q_VT=1.45584e+11 J/m3-s
+1.45584e+11 J/m3-s
+POST-vibTemp: eV=128299 rhoEv=447.851 TVib=1858.84
+After TTR update: 
+Average translational-rotational temperature is: 40631
+Average Y.N2 vibrational temperature is: 1858.84
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.03 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 5e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40631 T_v=1858.84 Q_VT=1.41717e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=168897 rhoEv=589.568 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40631 T_v=1858.84 Q_VT=1.41717e+11 J/m3-s
+1.41717e+11 J/m3-s
+POST-vibTemp: eV=168897 rhoEv=589.568 TVib=2119.61
+After TTR update: 
+Average translational-rotational temperature is: 40877.6
+Average Y.N2 vibrational temperature is: 2119.61
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.03 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 6e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40877.6 T_v=2119.61 Q_VT=1.40655e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=209191 rhoEv=730.222 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40877.6 T_v=2119.61 Q_VT=1.40655e+11 J/m3-s
+1.40655e+11 J/m3-s
+POST-vibTemp: eV=209191 rhoEv=730.222 TVib=2365.71
+After TTR update: 
+Average translational-rotational temperature is: 40891.5
+Average Y.N2 vibrational temperature is: 2365.71
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 7e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40891.5 T_v=2365.71 Q_VT=1.40256e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=249371 rhoEv=870.478 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40891.5 T_v=2365.71 Q_VT=1.40256e+11 J/m3-s
+1.40256e+11 J/m3-s
+POST-vibTemp: eV=249371 rhoEv=870.478 TVib=2602.77
+After TTR update: 
+Average translational-rotational temperature is: 40825.2
+Average Y.N2 vibrational temperature is: 2602.77
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 8e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40825.2 T_v=2602.77 Q_VT=1.40074e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=289499 rhoEv=1010.55 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40825.2 T_v=2602.77 Q_VT=1.40074e+11 J/m3-s
+1.40074e+11 J/m3-s
+POST-vibTemp: eV=289499 rhoEv=1010.55 TVib=2833.62
+After TTR update: 
+Average translational-rotational temperature is: 40729.2
+Average Y.N2 vibrational temperature is: 2833.62
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 9e-09
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40729.2 T_v=2833.62 Q_VT=1.39974e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=329598 rhoEv=1150.53 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40729.2 T_v=2833.62 Q_VT=1.39974e+11 J/m3-s
+1.39974e+11 J/m3-s
+POST-vibTemp: eV=329598 rhoEv=1150.53 TVib=3059.94
+After TTR update: 
+Average translational-rotational temperature is: 40620.9
+Average Y.N2 vibrational temperature is: 3059.94
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+Mean and max Courant Numbers = 0 0
+Time = 1e-08
+
+diagonal:  Solving for rhoCont, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoY_Y.N, Initial residual = 0, Final residual = 0, No Iterations 0
+diagonal:  Solving for rhoE, Initial residual = 0, Final residual = 0, No Iterations 0
+DEBUG vibEnergySource at cell 0: T_tr=40620.9 T_v=3059.94 Q_VT=1.39914e+11 J/m3-s
+diagonal:  Solving for rhoYEvib_Y.N2, Initial residual = 0, Final residual = 0, No Iterations 0
+POST-vibEq: eV=369681 rhoEv=1290.44 rhoE=120975
+Q_VT=DEBUG vibEnergySource at cell 0: T_tr=40620.9 T_v=3059.94 Q_VT=1.39914e+11 J/m3-s
+1.39914e+11 J/m3-s
+POST-vibTemp: eV=369681 rhoEv=1290.44 TVib=3282.8
+After TTR update: 
+Average translational-rotational temperature is: 40505.8
+Average Y.N2 vibrational temperature is: 3282.8
+Sanity check: max(|rhoCont - rhoFromSpecies|) = 4.33681e-19
+
+ExecutionTime = 0.04 s  ClockTime = 0 s
+
+End
+

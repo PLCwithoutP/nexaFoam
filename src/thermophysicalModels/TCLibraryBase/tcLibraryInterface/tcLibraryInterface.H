@@ -63,6 +63,10 @@ public:
 
     virtual volScalarField& eVib() = 0;
 
+    //- Electron pressure [Pa]
+    //  Returns zero field for backends without free electrons.
+    virtual tmp<volScalarField> pe() const = 0;
+
     virtual tmp<volScalarField> rho() const = 0;
 
 
@@ -123,6 +127,10 @@ public:
     virtual const fileName& reactionsListFile() const = 0;
 
     virtual const word& chemistryReader() const = 0;
+
+    //- True if backend couples electronic energy into the Ve mode (Mutation++ RRHO).
+    //  False for neTCLib (no electronic energy in 2T model).
+    virtual bool hasElectronicVibCoupling() const { return false; }
 
 };
 

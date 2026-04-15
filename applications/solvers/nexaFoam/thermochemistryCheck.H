@@ -71,6 +71,9 @@ if (libName_ == "mutationpp")
         << (use2T ? " (forced true: twoTemperature active)" : "") << nl
         << "  useVibVibRelaxation = false (VV not in Mutation++ API)" << nl
         << endl;
+
+    Info<< "  energyMode = vibrational-electronic (Ve)"
+        << " — Mutation++ RRHO includes electronic states" << nl;
 }
 else
 {
