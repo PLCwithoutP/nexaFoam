@@ -230,14 +230,14 @@ void mutationppAdapter::ensureH_() const
     //   Te  = T_tr   (no free electrons — conservative coupling)
     //   Tr  = T_tr   (rotation couples to translation in 2T)
     //   Tv  = T_[1]  (vibrational)
-    //   Tel = T_tr   (electronic, conservative assumption)
+    //   Tel = T_[1]  (electronic coupled to vibrational — standard 2T)
 
     const double Th = T_[0];
     const double Tv = (nT_ > 1) ? T_[1] : T_[0];
 
     mix_->speciesHOverRT
     (
-        Th, Th, Th, Tv, Th,
+        Th, Th, Th, Tv, Tv,
         h_.data(),
         ht_.data(),
         hr_.data(),
@@ -258,7 +258,7 @@ void mutationppAdapter::ensureCp_() const
 
     mix_->speciesCpOverR
     (
-        Th, Th, Th, Tv, Th,
+        Th, Th, Th, Tv, Tv,
         cp_.data(),
         cpt_.data(),
         cpr_.data(),
@@ -278,7 +278,7 @@ void mutationppAdapter::ensureCv_() const
 
     mix_->speciesCvOverR
     (
-        Th, Th, Th, Tv, Th,
+        Th, Th, Th, Tv, Tv,
         cv_.data(),
         cvt_.data(),
         cvr_.data(),
