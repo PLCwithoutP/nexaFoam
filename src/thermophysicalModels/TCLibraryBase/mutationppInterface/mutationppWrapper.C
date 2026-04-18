@@ -551,7 +551,6 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
     forAll(species_, i)
         QVibSource_[i].primitiveFieldRef() = 0.0;
 
-    // Identify molecular species
     std::vector<int> molIdx;
     for (int i = 0; i < ns; i++)
         if (adapter_.isSpecieMolecular(i)) molIdx.push_back(i);
@@ -562,18 +561,19 @@ PtrList<volScalarField>& mutationppWrapper::correctVibSource
     {
         for (int i = 0; i < ns; i++) Yi[i] = Y_[i][cellI];
 
-        adapter_.setState(Yi.data(), rho_[cellI], TtrCells[cellI], TVibCells[cellI]);
+        // ── Per-species VT: evaluate OmegaVT at each species' own TVib ──────
+        for (int iMol : molIdx)
+        {
+            const double TVib_i = TVibSpecies[iMol][cellI];
 
-        const double Q_vib = adapter_.vibEnergySource();  // [J/m3-s]
+            // Set state with THIS species' vibrational temperature
+            adapter_.setState(Yi.data(), rho_[cellI], TtrCells[cellI], TVib_i);
 
-        // Weight by molecular mass fractions only
-        double rhoMol = 0.0;
-        for (int i : molIdx) rhoMol += Yi[i];
+            // energyTransferSource now sees (T_tr - TVib_i) correctly
+            const double Q_i = adapter_.vibEnergySource();  // [J/m3-s]
 
-        if (rhoMol < SMALL) continue;
-
-        for (int i : molIdx)
-            QVibSource_[i][cellI] = Q_vib * Yi[i] / rhoMol;
+            QVibSource_[iMol][cellI] = Q_i;
+        }
     }
 
     forAll(species_, i)

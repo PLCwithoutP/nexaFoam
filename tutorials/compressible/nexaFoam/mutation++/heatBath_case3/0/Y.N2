@@ -9,32 +9,24 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      chemistryProperties;
+    class       volScalarField;
+    object      Y.N2;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-chemistry           true;
+#include "initialConditions"
 
-chemistryType
+dimensions      [0 0 0 0 0 0 0];
+
+internalField   uniform $N2_mass_fraction;
+
+boundaryField
 {
-    solver          neEulerImplicit;
+    empty
+    {
+        type            empty;
+    }
 }
-
-initialChemicalTimeStep 1e-07;
-
-EulerImplicitCoeffs
-{
-    cTauChem        1;
-    equilibriumRateLimiter off;
-}
-
-/*odeCoeffs
-{
-    solver          Rosenbrock34;
-    absTol          1e-12;
-    relTol          0.01;
-}*/
 
 
 // ************************************************************************* //
