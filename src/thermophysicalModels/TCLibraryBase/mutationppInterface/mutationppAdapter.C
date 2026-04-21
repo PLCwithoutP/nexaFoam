@@ -396,6 +396,7 @@ double mutationppAdapter::eVib() const
     // On Mutation++ path: eVib is actually eVe = e_vib + e_elec
     // In 2T model, T_vib = T_elec = T_ve (shared second temperature)
     // Both modes governed by T_[1]
+    if (nT_ < 2) return 0.0;
     ensureH_();
     const double* Y = mix_->Y();
     double eVe = 0.0;
@@ -667,6 +668,7 @@ double mutationppAdapter::electronPressure() const
 
 double mutationppAdapter::eVibSpecies(int i) const
 {
+    if (nT_ < 2) return 0.0;
     ensureH_();
     // hv_[i] = H_vib_i(T_ve) / (R_u * T_tr)  → zero for atoms
     // hel_[i] = H_el_i(T_ve)  / (R_u * T_tr)  → non-zero for N, O etc.

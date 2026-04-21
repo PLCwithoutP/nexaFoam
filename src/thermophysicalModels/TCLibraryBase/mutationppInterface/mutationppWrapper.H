@@ -399,7 +399,7 @@ private:
     fileName speciesListFile_;    // empty — Mutation++ owns species
     fileName reactionsListFile_;  // empty — Mutation++ owns reactions
     word     chemistryReader_;    // "mutationpp"
-
+    bool     chemistry_;
 
     // -------------------------------------------------------------------------
     // Private helpers

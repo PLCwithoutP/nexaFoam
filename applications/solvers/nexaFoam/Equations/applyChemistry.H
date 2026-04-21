@@ -76,23 +76,43 @@ if (useChemistry)
         Y[i].correctBoundaryConditions();
     }
 
-    // 6) Apply chemistry heat source to total energy density
-    tmp<volScalarField> tQdot = chemistryPtr->Qdot();
-    const volScalarField& Qdot = tQdot();
-
-    forAll(rhoE, celli)
+    // Step 6 & 7: Energy update from chemistry source
+    //
+    // neTCLib:    hTR = sensible enthalpy only → Y-change gives ΔHs,
+    //             Qdot = -sum(Hf_i*RR_i) provides the missing ΔHf.  NEEDED.
+    //
+    // Mutation++: hTR = mixtureHMass (total, includes Hf) → Y-change gives
+    //             ΔHs+ΔHf = full physical cooling already.  Applying Qdot
+    //             here double-counts ΔHf and causes ~2x excess cooling.  SKIP.
+    if (thermo2T.chemistryReader() != word("mutationpp"))
     {
-        rhoE[celli] += dtChem*Qdot[celli];
-    }
+        // neTCLib path: hTR = sensible enthalpy only.
+        // Y-change provides ΔHs; Qdot provides the missing ΔHf.
+        tmp<volScalarField> tQdot = chemistryPtr->Qdot();
+        const volScalarField& Qdot = tQdot();
 
-    rhoE.correctBoundaryConditions();
+        forAll(rhoE, celli)
+        {
+            rhoE[celli] += dtChem * Qdot[celli];
+        }
+        rhoE.correctBoundaryConditions();
 
-    // 7) Rebuild sensible enthalpy/internal-energy variable used by thermo
-    hTR =
-        (rhoE + p)/rho
+        hTR =
+            (rhoE + p)/rho
         - 0.5*magSqr(U)
         - eV;
-    hTR.correctBoundaryConditions();
+        hTR.correctBoundaryConditions();
+    }
+    else
+    {
+        // Mutation++ path: hTR = mixtureHMass (total enthalpy, includes Hf).
+        // The Y-change from steps 1–5 already encodes the full thermodynamic
+        // cooling: the next updateTTRTemperature will invert rhoE against the
+        // new composition and find a physically correct lower TTR.
+        // Applying Qdot to rhoE here would double-count the formation enthalpy
+        // contribution and cause ~2x excess cooling.
+        // No explicit rhoE or hTR modification is required.
+    }
 
     // Keep momentum consistent with unchanged velocity
     rhoU = rho*U;

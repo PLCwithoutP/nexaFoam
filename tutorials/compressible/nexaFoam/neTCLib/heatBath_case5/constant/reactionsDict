@@ -167,7 +167,7 @@ reactions
     NOdissociation_N
     {
         type        irreversibleneArrheniusneReaction;
-        reaction    "NO + N = N + O + 2N";
+        reaction    "NO + N = N + O + N";
         A           2.409e17;
         beta        -1.1;
         Ta          75544.2;

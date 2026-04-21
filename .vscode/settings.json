@@ -22,6 +22,8 @@
         "ne2TThermo.C": "cpp",
         "tcLibraryInterface.C": "cpp",
         "chemistryInterface.C": "cpp",
-        "ne2TReactionThermos.C": "cpp"
+        "ne2TReactionThermos.C": "cpp",
+        "foamNeChemistryReader.C": "cpp",
+        "neChemistryReader.C": "cpp"
     }
 }

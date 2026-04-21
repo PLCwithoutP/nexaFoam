@@ -60,15 +60,20 @@ if (libName_ == "mutationpp")
     const bool use2T =
         thermoDict_.lookupOrDefault<bool>("twoTemperature", false);
 
-    mixtureCheck = use2T ? true
-                         : thermoDict_.lookupOrDefault<bool>("mixtureCheck", false);
+    const bool chemistryRequested =
+        thermoDict_.lookupOrDefault<bool>("chemistry", false);
+    
+    mixtureCheck =   use2T
+                || chemistryRequested
+                || thermoDict_.lookupOrDefault<bool>("mixtureCheck", false);
 
     useVibVibRelaxation = false;
 
     Info<< "Mutation++ backend detected." << nl
         << "  mixtureCheck        = "
         << (mixtureCheck ? "true" : "false")
-        << (use2T ? " (forced true: twoTemperature active)" : "") << nl
+        << (use2T        ? " (forced true: twoTemperature active)"  :
+            chemistryRequested ? " (forced true: chemistry active)"      : "") << nl
         << "  useVibVibRelaxation = false (VV not in Mutation++ API)" << nl
         << endl;
 

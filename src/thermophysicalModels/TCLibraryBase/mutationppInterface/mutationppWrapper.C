@@ -240,6 +240,20 @@ mutationppWrapper::mutationppWrapper(const fvMesh& mesh)
     // Initialise source term lists to zero
     initSourceTerms_();
 
+    const IOdictionary thermoProps
+    (
+        IOobject
+        (
+            "thermophysicalProperties",
+            mesh_.time().constant(),
+            mesh_,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE,
+            IOobject::NO_REGISTER
+        )
+    );
+    chemistry_ = thermoProps.lookupOrDefault<bool>("chemistry", false);
+
     // Run initial correct() to fill all fields from initial conditions
     initForward_();
 
@@ -681,7 +695,7 @@ bool mutationppWrapper::twoTemperature()  const
 
 bool mutationppWrapper::chemistry() const
 {
-    return adapter_.hasChemistry();
+    return chemistry_;
 }
 
 bool mutationppWrapper::chemistryCapable() const

@@ -16,7 +16,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 TTRValue  10000;
-TVibValue 1000;
+TVibValue 10000;
 
 pressureValue  6383.475;
 
