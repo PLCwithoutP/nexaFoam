@@ -36,11 +36,12 @@ nexaFoam/
 ├─ src/
 │   └─ thermophysicalModels/
 │      └─ neTCLib/              # in-house non-equilibrium thermo-chem library
-│   └─ TurbulenceModels/
+│      └─ TCLibraryBase/        # thermo-chem library interface
 ├─ tutorials/                   # example/tutorial cases (optional)
-├─ tests/
+├─ tests/                       # theoretical checks
+├─ thirdParty/
+│   └─ Mutationpp/
 ├─ README.md
-├─ CHANGELOG.md
 ```
 
 > The exact layout can vary; the above is a recommended structure.
