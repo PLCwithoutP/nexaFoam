@@ -54,11 +54,54 @@ Foam::WilkeMR<MixtureType>::WilkeMR
         Foam::dimensionedScalar("zero", Foam::dimless, 0.0)
     )
 {
-
+    precomputeXi();
 }
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+template<class MixtureType>
+void Foam::WilkeMR<MixtureType>::precomputeXi()
+{
+    const PtrList<volScalarField>& Y = mix_.Y();
+    const label nSpec = Y.size();
+    const label nCells = Y[0].primitiveField().size();
+
+    // Resize storage if needed — happens on first call or after mesh change
+    if (XiCells_.size() != nSpec)
+    {
+        XiCells_.setSize(nSpec);
+        for (label i = 0; i < nSpec; ++i)
+        {
+            XiCells_[i].setSize(nCells, 0.0);
+        }
+    }
+
+    // Compute denominator: sum_j(Yj/Wj) for all internal cells
+    // This is a single O(n) pass over the mesh
+    scalarField denom(nCells, SMALL);
+    for (label j = 0; j < nSpec; ++j)
+    {
+        const scalarField& Yj = Y[j].primitiveField();
+        const scalar Wj = mix_.W(j);
+        forAll(denom, celli)
+        {
+            denom[celli] += Yj[celli] / Wj;
+        }
+    }
+
+    // Compute Xi for each species — one O(n) pass per species
+    for (label speciei = 0; speciei < nSpec; ++speciei)
+    {
+        const scalarField& Yi = Y[speciei].primitiveField();
+        const scalar Wi = mix_.W(speciei);
+        forAll(XiCells_[speciei], celli)
+        {
+            XiCells_[speciei][celli] = (Yi[celli] / Wi) / denom[celli];
+        }
+    }
+}
+
 template<class MixtureType>
 Foam::volScalarField&
 Foam::WilkeMR<MixtureType>::computeXiFromYi
@@ -108,45 +151,33 @@ template<class MixtureType>
 Foam::scalar
 Foam::WilkeMR<MixtureType>::scalingFactor
 (
-    const label speciei,      // specie index speciei
-    const label celli,  // cell index
-    const scalar TTR      // local temperature
+    const label speciei,
+    const label celli,
+    const scalar TTR
 )
 {
     const label nSpec = mix_.Y().size();
 
-    // --- X_s from existing helper ---
-    volScalarField& Xi_s = computeXiFromYi(speciei);
-    scalar Xs = Xi_s[celli];
-
+    // Use precomputed scalar lookup — O(1) per cell, no field operation
+    const scalar Xs   = XiCells_[speciei][celli];
     const scalar Ms   = mix_.W(speciei);
     const scalar mu_s = mix_.mu(speciei, TTR);
 
-    // start φ_s with X_s
     scalar phi_s = Xs;
 
-    // --- sum over r ≠ speciei ---
     for (label r = 0; r < nSpec; ++r)
     {
         if (r == speciei) continue;
 
-        // X_r from same helper (Xi_ is reused internally)
-        volScalarField& Xi_r = computeXiFromYi(r);
-        scalar Xr = Xi_r[celli];
-
+        // O(1) lookup — no computeXiFromYi call
+        const scalar Xr   = XiCells_[r][celli];
         const scalar Mr   = mix_.W(r);
         const scalar mu_r = mix_.mu(r, TTR);
 
-        // [1 + sqrt(mu_s/mu_r) * (Mr/Ms)^(1/4)]^2
         const scalar term1 =
             1.0 + Foam::sqrt(mu_s/mu_r)*Foam::pow(Mr/Ms, 0.25);
-        const scalar term1sq = Foam::sqr(term1);
 
-        // [ sqrt( 8 (1 + Ms/Mr) ) ]^-1
-        const scalar term2 =
-            1.0/Foam::sqrt(8.0*(1.0 + Ms/Mr));
-
-        phi_s += Xr * term1sq * term2;
+        phi_s += Xr * Foam::sqr(term1) / Foam::sqrt(8.0*(1.0 + Ms/Mr));
     }
 
     return phi_s;
@@ -163,22 +194,17 @@ Foam::WilkeMR<MixtureType>::QCell
     const QGetter& getQ
 )
 {
-    const PtrList<volScalarField>& Y = mix_.Y();
-    const label nSpec = Y.size();
-
-    scalar Qmix = 0.0;          
+    const label nSpec = mix_.Y().size();
+    scalar Qmix = 0.0;
 
     for (label speciei = 0; speciei < nSpec; ++speciei)
     {
+        // O(1) lookup — no field operation
+        const scalar Xs    = XiCells_[speciei][celli];
+        const scalar phi_s = scalingFactor(speciei, celli, TTR);
+        const scalar Qs    = getQ(speciei, p, TTR);
 
-        volScalarField& Xi_s = this->computeXiFromYi(speciei);
-        const scalar Xs = Xi_s[celli];
-
-        const scalar phi_s = this->scalingFactor(speciei, celli, TTR);
-
-        const scalar Qs = getQ(speciei, p, TTR);
-
-        Qmix += Qs*Xs/phi_s;
+        Qmix += Qs * Xs / phi_s;
     }
 
     return Qmix;

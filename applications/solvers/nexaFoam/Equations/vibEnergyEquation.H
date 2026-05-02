@@ -88,6 +88,7 @@ if (use2T)
     // ================================================================
     else
     {
+        Info<< "Entering vibEnergy Multispecies" << nl << endl;
         PtrList<volScalarField>& QVT = thermo2T.correctVibSource(TVibSpecies);
 
         PtrList<volScalarField> QVVempty;

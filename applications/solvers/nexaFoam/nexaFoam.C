@@ -38,6 +38,8 @@ Description
 #include "fvCFD.H"
 #include "dynamicFvMesh.H"
 #include "fixed2TRhoFvPatchScalarField.H"
+#include "maxwellSlipU.H"
+#include "smoluchowskiJumpT.H"
 #include "directionInterpolate.H"
 #include "localEulerDdtScheme.H"
 #include "fvcSmooth.H"
@@ -67,6 +69,7 @@ int main(int argc, char *argv[])
     #include "createFields.H"
     #include "createTimeControls.H"
 
+    Info<< "createFields completed" << nl << endl;
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -188,26 +191,7 @@ int main(int argc, char *argv[])
 
         #include "Equations/yEquation.H"
 
-        // --- Solve momentum
-        solve(fvm::ddt(rhoU) + fvc::div(phiUp));
-
-        U.ref() =
-            rhoU()
-           /rho();
-        U.correctBoundaryConditions();
-        rhoU.boundaryFieldRef() == rho.boundaryField()*U.boundaryField();
-
-        if (!inviscid)
-        {
-            solve
-            (
-                fvm::ddt(rho, U) - fvc::ddt(rho, U)
-              - fvm::laplacian(muLam, U)
-              - fvc::div(tauMC)
-            );
-            rhoU = rho*U;
-        }
-
+        #include "Equations/momentumEquation.H"
 
         #include "Equations/totalEnergyEquation.H"
         #include "Updates/updateTTRTemperature.H"
@@ -224,8 +208,6 @@ int main(int argc, char *argv[])
             Info<< "Sanity check: max(|rhoCont - rhoFromSpecies|) = "
                 << maxErr << nl << endl;
         }
-
-        
 
         #include "Equations/applyChemistry.H"
 

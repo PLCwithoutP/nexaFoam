@@ -1,3 +1,5 @@
+Info<< "Entering updateTTRTemperature" << nl << endl;
+
 thermo2T.eVib().primitiveFieldRef() =
     rhoEv.primitiveField() / rho.primitiveField();
 thermo2T.eVib().correctBoundaryConditions();
@@ -9,6 +11,7 @@ hTR =
   - eV;
 
 hTR.correctBoundaryConditions();
+TTR.correctBoundaryConditions();   
 
 thermo2T.correct();
 
@@ -26,9 +29,8 @@ hTR =
   - 0.5*magSqr(U)
   - eV;
 
-hTR.correctBoundaryConditions();
-
-thermo2T.correct();
+TTR.correctBoundaryConditions();   
+thermo2T.correct();                
 
 // Keep rhoE BC consistent with conservative total energy
 rhoE.boundaryFieldRef() ==
@@ -39,4 +41,3 @@ rhoE.boundaryFieldRef() ==
       + 0.5*magSqr(U.boundaryField())
     )
   - p.boundaryField();
-  

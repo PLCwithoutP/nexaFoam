@@ -100,6 +100,8 @@ public:
 
     virtual const volScalarField& TTR() const override { return TTR_; }
 
+    virtual volScalarField& TTR() override { return TTR_; }
+
     virtual volScalarField& TVib()    override { return TVib_; }
 
     virtual const volScalarField& psi() const override { return psi_; }

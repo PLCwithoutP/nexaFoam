@@ -24,6 +24,17 @@
         "chemistryInterface.C": "cpp",
         "ne2TReactionThermos.C": "cpp",
         "foamNeChemistryReader.C": "cpp",
-        "neChemistryReader.C": "cpp"
+        "neChemistryReader.C": "cpp",
+        "basicNeChemistryModel.C": "cpp",
+        "StandardNeChemistryModel.C": "cpp",
+        "neEulerImplicit.C": "cpp",
+        "heNe2TThermo.C": "cpp",
+        "fixed2TRhoFvPatchScalarField.C": "cpp",
+        "smoluchowskiJump2TTFvPatchScalarField.C": "cpp",
+        "maxwellSlipU2TFvPatchVectorField.C": "cpp",
+        "maxwellSlipU.C": "cpp",
+        "smoluchowskiJumpT.C": "cpp",
+        "WilkeMR.C": "cpp",
+        "blottnerEucken2TTransport.C": "cpp"
     }
 }

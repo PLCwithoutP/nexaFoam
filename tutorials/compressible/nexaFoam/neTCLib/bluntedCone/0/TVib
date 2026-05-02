@@ -1,0 +1,65 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2412                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      TVib;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include "initialConditions"
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform $TVibValue;
+
+boundaryField
+{
+    inlet
+    {
+        // Supersonic inflow: TVib fixed at freestream value.
+        // In the undisturbed freestream TVib = TTR = T_inf = 144.4 K —
+        // the gas has had sufficient time to reach thermal equilibrium
+        // far from the body.
+        type            fixedValue;
+        value           uniform $TVibValue;
+    }
+
+    cone
+    {
+        // Vibrational accommodation at the wall is not modelled.
+        // Real surfaces are inefficient at de-exciting vibrational modes —
+        // the vibrational relaxation time is much longer than the
+        // translational collision time with the wall. zeroGradient
+        // physically represents a vibrationally non-catalytic surface:
+        // no vibrational energy is exchanged through the wall face.
+        // The vibrational field near the wall is driven indirectly by
+        // VT relaxation toward the Smoluchowski-corrected TTR.
+        type            zeroGradient;
+    }
+
+    wedge1
+    {
+        type            wedge;
+    }
+
+    wedge2
+    {
+        type            wedge;
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+}
+
+
+// ************************************************************************* //

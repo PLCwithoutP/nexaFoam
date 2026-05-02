@@ -870,6 +870,19 @@ $(WM_PROJECT_DIR)/src/dynamicFvMesh/lnInclude/dynamicFvMesh.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/timeControl.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/timeControlI.H \
 BCs/lnInclude/fixed2TRhoFvPatchScalarField.H \
+BCs/lnInclude/maxwellSlipU.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/partialSlipFvPatchFields.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/partialSlipFvPatchField.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/transformFvPatchField.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/transformFvPatchField.C \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/partialSlipFvPatchField.C \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTransformField.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTransform.H \
+$(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/symmTransformField.C \
+BCs/lnInclude/smoluchowskiJumpT.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchFields.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.H \
+$(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/mixedFvPatchField.C \
 directionInterpolate.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/localEulerDdtScheme.C \
@@ -903,6 +916,7 @@ readFluxScheme.H \
 decideDeltaT.H \
 Equations/continuityEquation.H \
 Equations/yEquation.H \
+Equations/momentumEquation.H \
 Equations/totalEnergyEquation.H \
 Updates/updateTTRTemperature.H \
 Equations/vibEnergyEquation.H \

@@ -1,1 +1,0 @@
-../T/smoluchowskiJump2TTFvPatchScalarField.H

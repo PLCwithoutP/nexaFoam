@@ -1,3 +1,4 @@
+Info<< "Entering updateTVibTemperature" << nl << endl;
 // Pure mixture 2T case
 if (use2T && !mixtureCheck)
 {

@@ -34,6 +34,8 @@ class tcLibraryInterface
 {
 public:
 
+    TypeName("tcLibraryInterface");
+
     virtual ~tcLibraryInterface() {}
 
     // -----------------------------------------------------------------------
@@ -53,7 +55,7 @@ public:
     virtual volScalarField& p() = 0;
 
     virtual const volScalarField& TTR() const = 0;
-
+    virtual volScalarField& TTR() = 0;
     virtual volScalarField& TVib() = 0;
 
     virtual const volScalarField& psi() const = 0;

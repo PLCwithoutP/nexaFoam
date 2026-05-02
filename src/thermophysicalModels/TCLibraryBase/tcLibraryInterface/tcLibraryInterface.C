@@ -21,11 +21,15 @@
 #include "mutationppWrapper.H"
 #endif
 
+defineTypeName(Foam::tcLibraryInterface);
+
 namespace Foam
 {
 
 autoPtr<tcLibraryInterface> tcLibraryInterface::New(const fvMesh& mesh)
 {
+    
+
     IOdictionary dict
     (
         IOobject

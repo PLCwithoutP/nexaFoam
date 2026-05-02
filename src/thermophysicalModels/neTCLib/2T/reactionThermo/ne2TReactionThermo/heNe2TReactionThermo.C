@@ -85,7 +85,7 @@ void Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::calculate
     using mixingMixtureType = typename MixtureType::basicSpecie2TMixture;
     mixingMixtureType& mix = this->composition();
 
-    const bool multiSpecies = mix.Y().size() > 0;
+    const bool multiSpecies = mix.Y().size() > 1;
     autoPtr<WilkeMR<mixingMixtureType>> wilkeMixPtr(nullptr);
 
     if (multiSpecies)
@@ -669,6 +669,7 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibSource
     using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
 
     static mixingRuleType wilkeMix(mix);
+    wilkeMix.precomputeXi(); 
     static VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
 
     return Q_vt_source.correctVibSource(this->p_, this->TTR_, TVibSpecies);
@@ -753,6 +754,7 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctCVSource
     using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
 
     static mixingRuleType wilkeMix(mix);
+    wilkeMix.precomputeXi(); 
     static CVEnergySource<mixingMixtureType, mixingRuleType>
         Q_cv_source(mix, wilkeMix);
 
@@ -799,6 +801,7 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVibVibSource
     using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
 
     static mixingRuleType wilkeMix(mix);
+    wilkeMix.precomputeXi(); 
     static VVEnergySource<mixingMixtureType, mixingRuleType> Q_vv_source(mix, wilkeMix);
 
     return Q_vv_source.correctVibVibSource(this->p_, this->TTR_, TVibSpecies);
@@ -823,6 +826,7 @@ Foam::heNe2TReactionThermo<BasicNe2TThermo, MixtureType>::correctVTRelaxationTim
     using mixingRuleType = Foam::WilkeMR<mixingMixtureType>;
 
     static mixingRuleType wilkeMix(mix);
+    wilkeMix.precomputeXi(); 
     static VTEnergySource<mixingMixtureType, mixingRuleType> Q_vt_source(mix, wilkeMix);
 
     PtrList<volScalarField>& TauList =

@@ -68,6 +68,7 @@ private:
     const MixtureType& mix_;
     const speciesTable& names_;
     volScalarField Xi_;
+    List<scalarField> XiCells_;
 
 public:
 
@@ -78,6 +79,8 @@ public:
         WilkeMR(const MixtureType& mix);
 
     // Member functions
+
+        void precomputeXi();
 
         volScalarField& computeXiFromYi
         (

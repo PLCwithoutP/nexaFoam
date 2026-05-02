@@ -4,7 +4,7 @@
 
 volScalarField& p = thermo2T.p();
 volScalarField& TVib = thermo2T.TVib();
-const volScalarField& TTR = thermo2T.TTR();
+volScalarField& TTR = thermo2T.TTR();
 const volScalarField& psi = thermo2T.psi();
 
 bool inviscid(true);
