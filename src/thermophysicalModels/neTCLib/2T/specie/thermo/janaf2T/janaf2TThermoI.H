@@ -127,21 +127,21 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
 template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::limit
 (
-    const scalar TTR
+    const scalar T
 ) const
 {
-    if (TTR < TAbsLow_ || TTR > TAbsHigh_)
+    if (T < TAbsLow_ || T > TAbsHigh_)
     {
         WarningInFunction
             << "attempt to use janaf2TThermo<EquationOfState>"
                " out of temperature range "
-            << TAbsLow_ << " -> " << TAbsHigh_ << ";  TTR = " << TTR
+            << TAbsLow_ << " -> " << TAbsHigh_ << ";  T = " << T
             << endl;
 
-        return clamp(TTR, TAbsLow_, TAbsHigh_);
+        return clamp(T, TAbsLow_, TAbsHigh_);
     }
 
-    return TTR;
+    return T;
 }
 
 

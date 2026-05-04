@@ -35,6 +35,13 @@
         "maxwellSlipU.C": "cpp",
         "smoluchowskiJumpT.C": "cpp",
         "WilkeMR.C": "cpp",
-        "blottnerEucken2TTransport.C": "cpp"
+        "blottnerEucken2TTransport.C": "cpp",
+        "VTEnergySource.C": "cpp",
+        "dimensionedType.C": "cpp",
+        "Specie2TMixture.C": "cpp",
+        "VVEnergySource.C": "cpp",
+        "CVEnergySource.C": "cpp",
+        "he2TThermo.C": "cpp",
+        "perfect2TGas.C": "cpp"
     }
 }

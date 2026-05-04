@@ -82,6 +82,8 @@ public:
 
         void precomputeXi();
 
+        // Returns Xi field for species speciei — O(S*N) cost.
+        // NEVER call inside a per-cell loop. Use precomputeXi() + Xi(s,celli) instead.
         volScalarField& computeXiFromYi
         (
             const label speciei
@@ -177,6 +179,12 @@ public:
         const volScalarField& Xi() const
         {
             return Xi_;
+        }
+
+        // Cached mole fraction accessor — valid after precomputeXi() has been called
+        inline scalar Xi(const label speciei, const label celli) const
+        {
+            return XiCells_[speciei][celli];
         }
 };
 

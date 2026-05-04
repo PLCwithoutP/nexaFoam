@@ -166,23 +166,9 @@ Foam::VTEnergySource<MixtureType, MixingRule>::n_s
     const label celli
 )
 {
-    // total number density
-    const scalar nTot = n_total(p, TTR);   // calls the 2-argument version
-
-    // species mole fraction in this cell
-    volScalarField& XrField = mr_.computeXiFromYi(s);
-    const scalar Xr = XrField[celli];
-
-    // species number density
-    const scalar nSpecie = Xr*nTot;
-
-    /* Info<< "Number density of specie " << s
-        << " at cell " << celli
-        << " = " << nSpecie
-        << " [1/m3], Xr = " << Xr
-        << ", n_tot = " << nTot << nl; */
-
-    return nSpecie;
+    const scalar nTot = n_total(p, TTR);
+    const scalar Xr = mr_.Xi(s, celli);                  
+    return Xr*nTot;
 }
 
 template<class MixtureType, class MixingRule>
@@ -195,19 +181,8 @@ Foam::VTEnergySource<MixtureType, MixingRule>::p_s
     const label celli
 )
 {
-    volScalarField& XsField = mr_.computeXiFromYi(s);
-    const scalar Xs = XsField[celli];
-
-    // partial pressure: p_s = X_s * p_total
+    const scalar Xs = mr_.Xi(s, celli);
     const scalar pSpecie = Xs*p;
-
-    /* Optional debug:
-    Info<< "Partial pressure of specie " << s
-        << " at cell " << celli
-        << " = " << pSpecie
-        << " Pa (Xs=" << Xs << ", p_tot=" << p << ')' << nl;
-    */
-
     return pSpecie;
 }
 
@@ -301,10 +276,7 @@ Foam::VTEnergySource<MixtureType, MixingRule>::T_s
     
     for (label r = 0; r < nSpec; ++r)
     {
-        //if (!(mix_.isSpecieMolecular(r))) continue;
- 
-        volScalarField& XrField = mr_.computeXiFromYi(r);
-        const scalar Xr = XrField[celli];
+        const scalar Xr = mr_.Xi(r, celli);
 
         if (Xr <= SMALL) continue;
 
@@ -350,6 +322,8 @@ Foam::VTEnergySource<MixtureType, MixingRule>::correctVibSource
 {
     makeQVibSourceFields(TTR.mesh());
 
+    mr_.precomputeXi();
+
     const scalarField& pCells   = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
     const PtrList<volScalarField>& Y_species = mix_.Y();
@@ -384,7 +358,8 @@ Foam::VTEnergySource<MixtureType, MixingRule>::correctVTRelaxationTime
 )
 {
     makeQVibSourceFields(TTR.mesh());
-
+    mr_.precomputeXi(); 
+    
     const scalarField& pCells   = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
 

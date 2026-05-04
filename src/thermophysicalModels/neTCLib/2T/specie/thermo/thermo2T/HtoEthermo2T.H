@@ -56,19 +56,25 @@ inline scalar CvVib
     }
     else
     {
-        volatile const scalar dimensionlessVibTemp = 0.5*ThetaVib/TVib 
-        volatile const scalar div = sinh(0.5*ThetaVib/TVib);
         volatile const scalar cpmcvTR = EquationOfState::CpMCv(p, TTR);
-        return cpmcvTR*dimensionlessVibTemp/div;
+        volatile const scalar x = 0.5*ThetaVib/TVib;
+        volatile const scalar xOverSinh = x/sinh(x);
+        return cpmcvTR*xOverSinh*xOverSinh;
     }
     #else
     if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
     }
+    if (TVib <= SMALL)
+    {
+        return 0;   // derivative → 0 as T → 0 for SHO
+    }
     else
     {
-        return EquationOfState::CpMCv(p, TTR)*(0.5*ThetaVib/TVib)/sinh(0.5*ThetaVib/TVib);
+        const scalar x = 0.5*ThetaVib/TVib;
+        const scalar xOverSinh = x/sinh(x);
+        return EquationOfState::CpMCv(p, TTR)*xOverSinh*xOverSinh;
     }
     #endif
 }
@@ -139,6 +145,10 @@ inline scalar EsVib
     if (static_cast<const specie2T&>(*this).isAtomic())
     {
         return 0;
+    }
+    if (TVib <= SMALL)
+    {
+        return 0;   // SHO ground state: no vibrational energy at T→0
     }
     else
     {

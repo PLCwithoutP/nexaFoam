@@ -33,11 +33,20 @@ if (use2T && mixtureCheck)
 
         forAll(TVs, celli)
         {
+            const scalar eVsClamped = max(eVs[celli], scalar(0));
+
+            if (eVsClamped < SMALL)
+            {
+                // SHO ground state: no vibrational excitation, TVib → 0
+                TVs[celli] = scalar(0);
+                continue;
+            }
+
             TVs[celli] =
                 mix.TEVib
                 (
                     speciei,
-                    eVs[celli],
+                    eVsClamped,
                     pCells[celli],
                     TTRCells[celli],
                     TVs[celli]
@@ -58,11 +67,19 @@ if (use2T && mixtureCheck)
 
             forAll(pp, facei)
             {
+                const scalar eVsClamped = max(peV[facei], scalar(0));
+
+                if (eVsClamped < SMALL)
+                {
+                    pTV[facei] = scalar(0);
+                    continue;
+                }
+
                 pTV[facei] =
                     mix.TEVib
                     (
                         speciei,
-                        peV[facei],
+                        eVsClamped,
                         pp[facei],
                         pTTR[facei],
                         pTV[facei]

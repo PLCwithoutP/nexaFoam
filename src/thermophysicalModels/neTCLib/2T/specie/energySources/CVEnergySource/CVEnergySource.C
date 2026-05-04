@@ -203,8 +203,8 @@ Foam::scalar Foam::CVEnergySource<MixtureType, MixingRule>::p_s
     const label celli
 )
 {
-    volScalarField& XsField = mr_.computeXiFromYi(s);
-    const scalar Xs = XsField[celli];
+    const scalar Xs = mr_.Xi(s, celli); 
+    
     return Xs*p;
 }
 
@@ -317,7 +317,8 @@ Foam::CVEnergySource<MixtureType, MixingRule>::correctCVSource
 
     readModelData(mesh);
     makeQCVSourceFields(mesh);
-
+    mr_.precomputeXi();
+    
     const PtrList<volScalarField>& Y_species = mix_.Y();
 
     const scalarField& pCells    = p.primitiveField();

@@ -190,6 +190,13 @@ if (use2T)
 
             rhoYi[speciei].max(SMALL);
 
+            rhoYEvibSpecies[speciei].primitiveFieldRef() =
+            max
+            (
+                rhoYEvibSpecies[speciei].primitiveField(),
+                scalarField(rhoYEvibSpecies[speciei].size(), scalar(0))
+            );
+            rhoYEvibSpecies[speciei].correctBoundaryConditions();
             eVibSpecies[speciei] =
                 rhoYEvibSpecies[speciei]/rhoYi[speciei];
 

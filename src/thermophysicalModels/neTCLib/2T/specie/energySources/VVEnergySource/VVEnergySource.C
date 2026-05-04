@@ -134,23 +134,10 @@ Foam::VVEnergySource<MixtureType, MixingRule>::n_s
     const label celli
 )
 {
-    // total number density
-    const scalar nTot = n_total(p, TTR);   // calls the 2-argument version
+    const scalar nTot = n_total(p, TTR);
+    const scalar Xr = mr_.Xi(s, celli);  
 
-    // species mole fraction in this cell
-    volScalarField& XrField = mr_.computeXiFromYi(s);
-    const scalar Xr = XrField[celli];
-
-    // species number density
-    const scalar nSpecie = Xr*nTot;
-
-    /* Info<< "Number density of specie " << s
-        << " at cell " << celli
-        << " = " << nSpecie
-        << " [1/m3], Xr = " << Xr
-        << ", n_tot = " << nTot << nl; */
-
-    return nSpecie;
+    return Xr*nTot;
 }
 
 template<class MixtureType, class MixingRule>
@@ -163,20 +150,9 @@ Foam::VVEnergySource<MixtureType, MixingRule>::p_s
     const label celli
 )
 {
-    volScalarField& XsField = mr_.computeXiFromYi(s);
-    const scalar Xs = XsField[celli];
-
-    // partial pressure: p_s = X_s * p_total
-    const scalar pSpecie = Xs*p;
-
-    /* Optional debug:
-    Info<< "Partial pressure of specie " << s
-        << " at cell " << celli
-        << " = " << pSpecie
-        << " Pa (Xs=" << Xs << ", p_tot=" << p << ')' << nl;
-    */
-
-    return pSpecie;
+    const scalar Xs = mr_.Xi(s, celli);
+    
+    return Xs*p;
 }
 
 
@@ -367,7 +343,8 @@ Foam::VVEnergySource<MixtureType, MixingRule>::correctVibVibSource
 {
     loadKnabCoeffs(TTR.mesh());
     makeQVibSourceFields(TTR.mesh());
-
+    mr_.precomputeXi();
+    
     const scalarField& pCells    = p.primitiveField();
     const scalarField& TTRCells  = TTR.primitiveField();
 

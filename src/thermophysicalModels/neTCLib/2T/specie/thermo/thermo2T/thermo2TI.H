@@ -114,17 +114,27 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TVib
             << abort(FatalError);
     }
 
-    scalar Test = TVib0;
-    scalar Tnew = TVib0;
-    scalar Ttol = TVib0*tol_;
-    int    iter = 0;
+    scalar Test      = TVib0;
+    scalar Tnew      = TVib0;
+    scalar Ttol      = TVib0*tol_;
+    int    iter      = 0;
 
     do
     {
         Test = Tnew;
-        Tnew =
-            (this->*limit)
-            (Test - ((this->*F)(p, TTR, Test, this->ThetaVib()) - f)/(this->*dFdT)(p, TTR, Test, this->ThetaVib()));
+
+        const scalar fVal  = (this->*F)   (p, TTR, Test, this->ThetaVib()) - f;
+        const scalar dfdT  = (this->*dFdT)(p, TTR, Test, this->ThetaVib());
+
+        Tnew = (this->*limit)(Test - fVal/dfdT);
+
+        // Secondary exit: function residual is smaller than what a step
+        // of size Ttol would produce given the current slope.
+        // Catches convergence when the function is flat (low TVib / high θ/T).
+        if (mag(fVal) <= Ttol*mag(dfdT))
+        {
+            return Tnew;
+        }
 
         if (iter++ > maxIter_)
         {
@@ -133,6 +143,8 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TVib
                 << " when starting from TVib0:" << TVib0
                 << " old T:" << Test << " new T:" << Tnew
                 << " f:" << f
+                << " fVal:" << fVal
+                << " dfdT:" << dfdT
                 << " p:" << p
                 << " tol:" << Ttol
                 << abort(FatalError);

@@ -5,10 +5,10 @@ thermo2T.eVib().primitiveFieldRef() =
 thermo2T.eVib().correctBoundaryConditions();
 
 // First pass using current p
-hTR =
-    (rhoE + p)/rho
-  - 0.5*magSqr(U)
-  - eV;
+hTR.primitiveFieldRef() =
+    (rhoE.primitiveField() + p.primitiveField()) / rho.primitiveField()
+  - 0.5*magSqr(U.primitiveField())
+  - eV.primitiveField();
 
 hTR.correctBoundaryConditions();
 TTR.correctBoundaryConditions();   
@@ -24,11 +24,12 @@ p.correctBoundaryConditions();
 rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();
 
 // Second pass using refreshed p
-hTR =
-    (rhoE + p)/rho
-  - 0.5*magSqr(U)
-  - eV;
+hTR.primitiveFieldRef() =
+    (rhoE.primitiveField() + p.primitiveField()) / rho.primitiveField()
+  - 0.5*magSqr(U.primitiveField())
+  - eV.primitiveField();
 
+hTR.correctBoundaryConditions();
 TTR.correctBoundaryConditions();   
 thermo2T.correct();                
 
