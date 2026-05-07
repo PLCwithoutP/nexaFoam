@@ -18,7 +18,7 @@ FoamFile
 
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform $velocityValue;
+internalField   uniform (0 0 0);
 
 boundaryField
 {
@@ -30,6 +30,9 @@ boundaryField
 
     cone
     {
+        type            slip;
+    }
+    /*{
         // Maxwell velocity slip boundary condition.
         // Applies first-order slip from kinetic theory (Maxwell, 1879).
         // Acts on U through the partialSlip Robin blending structure.
@@ -48,14 +51,14 @@ boundaryField
         // Thermal creep: tangential TTR gradient drives slip along the wall.
         // Active here — strong tangential temperature gradients exist
         // from the stagnation region to the cone shoulder.
-        thermalCreep        true;
+        thermalCreep        false;
 
         // Curvature: non-equilibrium stress correction for curved surfaces.
         // Active here — blunted cone nose has significant surface curvature.
-        curvature           true;
+        curvature           false;
 
         value               uniform (0 0 0);
-    }
+    }*/
 
     wedge1
     {

@@ -1,37 +1,26 @@
-Info<< "Entering updateTTRTemperature" << nl << endl;
+//Info<< "Entering updateTTRTemperature" << nl << endl;
 
-thermo2T.eVib().primitiveFieldRef() =
-    rhoEv.primitiveField() / rho.primitiveField();
-thermo2T.eVib().correctBoundaryConditions();
+thermo2T.eVib() = rhoEv / rho;
 
 // First pass using current p
-hTR.primitiveFieldRef() =
-    (rhoE.primitiveField() + p.primitiveField()) / rho.primitiveField()
-  - 0.5*magSqr(U.primitiveField())
-  - eV.primitiveField();
+hTR =
+    (rhoE + p) / rho
+  - 0.5*magSqr(U)
+  - eV;
 
-hTR.correctBoundaryConditions();
-TTR.correctBoundaryConditions();   
-
+hTR.correctBoundaryConditions();  // required for mixed BC
+TTR.correctBoundaryConditions();  // required for mixed BC
 thermo2T.correct();
 
-// Refresh pressure from updated psi
-p.ref() =
-    rho()
-   /psi();
+/*// Second pass using refreshed p
+hTR =
+    (rhoE + p) / rho
+  - 0.5*magSqr(U)
+  - eV;
 
-p.correctBoundaryConditions();
-rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();
-
-// Second pass using refreshed p
-hTR.primitiveFieldRef() =
-    (rhoE.primitiveField() + p.primitiveField()) / rho.primitiveField()
-  - 0.5*magSqr(U.primitiveField())
-  - eV.primitiveField();
-
-hTR.correctBoundaryConditions();
-TTR.correctBoundaryConditions();   
-thermo2T.correct();                
+hTR.correctBoundaryConditions();  // required for mixed BC
+TTR.correctBoundaryConditions();  // required for mixed BC*/
+//thermo2T.correct();                
 
 // Keep rhoE BC consistent with conservative total energy
 rhoE.boundaryFieldRef() ==
@@ -42,3 +31,8 @@ rhoE.boundaryFieldRef() ==
       + 0.5*magSqr(U.boundaryField())
     )
   - p.boundaryField();
+
+// Refresh pressure from updated psi
+p.ref() = rho() / psi();
+p.correctBoundaryConditions();
+rho.boundaryFieldRef() == psi.boundaryField()*p.boundaryField();

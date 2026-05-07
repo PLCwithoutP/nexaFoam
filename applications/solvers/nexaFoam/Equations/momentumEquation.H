@@ -15,6 +15,6 @@ if (!inviscid)
         - fvm::laplacian(muLam, U)
         - fvc::div(tauMC)
     );
-    U.correctBoundaryConditions();
+    //U.correctBoundaryConditions();
     rhoU = rho*U;
 }

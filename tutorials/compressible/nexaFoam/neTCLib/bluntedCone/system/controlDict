@@ -14,11 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-libs 
-(
-    "libneTCLib_2T.so"
-);
-
 application     nexaFoam;
 
 startFrom       latestTime;
@@ -27,13 +22,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         2e-04;
+endTime         1e-08;
 
 deltaT          1e-10;
 
-writeControl    timeStep;
+writeControl    adjustableRunTime;
 
-writeInterval   100;
+writeInterval   1e-09;
 
 purgeWrite      0;
 
@@ -53,7 +48,7 @@ runTimeModifiable true;
 
 adjustTimeStep  yes;
 
-maxCo           0.3;
+maxCo           0.5;
 
 maxDeltaT       1e-05;
 

@@ -52,7 +52,7 @@ Description
 
 int main(int argc, char *argv[])
 {
-    #include "logDebugCreate.H"
+    //#include "logDebugCreate.H"
     argList::addNote
     (
         "Density-based compressible flow solver based on"
@@ -68,8 +68,6 @@ int main(int argc, char *argv[])
     #include "createDynamicFvMesh.H"
     #include "createFields.H"
     #include "createTimeControls.H"
-
-    Info<< "createFields completed" << nl << endl;
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -197,7 +195,6 @@ int main(int argc, char *argv[])
         #include "Updates/updateTTRTemperature.H"
 
         #include "Equations/vibEnergyEquation.H"
-
         #include "Updates/updateVibTemperature.H"
 
         // Sanity check
@@ -211,8 +208,8 @@ int main(int argc, char *argv[])
 
         #include "Equations/applyChemistry.H"
 
-        Info << "After TTR update: " << nl;
-        Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
+        //Info << "After TTR update: " << nl;
+        //Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
 
         // Fetch N2 and O2 average vibrational temperatures if multispecies 2T is active
         if (solveSpeciesVib)
@@ -231,15 +228,15 @@ int main(int argc, char *argv[])
                         sName == "Y.NO" 
                     ) && vibSpecieActive[speciei])
                 {
-                    Info << "Average " << sName << " vibrational temperature is: "
-                         << TVibSpecies[speciei].average().value() << nl;
+                    //Info << "Average " << sName << " vibrational temperature is: "
+                    //     << TVibSpecies[speciei].average().value() << nl;
                 }
             }
         }
         else
         {
             // Fallback for pure-mixture or non-2T cases
-            Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
+            //Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
         }
 
         runTime.write();

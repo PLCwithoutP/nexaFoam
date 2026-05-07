@@ -30,11 +30,15 @@ boundaryField
 
     cone
     {
+        type            fixedValue;
+        value           uniform $TwallValue;
+    }
+    /*{
         type                smoluchowskiJumpT;
         accommodationCoeff  $accommodationCoeff;
         Twall               uniform $TwallValue;
         value               uniform $TTRValue;
-    }
+    }*/
 
     wedge1
     {

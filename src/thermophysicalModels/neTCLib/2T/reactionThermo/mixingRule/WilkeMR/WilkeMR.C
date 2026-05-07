@@ -195,11 +195,18 @@ Foam::WilkeMR<MixtureType>::QCell
 )
 {
     const label nSpec = mix_.Y().size();
+
+    // For a single species, Wilke mixing rule reduces to the
+    // species property directly — no loop needed.
+    if (nSpec == 1)
+    {
+        return getQ(0, p, TTR);
+    }
+
     scalar Qmix = 0.0;
 
     for (label speciei = 0; speciei < nSpec; ++speciei)
     {
-        // O(1) lookup — no field operation
         const scalar Xs    = XiCells_[speciei][celli];
         const scalar phi_s = scalingFactor(speciei, celli, TTR);
         const scalar Qs    = getQ(speciei, p, TTR);

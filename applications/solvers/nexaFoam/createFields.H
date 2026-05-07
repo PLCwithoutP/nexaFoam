@@ -35,6 +35,7 @@ forAll(Y_species, speciei)
         solveSpeciesVib && mix.isSpecieMolecular(speciei);
 }
 
+// sensible enthalpy
 volScalarField& hTR = thermo2T.h();
 volScalarField& eV = thermo2T.eVib();
 

@@ -77,8 +77,8 @@ class kurganovFluxCalculator
     surfaceScalarField rPsi_pos_;
     surfaceScalarField rPsi_neg_;
 
-    surfaceScalarField e_pos_;
-    surfaceScalarField e_neg_;
+    surfaceScalarField h_pos_;
+    surfaceScalarField h_neg_;
 
     surfaceVectorField U_pos_;
     surfaceVectorField U_neg_;
@@ -140,8 +140,8 @@ private:
         rPsi_pos_ = interpolate(rPsi, pos_, TTR_.name());
         rPsi_neg_ = interpolate(rPsi, neg_, TTR_.name());
 
-        e_pos_ = interpolate(hTR_, pos_, TTR_.name());
-        e_neg_ = interpolate(hTR_, neg_, TTR_.name());
+        h_pos_ = interpolate(hTR_, pos_, TTR_.name());
+        h_neg_ = interpolate(hTR_, neg_, TTR_.name());
 
         U_pos_ = rhoU_pos_/rho_pos_;
         U_neg_ = rhoU_neg_/rho_neg_;
@@ -231,33 +231,47 @@ private:
     // ---------------------------------------------------------------------
     // --- 5a) Face fluxes for conservative variables
     // ---------------------------------------------------------------------
-    void calcConservativeFluxes()
+    // -----------------------------------------------------------------------
+    // Mass flux
+    // -----------------------------------------------------------------------
+    void calcMassFlux()
     {
-        // Mass flux (mixture)
         phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
         phi_.setOriented(true);
+    }
 
-        // Convective momentum flux (oriented after assembly)
+    // -----------------------------------------------------------------------
+    // Momentum flux (convective + pressure)
+    // -----------------------------------------------------------------------
+    void calcMomentumFlux()
+    {
         surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
         phiU.setOriented(true);
 
-        // Full momentum flux (convective + pressure)
         phiUp_ =
             phiU
-          + (alpha_*p_pos_ + minus_alpha_*p_neg_)*mesh_.Sf();
+        + (alpha_*p_pos_ + minus_alpha_*p_neg_)*mesh_.Sf();
         phiUp_.setOriented(true);
+    }
 
-        // Total energy flux
+    // -----------------------------------------------------------------------
+    // Total energy flux
+    // -----------------------------------------------------------------------
+    void calcEnergyFlux()
+    {
+        // --- Build face vibrational energy (zero if 1T) ---
         surfaceScalarField eVmix_pos
         (
-            IOobject("eVmix_pos", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            IOobject("eVmix_pos", mesh_.time().timeName(), mesh_,
+                    IOobject::NO_READ, IOobject::NO_WRITE),
             mesh_,
             dimensionedScalar("zero", hTR_.dimensions(), 0.0)
         );
 
         surfaceScalarField eVmix_neg
         (
-            IOobject("eVmix_neg", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
+            IOobject("eVmix_neg", mesh_.time().timeName(), mesh_,
+                    IOobject::NO_READ, IOobject::NO_WRITE),
             mesh_,
             dimensionedScalar("zero", hTR_.dimensions(), 0.0)
         );
@@ -271,15 +285,12 @@ private:
             }
             else if (mixtureCheck_ && eVibSpeciesPtr_)
             {
-                const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
-                const PtrList<volScalarField>& eVibSpecies = *eVibSpeciesPtr_;
+                const PtrList<volScalarField>& Y      = thermo2T_.composition().Y();
+                const PtrList<volScalarField>& eVibSp = *eVibSpeciesPtr_;
 
                 forAll(Y, i)
                 {
-                    if (!thermo2T_.composition().isSpecieMolecular(i))
-                    {
-                        continue;
-                    }
+                    if (!thermo2T_.composition().isSpecieMolecular(i)) continue;
 
                     surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
                     surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
@@ -287,20 +298,21 @@ private:
                     Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
                     Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
 
-                    eVmix_pos += Yi_pos*interpolate(eVibSpecies[i], pos_, TTR_.name());
-                    eVmix_neg += Yi_neg*interpolate(eVibSpecies[i], neg_, TTR_.name());
+                    eVmix_pos += Yi_pos*interpolate(eVibSp[i], pos_, TTR_.name());
+                    eVmix_neg += Yi_neg*interpolate(eVibSp[i], neg_, TTR_.name());
                 }
             }
         }
 
+        // --- Kurganov energy flux ---
         phiEp_ =
-            aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
-          + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
-          + nw_f_*(p_pos_ - p_neg_);
+            aphi_fp_*(rho_pos_*(h_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)))
+        + aphi_fn_*(rho_neg_*(h_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)))
+        + nw_f_*(p_pos_ - p_neg_);
 
         phiEp_.setOriented(true);
 
-        // Make flux for pressure-work absolute (ALE correction)
+        // --- ALE correction for moving meshes ---
         if (mesh_.moving())
         {
             surfaceScalarField meshPhi(mesh_.phi());
@@ -308,90 +320,22 @@ private:
             phiEp_ += meshPhi*(alpha_*p_pos_ + minus_alpha_*p_neg_);
         }
     }
+
+    void calcConservativeFluxes()
+    {
+        calcMassFlux();
+        calcMomentumFlux();
+        calcEnergyFlux();
+    }
     
     // ---------------------------------------------------------------------
     // --- 5b) Face fluxes for multispecies
     // ---------------------------------------------------------------------
-    void calcSpeciesFluxes()
+    // -----------------------------------------------------------------------
+    // Mass fraction fluxes
+    // -----------------------------------------------------------------------
+    void calcMassFractionFluxes()
     {
-        // Mass flux (mixture)
-        phi_ = aphi_fp_*rho_pos_ + aphi_fn_*rho_neg_;
-        phi_.setOriented(true);
-
-        // Convective momentum flux (oriented after assembly)
-        surfaceVectorField phiU(aphi_fp_*rhoU_pos_ + aphi_fn_*rhoU_neg_);
-        phiU.setOriented(true);
-
-        // Full momentum flux (convective + pressure)
-        phiUp_ =
-            phiU
-        + (alpha_*p_pos_ + minus_alpha_*p_neg_)*mesh_.Sf();
-        phiUp_.setOriented(true);
-
-        // Total energy flux
-        /* surfaceScalarField eVmix_pos
-        (
-            IOobject("eVmix_pos", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
-            mesh_,
-            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
-        );
-
-        surfaceScalarField eVmix_neg
-        (
-            IOobject("eVmix_neg", mesh_.time().timeName(), mesh_, IOobject::NO_READ, IOobject::NO_WRITE),
-            mesh_,
-            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
-        ); */
-
-        if (use2T_)
-        {
-            if (!mixtureCheck_ && eVPtr_)
-            {
-/*                 eVmix_pos = interpolate(*eVPtr_, pos_, TTR_.name());
-                eVmix_neg = interpolate(*eVPtr_, neg_, TTR_.name()); */
-            }
-            else if (mixtureCheck_ && eVibSpeciesPtr_)
-            {
-                const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
-                const PtrList<volScalarField>& eVibSpecies = *eVibSpeciesPtr_;
-
-                forAll(Y, i)
-                {
-                    if (!thermo2T_.composition().isSpecieMolecular(i))
-                    {
-                        continue;
-                    }
-
-                    surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
-                    surfaceScalarField Yi_neg(interpolate(Y[i], neg_, TTR_.name()));
-
-                    Yi_pos = max(min(Yi_pos, scalar(1)), scalar(0));
-                    Yi_neg = max(min(Yi_neg, scalar(1)), scalar(0));
-
-/*                     eVmix_pos += Yi_pos*interpolate(eVibSpecies[i], pos_, TTR_.name());
-                    eVmix_neg += Yi_neg*interpolate(eVibSpecies[i], neg_, TTR_.name()); */
-                }
-            }
-        }
-
-        phiEp_ =
-            aphi_fp_*(rho_pos_*(e_pos_ + 0.5*magSqr(U_pos_)) + p_pos_)
-          + aphi_fn_*(rho_neg_*(e_neg_ + 0.5*magSqr(U_neg_)) + p_neg_)
-          + nw_f_*(p_pos_ - p_neg_);
-
-        phiEp_.setOriented(true);
-
-        // ALE correction for moving mesh
-        if (mesh_.moving())
-        {
-            surfaceScalarField meshPhi(mesh_.phi());
-            meshPhi.setOriented(false);
-            phiEp_ += meshPhi*(alpha_*p_pos_ + minus_alpha_*p_neg_);
-        }
-
-        // Compute per-species convective mass fluxes phiRhoYi
-        // phiRhoYi_i = aphi_fp_*(rho*Yi)_pos + aphi_fn_*(rho*Yi)_neg
-        // -----------------------------------------------------------------
         if (!mixtureCheck_ || nSpecie_ == 0) return;
 
         const PtrList<volScalarField>& Y = thermo2T_.composition().Y();
@@ -402,7 +346,6 @@ private:
         sumPhiRhoYi.rename("sumPhiRhoYi");
         sumPhiRhoYi = dimensionedScalar(sumPhiRhoYi.dimensions(), 0.0);
 
-        
         for (label i = 0; i < last; ++i)
         {
             surfaceScalarField Yi_pos(interpolate(Y[i], pos_, TTR_.name()));
@@ -420,9 +363,17 @@ private:
             sumPhiRhoYi += phiRhoYi_[i];
         }
 
-        // last species flux is whatever is needed to make the sum exact
+        // Last species flux — closure to enforce sum(Y) = 1 exactly
         phiRhoYi_[last] = phi_ - sumPhiRhoYi;
         phiRhoYi_[last].setOriented(true);
+    }
+
+    void calcSpeciesFluxes()
+    {
+        calcMassFlux();
+        calcMomentumFlux();
+        calcEnergyFlux();       
+        calcMassFractionFluxes();
     }
 
     void calcPureMixtureVibFlux()
@@ -666,11 +617,11 @@ public:
             )
         ),
 
-        e_pos_
+        h_pos_
         (
             IOobject
             (
-                "e_pos", 
+                "h_pos", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -685,11 +636,11 @@ public:
             )
         ),
         
-        e_neg_
+        h_neg_
         (
             IOobject
             (
-                "e_neg", 
+                "h_neg", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -1283,11 +1234,11 @@ public:
             )
         ),
 
-        e_pos_
+        h_pos_
         (
             IOobject
             (
-                "e_pos", 
+                "h_pos", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -1302,11 +1253,11 @@ public:
             )
         ),
         
-        e_neg_
+        h_neg_
         (
             IOobject
             (
-                "e_neg", 
+                "h_neg", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -1902,11 +1853,11 @@ public:
             )
         ),
 
-        e_pos_
+        h_pos_
         (
             IOobject
             (
-                "e_pos", 
+                "h_pos", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -1921,11 +1872,11 @@ public:
             )
         ),
         
-        e_neg_
+        h_neg_
         (
             IOobject
             (
-                "e_neg", 
+                "h_neg", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 

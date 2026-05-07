@@ -73,7 +73,7 @@ if (mixtureCheck)
         Y[i] = rhoYi[i]/rho;
 
         // keep bounded
-        Y[i].max(0.0);
+        Y[i].max(SMALL);
         Y[i].min(1.0);
         Y[i].correctBoundaryConditions();
     }

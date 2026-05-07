@@ -81,6 +81,7 @@ Foam::janaf2TThermo<EquationOfState>::janaf2TThermo(const dictionary& dict)
     TFirstInt_(dict.subDict("thermodynamics").get<scalar>("TFirstInt")),
     TSecondInt_(dict.subDict("thermodynamics").get<scalar>("TSecondInt")),
     ThetaVib_(dict.subDict("thermodynamics").get<scalar>("ThetaVibrational")),
+    warnOutOfRange_(dict.subDict("thermodynamics").getOrDefault<bool>("warnOutOfRange", true)),
     highCpCoeffs_(dict.subDict("thermodynamics").lookup("highCpCoeffs")),
     midCpCoeffs_(dict.subDict("thermodynamics").lookup("midCpCoeffs")),
     lowCpCoeffs_(dict.subDict("thermodynamics").lookup("lowCpCoeffs"))

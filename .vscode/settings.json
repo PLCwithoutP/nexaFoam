@@ -42,6 +42,15 @@
         "VVEnergySource.C": "cpp",
         "CVEnergySource.C": "cpp",
         "he2TThermo.C": "cpp",
-        "perfect2TGas.C": "cpp"
+        "perfect2TGas.C": "cpp",
+        "janaf2TThermo.C": "cpp",
+        "messageStream.C": "cpp",
+        "char.C": "cpp",
+        "OSstream.C": "cpp",
+        "chrono": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp",
+        "fixed2TEnergyFvPatchScalarField.C": "cpp",
+        "energy2TJumpFvPatchScalarField.C": "cpp"
     }
 }

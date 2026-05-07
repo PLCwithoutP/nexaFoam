@@ -114,6 +114,7 @@ private:
         coeffArray lowCpCoeffs_;
 
         bool convertCoeffs_;
+        bool warnOutOfRange_;   // suppress JANAF out-of-range warnings if false
 
     // Private Member Functions
 
@@ -140,7 +141,8 @@ public:
             const coeffArray& highCpCoeffs,
             const coeffArray& midCpCoeffs,
             const coeffArray& lowCpCoeffs,
-            const bool convertCoeffs = false
+            const bool convertCoeffs = false,
+            const bool warnOutOfRange = true
         );
 
         //- Construct from dictionary

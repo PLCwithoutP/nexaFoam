@@ -43,7 +43,8 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     const typename janaf2TThermo<EquationOfState>::coeffArray& highCpCoeffs,
     const typename janaf2TThermo<EquationOfState>::coeffArray& midCpCoeffs,
     const typename janaf2TThermo<EquationOfState>::coeffArray& lowCpCoeffs,
-    const bool convertCoeffs
+    const bool convertCoeffs,
+    const bool warnOutOfRange
 )
 :
     EquationOfState(st),
@@ -52,7 +53,8 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     TFirstInt_(TFirstInt),
     TSecondInt_(TSecondInt),
     ThetaVib_(ThetaVib),
-    convertCoeffs_(convertCoeffs)
+    convertCoeffs_(convertCoeffs),
+    warnOutOfRange_(warnOutOfRange)
 {
     if (convertCoeffs_)
     {
@@ -111,7 +113,8 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
     TAbsHigh_(jt.TAbsHigh_),
     TFirstInt_(jt.TFirstInt_),
     TSecondInt_(jt.TSecondInt_),
-    ThetaVib_(jt.ThetaVib_)
+    ThetaVib_(jt.ThetaVib_),
+    warnOutOfRange_(jt.warnOutOfRange_)
 {
     for (label coefLabel=0; coefLabel<nCoeffs_; coefLabel++)
     {
@@ -127,21 +130,22 @@ inline Foam::janaf2TThermo<EquationOfState>::janaf2TThermo
 template<class EquationOfState>
 inline Foam::scalar Foam::janaf2TThermo<EquationOfState>::limit
 (
-    const scalar T
+    const scalar TTR
 ) const
 {
-    if (T < TAbsLow_ || T > TAbsHigh_)
+    if (TTR < TAbsLow_ || TTR > TAbsHigh_)
     {
-        WarningInFunction
-            << "attempt to use janaf2TThermo<EquationOfState>"
-               " out of temperature range "
-            << TAbsLow_ << " -> " << TAbsHigh_ << ";  T = " << T
-            << endl;
-
-        return clamp(T, TAbsLow_, TAbsHigh_);
+        if (warnOutOfRange_)
+        {
+            WarningInFunction
+                << "attempt to use janaf2TThermo<EquationOfState>"
+                   " out of temperature range "
+                << TAbsLow_ << " -> " << TAbsHigh_ << ";  T = " << TTR
+                << endl;
+        }
+        return clamp(TTR, TAbsLow_, TAbsHigh_);
     }
-
-    return T;
+    return TTR;
 }
 
 
@@ -390,7 +394,8 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
             jt1.highCpCoeffs_,
             jt1.midCpCoeffs_,
             jt1.lowCpCoeffs_,
-            jt1.convertCoeffs_
+            jt1.convertCoeffs_,
+            jt1.warnOutOfRange_
         );
     }
     else
@@ -461,7 +466,9 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator+
             thetaVibMix,
             highCpCoeffs,
             midCpCoeffs,
-            lowCpCoeffs
+            lowCpCoeffs,
+            jt1.convertCoeffs_,
+            jt1.warnOutOfRange_
         );
     }
 }
@@ -485,7 +492,8 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator*
         jt.highCpCoeffs_,
         jt.midCpCoeffs_,
         jt.lowCpCoeffs_,
-        jt.convertCoeffs_
+        jt.convertCoeffs_,
+        jt.warnOutOfRange_
     );
 }
 
@@ -555,7 +563,8 @@ inline Foam::janaf2TThermo<EquationOfState> Foam::operator==
         highCpCoeffs,
         midCpCoeffs,
         lowCpCoeffs,
-        jt2.convertCoeffs_
+        jt2.convertCoeffs_,
+        jt2.warnOutOfRange_
     );
 }
 

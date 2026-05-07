@@ -38,6 +38,7 @@ N2
     TFirstInt          1000; // K
     TSecondInt         6000; // K
     ThetaVibrational   3371; // K
+    warnOutOfRange          false;
     highCpCoeffs
     (
         0.0
@@ -85,6 +86,7 @@ N2
     }
 
     dissociationPotential   3.36e7;
+    
 }
 
 

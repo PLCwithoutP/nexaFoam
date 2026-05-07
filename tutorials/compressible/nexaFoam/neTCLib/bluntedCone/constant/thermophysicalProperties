@@ -27,7 +27,7 @@ thermoType
 
 library             neTCLib;
 
-twoTemperature      true;
+twoTemperature      false;
 VVrelaxation        false;
 chemistry           false;
 

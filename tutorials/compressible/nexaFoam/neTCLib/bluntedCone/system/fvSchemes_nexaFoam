@@ -9,49 +9,49 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       volScalarField;
-    object      TVib;
+    class       dictionary;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "initialConditions"
+fluxScheme          Kurganov;
 
-dimensions      [0 0 0 1 0 0 0];
-
-internalField   uniform $TVibValue;
-
-boundaryField
+ddtSchemes
 {
-    inlet
-    {
-        // Supersonic inflow: TVib fixed at freestream value.
-        // In the undisturbed freestream TVib = TTR = T_inf = 144.4 K —
-        // the gas has had sufficient time to reach thermal equilibrium
-        // far from the body.
-        type            fixedValue;
-        value           uniform $TVibValue;
-    }
+    default         Euler;
+}
 
-    cone
-    {
-        type            fixedValue;
-        value           uniform $TwallValue;
-    }
+gradSchemes
+{
+    default         Gauss linear;
+}
 
-    wedge1
-    {
-        type            wedge;
-    }
+divSchemes
+{
+    default         none;
 
-    wedge2
-    {
-        type            wedge;
-    }
+    div(tauMC)      Gauss linear;
+    div(phi,U)        Gauss limitedLinearV 1;
+    div(U)          Gauss linear;
+}
 
-    outlet
-    {
-        type            zeroGradient;
-    }
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+
+    reconstruct(rho) vanLeer;
+    reconstruct(U)  vanLeerV;
+    reconstruct(T)  vanLeer;
+}
+
+snGradSchemes
+{
+    default         corrected;
 }
 
 
