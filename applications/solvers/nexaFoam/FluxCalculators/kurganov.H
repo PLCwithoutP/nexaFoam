@@ -55,7 +55,7 @@ class kurganovFluxCalculator
     const volVectorField& U_;
 
     const volScalarField& psi_;
-    const volScalarField& hTR_;
+    const volScalarField& eTR_;
     const volScalarField& TTR_;
 
     const surfaceScalarField& pos_;
@@ -77,8 +77,8 @@ class kurganovFluxCalculator
     surfaceScalarField rPsi_pos_;
     surfaceScalarField rPsi_neg_;
 
-    surfaceScalarField h_pos_;
-    surfaceScalarField h_neg_;
+    surfaceScalarField e_pos_;
+    surfaceScalarField e_neg_;
 
     surfaceVectorField U_pos_;
     surfaceVectorField U_neg_;
@@ -140,8 +140,8 @@ private:
         rPsi_pos_ = interpolate(rPsi, pos_, TTR_.name());
         rPsi_neg_ = interpolate(rPsi, neg_, TTR_.name());
 
-        h_pos_ = interpolate(hTR_, pos_, TTR_.name());
-        h_neg_ = interpolate(hTR_, neg_, TTR_.name());
+        e_pos_ = interpolate(eTR_, pos_, TTR_.name());
+        e_neg_ = interpolate(eTR_, neg_, TTR_.name());
 
         U_pos_ = rhoU_pos_/rho_pos_;
         U_neg_ = rhoU_neg_/rho_neg_;
@@ -265,7 +265,7 @@ private:
             IOobject("eVmix_pos", mesh_.time().timeName(), mesh_,
                     IOobject::NO_READ, IOobject::NO_WRITE),
             mesh_,
-            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+            dimensionedScalar("zero", eTR_.dimensions(), 0.0)
         );
 
         surfaceScalarField eVmix_neg
@@ -273,7 +273,7 @@ private:
             IOobject("eVmix_neg", mesh_.time().timeName(), mesh_,
                     IOobject::NO_READ, IOobject::NO_WRITE),
             mesh_,
-            dimensionedScalar("zero", hTR_.dimensions(), 0.0)
+            dimensionedScalar("zero", eTR_.dimensions(), 0.0)
         );
 
         if (use2T_)
@@ -306,8 +306,8 @@ private:
 
         // --- Kurganov energy flux ---
         phiEp_ =
-            aphi_fp_*(rho_pos_*(h_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)))
-        + aphi_fn_*(rho_neg_*(h_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)))
+            aphi_fp_*(rho_pos_*(e_pos_ + eVmix_pos + 0.5*magSqr(U_pos_)) + p_pos_)
+        + aphi_fn_*(rho_neg_*(e_neg_ + eVmix_neg + 0.5*magSqr(U_neg_)) + p_neg_)
         + nw_f_*(p_pos_ - p_neg_);
 
         phiEp_.setOriented(true);
@@ -466,7 +466,7 @@ public:
         const volVectorField& rhoU,
         const volVectorField& U,
         const volScalarField& psi,
-        const volScalarField& hTR,
+        const volScalarField& eTR,
         const volScalarField& TTR,
         const surfaceScalarField& pos,
         const surfaceScalarField& neg,
@@ -485,7 +485,7 @@ public:
         U_(U),
 
         psi_(psi),
-        hTR_(hTR),
+        eTR_(eTR),
         TTR_(TTR),
 
         pos_(pos),
@@ -617,7 +617,7 @@ public:
             )
         ),
 
-        h_pos_
+        e_pos_
         (
             IOobject
             (
@@ -631,12 +631,12 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
         
-        h_neg_
+        e_neg_
         (
             IOobject
             (
@@ -650,7 +650,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
@@ -973,7 +973,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),
@@ -992,7 +992,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),
@@ -1082,7 +1082,7 @@ public:
         const volVectorField& rhoU,
         const volVectorField& U,
         const volScalarField& psi,
-        const volScalarField& hTR,
+        const volScalarField& eTR,
         const volScalarField& TTR,
         const volScalarField& eV,
         const surfaceScalarField& pos,
@@ -1102,7 +1102,7 @@ public:
         U_(U),
 
         psi_(psi),
-        hTR_(hTR),
+        eTR_(eTR),
         TTR_(TTR),
 
         pos_(pos),
@@ -1234,7 +1234,7 @@ public:
             )
         ),
 
-        h_pos_
+        e_pos_
         (
             IOobject
             (
@@ -1248,12 +1248,12 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
         
-        h_neg_
+        e_neg_
         (
             IOobject
             (
@@ -1267,7 +1267,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
@@ -1590,7 +1590,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),
@@ -1609,7 +1609,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),
@@ -1701,7 +1701,7 @@ public:
         const volVectorField& rhoU,
         const volVectorField& U,
         const volScalarField& psi,
-        const volScalarField& hTR,
+        const volScalarField& eTR,
         const volScalarField& TTR,
         const PtrList<volScalarField>& eVibSpecies,
         const surfaceScalarField& pos,
@@ -1721,7 +1721,7 @@ public:
         U_(U),
 
         psi_(psi),
-        hTR_(hTR),
+        eTR_(eTR),
         TTR_(TTR),
 
         pos_(pos),
@@ -1853,7 +1853,7 @@ public:
             )
         ),
 
-        h_pos_
+        e_pos_
         (
             IOobject
             (
@@ -1867,12 +1867,12 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
         
-        h_neg_
+        e_neg_
         (
             IOobject
             (
@@ -1886,7 +1886,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                hTR_.dimensions(), 
+                eTR_.dimensions(), 
                 0.0
             )
         ),
@@ -2209,7 +2209,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),
@@ -2228,7 +2228,7 @@ public:
             dimensionedScalar
             (
                 "zero", 
-                rho_.dimensions()*hTR_.dimensions()*dimVolume/dimTime, 
+                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
                 0.0
             )
         ),

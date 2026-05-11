@@ -495,6 +495,13 @@ public:
             //- Enthalpy [J/kg]
             virtual const volScalarField& h() const = 0;
 
+            //- Translational-Rotational Internal Energy [J/kg]
+            //  Non-const access allowed for transport equations
+            virtual volScalarField& eTR() = 0;
+
+            //- Translational-Rotational Internal Energy [J/kg]
+            virtual const volScalarField& eTR() const = 0;
+
             //- Translational Internal Energy [J/kg]
             //  Non-const access allowed for transport equations
             virtual volScalarField& eT() = 0;
@@ -634,6 +641,24 @@ public:
             virtual tmp<scalarField> TH_TR
             (
                 const scalarField& h,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const label patchi
+            ) const = 0;
+
+            //- Temperature from translational-rotational energy for cell-set
+            virtual tmp<scalarField> TE_TR
+            (
+                const scalarField& eTR,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const labelList& cells
+            ) const = 0;
+
+            //- Temperature from translational-rotational energy for patch
+            virtual tmp<scalarField> TE_TR
+            (
+                const scalarField& eTR,
                 const scalarField& p,
                 const scalarField& TTR0,      // starting translational-rotational temperature
                 const label patchi

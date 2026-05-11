@@ -448,6 +448,16 @@ inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::Kn
     }
 }
 
+template<class Thermo2T, template<class> class Type>
+inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TE_TR
+(
+    const scalar eTR,
+    const scalar p,
+    const scalar TTR0
+) const
+{
+    return Type<thermo2T<Thermo2T, Type>>::TE_TR(*this, eTR, p, TTR0);
+}
 
 template<class Thermo2T, template<class> class Type>
 inline Foam::scalar Foam::species::thermo2T<Thermo2T, Type>::TH_TR

@@ -197,7 +197,27 @@ public:
                 #endif
             }
 
-            //- Temperature from sensible enthalpy
+            //- Temperature from sensible internal energy
+            //  given an initial temperature T0
+            scalar TE_TR
+            (
+                const Thermo2T& thermo2T,
+                const scalar eTR,
+                const scalar p,
+                const scalar TTR0
+            ) const
+            {
+                #ifdef __clang__
+                // Using volatile to prevent compiler optimisations leading to
+                // a sigfpe
+                volatile const scalar ths = thermo2T.TEs_TR(eTR, p, TTR0);
+                return ths;
+                #else
+                return thermo2T.TEs_TR(eTR, p, TTR0);
+                #endif
+            }
+
+            //- Temperature from sensible internal energy
             //  given an initial temperature T0
             scalar TE_Vib
             (

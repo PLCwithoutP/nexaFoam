@@ -51,6 +51,12 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "fixed2TEnergyFvPatchScalarField.C": "cpp",
-        "energy2TJumpFvPatchScalarField.C": "cpp"
+        "energy2TJumpFvPatchScalarField.C": "cpp",
+        "basic2TThermo.C": "cpp",
+        "*.tcc": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "algorithm": "cpp",
+        "MovingPhaseModel.C": "cpp"
     }
 }

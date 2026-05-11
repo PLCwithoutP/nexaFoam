@@ -97,11 +97,11 @@ if (useChemistry)
         }
         rhoE.correctBoundaryConditions();
 
-        hTR =
-            (rhoE + p)/rho
+        eTR =
+            rhoE/rho
         - 0.5*magSqr(U)
         - eV;
-        hTR.correctBoundaryConditions();
+        eTR.correctBoundaryConditions();
     }
     else
     {

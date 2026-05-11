@@ -114,6 +114,20 @@ mutationppWrapper::mutationppWrapper(const fvMesh& mesh)
         dimensionedScalar("h", dimEnergy/dimMass, 0.0)
     ),
 
+    eTR_
+    (
+        IOobject
+        (
+            "eTR",
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("eTR", dimEnergy/dimMass, 0.0)
+    ),
+    
     eVib_
     (
         IOobject
@@ -364,6 +378,7 @@ void mutationppWrapper::initForward_()
     const scalarField& pCells    = p_.internalField();
 
     scalarField& hCells         = h_.primitiveFieldRef();
+    scalarField& eTRCells       = eTR_.primitiveFieldRef();
     scalarField& eVibCells      = eVib_.primitiveFieldRef();
     scalarField& psiCells       = psi_.primitiveFieldRef();
     scalarField& rhoCells       = rho_.primitiveFieldRef();
@@ -386,6 +401,7 @@ void mutationppWrapper::initForward_()
         adapter_.setState(Yi.data(), rho0, TtrCells[cellI], TVibCells[cellI]);
 
         hCells[cellI]        = adapter_.hTR();   // h FROM T (not inverted)
+        eTRCells[cellI] = adapter_.hTR() - pCells[cellI]/rhoCells[cellI];
         eVibCells[cellI]     = adapter_.eVib();
         rhoCells[cellI]      = adapter_.rho();
         psiCells[cellI]      = adapter_.psi();
@@ -397,6 +413,7 @@ void mutationppWrapper::initForward_()
     }
 
     h_.correctBoundaryConditions();
+    eTR_.correctBoundaryConditions();
     eVib_.correctBoundaryConditions();
     rho_.correctBoundaryConditions();
     psi_.correctBoundaryConditions();
@@ -412,10 +429,10 @@ void mutationppWrapper::correct()
     const int ns = adapter_.nSpecies();
     std::vector<double> Yi(ns);
 
-    // h_ is the TARGET TR enthalpy written by the solver
+    // eTR_ is the TARGET TR energy written by the solver
     // TTR_ is what we UPDATE (output)
     // TVib_ is the current vibrational temperature (input, updated by correctTVib)
-    const scalarField& hTRCells  = h_.internalField();     // TARGET
+    const scalarField& eTRCells = eTR_.internalField();
     const scalarField& TVibCells = TVib_.internalField();
     const scalarField& pCells    = p_.internalField();
 
@@ -429,7 +446,7 @@ void mutationppWrapper::correct()
     scalarField& gammaCells    = gamma_.primitiveFieldRef();
     scalarField& fickCells     = fickCoeff_.primitiveFieldRef();
 
-    forAll(hTRCells, cellI)
+    forAll(eTRCells, cellI)
     {
         for (int i = 0; i < ns; i++)
             Yi[i] = Y_[i][cellI];
@@ -440,13 +457,13 @@ void mutationppWrapper::correct()
         const double rhoGuess = pCells[cellI] / max(R_mix * TtrCells[cellI], 1.0e-20);
 
         // ── Step 1: Invert hTR → T_tr ─────────────────────────────────
-        TtrCells[cellI] = invertHTR_
+        TtrCells[cellI] = invertETR_
         (
-            Yi,
-            rhoGuess,
-            TtrCells[cellI],    // initial guess = previous T_tr
+            Yi, 
+            rhoGuess, 
+            TtrCells[cellI], 
             TVibCells[cellI],
-            hTRCells[cellI]     // target
+            eTRCells[cellI]     // target
         );
 
         // ── Step 2: Set final state ────────────────────────────────────
@@ -458,7 +475,7 @@ void mutationppWrapper::correct()
         // ── Step 3: Fill all property fields ──────────────────────────
         rhoCells[cellI]      = adapter_.rho();
         psiCells[cellI]      = adapter_.psi();
-        // h_ is the target — do not overwrite it
+        h_[cellI]            = adapter_.hTR();
         eVibCells[cellI]     = adapter_.eVib();
         pe_[cellI]           = adapter_.electronPressure();
         muCells[cellI]       = adapter_.mu();
@@ -471,6 +488,7 @@ void mutationppWrapper::correct()
     // Boundary conditions
     TTR_.correctBoundaryConditions();
     psi_.correctBoundaryConditions();
+    h_.correctBoundaryConditions();
     eVib_.correctBoundaryConditions();
     rho_.correctBoundaryConditions();
     mu_.correctBoundaryConditions();
@@ -799,6 +817,29 @@ scalar mutationppWrapper::EsVib
     return adapter_.eVibAtTve(i, TVib);
 }
 
+tmp<volScalarField> mutationppWrapper::alphaheTR() const
+{
+    return tmp<volScalarField>
+    (
+        new volScalarField
+        (
+            IOobject
+            (
+                "alphaheTR",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            kappaTR_
+           *(gamma_ - dimensionedScalar("one", dimless, 1.0))
+           * psi_
+           * TTR_
+           / gamma_
+        )
+    );
+}
+
 scalar mutationppWrapper::G(label i, scalar /*p*/, scalar /*TTR*/) const
 {
     return adapter_.G(i);
@@ -902,6 +943,45 @@ scalar mutationppWrapper::invertHTR_
         if (CpTR < SMALL) break;
 
         const scalar dT = (hTR_target - hTR_current) / CpTR;
+        Ttr += dT;
+        Ttr  = max(min(Ttr, scalar(100000.0)), scalar(200.0));
+
+        if (mag(dT) < 1.0e-4 * Ttr) break;
+    }
+
+    return Ttr;
+}
+
+scalar mutationppWrapper::invertETR_
+(
+    const std::vector<double>& Yi,
+    double  rhoGuess,
+    scalar  Ttr0,
+    scalar  Tv,
+    scalar  eTR_target
+)
+{
+    scalar Ttr = max(Ttr0, scalar(200.0));
+
+    // Mixture gas constant — needed for eTR = hTR - R_mix*Ttr
+    double R_mix = 0.0;
+    for (int i = 0; i < adapter_.nSpecies(); i++)
+        R_mix += Yi[i] * adapter_.R(i);
+
+    for (int iter = 0; iter < 50; iter++)
+    {
+        const double rho = max(rhoGuess * Ttr0 / Ttr, 1.0e-20);
+
+        adapter_.setState(Yi.data(), rho, Ttr, Tv);
+
+        // eTR = hTR - p/rho = hTR - R_mix * Ttr  (ideal gas)
+        const scalar eTR_current = adapter_.hTR() - R_mix * Ttr;
+        // CvTR = CpTR - R_mix  (Mayer's relation)
+        const scalar CvTR = adapter_.CpTRMix() - R_mix;
+
+        if (CvTR < SMALL) break;
+
+        const scalar dT = (eTR_target - eTR_current) / CvTR;
         Ttr += dT;
         Ttr  = max(min(Ttr, scalar(100000.0)), scalar(200.0));
 

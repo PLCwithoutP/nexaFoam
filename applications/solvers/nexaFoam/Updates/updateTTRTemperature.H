@@ -2,35 +2,23 @@
 
 thermo2T.eVib() = rhoEv / rho;
 
-// First pass using current p
-hTR =
-    (rhoE + p) / rho
+eTR =
+    rhoE / rho
   - 0.5*magSqr(U)
   - eV;
 
-hTR.correctBoundaryConditions();  // required for mixed BC
+eTR.correctBoundaryConditions();  // required for mixed BC
 TTR.correctBoundaryConditions();  // required for mixed BC
-thermo2T.correct();
-
-/*// Second pass using refreshed p
-hTR =
-    (rhoE + p) / rho
-  - 0.5*magSqr(U)
-  - eV;
-
-hTR.correctBoundaryConditions();  // required for mixed BC
-TTR.correctBoundaryConditions();  // required for mixed BC*/
-//thermo2T.correct();                
+thermo2T.correct();               
 
 // Keep rhoE BC consistent with conservative total energy
 rhoE.boundaryFieldRef() ==
     rho.boundaryField()
    *(
-        hTR.boundaryField()
+        eTR.boundaryField()
       + eV.boundaryField()
       + 0.5*magSqr(U.boundaryField())
-    )
-  - p.boundaryField();
+    );
 
 // Refresh pressure from updated psi
 p.ref() = rho() / psi();

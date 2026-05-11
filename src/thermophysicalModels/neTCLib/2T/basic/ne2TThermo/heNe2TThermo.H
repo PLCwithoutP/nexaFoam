@@ -65,7 +65,7 @@ class heNe2TThermo
             const volScalarField& p,
             volScalarField& TTR,
             volScalarField& TVib,
-            volScalarField& h,
+            volScalarField& eTR,
             volScalarField& esT,
             volScalarField& esR,
             volScalarField& esVib,

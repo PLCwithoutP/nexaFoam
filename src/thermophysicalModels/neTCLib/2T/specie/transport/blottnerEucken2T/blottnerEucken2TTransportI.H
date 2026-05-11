@@ -89,7 +89,7 @@ inline Foam::scalar Foam::blottnerEucken2TTransport<Thermo2T>::mu
     const scalar TTR
 ) const
 {
-    //Info << "Function called" << endl;
+    //Info << "Mu : " << 0.1*exp((AB_*log(TTR) + BB_)*log(TTR) + CB_) << endl;
     return 0.1*exp((AB_*log(TTR) + BB_)*log(TTR) + CB_);
 }
 

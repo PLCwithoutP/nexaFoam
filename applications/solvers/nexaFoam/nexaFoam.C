@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
                 rhoU,
                 U,
                 psi,
-                hTR,
+                eTR,
                 TTR,
                 pos,
                 neg,
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
                 rhoU,
                 U,
                 psi,
-                hTR,
+                eTR,
                 TTR,
                 eV,
                 pos,
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
                 rhoU,
                 U,
                 psi,
-                hTR,
+                eTR,
                 TTR,
                 eVibSpecies,
                 pos,
@@ -192,10 +192,8 @@ int main(int argc, char *argv[])
         #include "Equations/momentumEquation.H"
 
         #include "Equations/totalEnergyEquation.H"
-        #include "Updates/updateTTRTemperature.H"
 
         #include "Equations/vibEnergyEquation.H"
-        #include "Updates/updateVibTemperature.H"
 
         // Sanity check
         if (mixtureCheck)
@@ -207,37 +205,6 @@ int main(int argc, char *argv[])
         }
 
         #include "Equations/applyChemistry.H"
-
-        //Info << "After TTR update: " << nl;
-        //Info << "Average translational-rotational temperature is: " << TTR.average().value() << nl;
-
-        // Fetch N2 and O2 average vibrational temperatures if multispecies 2T is active
-        if (solveSpeciesVib)
-        {
-            forAll(Y_species, speciei)
-            {
-                const word& sName = Y_species[speciei].name();
-                
-                if (
-                    (
-                        sName == "Y_N2" || 
-                        sName == "Y.N2" || 
-                        sName == "Y_O2" ||
-                        sName == "Y.O2" || 
-                        sName == "Y_NO" ||
-                        sName == "Y.NO" 
-                    ) && vibSpecieActive[speciei])
-                {
-                    //Info << "Average " << sName << " vibrational temperature is: "
-                    //     << TVibSpecies[speciei].average().value() << nl;
-                }
-            }
-        }
-        else
-        {
-            // Fallback for pure-mixture or non-2T cases
-            //Info << "Average vibrational temperature is: " << TVib.average().value() << nl;
-        }
 
         runTime.write();
 

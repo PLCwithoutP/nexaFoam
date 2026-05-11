@@ -108,7 +108,8 @@ public:
 
     //- TR enthalpy [J/kg]  (solver writes this before calling correct())
     virtual volScalarField& h()       override { return h_; }
-
+    virtual volScalarField& eTR() override { return eTR_; }
+    
     //- Vibrational energy [J/kg]
     virtual volScalarField& eVib()    override { return eVib_; }
 
@@ -140,6 +141,7 @@ public:
     //- Frozen ratio of specific heats [-]
     virtual tmp<volScalarField> gamma() const override;
 
+    virtual tmp<volScalarField> alphaheTR() const override;
 
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
@@ -317,6 +319,15 @@ public:
         scalar  hTR_target
     );
 
+    scalar invertETR_
+    (
+        const std::vector<double>& Yi,
+        double  rhoGuess,
+        scalar  Ttr0,
+        scalar  Tv,
+        scalar  eTR_target
+    );
+    
     // Forward initialisation: TTR_, TVib_ → h_, eVib_, transport fields.
     // Called ONCE from constructor. correct() is for solver calls only.
     void initForward_();
@@ -361,6 +372,7 @@ private:
     volScalarField TVib_;   // vibrational temperature [K]
     volScalarField psi_;    // compressibility [s2/m2]
     volScalarField h_;      // TR enthalpy [J/kg]
+    volScalarField eTR_;   // TR sensible internal energy [J/kg]
     volScalarField eVib_;   // vibrational energy [J/kg]
     volScalarField pe_;    // electron pressure [Pa]  — zero for non-ionized mixtures
 

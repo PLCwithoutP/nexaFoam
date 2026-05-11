@@ -62,7 +62,7 @@ public:
 
     // h() is read/write: solver writes hTR before calling correct()
     virtual volScalarField& h() = 0;
-
+    virtual volScalarField& eTR() = 0;      // new cell-centred eTR field
     virtual volScalarField& eVib() = 0;
 
     //- Electron pressure [Pa]
@@ -83,6 +83,9 @@ public:
     virtual tmp<volScalarField> kappaTR() const = 0;
 
     virtual tmp<volScalarField> kappaVib() const = 0;
+
+    //- Translational-rotational thermal diffusivity for energy [kg/m/s]
+    virtual tmp<volScalarField> alphaheTR() const = 0;
 
     // Called in kurganov.H: c = sqrt(gamma()/psi)
     virtual tmp<volScalarField> gamma() const = 0;

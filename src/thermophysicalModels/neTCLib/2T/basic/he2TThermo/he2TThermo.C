@@ -61,17 +61,19 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     const volScalarField& TTR,
     const volScalarField& TVib,
     volScalarField& h,
+    volScalarField& eTR,
     volScalarField& eT,
     volScalarField& eR,
     volScalarField& eVib
 )
 {
     const bool use2T = this->twoTemperature();
-    const scalar theta = this->cellMixture(0).ThetaVib();  // getter on Thermo2T
+    const scalar theta = this->cellMixture(0).ThetaVib();
 
-    scalarField& hCells = h.primitiveFieldRef();
+    scalarField& hCells   = h.primitiveFieldRef();
+    scalarField& eTRCells = eTR.primitiveFieldRef();    
     scalarField& eVibCells = eVib.primitiveFieldRef();
-    const scalarField& pCells = p.primitiveField();
+    const scalarField& pCells   = p.primitiveField();
     const scalarField& TTRCells = TTR.primitiveField();
     const scalarField& TVibCells = TVib.primitiveField();
 
@@ -81,6 +83,14 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
 
         hCells[celli] =
             this->cellMixture(celli).H(pCells[celli], TTRCells[celli]);
+
+        eTRCells[celli] =                               
+            this->cellMixture(celli).EsT               
+            (                                          
+                pCells[celli],                         
+                TTRCells[celli]                        
+            );                                         
+
         eVibCells[celli] =
             this->cellMixture(celli).EV
             (
@@ -91,12 +101,14 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
             );
     }
 
-    volScalarField::Boundary& hBf = h.boundaryFieldRef();
+    volScalarField::Boundary& hBf    = h.boundaryFieldRef();
+    volScalarField::Boundary& eTRBf  = eTR.boundaryFieldRef();  
     volScalarField::Boundary& eVibBf = eVib.boundaryFieldRef();
 
     forAll(hBf, patchi)
     {
-        const Foam::fvPatchField<double> TVibBfUse = use2T ? TVib.boundaryField()[patchi] : TTR.boundaryField()[patchi];
+        const fvPatchField<scalar> TVibBfUse =
+            use2T ? TVib.boundaryField()[patchi] : TTR.boundaryField()[patchi];
 
         hBf[patchi] == this->h
         (
@@ -106,6 +118,22 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
         );
 
         hBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());
+
+        scalarField& peTR    = eTRBf[patchi];
+        const scalarField& pp    = p.boundaryField()[patchi];
+        const scalarField& pTTR  = TTR.boundaryField()[patchi];
+
+        forAll(peTR, facei)
+        {
+            peTR[facei] =
+                this->patchFaceMixture(patchi, facei).EsT
+                (
+                    pp[facei],
+                    pTTR[facei]
+                );
+        }
+
+        eTRBf[patchi].useImplicit(TTR.boundaryField()[patchi].useImplicit());  
 
         eVibBf[patchi] == this->eVib
         (
@@ -120,12 +148,22 @@ void Foam::he2TThermo<Basic2TThermo, MixtureType>::init
     }
 
     this->hBoundaryCorrection(h);
+    this->hBoundaryCorrection(eTR);     
     this->hBoundaryCorrection(eVib);
 
-    // Note: TTR does not have oldTime
     if (p.nOldTimes())
     {
-        init(p.oldTime(), TTR.oldTime(), TVib.oldTime(), h.oldTime(), eT.oldTime(), eR.oldTime(), eVib.oldTime());
+        init
+        (
+            p.oldTime(),
+            TTR.oldTime(),
+            TVib.oldTime(),
+            h.oldTime(),
+            eTR.oldTime(),              
+            eT.oldTime(),
+            eR.oldTime(),
+            eVib.oldTime()
+        );
     }
 }
 
@@ -160,6 +198,24 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryTypes(),
         this->hBoundaryBaseTypes()
     ),
+    eTR_
+    (
+        IOobject
+        (
+            Basic2TThermo::phasePropertyName
+            (
+                word("eTR")
+            ),
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimEnergy/dimMass,
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
+    ),
     eT_
     (
         IOobject
@@ -215,7 +271,17 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, h_, eT_, eR_, eVib_);
+    init
+    (
+        this->p_, 
+        this->TTR_, 
+        this->TVib_, 
+        h_, 
+        eTR_, 
+        eT_, 
+        eR_, 
+        eVib_
+    );
 }
 
 
@@ -248,6 +314,24 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryTypes(),
         this->hBoundaryBaseTypes()
     ),
+    eTR_
+    (
+        IOobject
+        (
+            Basic2TThermo::phasePropertyName
+            (
+                word("eTR")
+            ),
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimEnergy/dimMass,
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
+    ),
     eT_
     (
         IOobject
@@ -303,7 +387,17 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, h_, eT_, eR_, eVib_);
+    init
+    (
+        this->p_, 
+        this->TTR_, 
+        this->TVib_, 
+        h_, 
+        eTR_, 
+        eT_, 
+        eR_, 
+        eVib_
+    );
 }
 
 
@@ -336,6 +430,24 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryTypes(),
         this->hBoundaryBaseTypes()
     ),
+    eTR_
+    (
+        IOobject
+        (
+            Basic2TThermo::phasePropertyName
+            (
+                word("eTR")
+            ),
+            mesh.time().timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::NO_WRITE
+        ),
+        mesh,
+        dimEnergy/dimMass,
+        this->hBoundaryTypes(),
+        this->hBoundaryBaseTypes()
+    ),
     eT_
     (
         IOobject
@@ -391,7 +503,17 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::he2TThermo
         this->hBoundaryBaseTypes()
     )
 {
-    init(this->p_, this->TTR_, this->TVib_, h_, eT_, eR_, eVib_);
+    init
+    (
+        this->p_, 
+        this->TTR_, 
+        this->TVib_, 
+        h_, 
+        eTR_, 
+        eT_, 
+        eR_, 
+        eVib_
+    );
 }
 
 
@@ -1311,6 +1433,53 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::CpByCpvTR() const
     return tCpByCpvTR;
 }
 
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::TE_TR
+(
+    const scalarField& eTR,
+    const scalarField& p,
+    const scalarField& TTR0,
+    const labelList& cells
+) const
+{
+    auto tTTR = tmp<scalarField>::New(eTR.size());
+    auto& TTR = tTTR.ref();
+
+    forAll(eTR, celli)
+    {
+        TTR[celli] =
+            this->cellMixture(cells[celli]).TE_TR(eTR[celli], p[celli], TTR0[celli]);
+    }
+
+    return tTTR;
+}
+
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::TE_TR
+(
+    const scalarField& eTR,
+    const scalarField& p,
+    const scalarField& TTR0,
+    const label patchi
+) const
+{
+
+    auto tTTR = tmp<scalarField>::New(eTR.size());
+    auto& TTR = tTTR.ref();
+
+    forAll(eTR, facei)
+    {
+        TTR[facei] = this->patchFaceMixture
+        (
+            patchi,
+            facei
+        ).TE_TR(eTR[facei], p[facei], TTR0[facei]);
+    }
+
+    return tTTR;
+}
 
 template<class Basic2TThermo, class MixtureType>
 Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::TH_TR

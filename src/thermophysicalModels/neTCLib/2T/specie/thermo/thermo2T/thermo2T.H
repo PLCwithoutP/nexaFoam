@@ -306,6 +306,15 @@ public:
 
         // Energy->temperature  inversion functions
 
+            //- Temperature from internal energy
+            //  given an initial temperature TTR0
+            inline scalar TE_TR
+            (
+                const scalar E,
+                const scalar p,
+                const scalar TTR0
+            ) const;
+
             //- Temperature from enthalpy or internal energy
             //  given an initial temperature TTR0
             inline scalar TH_TR

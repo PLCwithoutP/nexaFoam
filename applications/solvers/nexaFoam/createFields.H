@@ -37,6 +37,7 @@ forAll(Y_species, speciei)
 
 // sensible enthalpy
 volScalarField& hTR = thermo2T.h();
+volScalarField& eTR = thermo2T.eTR();
 volScalarField& eV = thermo2T.eVib();
 
 if (use2T)
@@ -284,7 +285,7 @@ volScalarField rhoE
         IOobject::NO_READ,
         IOobject::NO_WRITE
     ),
-    rho*(hTR + eV + 0.5*magSqr(U)) - p
+    rho*(eTR + eV + 0.5*magSqr(U))
 );
 
 surfaceScalarField pos

@@ -63,6 +63,9 @@ protected:
         volScalarField h_;
 
         //- Translational Energy field
+        volScalarField eTR_;
+
+        //- Translational Energy field
         volScalarField eT_;
 
         //- Rotational Energy field
@@ -94,6 +97,7 @@ private:
             const volScalarField& TTR,
             const volScalarField& TVib,
             volScalarField& h,
+            volScalarField& eTR,
             volScalarField& eT,
             volScalarField& eR,
             volScalarField& eVib
@@ -182,6 +186,19 @@ public:
             virtual const volScalarField& h() const
             {
                 return h_;
+            }
+
+            //- Translational-Rotational Internal Energy [J/kg]
+            //  Non-const access allowed for transport equations
+            virtual volScalarField& eTR()
+            {
+                return eTR_;
+            }
+
+            //- Translational-Rotational Internal Energy [J/kg]
+            virtual const volScalarField& eTR() const
+            {
+                return eTR_;
             }
 
             //- Translational Internal Energy [J/kg]
@@ -329,6 +346,24 @@ public:
 
             //- Chemical enthalpy [J/kg]
             virtual tmp<volScalarField> hc() const;
+
+            //- Temperature from translational-rotational energy for cell-set
+            virtual tmp<scalarField> TE_TR
+            (
+                const scalarField& eTR,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const labelList& cells
+            ) const;
+
+            //- Temperature from translational-rotational energy for patch
+            virtual tmp<scalarField> TE_TR
+            (
+                const scalarField& eTR,
+                const scalarField& p,
+                const scalarField& TTR0,      // starting translational-rotational temperature
+                const label patchi
+            ) const;
 
             //- Temperature from enthalpy for cell-set
             virtual tmp<scalarField> TH_TR
