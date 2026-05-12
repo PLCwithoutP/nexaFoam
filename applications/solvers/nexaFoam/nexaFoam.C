@@ -157,7 +157,6 @@ int main(int argc, char *argv[])
 
     surfaceVectorField& phiUp = kurganovFlux.phiUp();
     surfaceScalarField& phiEp = kurganovFlux.phiEp();
-    surfaceScalarField& sigmaDotU = kurganovFlux.sigmaDotU();
     surfaceScalarField& max_a = kurganovFlux.maxA();
     surfaceScalarField& phiEv = kurganovFlux.phiEv();
     const PtrList<surfaceScalarField>& phiRhoEvibYi = kurganovFlux.phiRhoEvibYi();
@@ -170,20 +169,64 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        //#include "runTimeLogging.H"
+        #include "readTimeControls.H"
 
-        volScalarField muLam("muLam", thermo2T.mu());
-        volTensorField tauMC("tauMC", muLam*dev2(Foam::T(fvc::grad(U))));
+        if (!LTS)
+        {
+            #include "setDeltaT.H"
+
+            ++runTime;
+
+            // Do any mesh changes
+            mesh.update();
+        }
 
         // Effective diffusion coefficient must be updated in every timestep
         Deff = thermo2T.fickDiffusionCoeff();
         Deff.correctBoundaryConditions();
 
-        kurganovFlux.invoke(muLam, tauMC);
+        kurganovFlux.calcDirectedInterpolation();
+        kurganovFlux.calcSoundSpeed();
+        kurganovFlux.calcPropagationSpeedsAndWeights();
+        kurganovFlux.calcAphi();
 
-        #include "decideDeltaT.H"
+        #include "centralCourantNo.H"
+        
 
+        if (LTS)
+        {
+            #include "setRDeltaT.H"
+
+            ++runTime;
+        }
+
+        
         Info<< "Time = " << runTime.timeName() << nl << endl;
+
+        if (mixtureCheck)
+        {
+            kurganovFlux.calcSpeciesFluxes();
+        }
+        else
+        {
+            kurganovFlux.calcConservativeFluxes();
+        }
+
+        if (use2T)
+        {
+            if (mixtureCheck)
+            {
+                kurganovFlux.calcSpeciesVibFluxes();
+            }
+            else
+            {
+                kurganovFlux.calcPureMixtureVibFlux();
+            }
+        }
+
+        volScalarField muLam("muLam", thermo2T.mu());
+        volTensorField tauMC("tauMC", muLam*dev2(Foam::T(fvc::grad(U))));
+
 
         #include "Equations/continuityEquation.H"
 

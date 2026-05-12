@@ -14,7 +14,7 @@
     rDeltaT.ref() = max
     (
         1/dimensionedScalar("maxDeltaT", dimTime, maxDeltaT),
-        fvc::surfaceSum(amaxSf)()()
+        fvc::surfaceSum(max_a)()()
        /((2*maxCo)*mesh.V())
     );
 

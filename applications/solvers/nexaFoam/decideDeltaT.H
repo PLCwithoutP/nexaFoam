@@ -75,7 +75,6 @@ if (LTS) // LTS is created with time, I think (createTime.H)
         << gMin(1/rDeltaT.primitiveField())
         << ", " << gMax(1/rDeltaT.primitiveField()) << endl;
 
-    ++runTime;
 }
 
 // #include "readTimeControls.H"

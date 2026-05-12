@@ -57,6 +57,17 @@
         "random": "cpp",
         "limits": "cpp",
         "algorithm": "cpp",
-        "MovingPhaseModel.C": "cpp"
+        "MovingPhaseModel.C": "cpp",
+        "functional": "cpp",
+        "fvcFluxTemplates.C": "cpp",
+        "bitset": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "multiComponent2TMixture.C": "cpp",
+        "cellCellStencilTemplates.C": "cpp",
+        "GeometricField.C": "cpp",
+        "GeometricBoundaryField.C": "cpp",
+        "zeroGradientFaPatchField.C": "cpp",
+        "zeroGradientFvPatchField.C": "cpp"
     }
 }

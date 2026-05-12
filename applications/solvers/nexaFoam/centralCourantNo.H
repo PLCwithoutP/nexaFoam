@@ -33,7 +33,7 @@ Description
 
 if (mesh.nInternalFaces())
 {
-    scalarField sumAmaxSf(fvc::surfaceSum(amaxSf)().primitiveField());
+    scalarField sumAmaxSf(fvc::surfaceSum(max_a)().primitiveField());
 
     CoNum = 0.5*gMax(sumAmaxSf/mesh.V().field())*runTime.deltaTValue();
 

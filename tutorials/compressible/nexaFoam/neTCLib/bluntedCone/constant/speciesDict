@@ -79,9 +79,9 @@ N2
     // M. Lalande, N. Dellinger, Y. Prevereaud, N. Bartoli, and J-M. Lamet, "Blottner’s Coefficients and Prandtl Number for Charring Materials Atmospheric Entry Simulations", AIAA Journal, 63(8), 2025.
     transport // Valid 200-30000 K
     {
-        AB              2.7321e-02;
-        BB              2.4321e-01;
-        CB              -1.0805e+01;
+        AB              2.68e-02;
+        BB              3.18e-01;
+        CB              -1.13e+01;
         //Pr            0.7020; // Valid 200-10000 K
     }
 

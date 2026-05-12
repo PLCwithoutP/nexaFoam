@@ -1,4 +1,17 @@
 // ================================================================
+// Stage 0 — Viscous Work
+// ================================================================
+surfaceScalarField sigmaDotU
+(
+    "sigmaDotU",
+    (
+        fvc::interpolate(muLam)*mesh.magSf()*fvc::snGrad(U)
+        + fvc::dotInterpolate(mesh.Sf(), tauMC)
+    )
+    & (kurganovFlux.alpha()*kurganovFlux.U_pos() + kurganovFlux.minus_alpha()*kurganovFlux.U_neg())
+);
+
+// ================================================================
 // Stage 1 — Inviscid explicit
 // ================================================================
 solve
@@ -19,7 +32,6 @@ eTR =
   - eV;
 
 eTR.correctBoundaryConditions();
-//TTR.correctBoundaryConditions();
 thermo2T.correct();
 
 rhoE.boundaryFieldRef() ==

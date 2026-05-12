@@ -116,7 +116,6 @@ class kurganovFluxCalculator
     // --- Outputs (owned by this class)
     surfaceVectorField phiUp_;      // full momentum flux
     surfaceScalarField phiEp_;      // total energy flux
-    surfaceScalarField sigmaDotU_;  // viscous work flux
     surfaceScalarField max_a_;      // max propagation speed (used in deltaT)
 
     // Vibrational outputs
@@ -124,7 +123,10 @@ class kurganovFluxCalculator
     PtrList<surfaceScalarField> phiRhoEvibYi_; // convective fluxes of rho*Yi*eVib_i
 
 private:
-    // ---------------------------------------------------------------------
+
+
+public:
+// ---------------------------------------------------------------------
     // --- 1) Directed interpolation of primitive fields onto faces
     // ---------------------------------------------------------------------
     void calcDirectedInterpolation()
@@ -438,24 +440,7 @@ private:
             phiRhoEvibYi_[i].setOriented(true);
         }
     }
-    // ---------------------------------------------------------------------
-    // --- 6) Viscous work flux for energy equation
-    // ---------------------------------------------------------------------
-    void calcViscousWorkFlux(const volScalarField& muEff, const volTensorField& tauMC)
-    {
-        sigmaDotU_ =
-        (
-            (
-                fvc::interpolate(muEff)*mesh_.magSf()*fvc::snGrad(U_)
-              + fvc::dotInterpolate(mesh_.Sf(), tauMC)
-            )
-          & (alpha_*U_pos_ + minus_alpha_*U_neg_)
-        );
-    }
-
-
-
-public:
+    
     /***************************** Constructors ***************************/
     // Existing/base path: 1T or "no vibrational flux requested"
     kurganovFluxCalculator
@@ -964,25 +949,6 @@ public:
             IOobject
             (
                 "phiEp", 
-                mesh_.time().timeName(), 
-                mesh_, 
-                IOobject::NO_READ, 
-                IOobject::NO_WRITE
-            ), 
-            mesh_, 
-            dimensionedScalar
-            (
-                "zero", 
-                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
-                0.0
-            )
-        ),
-        
-        sigmaDotU_
-        (
-            IOobject
-            (
-                "sigmaDotU", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -1581,25 +1547,6 @@ public:
             IOobject
             (
                 "phiEp", 
-                mesh_.time().timeName(), 
-                mesh_, 
-                IOobject::NO_READ, 
-                IOobject::NO_WRITE
-            ), 
-            mesh_, 
-            dimensionedScalar
-            (
-                "zero", 
-                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
-                0.0
-            )
-        ),
-        
-        sigmaDotU_
-        (
-            IOobject
-            (
-                "sigmaDotU", 
                 mesh_.time().timeName(), 
                 mesh_, 
                 IOobject::NO_READ, 
@@ -2214,25 +2161,6 @@ public:
             )
         ),
         
-        sigmaDotU_
-        (
-            IOobject
-            (
-                "sigmaDotU", 
-                mesh_.time().timeName(), 
-                mesh_, 
-                IOobject::NO_READ, 
-                IOobject::NO_WRITE
-            ), 
-            mesh_, 
-            dimensionedScalar
-            (
-                "zero", 
-                rho_.dimensions()*eTR_.dimensions()*dimVolume/dimTime, 
-                0.0
-            )
-        ),
-        
         max_a_
         (
             IOobject
@@ -2329,52 +2257,21 @@ public:
         }
     }
 
-    // Main entry point: compute all fluxes (black-box)
-    void invoke(const volScalarField& muEff, const volTensorField& tauMC)
-    {
-        calcDirectedInterpolation();
-        calcSoundSpeed();
-        calcPropagationSpeedsAndWeights();
-        calcAphi();
-
-        if (mixtureCheck_)
-        {
-            calcSpeciesFluxes();
-        }
-        else
-        {
-            calcConservativeFluxes();
-        }
-
-        if (use2T_)
-        {
-            if (mixtureCheck_)
-            {
-                calcSpeciesVibFluxes();
-            }
-            else
-            {
-                calcPureMixtureVibFlux();
-            }
-        }
-
-        calcViscousWorkFlux(muEff, tauMC);
-    }
-
     // Accessors for solver usage
     inline surfaceVectorField&          phiUp()          { return phiUp_; }
     inline surfaceScalarField&          phiEp()          { return phiEp_; }
     inline const  PtrList<surfaceScalarField>& phiRhoYi() const { return phiRhoYi_; }
-    inline surfaceScalarField&          sigmaDotU()      { return sigmaDotU_; }
     inline surfaceScalarField&          maxA()           { return max_a_;  }
     inline surfaceScalarField& phiEv() { return phiEv_; }
     inline const PtrList<surfaceScalarField>& phiRhoEvibYi() const
     {
         return phiRhoEvibYi_;
     }
-    
+    inline surfaceVectorField&          U_pos()          { return U_pos_; }
+    inline surfaceVectorField&          U_neg()          { return U_neg_; }
     // Optional: access alpha/nw_f for diagnostics
-    inline const surfaceScalarField& alpha() const { return alpha_; }
+    inline surfaceScalarField& alpha() { return alpha_; }
+    inline surfaceScalarField& minus_alpha() { return minus_alpha_; }
     inline const surfaceScalarField& nw_f()  const { return nw_f_;  }
 };
 
