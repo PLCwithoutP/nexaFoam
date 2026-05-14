@@ -68,6 +68,12 @@
         "GeometricField.C": "cpp",
         "GeometricBoundaryField.C": "cpp",
         "zeroGradientFaPatchField.C": "cpp",
-        "zeroGradientFvPatchField.C": "cpp"
-    }
+        "zeroGradientFvPatchField.C": "cpp",
+        "gradient2TEnergyFvPatchScalarField.C": "cpp",
+        "mixed2TEnergyFvPatchScalarField.C": "cpp",
+        "kOmegaSST.C": "cpp",
+        "singleComponent2TMixture.C": "cpp",
+        "gaussGrad.C": "cpp"
+    },
+    "cmake.sourceDirectory": "/home/t12022124597/Desktop/codeProjects/masterThesisCode/nexaFoam/thirdParty/Mutationpp"
 }

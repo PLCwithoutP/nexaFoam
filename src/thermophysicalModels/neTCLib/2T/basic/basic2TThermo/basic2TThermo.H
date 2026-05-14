@@ -547,6 +547,30 @@ public:
                 const label patchi
             ) const = 0;
 
+            //- Internal Energy
+            //  for given pressure and temperature [J/kg]
+            virtual tmp<volScalarField> eTR
+            (
+                const volScalarField& p,
+                const volScalarField& TTR
+            ) const = 0;
+
+            //- Internal Energy for cell-set [J/kg]
+            virtual tmp<scalarField> eTR
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const labelList& cells
+            ) const = 0;
+
+            //- Internal Energy for patch [J/kg]
+            virtual tmp<scalarField> eTR
+            (
+                const scalarField& p,
+                const scalarField& TTR,
+                const label patchi
+            ) const = 0;
+
             //- Translational Internal Energy
             //  for given pressure and temperature [J/kg]
             virtual tmp<volScalarField> eT
@@ -716,6 +740,25 @@ public:
             (
                 const scalarField& p,
                 const scalarField& TTR,
+                const labelList& cells
+            ) const = 0;
+            
+            //- Translational-Rotational heat capacity at constant volume [J/kg/K]
+            virtual tmp<volScalarField> CvTR() const = 0;
+
+            //- Translational-Rotational heat capacity at constant volume [J/kg/K]
+            virtual tmp<scalarField> CvTR
+            (
+                const scalarField& p,
+                const scalarField& T,
+                const label patchi
+            ) const = 0;
+
+            //- Translational-Rotational heat capacity at constant volume [J/kg/K]
+            virtual tmp<scalarField> CvTR
+            (
+                const scalarField& p,
+                const scalarField& T,
                 const labelList& cells
             ) const = 0;
 

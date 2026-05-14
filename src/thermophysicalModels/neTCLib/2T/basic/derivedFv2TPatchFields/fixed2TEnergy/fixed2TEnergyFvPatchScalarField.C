@@ -107,7 +107,7 @@ void Foam::fixed2TEnergyFvPatchScalarField::updateCoeffs()
         const_cast<fvPatchScalarField&>(thermo2T.TTR().boundaryField()[patchi]);
     Tw.evaluate();
 
-    operator==(thermo2T.h(pw, Tw, patchi));
+    operator==(thermo2T.eTR(pw, Tw, patchi));
 
     fixedValueFvPatchScalarField::updateCoeffs();
 }

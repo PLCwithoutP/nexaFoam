@@ -106,25 +106,25 @@ void Foam::mixed2TEnergyFvPatchScalarField::updateCoeffs()
     {
         return;
     }
-    const basic2TThermo& thermo = basic2TThermo::lookupThermo(*this);
+    const basic2TThermo& thermo2T = basic2TThermo::lookupThermo(*this);
     const label patchi = patch().index();
 
-    const scalarField& pw = thermo.p().boundaryField()[patchi];
+    const scalarField& pw = thermo2T.p().boundaryField()[patchi];
     mixedFvPatchScalarField& Tw = refCast<mixedFvPatchScalarField>
     (
-        const_cast<fvPatchScalarField&>(thermo.TTR().boundaryField()[patchi])
+        const_cast<fvPatchScalarField&>(thermo2T.TTR().boundaryField()[patchi])
     );
 
     Tw.evaluate();
 
     valueFraction() = Tw.valueFraction();
-    refValue() = thermo.h(pw, Tw.refValue(), patchi);
+    refValue() = thermo2T.eTR(pw, Tw.refValue(), patchi);
     refGrad() =
-        thermo.CpvTR(pw, Tw, patchi)*Tw.refGrad()
+        thermo2T.CvTR(pw, Tw, patchi)*Tw.refGrad()
       + patch().deltaCoeffs()*
         (
-            thermo.h(pw, Tw, patchi)
-          - thermo.h(pw, Tw, patch().faceCells())
+            thermo2T.eTR(pw, Tw, patchi)
+          - thermo2T.eTR(pw, Tw, patch().faceCells())
         );
 
     mixedFvPatchScalarField::updateCoeffs();
@@ -138,7 +138,7 @@ void Foam::mixed2TEnergyFvPatchScalarField::manipulateMatrix
     const direction cmpt
 )
 {
-    const basic2TThermo& thermo = basic2TThermo::lookupThermo(*this);
+    const basic2TThermo& thermo2T = basic2TThermo::lookupThermo(*this);
 
     label index = this->patch().index();
 
@@ -154,7 +154,7 @@ void Foam::mixed2TEnergyFvPatchScalarField::manipulateMatrix
     );
 
     const mixedFvPatchField<scalar>& fPatch =
-        refCast<const mixedFvPatchField>(thermo.TTR().boundaryField()[index]);
+        refCast<const mixedFvPatchField>(thermo2T.TTR().boundaryField()[index]);
 
     const Field<scalar> intCoeffsCmpt
     (

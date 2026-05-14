@@ -108,11 +108,11 @@ void Foam::gradient2TEnergyFvPatchScalarField::updateCoeffs()
 
     Tw.evaluate();
 
-    gradient() = thermo2T.CpvTR(pw, Tw, patchi)*Tw.snGrad()
+    gradient() = thermo2T.CvTR(pw, Tw, patchi)*Tw.snGrad()
       + patch().deltaCoeffs()*
         (
-            thermo2T.h(pw, Tw, patchi)
-          - thermo2T.h(pw, Tw, patch().faceCells())
+            thermo2T.eTR(pw, Tw, patchi)
+          - thermo2T.eTR(pw, Tw, patch().faceCells())
         );
 
     fixedGradientFvPatchScalarField::updateCoeffs();

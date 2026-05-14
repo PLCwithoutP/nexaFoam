@@ -121,8 +121,8 @@ void Foam::energy2TJumpFvPatchScalarField::updateCoeffs()
 
         setJump
         (
-            thermo2T.h(pp, Tbp+Tbp.jump(), faceCells)
-          - thermo2T.h(pp, Tbp, faceCells)
+            thermo2T.eTR(pp, Tbp+Tbp.jump(), faceCells)
+          - thermo2T.eTR(pp, Tbp, faceCells)
         );
     }
 

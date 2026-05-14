@@ -57,15 +57,15 @@ if (mixtureCheck)
         );
     }
 
-    // --- 3) Build mixture rho from species
-    rho = dimensionedScalar("zeroRho", rho.dimensions(), 0.0);
+    // --- 3) Build mixture rho from species (internal cells only)
+    rho.primitiveFieldRef() = scalar(0);
 
     for (label i = 0; i < nSpec; ++i)
     {
-        rho += rhoYi[i];
+        rho.primitiveFieldRef() += rhoYi[i].primitiveField();
     }
-    rho.max(SMALL);
-    rho.correctBoundaryConditions();
+    rho.primitiveFieldRef() =
+        max(rho.primitiveField(), scalarField(rho.size(), SMALL));
 
     // --- 4) Recover Yi = rhoYi / rho
     for (label i = 0; i < nSpec; ++i)

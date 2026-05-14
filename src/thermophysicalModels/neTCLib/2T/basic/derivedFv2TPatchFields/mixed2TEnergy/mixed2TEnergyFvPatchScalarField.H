@@ -41,8 +41,8 @@ SourceFiles
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef mixedEnergyFvPatchScalarField_H
-#define mixedEnergyFvPatchScalarField_H
+#ifndef mixed2TEnergyFvPatchScalarField_H
+#define mixed2TEnergyFvPatchScalarField_H
 
 #include "mixedFvPatchFields.H"
 

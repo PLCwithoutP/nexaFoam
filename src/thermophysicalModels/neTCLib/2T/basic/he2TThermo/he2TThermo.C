@@ -29,26 +29,38 @@ License
 #include "he2TThermo.H"
 #include "gradientEnergyFvPatchScalarField.H"
 #include "mixedEnergyFvPatchScalarField.H"
+#include "gradient2TEnergyFvPatchScalarField.H"
+#include "mixed2TEnergyFvPatchScalarField.H"
 
 // * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
 
 template<class Basic2TThermo, class MixtureType>
 void Foam::he2TThermo<Basic2TThermo, MixtureType>::
-hBoundaryCorrection(volScalarField& h)
+hBoundaryCorrection(volScalarField& e)
 {
-    volScalarField::Boundary& hBf = h.boundaryFieldRef();
+    volScalarField::Boundary& eBf = e.boundaryFieldRef();
 
-    forAll(hBf, patchi)
+    forAll(eBf, patchi)
     {
-        if (isA<gradientEnergyFvPatchScalarField>(hBf[patchi]))
+        if (isA<gradientEnergyFvPatchScalarField>(eBf[patchi]))
         {
-            refCast<gradientEnergyFvPatchScalarField>(hBf[patchi]).gradient()
-                = hBf[patchi].fvPatchField::snGrad();
+            refCast<gradientEnergyFvPatchScalarField>(eBf[patchi]).gradient()
+                = eBf[patchi].fvPatchField::snGrad();
         }
-        else if (isA<mixedEnergyFvPatchScalarField>(hBf[patchi]))
+        else if (isA<mixedEnergyFvPatchScalarField>(eBf[patchi]))
         {
-            refCast<mixedEnergyFvPatchScalarField>(hBf[patchi]).refGrad()
-                = hBf[patchi].fvPatchField::snGrad();
+            refCast<mixedEnergyFvPatchScalarField>(eBf[patchi]).refGrad()
+                = eBf[patchi].fvPatchField::snGrad();
+        }
+        else if (isA<gradient2TEnergyFvPatchScalarField>(eBf[patchi]))
+        {
+            refCast<gradient2TEnergyFvPatchScalarField>(eBf[patchi]).gradient()
+                = eBf[patchi].fvPatchField::snGrad();
+        }
+        else if (isA<mixed2TEnergyFvPatchScalarField>(eBf[patchi]))
+        {
+            refCast<mixed2TEnergyFvPatchScalarField>(eBf[patchi]).refGrad()
+                = eBf[patchi].fvPatchField::snGrad();
         }
     }
 }
@@ -615,6 +627,93 @@ Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::h
 }
 
 template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eTR
+(
+    const volScalarField& p,
+    const volScalarField& TTR
+) const
+{
+    const fvMesh& mesh = this->TTR_.mesh();
+
+    auto test = volScalarField::New
+    (
+        "eT",
+        IOobject::NO_REGISTER,
+        mesh,
+        eT_.dimensions()
+    );
+    auto& eT = test.ref();
+
+    scalarField& eTCells = eT.primitiveFieldRef();
+    const scalarField& pCells = p;
+    const scalarField& TTRCells = TTR;
+
+    forAll(eTCells, celli)
+    {
+        eTCells[celli] =
+            this->cellMixture(celli).ET(pCells[celli], TTRCells[celli]);
+    }
+
+    volScalarField::Boundary& eTBf = eT.boundaryFieldRef();
+
+    forAll(eTBf, patchi)
+    {
+        scalarField& esTp = eTBf[patchi];
+        const scalarField& pp = p.boundaryField()[patchi];
+        const scalarField& TTRp = TTR.boundaryField()[patchi];
+
+        forAll(esTp, facei)
+        {
+            esTp[facei] =
+                this->patchFaceMixture(patchi, facei).ET(pp[facei], TTRp[facei]);
+        }
+    }
+
+    return test;
+}
+
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eTR
+(
+    const scalarField& p,
+    const scalarField& TTR,
+    const labelList& cells
+) const
+{
+    auto test = tmp<scalarField>::New(TTR.size());
+    auto& eT = test.ref();
+
+    forAll(TTR, celli)
+    {
+        eT[celli] = this->cellMixture(cells[celli]).ET(p[celli], TTR[celli]);
+    }
+
+    return test;
+}
+
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eTR
+(
+    const scalarField& p,
+    const scalarField& TTR,
+    const label patchi
+) const
+{
+    auto test = tmp<scalarField>::New(TTR.size());
+    auto& eT = test.ref();
+
+    forAll(TTR, facei)
+    {
+        eT[facei] =
+            this->patchFaceMixture(patchi, facei).ET(p[facei], TTR[facei]);
+    }
+
+    return test;
+}
+
+template<class Basic2TThermo, class MixtureType>
 Foam::tmp<Foam::volScalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::eT
 (
     const volScalarField& p,
@@ -1038,6 +1137,88 @@ Foam::he2TThermo<Basic2TThermo, MixtureType>::CpTR() const
     }
 
     return tCpTR;
+}
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField> Foam::he2TThermo<Basic2TThermo, MixtureType>::CvTR
+(
+    const scalarField& p,
+    const scalarField& TTR,
+    const label patchi
+) const
+{
+    auto tCvTR = tmp<scalarField>::New(TTR.size());
+    auto& cvTR = tCvTR.ref();
+
+    forAll(TTR, facei)
+    {
+        cvTR[facei] =
+            this->patchFaceMixture(patchi, facei).CvT(p[facei], TTR[facei]);
+    }
+
+    return tCvTR;
+}
+
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::scalarField>
+Foam::he2TThermo<Basic2TThermo, MixtureType>::CvTR
+(
+    const scalarField& p,
+    const scalarField& TTR,
+    const labelList& cells
+) const
+{
+    auto tCvTR = tmp<scalarField>::New(TTR.size());
+    auto& CvTR = tCvTR.ref();
+
+    forAll(cells, i)
+    {
+        const label celli = cells[i];
+        CvTR[i] = this->cellMixture(celli).CvT(p[i], TTR[i]);
+    }
+
+    return tCvTR;
+}
+
+
+template<class Basic2TThermo, class MixtureType>
+Foam::tmp<Foam::volScalarField>
+Foam::he2TThermo<Basic2TThermo, MixtureType>::CvTR() const
+{
+    const fvMesh& mesh = this->TTR_.mesh();
+
+    auto tCvTR = volScalarField::New
+    (
+        "CvTR",
+        IOobject::NO_REGISTER,
+        mesh,
+        dimEnergy/dimMass/dimTemperature
+    );
+    auto& cvTR = tCvTR.ref();
+
+    forAll(this->TTR_, celli)
+    {
+        cvTR[celli] =
+            this->cellMixture(celli).CvT(this->p_[celli], this->TTR_[celli]);
+    }
+
+    volScalarField::Boundary& cvTRBf = cvTR.boundaryFieldRef();
+
+    forAll(cvTRBf, patchi)
+    {
+        const fvPatchScalarField& pp = this->p_.boundaryField()[patchi];
+        const fvPatchScalarField& pTTR = this->TTR_.boundaryField()[patchi];
+        fvPatchScalarField& pCvTR = cvTRBf[patchi];
+
+        forAll(pTTR, facei)
+        {
+            pCvTR[facei] =
+                this->patchFaceMixture(patchi, facei).CvT(pp[facei], pTTR[facei]);
+        }
+    }
+
+    return tCvTR;
 }
 
 
