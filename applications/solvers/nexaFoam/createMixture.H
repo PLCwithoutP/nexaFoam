@@ -19,7 +19,7 @@ const word& chemistryReader = thermo2T.chemistryReader();
 Info<< "twoTemperature = " << (use2T ? "true" : "false") << nl
     << "chemistry     = " << (useChemistry ? "true" : "false") << nl
     << "speciesList   = " << speciesListFile << nl;
-
+    
 if (useChemistry)
 {
     Info<< "chemistryReader = " << chemistryReader << nl

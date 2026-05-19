@@ -40,6 +40,8 @@ IOdictionary thermoDict_
 
 const word libName_ =
     thermoDict_.lookupOrDefault<word>("library", "neTCLib");
+const bool inviscid = 
+    thermoDict_.lookupOrDefault<bool>("inviscid", false);
 
 bool mixtureCheck        = false;
 bool useVibVibRelaxation = false;
